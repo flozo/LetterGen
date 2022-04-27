@@ -4,6 +4,7 @@
 # My rules:
 .idea
 *.iml
+*.tex
 
 # User-specific stuff
 .idea/**/workspace.xml
