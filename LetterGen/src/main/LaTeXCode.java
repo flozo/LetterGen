@@ -1,5 +1,7 @@
 package main;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,6 +121,20 @@ public class LaTeXCode {
         }
         codeLines.add("\\end{" + environmentName + "}");
         return codeLines;
+    }
+
+
+    public void writeToFile(List<String> codeLines, String outputFile) {
+        try {
+            PrintWriter printWriter = new PrintWriter(outputFile);
+            for (String codeLine : codeLines) {
+                printWriter.println(codeLine);
+            }
+            printWriter.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.printf("File not found: " + e.getMessage());
+        }
     }
 
 
