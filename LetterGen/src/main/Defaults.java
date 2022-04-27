@@ -1,3 +1,5 @@
+package main;
+
 public class Defaults {
 
     public static final double A4_WIDTH = 21.0;
@@ -17,7 +19,7 @@ public class Defaults {
     public static final double BACK_ADDRESS_Y = 23.43;
     public static final double BACK_ADDRESS_SEPARATION_LINE_THICKNESS = 0.5;
     public static final String BACK_ADDRESS_SEPARATION_CHAR = "bullet";
-    public static final String BACK_ADDRESS_FONT_SIZE = "scriptsize";
+    public static final String BACK_ADDRESS_FONT_SIZE = String.valueOf(FontSize.SCRIPT_SIZE);
 
 
     public static final double PERFORATION_MARK_X = 0.1;
@@ -36,7 +38,7 @@ public class Defaults {
     public static final double FOLDING_MARK_2_THICKNESS = 0.3;
 
     public static final String LETTER_BACKGROUND_COLOR = "none";
-    public static final String LETTER_DRAFT_HIGHLIGHT_COLOR = "Greys-D";
+    public static final String LETTER_DRAFT_HIGHLIGHT_COLOR = String.valueOf(Colors.GREYS_D);
 
 
 

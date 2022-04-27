@@ -1,3 +1,5 @@
+package main;
+
 public class Page {
 
     private double width;
