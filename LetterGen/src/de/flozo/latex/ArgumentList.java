@@ -5,35 +5,74 @@ public class ArgumentList {
     public static final String ARGUMENT_SEPARATOR = ",";
     public static final String SPACE = " ";
 
+
     private final Code arguments;
+
     private final boolean spaceAfterComma;
     private final String separatorString;
 
+    private final Brackets surroundWith;
+    private final Bracket openingBracket;
+    private final Bracket closingBracket;
+
 
     public ArgumentList(Code arguments) {
-        this(arguments, true);
+        this(arguments, Brackets.NONE);
     }
 
-    public ArgumentList(Code arguments, boolean spaceAfterComma) {
+    public ArgumentList(Code arguments, Brackets surroundWith) {
+        this(arguments, surroundWith, true);
+    }
+
+    public ArgumentList(Code arguments, Brackets surroundWith, boolean spaceAfterComma) {
         this.arguments = arguments;
         this.spaceAfterComma = spaceAfterComma;
+        this.surroundWith = surroundWith;
         if (spaceAfterComma) {
             this.separatorString = ARGUMENT_SEPARATOR + SPACE;
         } else {
             this.separatorString = ARGUMENT_SEPARATOR;
         }
+        if (surroundWith == Brackets.PARENTHESES) {
+            this.openingBracket = Bracket.LEFT_PARENTHESIS;
+            this.closingBracket = Bracket.RIGHT_PARENTHESIS;
+        } else if (surroundWith == Brackets.SQUARE_BRACKETS) {
+            this.openingBracket = Bracket.LEFT_SQUARE_BRACKET;
+            this.closingBracket = Bracket.RIGHT_SQUARE_BRACKET;
+        } else if (surroundWith == Brackets.CURLY_BRACES) {
+            this.openingBracket = Bracket.LEFT_CURLY_BRACE;
+            this.closingBracket = Bracket.RIGHT_CURLY_BRACE;
+        } else {
+            this.openingBracket = Bracket.NONE;
+            this.closingBracket = Bracket.NONE;
+        }
     }
 
     public String inline() {
-        return String.join(separatorString, arguments.getCodeLines());
+        return openingBracket + String.join(separatorString, arguments.getCodeLines()) + closingBracket;
     }
-
-//    public String inline() {
-//        // Build string with pattern: [comma, separated, arguments, list]
-//        return OPENING_MARKER + arguments.inline() + CLOSING_MARKER;
-//    }
 
     public Code getArguments() {
         return arguments;
+    }
+
+    public boolean isSpaceAfterComma() {
+        return spaceAfterComma;
+    }
+
+    public String getSeparatorString() {
+        return separatorString;
+    }
+
+    public Brackets getSurroundWith() {
+        return surroundWith;
+    }
+
+    public Bracket getOpeningBracket() {
+        return openingBracket;
+    }
+
+    public Bracket getClosingBracket() {
+        return closingBracket;
     }
 }
