@@ -2,19 +2,19 @@ package main;
 
 public class Color {
 
-    private final ColorSchemes colorScheme;
-    private final ColorLetters colorLetter;
+    private final ColorScheme colorScheme;
+    private final ColorLetter colorLetter;
 
-    public Color(ColorSchemes colorScheme, ColorLetters colorLetter) {
+    public Color(ColorScheme colorScheme, ColorLetter colorLetter) {
         this.colorScheme = colorScheme;
         this.colorLetter = colorLetter;
     }
 
-    public ColorSchemes getColorScheme() {
+    public ColorScheme getColorScheme() {
         return colorScheme;
     }
 
-    public ColorLetters getColorLetter() {
+    public ColorLetter getColorLetter() {
         return colorLetter;
     }
 

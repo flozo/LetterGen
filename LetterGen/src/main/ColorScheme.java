@@ -1,6 +1,6 @@
 package main;
 
-public enum ColorSchemes {
+public enum ColorScheme {
     BU_GN("BuGn"),
     PU_RD("PuRd"),
     BU_PU("BuPu"),
@@ -22,7 +22,7 @@ public enum ColorSchemes {
 
     private final String schemeName;
 
-    ColorSchemes(String schemeName) {
+    ColorScheme(String schemeName) {
         this.schemeName = schemeName;
     }
 

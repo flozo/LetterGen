@@ -8,17 +8,17 @@ class ColorTest {
 
     @Test
     void testToString_BluesK() {
-        assertEquals("Blues-K", new Color(ColorSchemes.BLUES, ColorLetters.K).toString());
+        assertEquals("Blues-K", new Color(ColorScheme.BLUES, ColorLetter.K).toString());
     }
 
     @Test
     void testToString_YlGnBu() {
-        assertEquals("YlGnBu-C", new Color(ColorSchemes.YL_GN_BU, ColorLetters.C).toString());
+        assertEquals("YlGnBu-C", new Color(ColorScheme.YL_GN_BU, ColorLetter.C).toString());
     }
 
     @Test
     void testToString_BuGn() {
-        assertEquals("BuGn-M", new Color(ColorSchemes.BU_GN, ColorLetters.M).toString());
+        assertEquals("BuGn-M", new Color(ColorScheme.BU_GN, ColorLetter.M).toString());
     }
 
 

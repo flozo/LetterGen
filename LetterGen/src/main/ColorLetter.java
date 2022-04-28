@@ -1,6 +1,6 @@
 package main;
 
-public enum ColorLetters {
+public enum ColorLetter {
     A,
     B,
     C,

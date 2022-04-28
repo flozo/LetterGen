@@ -38,7 +38,7 @@ public class Defaults {
     public static final double FOLDING_MARK_2_THICKNESS = 0.3;
 
     public static final String LETTER_BACKGROUND_COLOR = "none";
-    public static final String LETTER_DRAFT_HIGHLIGHT_COLOR = new Color(ColorSchemes.GREYS, ColorLetters.D).toString();
+    public static final String LETTER_DRAFT_HIGHLIGHT_COLOR = new Color(ColorScheme.GREYS, ColorLetter.D).toString();
 
 
 
