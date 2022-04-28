@@ -2,8 +2,6 @@ package de.flozo.latex;
 
 public class Code {
 
-
-
     private final String[] lines;
 
     public Code(String... lines) {

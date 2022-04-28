@@ -1,5 +1,8 @@
 package de.flozo.latex;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ArgumentList {
 
     public static final String ARGUMENT_SEPARATOR = ",";
@@ -50,6 +53,16 @@ public class ArgumentList {
 
     public String inline() {
         return openingBracket + String.join(separatorString, arguments.getCodeLines()) + closingBracket;
+    }
+
+
+    public String[] asBlock() {
+        List<String> newBlock = new ArrayList<>(List.of(arguments.getCodeLines()));
+        newBlock.add(0, openingBracket.toString());
+        newBlock.add(closingBracket.toString());
+        Code newCode = new Code(newBlock.toArray(new String[0]));
+        return newCode.getCodeLines();
+
     }
 
     public Code getArguments() {
