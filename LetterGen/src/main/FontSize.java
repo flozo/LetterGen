@@ -7,10 +7,10 @@ public enum FontSize {
     SMALL("small"),
     NORMAL_SIZE("normalsize"),
     LARGE("large"),
-    LARGE_CAPITALIZED("Large"),
-    LARGE_ALL_UPPER_CASE("LARGE"),
+    LARGE2("Large"),
+    LARGE3("LARGE"),
     HUGE("huge"),
-    HUGE_CAPITALIZED("Huge");
+    HUGE2("Huge");
 
     private final String fontSizeName;
 

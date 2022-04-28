@@ -1,5 +1,6 @@
 package main;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Main {
@@ -22,6 +23,11 @@ public class Main {
 
         List<String> tikzPicture = code.assembleEnvironment("tikzpicture", null, tikzpictureOptional, codeBlock);
         List<String> document = code.assembleEnvironment("document", null, null, tikzPicture);
-        code.writeToFile(document, "test_output.tex");
+        try {
+            code.writeToFile(document, "test_output.tex");
+        } catch (IOException e) {
+            System.out.println("IOException: " + e.getMessage());
+        }
+
     }
 }

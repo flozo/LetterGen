@@ -1,6 +1,6 @@
 package main;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -124,18 +124,12 @@ public class LaTeXCode {
     }
 
 
-    public void writeToFile(List<String> codeLines, String outputFile) {
-        try {
-            PrintWriter printWriter = new PrintWriter(outputFile);
+    public void writeToFile(List<String> codeLines, String outputFile) throws IOException {
+        try (PrintWriter printWriter = new PrintWriter(outputFile)) {
             for (String codeLine : codeLines) {
                 printWriter.println(codeLine);
             }
-            printWriter.close();
-
-        } catch (FileNotFoundException e) {
-            System.out.printf("File not found: " + e.getMessage());
         }
     }
-
 
 }
