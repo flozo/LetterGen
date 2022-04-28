@@ -1,4 +1,4 @@
-package main;
+package de.flozo.latex;
 
 import org.junit.jupiter.api.Test;
 

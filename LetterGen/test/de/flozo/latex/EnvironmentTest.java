@@ -1,4 +1,4 @@
-package main;
+package de.flozo.latex;
 
 class EnvironmentTest {
 

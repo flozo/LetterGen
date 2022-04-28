@@ -1,4 +1,7 @@
-package main;
+package de.flozo;
+
+import de.flozo.latex.Code;
+import de.flozo.latex.Environment;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ public class Main {
 //                "\\fill [fill=none] (0, 0) rectangle (21.0, 29.7);"
 //        );
 
-        Environment pgfonlayer = new Environment("pgfonlayer", pgfonlayerBlock.getCodeLines(), "background", null);
+//        Environment pgfonlayer = new Environment("pgfonlayer", pgfonlayerBlock.getCodeLines(), "background", null);
 
 
         List<String> codeBlock = new ArrayList<>(List.of(
@@ -37,7 +40,7 @@ public class Main {
                 "trim right={20 cm}"
         );
 
-        codeBlock.addAll(pgfonlayer.assembleEnvironment());
+//        codeBlock.addAll(pgfonlayer.assembleEnvironment());
 
 
         Environment tikzPicture = new Environment("tikzpicture", codeBlock, null, tikzpictureOptional);

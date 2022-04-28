@@ -1,4 +1,4 @@
-package main;
+package de.flozo.latex;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class Environment {
     }
 
 
-    public List<String> assembleEnvironment(){//String environmentName, String environmentArgument, List<String> optionalParameters, List<String> codeBlock) {
+    public List<String> assembleEnvironment() {
         List<String> codeLines = new ArrayList<>();
         String openingTag = "\\" + OPENING_KEYWORD + "{" + name + "}";
         if (argument != null) {

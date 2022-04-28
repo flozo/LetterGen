@@ -1,4 +1,9 @@
-package main;
+package de.flozo.letter;
+
+import de.flozo.latex.Color;
+import de.flozo.latex.ColorLetter;
+import de.flozo.latex.ColorScheme;
+import de.flozo.latex.FontSize;
 
 public class Defaults {
 

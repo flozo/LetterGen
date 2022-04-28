@@ -1,4 +1,6 @@
-package main;
+package de.flozo;
+
+import de.flozo.letter.Address;
 
 public class Contact extends Address {
 

@@ -1,4 +1,4 @@
-package main;
+package de.flozo;
 
 class LaTeXCodeTest {
     private LaTeXCode laTeXCode = new LaTeXCode();
