@@ -100,28 +100,28 @@ public class LaTeXCode {
     }
 
 
-    public List<String> assembleEnvironment(String environmentName, String environmentArgument, List<String> optionalParameters, List<String> codeBlock) {
-        List<String> codeLines = new ArrayList<>();
-        String openingTag = "\\begin{" + environmentName + "}";
-        if (environmentArgument != null) {
-            openingTag = openingTag + "{" + environmentArgument + "}";
-        }
-        if (optionalParameters != null) {
-            openingTag = openingTag + " [";
-        }
-        codeLines.add(openingTag);
-        if (optionalParameters != null) {
-            for (String parameter : optionalParameters) {
-                codeLines.add("\t" + parameter + ",");
-            }
-            codeLines.add("\t]");
-        }
-        for (String line : codeBlock) {
-            codeLines.add("\t" + line);
-        }
-        codeLines.add("\\end{" + environmentName + "}");
-        return codeLines;
-    }
+//    public List<String> assembleEnvironment(String environmentName, String environmentArgument, List<String> optionalParameters, List<String> codeBlock) {
+//        List<String> codeLines = new ArrayList<>();
+//        String openingTag = "\\begin{" + environmentName + "}";
+//        if (environmentArgument != null) {
+//            openingTag = openingTag + "{" + environmentArgument + "}";
+//        }
+//        if (optionalParameters != null) {
+//            openingTag = openingTag + " [";
+//        }
+//        codeLines.add(openingTag);
+//        if (optionalParameters != null) {
+//            for (String parameter : optionalParameters) {
+//                codeLines.add("\t" + parameter + ",");
+//            }
+//            codeLines.add("\t]");
+//        }
+//        for (String line : codeBlock) {
+//            codeLines.add("\t" + line);
+//        }
+//        codeLines.add("\\end{" + environmentName + "}");
+//        return codeLines;
+//    }
 
 
     public void writeToFile(List<String> codeLines, String outputFile) throws IOException {
