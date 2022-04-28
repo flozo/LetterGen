@@ -10,11 +10,17 @@ public class Main {
 
         LaTeXCode code = new LaTeXCode();
 
-        List<String> pgfonlayerBlock = List.of(
-                "\\fill [fill=none] (0, 0) rectangle (21.0, 29.7);"
+
+        Code pgfonlayerBlock = new Code(
+                "\\fill [fill=black] (0, 0) rectangle (21.0, 29.7);",
+                "\\fill [fill=white] (0, 0) rectangle (21.0, 29.7);"
         );
 
-        Environment pgfonlayer = new Environment("pgfonlayer", pgfonlayerBlock, "background", null);
+//        List<String> pgfonlayerBlock = List.of(
+//                "\\fill [fill=none] (0, 0) rectangle (21.0, 29.7);"
+//        );
+
+        Environment pgfonlayer = new Environment("pgfonlayer", pgfonlayerBlock.getCodeLines(), "background", null);
 
 
         List<String> codeBlock = new ArrayList<>(List.of(
