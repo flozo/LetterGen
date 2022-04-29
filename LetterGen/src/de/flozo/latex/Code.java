@@ -5,15 +5,15 @@ import java.util.List;
 
 public class Code {
 
+    public static final String INLINE_SEPARATOR = " ";
+
     private final String[] lines;
     private final StatementTerminator statementTerminator;
     private final boolean dropLastTerminator;
-    public static final String INLINE_SEPARATOR = " ";
 
     private final Brackets surroundWith;
     private final Bracket openingBracket;
     private final Bracket closingBracket;
-
 
 
     public Code(String... lines) {
@@ -34,11 +34,6 @@ public class Code {
         this.statementTerminator = statementTerminator;
         this.dropLastTerminator = dropLastTerminator;
         this.surroundWith = surroundWith;
-//        if (spaceAfterComma) {
-//            this.separatorString = ARGUMENT_SEPARATOR + SPACE;
-//        } else {
-//            this.separatorString = ARGUMENT_SEPARATOR;
-//        }
         if (surroundWith == Brackets.PARENTHESES) {
             this.openingBracket = Bracket.LEFT_PARENTHESIS;
             this.closingBracket = Bracket.RIGHT_PARENTHESIS;
@@ -55,40 +50,36 @@ public class Code {
     }
 
 
-    public String[] getCodeLines() {
+    public String[] getLines() {
         // Return lines unchanged if StatementTerminator.NONE
         if (statementTerminator == StatementTerminator.NONE) {
             return lines;
         }
         // Create new String array with statementTerminator appended to each element
         int last = lines.length - 1;
-        String[] terminatedLines = new String[last + 1];
+        String[] terminatedStatement = new String[last + 1];
         for (int i = 0; i < last; i++) {
-            terminatedLines[i] = lines[i] + statementTerminator;
+            terminatedStatement[i] = lines[i] + statementTerminator;
         }
         // Append or drop last terminator
-        terminatedLines[last] = dropLastTerminator ? lines[last] : lines[last] + statementTerminator;
-        return terminatedLines;
+        terminatedStatement[last] = dropLastTerminator ? lines[last] : lines[last] + statementTerminator;
+        return terminatedStatement;
     }
 
     public String inline() {
-        return openingBracket + String.join(INLINE_SEPARATOR, getCodeLines()) + closingBracket;
+        return openingBracket + String.join(INLINE_SEPARATOR, getLines()) + closingBracket;
     }
 
     public String[] asBlock() {
-        List<String> newBlock = new ArrayList<>(List.of(getCodeLines()));
+        List<String> newBlock = new ArrayList<>(List.of(getLines()));
         newBlock.add(0, openingBracket.toString());
         newBlock.add(closingBracket.toString());
         Code newCode = new Code(newBlock.toArray(new String[0]));
-        return newCode.getCodeLines();
+        return newCode.getLines();
     }
 
 
     // Getters
-
-    public String[] getLines() {
-        return lines;
-    }
 
     public StatementTerminator getStatementTerminator() {
         return statementTerminator;
@@ -109,4 +100,7 @@ public class Code {
     public Bracket getClosingBracket() {
         return closingBracket;
     }
+
+
+
 }

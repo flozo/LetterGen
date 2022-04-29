@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ArgumentListTest {
 
-    private String[] arguments = {
+    private final String[] arguments = {
             "anchor=north west",
             "minimum width=9.0cm",
             "minimum height=2.73cm",
@@ -17,78 +17,30 @@ class ArgumentListTest {
 
 
     @Test
-    void testInline_noBrackets() {
-        String expected = "anchor=north west, minimum width=9.0cm, minimum height=2.73cm, text width=9.0cm, align=left";
-        Code lines = new Code(arguments);
-        ArgumentList argumentList = new ArgumentList(lines, Brackets.NONE);
-        System.out.println(expected);
-        System.out.println(argumentList.inline());
-        assertEquals(expected, argumentList.inline());
-    }
-
-    @Test
-    void testInline_parenthesesBrackets() {
-        String expected = "(anchor=north west, minimum width=9.0cm, minimum height=2.73cm, text width=9.0cm, align=left)";
-        Code lines = new Code(arguments);
-        ArgumentList argumentList = new ArgumentList(lines, Brackets.PARENTHESES);
-        System.out.println(expected);
-        System.out.println(argumentList.inline());
-        assertEquals(expected, argumentList.inline());
-    }
-
-
-    @Test
-    void testInline_squareBrackets() {
+    void testInline() {
         String expected = "[anchor=north west, minimum width=9.0cm, minimum height=2.73cm, text width=9.0cm, align=left]";
-
-        Code lines = new Code(arguments);
-        ArgumentList argumentList = new ArgumentList(lines, Brackets.SQUARE_BRACKETS);
-        System.out.println(expected);
+        ArgumentList argumentList = new ArgumentList(arguments);
         System.out.println(argumentList.inline());
         assertEquals(expected, argumentList.inline());
     }
 
     @Test
-    void testInline_curlyBraces() {
-        String expected = "{anchor=north west, minimum width=9.0cm, minimum height=2.73cm, text width=9.0cm, align=left}";
-        Code lines = new Code(arguments);
-        ArgumentList argumentList = new ArgumentList(lines, Brackets.CURLY_BRACES);
-        System.out.println(expected);
-        System.out.println(argumentList.inline());
-        assertEquals(expected, argumentList.inline());
-    }
-
-
-    @Test
-    void testInline_curlyBraces_noSpace() {
-        String expected = "{anchor=north west,minimum width=9.0cm,minimum height=2.73cm,text width=9.0cm,align=left}";
-        Code lines = new Code(arguments);
-        ArgumentList argumentList = new ArgumentList(lines, Brackets.CURLY_BRACES, false);
-        System.out.println(expected);
-        System.out.println(argumentList.inline());
-        assertEquals(expected, argumentList.inline());
-    }
-
-
-    @Test
-    void asBlock() {
+    void testAsBlock() {
         String[] expected = {
                 "[",
-                "anchor=north west",
-                "minimum width=9.0cm",
-                "minimum height=2.73cm",
-                "text width=9.0cm",
+                "anchor=north west,",
+                "minimum width=9.0cm,",
+                "minimum height=2.73cm,",
+                "text width=9.0cm,",
                 "align=left",
                 "]"
         };
-        Code lines = new Code(arguments);
-        ArgumentList argumentList = new ArgumentList(lines, Brackets.SQUARE_BRACKETS, false);
-        for (String exp: expected) {
-            System.out.println(exp);
-        }
-        for (String blockLine: argumentList.asBlock()) {
-            System.out.println(blockLine);
+        ArgumentList argumentList = new ArgumentList(arguments);
+        for (String line : argumentList.asBlock()) {
+            System.out.println(line);
         }
         assertArrayEquals(expected, argumentList.asBlock());
     }
+
+
 }

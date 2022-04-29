@@ -26,10 +26,10 @@ class CodeTest {
                 "align=left"
         };
         Code code = new Code(lines);
-        for (String line : code.getCodeLines()) {
+        for (String line : code.getLines()) {
             System.out.println(line);
         }
-        assertArrayEquals(expected, code.getCodeLines());
+        assertArrayEquals(expected, code.getLines());
     }
 
     @Test
@@ -42,10 +42,10 @@ class CodeTest {
                 "align=left,"
         };
         Code code = new Code(lines, StatementTerminator.COMMA);
-        for (String line : code.getCodeLines()) {
+        for (String line : code.getLines()) {
             System.out.println(line);
         }
-        assertArrayEquals(expected, code.getCodeLines());
+        assertArrayEquals(expected, code.getLines());
     }
 
     @Test
@@ -58,10 +58,10 @@ class CodeTest {
                 "align=left;"
         };
         Code code = new Code(lines, StatementTerminator.SEMICOLON);
-        for (String line : code.getCodeLines()) {
+        for (String line : code.getLines()) {
             System.out.println(line);
         }
-        assertArrayEquals(expected, code.getCodeLines());
+        assertArrayEquals(expected, code.getLines());
     }
 
     @Test
@@ -74,10 +74,10 @@ class CodeTest {
                 "align=left"
         };
         Code code = new Code(lines, StatementTerminator.SEMICOLON, Brackets.NONE, true);
-        for (String line : code.getCodeLines()) {
+        for (String line : code.getLines()) {
             System.out.println(line);
         }
-        assertArrayEquals(expected, code.getCodeLines());
+        assertArrayEquals(expected, code.getLines());
     }
 
     @Test
@@ -90,10 +90,10 @@ class CodeTest {
                 "align=left"
         };
         Code code = new Code(lines, StatementTerminator.DOUBLE_BACKSLASH, Brackets.NONE, true);
-        for (String line : code.getCodeLines()) {
+        for (String line : code.getLines()) {
             System.out.println(line);
         }
-        assertArrayEquals(expected, code.getCodeLines());
+        assertArrayEquals(expected, code.getLines());
     }
 
     @Test
