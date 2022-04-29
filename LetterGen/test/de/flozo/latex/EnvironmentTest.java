@@ -15,7 +15,7 @@ class EnvironmentTest {
 //                "\t\\fill [fill=none] (0, 0) rectangle (21.0, 29.7);",
 //                "\\end{pgfonlayer}"
 //        );
-//        assertEquals(expectedResult, laTeXCode.assembleEnvironment(environmentName, environmentArgument, null, codeBlock));
+//        assertEquals()
 //
 //    }
 }

@@ -8,18 +8,18 @@ public class Environment {
     private static final String OPENING_KEYWORD = "begin";
     private static final String CLOSING_KEYWORD = "end";
 
-    private String name;
-    private String argument;
-    private List<String> optionalParameters;
-    private List<String> codeBlock;
+    private final String name;
+    private final String argument;
+    private final List<String> optionalParameters;
+    private final List<String> body;
 
-    public Environment(String name, List<String> codeBlock) {
-        this(name, codeBlock, null, null);
+    public Environment(String name, List<String> body) {
+        this(name, body, null, null);
     }
 
-    public Environment(String name, List<String> codeBlock, String argument, List<String> optionalParameters) {
+    public Environment(String name, List<String> body, String argument, List<String> optionalParameters) {
         this.name = name;
-        this.codeBlock = codeBlock;
+        this.body = body;
         this.argument = argument;
         this.optionalParameters = optionalParameters;
     }
@@ -41,7 +41,7 @@ public class Environment {
             }
             codeLines.add("\t]");
         }
-        for (String line : codeBlock) {
+        for (String line : body) {
             codeLines.add("\t" + line);
         }
         codeLines.add("\\" + CLOSING_KEYWORD + "{" + name + "}");
@@ -61,7 +61,7 @@ public class Environment {
         return optionalParameters;
     }
 
-    public List<String> getCodeBlock() {
-        return codeBlock;
+    public List<String> getBody() {
+        return body;
     }
 }
