@@ -1,21 +1,26 @@
 package de.flozo.latex;
 
 public enum Bracket {
-    NONE(""),
-    LEFT_PARENTHESIS("("),
-    RIGHT_PARENTHESIS(")"),
-    LEFT_SQUARE_BRACKET("["),
-    RIGHT_SQUARE_BRACKET("]"),
-    LEFT_CURLY_BRACE("{"),
-    RIGHT_CURLY_BRACE("}");
+    NONE("", ""),
+    PARENTHESIS("(", ")"),
+    SQUARE_BRACKETS("[", "]"),
+    CURLY_BRACES("{", "}");
 
-    private final String bracketString;
 
-    Bracket(String bracket) {
-        this.bracketString = bracket;
+    private final String leftBracket;
+    private final String rightBracket;
+
+    Bracket(String leftBracket, String rightBracket) {
+        this.leftBracket = leftBracket;
+        this.rightBracket = rightBracket;
     }
 
-    public String getString() {
-        return bracketString;
+    public String getLeftBracket() {
+        return leftBracket;
     }
+
+    public String getRightBracket() {
+        return rightBracket;
+    }
+
 }

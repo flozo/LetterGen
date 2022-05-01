@@ -1,5 +1,6 @@
 package de.flozo;
 
+import de.flozo.latex.Bracket;
 import de.flozo.latex.ExpressionList;
 import de.flozo.latex.StatementTerminator;
 
@@ -58,6 +59,8 @@ public class Main {
         System.out.println(expressionList.getInline(StatementTerminator.DOUBLE_BACKSLASH, false));
 
 
+        System.out.println(Bracket.SQUARE_BRACKETS.getLeftBracket());
+        System.out.println(Bracket.NONE.getLeftBracket());
 
     }
 }

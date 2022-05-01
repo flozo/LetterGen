@@ -8,13 +8,13 @@ public class ExpressionList {
     public static final String INLINE_SEPARATOR = " ";
 
     private List<String> lines;
-    private Brackets brackets;
+    private Bracket brackets;
 //    private final StatementTerminator terminator;
 
 
     public ExpressionList(String... lines) {
         this.lines = new ArrayList<>(List.of(lines));
-        this.brackets = Brackets.NONE;
+        this.brackets = Bracket.NONE;
 //        this.terminator = StatementTerminator.NONE;
     }
 
