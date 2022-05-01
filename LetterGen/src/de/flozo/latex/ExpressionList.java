@@ -20,6 +20,9 @@ public class ExpressionList {
         return this;    // allow chaining
     }
 
+    public int len() {
+        return lines.size();
+    }
 
     // Overloaded getLines() methods with optional parameters
 

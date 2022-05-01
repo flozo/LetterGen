@@ -1,58 +1,55 @@
 package de.flozo.latex;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Environment {
 
     private static final String OPENING_KEYWORD = "begin";
     private static final String CLOSING_KEYWORD = "end";
+    public static final String INDENT_CHARACTER = "\t";
 
-    private final String name;
-    private final String argument;
+    private final EnvironmentName name;
+    //    private final String argument;
     private final ArgumentList optionalParameters;
-    private final StatementList body;
     private final boolean inlineOptions;
+    private final ExpressionList body;
+    private final List<String> lines;
 
-    public Environment(String name, StatementList body) {
-        this(name, body, null, null, false);
-    }
-
-    public Environment(String name, StatementList body, String argument, ArgumentList optionalParameters, Boolean inlineOptions) {
+    public Environment(EnvironmentName name, ArgumentList optionalParameters, boolean inlineOptions, ExpressionList body) {
         this.name = name;
-        this.body = body;
-        this.argument = argument;
         this.optionalParameters = optionalParameters;
         this.inlineOptions = inlineOptions;
+        this.body = body;
+        this.lines = new ArrayList<>();
     }
 
 
-//    public ExpressionList assembleEnvironment() {
-//        List<String> codeLines = new ArrayList<>();
-//        String openingTag;
-//        if (optionalParameters != null) {
-//            if (inlineOptions) {
-//                openingTag = "\\" + OPENING_KEYWORD + "{" + name + "} " +
-//                        optionalParameters.inline();
-//            } else {
-//                openingTag = "\\" + OPENING_KEYWORD + "{" + name + "} " +
-//                        optionalParameters.getOpeningBracket();
-//            }
-//            codeLines.add(openingTag);
-//            if (!inlineOptions) {
-//                for (int i = 1; i < optionalParameters.asBlock().length(); i++) {
-//                    codeLines.add("\t" + optionalParameters.asBlock().getLine(i));
-//                }
-////                for (String parameter : optionalParameters.asBlock()) {
-////                    codeLines.add("\t" + parameter);
-////                }
-//            }
-//        } else {
-//            openingTag = "\\" + OPENING_KEYWORD + "{" + name + "}";
-//            codeLines.add(openingTag);
-//        }
-//        for (String line : body) {
-//            codeLines.add("\t" + line);
-//        }
-//        codeLines.add("\\" + CLOSING_KEYWORD + "{" + name + "}");
-//        return new ExpressionList(String.valueOf(codeLines));
-//    }
+    public List<String> getLines() {
+        String openingTag = "\\" + OPENING_KEYWORD + "{" + name + "}";
+        String closingTag = "\\" + CLOSING_KEYWORD + "{" + name + "}";
+        if (inlineOptions) {
+            lines.add(openingTag + " " + optionalParameters.getInline());
+        } else {
+            lines.add(openingTag + " [");
+            lines.addAll(indent(optionalParameters.getLines().subList(1, optionalParameters.len() + 2)));
+        }
+        lines.addAll(indent(body.getLines()));
+        lines.add(closingTag);
+        return lines;
+    }
 
+    private List<String> indent(List<String> code) {
+        List<String> indentedCode = new ArrayList<>(code);
+        indentedCode.replaceAll(s -> INDENT_CHARACTER + s);
+        return indentedCode;
+    }
+
+    public ArgumentList getOptionalParameters() {
+        return optionalParameters;
+    }
+
+    public ExpressionList getBody() {
+        return body;
+    }
 }

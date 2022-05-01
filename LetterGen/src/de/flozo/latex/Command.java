@@ -2,21 +2,21 @@ package de.flozo.latex;
 
 public class Command {
 
-    private final String nameTag;
-    private final Code body;
-    private final Code optionalArguments;
-    private final boolean argsOnOneLine;
-
-    public Command(String nameTag, Code body) {
-        this(nameTag, body, null, false);
-    }
-
-    public Command(String nameTag, Code body, Code optionalArguments, boolean argsOnOneLine) {
-        this.nameTag = nameTag;
-        this.body = body;
-        this.optionalArguments = optionalArguments;
-        this.argsOnOneLine = argsOnOneLine;
-    }
+//    private final String nameTag;
+//    private final Code body;
+//    private final Code optionalArguments;
+//    private final boolean argsOnOneLine;
+//
+//    public Command(String nameTag, Code body) {
+//        this(nameTag, body, null, false);
+//    }
+//
+//    public Command(String nameTag, Code body, Code optionalArguments, boolean argsOnOneLine) {
+//        this.nameTag = nameTag;
+//        this.body = body;
+//        this.optionalArguments = optionalArguments;
+//        this.argsOnOneLine = argsOnOneLine;
+//    }
 
 //    public List<String> assembleCommand() {
 //        List<String> codeLines = new ArrayList<>();
@@ -49,15 +49,15 @@ public class Command {
 //        return codeLines;
 //    }
 
-    public String getNameTag() {
-        return nameTag;
-    }
-
-    public Code getBody() {
-        return body;
-    }
-
-    public Code getOptionalArguments() {
-        return optionalArguments;
-    }
+//    public String getNameTag() {
+//        return nameTag;
+//    }
+//
+//    public Code getBody() {
+//        return body;
+//    }
+//
+//    public Code getOptionalArguments() {
+//        return optionalArguments;
+//    }
 }

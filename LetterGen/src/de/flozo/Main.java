@@ -1,9 +1,6 @@
 package de.flozo;
 
-import de.flozo.latex.ArgumentList;
-import de.flozo.latex.Bracket;
-import de.flozo.latex.ExpressionList;
-import de.flozo.latex.StatementTerminator;
+import de.flozo.latex.*;
 
 public class Main {
 
@@ -91,6 +88,21 @@ public class Main {
         for (String line : argumentList.getLines()) {
             System.out.println(line);
         }
+
+
+        System.out.println("$$$$$$$$$$$$$$$$$$$$");
+
+        Environment tikzpicture = new Environment(EnvironmentName.TIKZPICTURE, argumentList,false,codeBlock);
+
+        for (String line : tikzpicture.getLines()) {
+            System.out.println(line);
+        }
+
+
+        for (String line :tikzpicture.getBody().getLines()) {
+            System.out.println(line);
+        }
+
 
     }
 }
