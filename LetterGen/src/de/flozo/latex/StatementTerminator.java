@@ -2,6 +2,7 @@ package de.flozo.latex;
 
 public enum StatementTerminator {
     NONE(""),
+    SPACE(" "),
     SEMICOLON(";"),
     COMMA(","),
     DOUBLE_BACKSLASH("\\\\");
@@ -12,8 +13,7 @@ public enum StatementTerminator {
         this.statementTerminator = statementTerminator;
     }
 
-    @Override
-    public String toString() {
+    public String getString() {
         return statementTerminator;
     }
 }

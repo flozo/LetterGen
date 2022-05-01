@@ -18,13 +18,12 @@ public class Color {
         return colorLetter;
     }
 
-    @Override
-    public String toString() {
+    public String getString() {
         // Compose a valid ColorBrewer string from colorScheme and colorLetter
         // example:
         //      colorScheme = BLUES
         //      colorLetter = G
         //      => Color.toString = "Blues-G"
-        return colorScheme.toString() + "-" + colorLetter.toString();
+        return colorScheme.getString() + "-" + colorLetter.toString();
     }
 }

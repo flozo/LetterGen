@@ -1,8 +1,5 @@
 package de.flozo.latex;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Environment {
 
     private static final String OPENING_KEYWORD = "begin";
@@ -10,58 +7,52 @@ public class Environment {
 
     private final String name;
     private final String argument;
-    private final List<String> optionalParameters;
-    private final List<String> body;
+    private final ArgumentList optionalParameters;
+    private final StatementList body;
+    private final boolean inlineOptions;
 
-    public Environment(String name, List<String> body) {
-        this(name, body, null, null);
+    public Environment(String name, StatementList body) {
+        this(name, body, null, null, false);
     }
 
-    public Environment(String name, List<String> body, String argument, List<String> optionalParameters) {
+    public Environment(String name, StatementList body, String argument, ArgumentList optionalParameters, Boolean inlineOptions) {
         this.name = name;
         this.body = body;
         this.argument = argument;
         this.optionalParameters = optionalParameters;
+        this.inlineOptions = inlineOptions;
     }
 
 
-    public List<String> assembleEnvironment() {
-        List<String> codeLines = new ArrayList<>();
-        String openingTag = "\\" + OPENING_KEYWORD + "{" + name + "}";
-        if (argument != null) {
-            openingTag = openingTag + "{" + argument + "}";
-        }
-        if (optionalParameters != null) {
-            openingTag = openingTag + " [";
-        }
-        codeLines.add(openingTag);
-        if (optionalParameters != null) {
-            for (String parameter : optionalParameters) {
-                codeLines.add("\t" + parameter + ",");
-            }
-            codeLines.add("\t]");
-        }
-        for (String line : body) {
-            codeLines.add("\t" + line);
-        }
-        codeLines.add("\\" + CLOSING_KEYWORD + "{" + name + "}");
-        return codeLines;
-    }
+//    public ExpressionList assembleEnvironment() {
+//        List<String> codeLines = new ArrayList<>();
+//        String openingTag;
+//        if (optionalParameters != null) {
+//            if (inlineOptions) {
+//                openingTag = "\\" + OPENING_KEYWORD + "{" + name + "} " +
+//                        optionalParameters.inline();
+//            } else {
+//                openingTag = "\\" + OPENING_KEYWORD + "{" + name + "} " +
+//                        optionalParameters.getOpeningBracket();
+//            }
+//            codeLines.add(openingTag);
+//            if (!inlineOptions) {
+//                for (int i = 1; i < optionalParameters.asBlock().length(); i++) {
+//                    codeLines.add("\t" + optionalParameters.asBlock().getLine(i));
+//                }
+////                for (String parameter : optionalParameters.asBlock()) {
+////                    codeLines.add("\t" + parameter);
+////                }
+//            }
+//        } else {
+//            openingTag = "\\" + OPENING_KEYWORD + "{" + name + "}";
+//            codeLines.add(openingTag);
+//        }
+//        for (String line : body) {
+//            codeLines.add("\t" + line);
+//        }
+//        codeLines.add("\\" + CLOSING_KEYWORD + "{" + name + "}");
+//        return new ExpressionList(String.valueOf(codeLines));
+//    }
 
-
-    public String getName() {
-        return name;
-    }
-
-    public String getArgument() {
-        return argument;
-    }
-
-    public List<String> getOptionalParameters() {
-        return optionalParameters;
-    }
-
-    public List<String> getBody() {
-        return body;
-    }
 }

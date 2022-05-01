@@ -15,8 +15,7 @@ public enum Bracket {
         this.bracketString = bracket;
     }
 
-    @Override
-    public String toString() {
+    public String getString() {
         return bracketString;
     }
 }

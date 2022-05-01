@@ -18,7 +18,7 @@ public enum FontSize {
         this.fontSizeName = fontSizeName;
     }
 
-    public String getFontSizeName() {
+    public String getString() {
         return fontSizeName;
     }
 }

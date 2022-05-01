@@ -26,8 +26,7 @@ public enum ColorScheme {
         this.schemeName = schemeName;
     }
 
-    @Override
-    public String toString() {
+    public String getString() {
         return schemeName;
     }
 }

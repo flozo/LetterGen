@@ -6,7 +6,7 @@ public enum EnvironmentName {
     TIKZPICTURE,
     PGFONLAYER;
 
-    public String getLabel() {
+    public String getString() {
         return name().toLowerCase();
     }
 }
