@@ -55,12 +55,25 @@ public class Main {
         }
 
 
+        expressionList.getLines(StatementTerminator.COMMA, true, Bracket.SQUARE_BRACKETS, false);
+//        System.out.println("---------------");
+//        for (String line : expressionList.getLines(StatementTerminator.COMMA, false, Bracket.SQUARE_BRACKETS, false)) {
+//            System.out.println(line);
+//        }
+
+        System.out.println("***********");
+        System.out.println(expressionList.getInline());
+
+
+        System.out.println("***********");
+        System.out.println(expressionList.getInline(StatementTerminator.DOUBLE_BACKSLASH, Bracket.CURLY_BRACES));
+
+        expressionList.append(codeBlock).getLines(StatementTerminator.SEMICOLON,false,Bracket.NONE,true);
         System.out.println("---------------");
-        System.out.println(expressionList.getInline(StatementTerminator.DOUBLE_BACKSLASH, false));
+        for (String line : expressionList.getLines()) {
+            System.out.println(line);
+        }
 
-
-        System.out.println(Bracket.SQUARE_BRACKETS.getLeftBracket());
-        System.out.println(Bracket.NONE.getLeftBracket());
 
     }
 }
