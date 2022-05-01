@@ -31,24 +31,31 @@ public class Main {
                 "inner ysep=0pt",
                 "trim left=0pt",
                 "trim right={20 cm}"
-        ).setTerminator(StatementTerminator.SEMICOLON, true);
+        );
 
+//        InlineExpressionList inlineExpressionList = new InlineExpressionList(expressionList,StatementTerminator.DOUBLE_BACKSLASH,true);
 
-        expressionList.append(codeBlock.setTerminator(StatementTerminator.COMMA)).append(codeBlock2);
+//        expressionList.append(codeBlock.setTerminator(StatementTerminator.COMMA)).append(codeBlock2);
 
 
 //        expressionList.append(expressionList).append(codeBlock).addStatementTerminator(StatementTerminator.COMMA);
 
-        System.out.println("ExpressionList:");
-        System.out.println("---------------");
-        for (String line : expressionList.getLines(StatementTerminator.DOUBLE_BACKSLASH)) {
-            System.out.println(line);
-        }
+//        System.out.println("ExpressionList:");
+//        System.out.println("---------------");
+//        for (String line : expressionList.getLines(StatementTerminator.DOUBLE_BACKSLASH)) {
+//            System.out.println(line);
+//        }
+//
+
 
         System.out.println("---------------");
         for (String line : expressionList.getLines()) {
             System.out.println(line);
         }
+
+
+        System.out.println("---------------");
+        System.out.println(expressionList.getInline(StatementTerminator.DOUBLE_BACKSLASH, false));
 
 
 

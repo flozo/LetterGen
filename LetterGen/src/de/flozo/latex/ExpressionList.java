@@ -5,32 +5,24 @@ import java.util.List;
 
 public class ExpressionList {
 
-//    public static final String INLINE_SEPARATOR = " ";
+    public static final String INLINE_SEPARATOR = " ";
 
     private List<String> lines;
-    private final StatementTerminator terminator;
-//    private final boolean inline;
+    private Brackets brackets;
+//    private final StatementTerminator terminator;
 
 
     public ExpressionList(String... lines) {
         this.lines = new ArrayList<>(List.of(lines));
-        this.terminator = StatementTerminator.NONE;
-//        this.inline = false;
-    }
-
-
-//    public ModExtExpressionList(boolean inline, String... lines) {
-//        this.lines = new ArrayList<>(List.of(lines));
+        this.brackets = Brackets.NONE;
 //        this.terminator = StatementTerminator.NONE;
-//        this.inline = inline;
-//    }
+    }
 
 
     public ExpressionList append(ExpressionList toAppend) {
         lines.addAll(toAppend.lines);
         return this;    // allow chaining
     }
-
 
     public ExpressionList setTerminator(StatementTerminator terminator) {
         return setTerminator(terminator, false);
@@ -42,7 +34,8 @@ public class ExpressionList {
     }
 
 
-    // Overloaded method without parameter
+    // Overloaded getLines() methods with optional terminator and inplace parameters
+
     public List<String> getLines() {
         return lines;
     }
@@ -51,11 +44,11 @@ public class ExpressionList {
         return getLines(terminator, false, false);
     }
 
-    public List<String> getLines(StatementTerminator terminator, boolean inplace) {
-        return getLines(terminator, inplace, false);
+    public List<String> getLines(StatementTerminator terminator, boolean skipLastTerminator) {
+        return getLines(terminator, skipLastTerminator, false);
     }
 
-    public List<String> getLines(StatementTerminator terminator, boolean inplace, boolean skipLastTerminator) {
+    public List<String> getLines(StatementTerminator terminator, boolean skipLastTerminator, boolean inplace) {
         if (terminator == StatementTerminator.NONE) {
             return lines;
         }
@@ -68,12 +61,12 @@ public class ExpressionList {
     }
 
 
-    // Overloaded method without skipLast parameter
+    // Overloaded methods to add a terminator to each list element with optional skipLats parameter
+
     private List<String> addStatementTerminator(StatementTerminator terminator) {
         return addStatementTerminator(terminator, false);
     }
 
-    // Overloaded method with skipLast parameter
     private List<String> addStatementTerminator(StatementTerminator terminator, boolean skipLast) {
         List<String> terminatedList = new ArrayList<>(lines);
         if (terminator != StatementTerminator.NONE) {
@@ -87,9 +80,25 @@ public class ExpressionList {
     }
 
 
-//    public String makeInline() {
-//
-//        return String.join(INLINE_SEPARATOR, getLines(1));
-//    }
+    // Create inline representation of ExpressionList.getLines()
+
+    public String getInline() {
+        return getInline(StatementTerminator.COMMA);
+    }
+
+    public String getInline(StatementTerminator terminator) {
+        return getInline(terminator, true);
+    }
+
+    public String getInline(StatementTerminator terminator, boolean skipLastTerminator) {
+        return String.join(INLINE_SEPARATOR, getLines(terminator, skipLastTerminator));
+    }
+
+
+    // Enclose in brackets
+
+//    public
+
+
 
 }
