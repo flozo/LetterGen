@@ -1,5 +1,6 @@
 package de.flozo;
 
+import de.flozo.latex.ArgumentList;
 import de.flozo.latex.Bracket;
 import de.flozo.latex.ExpressionList;
 import de.flozo.latex.StatementTerminator;
@@ -73,7 +74,23 @@ public class Main {
         for (String line : expressionList.getLines()) {
             System.out.println(line);
         }
+        System.out.println("$$$$$$$$$$$$$$$$$$$$");
 
+        ArgumentList argumentList = new ArgumentList(
+                "inner xsep=5pt",
+                "inner ysep=3pt",
+                "trim left=2pt",
+                "trim right={50 cm}"
+        );
+
+        for (String line : argumentList.getLines()) {
+            System.out.println(line);
+        }
+
+        System.out.println(argumentList.getInline());
+        for (String line : argumentList.getLines()) {
+            System.out.println(line);
+        }
 
     }
 }

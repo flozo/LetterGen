@@ -1,12 +1,20 @@
 package de.flozo.latex;
 
-public class ArgumentList extends Code {
+import java.util.List;
 
-//    public static final StatementTerminator ARGUMENT_SEPARATOR = StatementTerminator.COMMA;
-//    public static final Brackets BRACKETS = Brackets.SQUARE_BRACKETS;
-//
-//    public ArgumentList(StatementList arguments) {
-//        super(arguments, ARGUMENT_SEPARATOR, BRACKETS, true);
-//    }
+public class ArgumentList extends ExpressionList {
 
+    public ArgumentList(String... lines) {
+        super(lines);
+    }
+
+    @Override
+    public List<String> getLines() {
+        return super.getLines(StatementTerminator.COMMA, false, Bracket.SQUARE_BRACKETS, false);
+    }
+
+    @Override
+    public String getInline() {
+        return super.getInline();
+    }
 }
