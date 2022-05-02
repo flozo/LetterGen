@@ -11,6 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ExpressionListTest {
 
+    public static final String INLINE_SEPARATOR = ExpressionList.INLINE_SEPARATOR;
+    public static final StatementTerminator DEFAULT_INLINE_TERMINATOR = ExpressionList.DEFAULT_INLINE_TERMINATOR;
+    public static final Bracket DEFAULT_INLINE_BRACKET = ExpressionList.DEFAULT_INLINE_BRACKET;
+    public static final StatementTerminator TEST_TERMINATOR = StatementTerminator.COMMA;
+    public static final Bracket TEST_INLINE_BRACKET = Bracket.SQUARE_BRACKETS;
+
+
     private final String[] arguments = {
             "anchor=north west",
             "minimum width=9.0cm",
@@ -98,37 +105,40 @@ class ExpressionListTest {
     void getLines_brackets_notNone(Bracket bracket) {
         List<String> expected = new ArrayList<>(List.of(
                 bracket.getLeftBracket(),
-                "anchor=north west,",
-                "minimum width=9.0cm,",
-                "minimum height=2.73cm,",
-                "text width=9.0cm,",
+                "anchor=north west" + TEST_TERMINATOR.getString(),
+                "minimum width=9.0cm" + TEST_TERMINATOR.getString(),
+                "minimum height=2.73cm" + TEST_TERMINATOR.getString(),
+                "text width=9.0cm" + TEST_TERMINATOR.getString(),
                 "align=left",
                 bracket.getRightBracket()
         ));
         ExpressionList expressionList = new ExpressionList(arguments);
-        assertEquals(expected, expressionList.getLines(StatementTerminator.COMMA, true, bracket));
+        assertEquals(expected, expressionList.getLines(TEST_TERMINATOR, true, bracket));
     }
 
 
     @Test
     void getLines_brackets_none() {
         List<String> expected = new ArrayList<>(List.of(
-                "anchor=north west,",
-                "minimum width=9.0cm,",
-                "minimum height=2.73cm,",
-                "text width=9.0cm,",
+                "anchor=north west" + TEST_TERMINATOR.getString(),
+                "minimum width=9.0cm" + TEST_TERMINATOR.getString(),
+                "minimum height=2.73cm" + TEST_TERMINATOR.getString(),
+                "text width=9.0cm" + TEST_TERMINATOR.getString(),
                 "align=left"
         ));
         ExpressionList expressionList = new ExpressionList(arguments);
-        assertEquals(expected, expressionList.getLines(StatementTerminator.COMMA, true, Bracket.NONE));
+        assertEquals(expected, expressionList.getLines(TEST_TERMINATOR, true, Bracket.NONE));
     }
 
     @Test
     void getInline_noParameters() {
-        String expected = String.format(Bracket.SQUARE_BRACKETS.getLeftBracket() +
-                "anchor=north west,%1$sminimum width=9.0cm,%1$s" +
-                "minimum height=2.73cm,%1$stext width=9.0cm,%1$salign=left" +
-                Bracket.SQUARE_BRACKETS.getRightBracket(), ExpressionList.INLINE_SEPARATOR);
+        String expected = String.format(DEFAULT_INLINE_BRACKET.getLeftBracket() +
+                "anchor=north west%1$s%2$s" +
+                "minimum width=9.0cm%1$s%2$s" +
+                "minimum height=2.73cm%1$s%2$s" +
+                "text width=9.0cm%1$s%2$s" +
+                "align=left" +
+                DEFAULT_INLINE_BRACKET.getRightBracket(), DEFAULT_INLINE_TERMINATOR.getString(), INLINE_SEPARATOR);
         ExpressionList expressionList = new ExpressionList(arguments);
         assertEquals(expected, expressionList.getInline());
     }
@@ -136,26 +146,31 @@ class ExpressionListTest {
     @ParameterizedTest
     @EnumSource(StatementTerminator.class)
     void getInline_terminators(StatementTerminator terminator) {
-        String expected = String.format("anchor=north west%1$s%2$s" +
+        String expected = String.format(TEST_INLINE_BRACKET.getLeftBracket() +
+                        "anchor=north west%1$s%2$s" +
                         "minimum width=9.0cm%1$s%2$s" +
                         "minimum height=2.73cm%1$s%2$s" +
                         "text width=9.0cm%1$s%2$s" +
-                        "align=left",
-                terminator.getString(), ExpressionList.INLINE_SEPARATOR);
+                        "align=left" +
+                        TEST_INLINE_BRACKET.getRightBracket(),
+                terminator.getString(), INLINE_SEPARATOR);
         ExpressionList expressionList = new ExpressionList(arguments);
-        assertEquals(expected, expressionList.getInline(terminator, Bracket.NONE));
+        assertEquals(expected, expressionList.getInline(terminator, TEST_INLINE_BRACKET));
     }
 
     @ParameterizedTest
     @EnumSource(Bracket.class)
     void getInline_brackets(Bracket bracket) {
         String expected = String.format(bracket.getLeftBracket() +
-                        "anchor=north west,%1$sminimum width=9.0cm,%1$s" +
-                        "minimum height=2.73cm,%1$stext width=9.0cm,%1$salign=left" +
+                        "anchor=north west%1$s%2$s" +
+                        "minimum width=9.0cm%1$s%2$s" +
+                        "minimum height=2.73cm%1$s%2$s" +
+                        "text width=9.0cm%1$s%2$s" +
+                        "align=left" +
                         bracket.getRightBracket(),
-                ExpressionList.INLINE_SEPARATOR);
+                TEST_TERMINATOR.getString(), INLINE_SEPARATOR);
         ExpressionList expressionList = new ExpressionList(arguments);
-        assertEquals(expected, expressionList.getInline(StatementTerminator.COMMA, bracket));
+        assertEquals(expected, expressionList.getInline(TEST_TERMINATOR, bracket));
     }
 
 }

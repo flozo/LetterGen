@@ -7,6 +7,15 @@ public class ExpressionList {
 
     public static final String INLINE_SEPARATOR = " ";
 
+    public static final Bracket DEFAULT_BRACKET = Bracket.NONE;
+    public static final boolean DEFAULT_SKIP_LAST = false;
+    public static final boolean DEFAULT_INPLACE = false;
+
+    public static final StatementTerminator DEFAULT_INLINE_TERMINATOR = StatementTerminator.COMMA;
+    public static final Bracket DEFAULT_INLINE_BRACKET = Bracket.SQUARE_BRACKETS;
+    public static final boolean DEFAULT_INLINE_SKIP_LAST = true;
+    public static final boolean DEFAULT_INLINE_INPLACE = false;
+
     private List<String> lines;
 
 
@@ -31,15 +40,15 @@ public class ExpressionList {
     }
 
     public List<String> getLines(StatementTerminator terminator) {
-        return getLines(terminator, false);
+        return getLines(terminator, DEFAULT_SKIP_LAST);
     }
 
     public List<String> getLines(StatementTerminator terminator, boolean skipLastTerminator) {
-        return getLines(terminator, skipLastTerminator, Bracket.NONE);
+        return getLines(terminator, skipLastTerminator, DEFAULT_BRACKET);
     }
 
     public List<String> getLines(StatementTerminator terminator, boolean skipLastTerminator, Bracket brackets) {
-        return getLines(terminator, skipLastTerminator, brackets, false);
+        return getLines(terminator, skipLastTerminator, brackets, DEFAULT_INPLACE);
     }
 
     public List<String> getLines(StatementTerminator terminator, boolean skipLastTerminator, Bracket brackets, boolean inplace) {
@@ -83,11 +92,11 @@ public class ExpressionList {
     // Create inline representation of ExpressionList.getLines()
 
     public String getInline() {
-        return getInline(StatementTerminator.COMMA, Bracket.SQUARE_BRACKETS);
+        return getInline(DEFAULT_INLINE_TERMINATOR, DEFAULT_INLINE_BRACKET);
     }
 
     public String getInline(StatementTerminator terminator, Bracket brackets) {
-        getLines(terminator, true, Bracket.NONE, false);
+        getLines(terminator, DEFAULT_INLINE_SKIP_LAST, Bracket.NONE, DEFAULT_INLINE_INPLACE);
         return brackets.getLeftBracket() + String.join(INLINE_SEPARATOR, getLines(terminator, true)) + brackets.getRightBracket();
     }
 
