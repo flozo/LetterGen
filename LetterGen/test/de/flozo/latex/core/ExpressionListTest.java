@@ -1,4 +1,4 @@
-package de.flozo.latex;
+package de.flozo.latex.core;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

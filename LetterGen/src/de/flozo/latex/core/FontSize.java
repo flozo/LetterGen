@@ -1,4 +1,4 @@
-package de.flozo.latex;
+package de.flozo.latex.core;
 
 public enum FontSize {
     TINY("tiny"),

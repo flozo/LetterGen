@@ -1,6 +1,6 @@
 package de.flozo;
 
-import de.flozo.latex.*;
+import de.flozo.latex.core.*;
 
 public class Main {
 

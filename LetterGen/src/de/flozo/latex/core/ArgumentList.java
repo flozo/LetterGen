@@ -1,4 +1,4 @@
-package de.flozo.latex;
+package de.flozo.latex.core;
 
 import java.util.List;
 
