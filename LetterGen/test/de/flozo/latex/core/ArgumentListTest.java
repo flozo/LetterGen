@@ -24,14 +24,16 @@ class ArgumentListTest {
     @Test
     void getLines() {
         List<String> expected = new ArrayList<>(List.of(
-                DEFAULT_BRACKETS.getLeftBracket(),
                 "anchor=north west" + DEFAULT_TERMINATOR.getString(),
                 "minimum width=9.0cm" + DEFAULT_TERMINATOR.getString(),
                 "minimum height=2.73cm" + DEFAULT_TERMINATOR.getString(),
                 "text width=9.0cm" + DEFAULT_TERMINATOR.getString(),
-                "align=left",
-                DEFAULT_BRACKETS.getRightBracket()
+                "align=left"
         ));
+        if (DEFAULT_BRACKETS != Bracket.NONE) {
+            expected.add(0, DEFAULT_BRACKETS.getLeftBracket());
+            expected.add(DEFAULT_BRACKETS.getRightBracket());
+        }
         ArgumentList argumentList = new ArgumentList(arguments);
         assertEquals(expected, argumentList.getLines());
     }

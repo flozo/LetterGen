@@ -5,7 +5,7 @@ import java.util.List;
 public class ArgumentList extends ExpressionList {
 
     public static final StatementTerminator DEFAULT_TERMINATOR = StatementTerminator.COMMA;
-    public static final Bracket DEFAULT_BRACKETS = Bracket.SQUARE_BRACKETS;
+    public static final Bracket DEFAULT_BRACKETS = Bracket.NONE;
     public static final boolean DEFAULT_SKIP_LAST = true;
     public static final boolean DEFAULT_INPLACE = false;
 
