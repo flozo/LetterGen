@@ -65,10 +65,16 @@ public class Main {
             System.out.println(line);
         }
 
+        System.out.println("******************");
+        for (String line : code1.getExpressionList().getLines()) {
+            System.out.println(line);
+        }
+        System.out.println("******************");
+
+
         for (String line : code2.getBlock()) {
             System.out.println(line);
         }
-
 
 
         SimpleExpressionList newList = new SimpleExpressionList(code1.getBlock());
@@ -79,7 +85,16 @@ public class Main {
 
         System.out.println(code1.getInline());
 
+        Environment document = new Environment.EnvironmentBuilder(EnvironmentName.DOCUMENT, codeBlock)
+                .inlineOptions(false)
+                .optionalArguments(expressionList)
+                .trailingOpeningBracketBody(true)
+                .trailingOpeningBracketOption(false)
+                .build();
 
+        for (String line : document.getBlock()) {
+            System.out.println(line);
+        }
 
     }
 }

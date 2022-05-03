@@ -25,6 +25,8 @@ public class Code {
     private final boolean inlineSpacing;
     private final boolean skipLast;
     private final Bracket brackets;
+//    private final boolean trailingClosingBracket;
+
 
 
     private Code(CodeBuilder builder) {
@@ -33,6 +35,14 @@ public class Code {
         this.inlineSpacing = builder.inlineSpacing;
         this.skipLast = builder.skipLast;
         this.brackets = builder.brackets;
+    }
+
+    public SimpleExpressionList getExpressionList() {
+        return expressionList;
+    }
+
+    public Bracket getBrackets() {
+        return brackets;
     }
 
     public List<String> getBlock() {

@@ -5,7 +5,11 @@ import java.util.List;
 
 public class SimpleExpressionList {
 
-    private final List<String> lines;   // required
+    // required
+    private final List<String> lines;
+
+
+    // Accept any number of Strings or List<String>
 
     public SimpleExpressionList(String... lines) {
         this.lines = new ArrayList<>(List.of(lines));
@@ -16,18 +20,18 @@ public class SimpleExpressionList {
     }
 
 
-    public int length() {
-        return lines.size();
-    }
-
+    // Allow chaining of append method
     public SimpleExpressionList append(SimpleExpressionList toAppend) {
         lines.addAll(toAppend.lines);
-        return this;    // allow chaining
+        return this;
     }
 
     public List<String> getLines() {
         return lines;
     }
 
+    public int length() {
+        return lines.size();
+    }
 
 }
