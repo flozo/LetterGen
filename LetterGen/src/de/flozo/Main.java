@@ -71,6 +71,12 @@ public class Main {
 
 
 
+        SimpleExpressionList newList = new SimpleExpressionList(code1.getBlock());
+        for (String line : newList.getLines()) {
+            System.out.println(line);
+        }
+
+
         System.out.println(code1.getInline());
 
 

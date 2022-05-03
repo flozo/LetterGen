@@ -11,6 +11,11 @@ public class SimpleExpressionList {
         this.lines = new ArrayList<>(List.of(lines));
     }
 
+    public SimpleExpressionList(List<String> lines) {
+        this.lines = lines;
+    }
+
+
     public int length() {
         return lines.size();
     }
