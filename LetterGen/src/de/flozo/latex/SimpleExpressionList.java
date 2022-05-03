@@ -5,7 +5,7 @@ import java.util.List;
 
 public class SimpleExpressionList {
 
-    private final List<String> lines;
+    private final List<String> lines;   // required
 
     public SimpleExpressionList(String... lines) {
         this.lines = new ArrayList<>(List.of(lines));

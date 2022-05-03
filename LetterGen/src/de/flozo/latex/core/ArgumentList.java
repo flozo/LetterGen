@@ -14,6 +14,7 @@ public class ArgumentList extends ExpressionList {
         super(lines);
     }
 
+
     @Override
     public List<String> getLines() {
         return super.getLines(DEFAULT_TERMINATOR, DEFAULT_SKIP_LAST, DEFAULT_BRACKETS, DEFAULT_INPLACE);
@@ -21,7 +22,8 @@ public class ArgumentList extends ExpressionList {
 
     @Override
     public String getInline() {
-        return super.getInline();
+        return super.getInline(DEFAULT_TERMINATOR, DEFAULT_BRACKETS);
     }
+
 
 }
