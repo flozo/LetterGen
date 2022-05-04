@@ -1,6 +1,6 @@
 package de.flozo;
 
-import de.flozo.latex.SimpleExpressionList;
+import de.flozo.latex.core.ExpressionList;
 import de.flozo.latex.core.*;
 
 public class Main {
@@ -13,20 +13,20 @@ public class Main {
 //                "\\fill [fill=black] (0, 0) rectangle (21.0, 29.7);",
 //                "\\fill [fill=white] (0, 0) rectangle (21.0, 29.7);"
 //        );
-        SimpleExpressionList codeBlock = new SimpleExpressionList(
+        ExpressionList codeBlock = new ExpressionList(
                 "% Test line",
                 "% Another test line",
                 "% And another one"
         );
 
-        SimpleExpressionList codeBlock2 = new SimpleExpressionList(
+        ExpressionList codeBlock2 = new ExpressionList(
                 "% And another one",
                 "% And another one",
                 "% And another one"
         );
 
 
-        SimpleExpressionList expressionList = new SimpleExpressionList(
+        ExpressionList expressionList = new ExpressionList(
                 "inner xsep=0pt",
                 "inner ysep=0pt",
                 "trim left=0pt",
@@ -77,7 +77,7 @@ public class Main {
         }
 
 
-        SimpleExpressionList newList = new SimpleExpressionList(code1.getBlock());
+        ExpressionList newList = new ExpressionList(code1.getBlock());
         for (String line : newList.getLines()) {
             System.out.println(line);
         }

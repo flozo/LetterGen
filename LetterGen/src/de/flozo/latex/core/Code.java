@@ -1,7 +1,5 @@
 package de.flozo.latex.core;
 
-import de.flozo.latex.SimpleExpressionList;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +16,7 @@ public class Code {
     public static final boolean DEFAULT_SKIP_LAST = true;
 
     // required
-    private final SimpleExpressionList expressionList;
+    private final ExpressionList expressionList;
 
     // optional
     private final StatementTerminator terminator;
@@ -37,7 +35,7 @@ public class Code {
         this.brackets = builder.brackets;
     }
 
-    public SimpleExpressionList getExpressionList() {
+    public ExpressionList getExpressionList() {
         return expressionList;
     }
 
@@ -83,7 +81,7 @@ public class Code {
     public static class CodeBuilder {
 
         // required
-        private final SimpleExpressionList expressionList;
+        private final ExpressionList expressionList;
 
         // optional; defaults specified
         private StatementTerminator terminator = DEFAULT_TERMINATOR;
@@ -92,7 +90,7 @@ public class Code {
         private Bracket brackets = DEFAULT_BRACKETS;
 
 
-        public CodeBuilder(SimpleExpressionList expressionList) {
+        public CodeBuilder(ExpressionList expressionList) {
             this.expressionList = expressionList;
         }
 

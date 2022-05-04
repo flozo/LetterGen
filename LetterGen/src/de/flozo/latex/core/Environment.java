@@ -1,7 +1,5 @@
 package de.flozo.latex.core;
 
-import de.flozo.latex.SimpleExpressionList;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +18,10 @@ public class Environment {
 
     // required
     private final EnvironmentName name;
-    private final SimpleExpressionList body;
+    private final ExpressionList body;
 
     // optional
-    private final SimpleExpressionList optionalArguments;
+    private final ExpressionList optionalArguments;
     private final boolean inlineOptions;
     private final boolean trailingOpeningBracketOption;
     private final boolean trailingOpeningBracketBody;
@@ -90,20 +88,20 @@ public class Environment {
 
         // required
         private final EnvironmentName name;
-        private final SimpleExpressionList body;
+        private final ExpressionList body;
 
         // optional; defaults specified
-        private SimpleExpressionList optionalArguments = new SimpleExpressionList("");
+        private ExpressionList optionalArguments = new ExpressionList("");
         private boolean inlineOptions = DEFAULT_INLINE_OPTIONS;
         private boolean trailingOpeningBracketOption = TRAILING_OPENING_BRACKET_OPTIONS;
         private boolean trailingOpeningBracketBody = TRAILING_OPENING_BRACKET_BODY;
 
-        public EnvironmentBuilder(EnvironmentName name, SimpleExpressionList body) {
+        public EnvironmentBuilder(EnvironmentName name, ExpressionList body) {
             this.name = name;
             this.body = body;
         }
 
-        public EnvironmentBuilder optionalArguments(SimpleExpressionList optionalArguments) {
+        public EnvironmentBuilder optionalArguments(ExpressionList optionalArguments) {
             this.optionalArguments = optionalArguments;
             return this;
         }

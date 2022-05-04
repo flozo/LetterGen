@@ -1,9 +1,9 @@
-package de.flozo.latex;
+package de.flozo.latex.core;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleExpressionList {
+public class ExpressionList {
 
     // required
     private final List<String> lines;
@@ -11,17 +11,17 @@ public class SimpleExpressionList {
 
     // Accept any number of Strings or List<String>
 
-    public SimpleExpressionList(String... lines) {
+    public ExpressionList(String... lines) {
         this.lines = new ArrayList<>(List.of(lines));
     }
 
-    public SimpleExpressionList(List<String> lines) {
+    public ExpressionList(List<String> lines) {
         this.lines = lines;
     }
 
 
     // Allow chaining of append method
-    public SimpleExpressionList append(SimpleExpressionList toAppend) {
+    public ExpressionList append(ExpressionList toAppend) {
         lines.addAll(toAppend.lines);
         return this;
     }
