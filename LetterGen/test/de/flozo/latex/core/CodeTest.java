@@ -27,8 +27,13 @@ class CodeTest {
         assertEquals(expressionList, formattedCode.getExpressionList());
     }
 
-    @Test
-    void getBrackets() {
+    @ParameterizedTest
+    @EnumSource(Bracket.class)
+    void getBrackets(Bracket bracket) {
+        Code formattedCode = code
+                .brackets(bracket)
+                .build();
+        assertEquals(bracket, formattedCode.getBrackets());
     }
 
     @ParameterizedTest
@@ -164,6 +169,5 @@ class CodeTest {
                 .build();
         assertEquals(expected, formattedCode.getInline());
     }
-
 
 }
