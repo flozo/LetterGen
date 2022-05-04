@@ -105,6 +105,60 @@ class CodeTest {
         assertEquals(expected.getLines(), formattedCode.getBlock());
     }
 
+    @ParameterizedTest
+    @EnumSource(
+            value = Bracket.class,
+            names = "NONE",
+            mode = EnumSource.Mode.EXCLUDE)
+    void getBlock_skipOpeningBracket(Bracket bracket) {
+        ExpressionList expected = new ExpressionList(
+                "inner xsep=0pt",
+                "inner ysep=0pt",
+                "trim left=0pt",
+                "trim right={20 cm}",
+                bracket.getRightBracket()
+        );
+        Code formattedCode = code
+                .terminator(StatementTerminator.NONE)
+                .brackets(bracket)
+                .build();
+        for (String line : expected.getLines()) {
+            System.out.println(line);
+        }
+        System.out.println("***********");
+        for (String line : formattedCode.getBlock(true)) {
+            System.out.println(line);
+        }
+        assertEquals(expected.getLines(), formattedCode.getBlock(true));
+    }
+
+    @ParameterizedTest
+    @EnumSource(
+            value = Bracket.class,
+            names = "NONE",
+            mode = EnumSource.Mode.EXCLUDE)
+    void getBlock_skipClosingBracket(Bracket bracket) {
+        ExpressionList expected = new ExpressionList(
+                bracket.getLeftBracket(),
+                "inner xsep=0pt",
+                "inner ysep=0pt",
+                "trim left=0pt",
+                "trim right={20 cm}"
+        );
+        Code formattedCode = code
+                .terminator(StatementTerminator.NONE)
+                .brackets(bracket)
+                .build();
+        for (String line : expected.getLines()) {
+            System.out.println(line);
+        }
+        System.out.println("***********");
+        for (String line : formattedCode.getBlock(false, true)) {
+            System.out.println(line);
+        }
+        assertEquals(expected.getLines(), formattedCode.getBlock(false, true));
+    }
+
 
     @ParameterizedTest
     @EnumSource(StatementTerminator.class)
