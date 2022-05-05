@@ -8,12 +8,15 @@ import java.util.List;
 public class Code {
 
     public static final String INLINE_SEPARATOR = " ";
+    public static final String INTER_BRACKET_SEPARATOR = " ";
 
     // constants for option defaults
     public static final StatementTerminator DEFAULT_TERMINATOR = StatementTerminator.COMMA;
     public static final boolean DEFAULT_INLINE_SPACING = true;
     public static final Bracket DEFAULT_BRACKETS = Bracket.NONE;
     public static final boolean DEFAULT_SKIP_LAST = true;
+    public static final boolean DEFAULT_MERGE_BRACKET_LINES = true;
+    public static final boolean DEFAULT_INTER_BRACKET_SPACING = true;
 
     // required
     private final ExpressionList expressionList;
@@ -25,9 +28,11 @@ public class Code {
     private final Bracket brackets;
     private final Code prepend;
     private final Code append;
-//    private final boolean trailingClosingBracket;
+    private final boolean mergeBracketLines;
+    private final boolean interBracketSpacing;
 
 
+    // Constructor using settings from subclass CodeBuilder
     private Code(CodeBuilder builder) {
         this.expressionList = builder.expressionList;
         this.terminator = builder.terminator;
@@ -36,10 +41,11 @@ public class Code {
         this.brackets = builder.brackets;
         this.prepend = builder.prepend;
         this.append = builder.append;
+        this.mergeBracketLines = builder.mergeBracketLines;
+        this.interBracketSpacing = builder.interBracketSpacing;
     }
 
     public ExpressionList getExpressionList() {
-
         return expressionList;
     }
 
@@ -48,42 +54,35 @@ public class Code {
     }
 
     public List<String> getBlock() {
-        return getBlock(false);
-    }
-
-    public List<String> getBlock(boolean skipOpeningBracket) {
-        return getBlock(skipOpeningBracket, false);
-    }
-
-    public List<String> getBlock(boolean skipOpeningBracket, boolean skipClosingBracket) {
-        List<String> codeLines = new ArrayList<>(expressionList.getLines());
-        if (terminator != StatementTerminator.NONE) {
-            addTerminator(codeLines);
-        }
-        if (brackets != Bracket.NONE) {
-            encloseInBrackets(codeLines, skipOpeningBracket, skipClosingBracket);
-        }
+        List<String> codeLines = new ArrayList<>();
+        // Prepend code if given
         if (prepend != null) {
-            codeLines.addAll(0, prepend.getBlock());
+            if (mergeBracketLines) {
+                // Prepend code without last line
+                codeLines.addAll(getSubBlock(prepend.getBlock(), 0, 1));
+            } else {
+                codeLines.addAll(prepend.getBlock());
+            }
         }
+        // Add code of this instance
+        codeLines.addAll(assembleCode());
+        // Append code if given
         if (append != null) {
-            codeLines.addAll(append.getBlock());
+            if (mergeBracketLines) {
+                // Append code without first line
+                codeLines.addAll(getSubBlock(append.getBlock(), 1, 0));
+            } else {
+                codeLines.addAll(append.getBlock());
+            }
         }
         return codeLines;
     }
 
+    // Allow to skip leading or trailing lines easily
+    private List<String> getSubBlock(List<String> codeBlock, int skipFirst, int skipLast) {
+        return codeBlock.subList(skipFirst, codeBlock.size() - skipLast);
+    }
 
-//    public List<String> getBlock() {
-//        List<String> codeLines = new ArrayList<>(expressionList.getLines());
-//        if (terminator != StatementTerminator.NONE) {
-//            addTerminator(codeLines);
-//        }
-//        if (brackets != Bracket.NONE) {
-//            encloseInBrackets(codeLines);
-//        }
-//        return codeLines;
-//
-//}
 
     public String getInline() {
         return getInline(false, false);
@@ -103,28 +102,55 @@ public class Code {
         if (!skipOpeningBracket) {
             sb.append(brackets.getLeftBracket());
         }
-        sb.append(String.join(spacer, addTerminator(codeLines)));
+        addTerminator(codeLines);
+        sb.append(String.join(spacer, codeLines));
         if (!skipClosingBracket) {
             sb.append(brackets.getRightBracket());
         }
         return sb.toString();
     }
 
-
-    private List<String> addTerminator(List<String> codeLines) {
-        if (skipLast) {
-            codeLines.subList(0, codeLines.size() - 1).replaceAll(s -> s + terminator.getString());
-        } else {
-            codeLines.replaceAll(s -> s + terminator.getString());
+    // Assemble code for this instance
+    private List<String> assembleCode() {
+        List<String> codeLines = new ArrayList<>(expressionList.getLines());
+        if (terminator != StatementTerminator.NONE) {
+            addTerminator(codeLines);
+        }
+        if (brackets != Bracket.NONE) {
+            encloseInBrackets(codeLines);
         }
         return codeLines;
     }
 
-    private void encloseInBrackets(List<String> codeLines, boolean skipOpeningBracket, boolean skipClosingBracket) {
-        if (!skipOpeningBracket) {
-            codeLines.add(0, brackets.getLeftBracket());
+
+    private void addTerminator(List<String> codeLines) {
+        if (skipLast) {
+            // Append terminator to each code line, except the last one
+            codeLines.subList(0, codeLines.size() - 1).replaceAll(s -> s + terminator.getString());
+        } else {
+            // Append terminator to each code line
+            codeLines.replaceAll(s -> s + terminator.getString());
         }
-        if (!skipClosingBracket) {
+    }
+
+    private void encloseInBrackets(List<String> codeLines) {
+        String bracketSeparator = interBracketSpacing ? INTER_BRACKET_SEPARATOR : "";
+        if (mergeBracketLines) {
+            if (prepend != null) {
+                // Compose back-to-back brackets from closing bracket of prepended code
+                // and opening Bracket from this instance
+                codeLines.add(0, prepend.getBrackets().getRightBracket() + bracketSeparator + brackets.getLeftBracket());
+                codeLines.add(brackets.getRightBracket());
+            }
+            if (append != null) {
+                codeLines.add(0, brackets.getLeftBracket());
+                // Compose back-to-back brackets from closing bracket of this instance
+                // and opening Bracket from appended code
+                codeLines.add(brackets.getRightBracket() + bracketSeparator + append.getBrackets().getLeftBracket());
+            }
+        } else {
+            // Surround with brackets
+            codeLines.add(0, brackets.getLeftBracket());
             codeLines.add(brackets.getRightBracket());
         }
     }
@@ -142,6 +168,8 @@ public class Code {
         private Bracket brackets = DEFAULT_BRACKETS;
         private Code prepend = null;
         private Code append = null;
+        private boolean mergeBracketLines = DEFAULT_MERGE_BRACKET_LINES;
+        private boolean interBracketSpacing = DEFAULT_INTER_BRACKET_SPACING;
 
 
         public CodeBuilder(ExpressionList expressionList) {
@@ -178,6 +206,20 @@ public class Code {
             return this;
         }
 
+        public CodeBuilder mergeBracketLines(boolean mergeBracketLines) {
+            // Set to false if nothing is prepended or appended
+            if (prepend == null && append == null) {
+                this.mergeBracketLines = false;
+            } else {
+                this.mergeBracketLines = mergeBracketLines;
+            }
+            return this;
+        }
+
+        public CodeBuilder interBracketSpacing(boolean interBracketSpacing) {
+            this.interBracketSpacing = interBracketSpacing;
+            return this;
+        }
 
         public Code build() {
             return new Code(this);

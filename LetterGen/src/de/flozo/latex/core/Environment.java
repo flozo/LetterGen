@@ -53,19 +53,19 @@ public class Environment {
         String closingTag = buildTag(CLOSING_KEYWORD);
 
 
-        boolean skipOpeningBracket = trailingOpeningBracketBody;
-        if (inlineOptions) {
-            codeLines.add(buildFirstLine(argumentList, bodyLines));
-        } else {
-            codeLines.add(openingTag);
-            codeLines.addAll(indent(argumentList.getBlock(skipOpeningBracket)));
-            if (trailingOpeningBracketBody) {
-                codeLines.add(argumentList.getBrackets().getRightBracket() + " " + bodyLines.getBrackets().getLeftBracket());
-//                int lastLine = argumentList.getBlock().size();
-//                codeLines.set(lastLine, codeLines.get(lastLine) + " " + bodyLines.getBrackets().getLeftBracket());
-            }
-        }
-        codeLines.addAll(indent(bodyLines.getBlock(skipOpeningBracket)));
+//        boolean skipOpeningBracket = trailingOpeningBracketBody;
+//        if (inlineOptions) {
+//            codeLines.add(buildFirstLine(argumentList, bodyLines));
+//        } else {
+//            codeLines.add(openingTag);
+//            codeLines.addAll(indent(argumentList.getBlock(skipOpeningBracket)));
+//            if (trailingOpeningBracketBody) {
+//                codeLines.add(argumentList.getBrackets().getRightBracket() + " " + bodyLines.getBrackets().getLeftBracket());
+////                int lastLine = argumentList.getBlock().size();
+////                codeLines.set(lastLine, codeLines.get(lastLine) + " " + bodyLines.getBrackets().getLeftBracket());
+//            }
+//        }
+//        codeLines.addAll(indent(bodyLines.getBlock(skipOpeningBracket)));
         codeLines.add(closingTag);
         return codeLines;
     }

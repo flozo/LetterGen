@@ -54,18 +54,23 @@ public class Main {
         Code optionList = new Code.CodeBuilder(expressionList)
                 .terminator(StatementTerminator.COMMA)
                 .brackets(Bracket.SQUARE_BRACKETS)
+                .interBracketSpacing(true)
+                .mergeBracketLines(false)
                 .skipLast(true)
                 .build();
 
+        System.out.println("------- optionList");
         for (String line : optionList.getBlock()) {
             System.out.println(line);
         }
+        System.out.println("------- optionList");
 
 
         Code bodyCode = new Code.CodeBuilder(codeBlock)
                 .brackets(Bracket.CURLY_BRACES)
                 .skipLast(true)
-                .prepend(optionList)
+                .append(optionList)
+                .mergeBracketLines(true)
                 .build();
 
 
