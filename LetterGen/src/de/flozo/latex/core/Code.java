@@ -23,8 +23,9 @@ public class Code {
     private final boolean inlineSpacing;
     private final boolean skipLast;
     private final Bracket brackets;
+    private final Code prepend;
+    private final Code append;
 //    private final boolean trailingClosingBracket;
-
 
 
     private Code(CodeBuilder builder) {
@@ -33,9 +34,12 @@ public class Code {
         this.inlineSpacing = builder.inlineSpacing;
         this.skipLast = builder.skipLast;
         this.brackets = builder.brackets;
+        this.prepend = builder.prepend;
+        this.append = builder.append;
     }
 
     public ExpressionList getExpressionList() {
+
         return expressionList;
     }
 
@@ -58,6 +62,12 @@ public class Code {
         }
         if (brackets != Bracket.NONE) {
             encloseInBrackets(codeLines, skipOpeningBracket, skipClosingBracket);
+        }
+        if (prepend != null) {
+            codeLines.addAll(0, prepend.getBlock());
+        }
+        if (append != null) {
+            codeLines.addAll(append.getBlock());
         }
         return codeLines;
     }
@@ -130,6 +140,8 @@ public class Code {
         private boolean inlineSpacing = DEFAULT_INLINE_SPACING;
         private boolean skipLast = DEFAULT_SKIP_LAST;
         private Bracket brackets = DEFAULT_BRACKETS;
+        private Code prepend = null;
+        private Code append = null;
 
 
         public CodeBuilder(ExpressionList expressionList) {
@@ -153,6 +165,16 @@ public class Code {
 
         public CodeBuilder brackets(Bracket brackets) {
             this.brackets = brackets;
+            return this;
+        }
+
+        public CodeBuilder prepend(Code prepend) {
+            this.prepend = prepend;
+            return this;
+        }
+
+        public CodeBuilder append(Code append) {
+            this.append = append;
             return this;
         }
 

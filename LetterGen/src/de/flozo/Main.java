@@ -41,7 +41,7 @@ public class Main {
 //            System.out.println(line);
 //        }
 
-        expressionList.append(codeBlock).append(codeBlock2);
+
 
 
 //        Code code = new Code.CodeBuilder(expressionList)
@@ -51,50 +51,57 @@ public class Main {
 //                .build();
 
 
-        Code.CodeBuilder codeBuilder = new Code.CodeBuilder(expressionList)
-                .skipLast(true);
-
-        Code code1 = codeBuilder
-                .terminator(StatementTerminator.SEMICOLON)
-                .brackets(Bracket.CURLY_BRACES).build();
-        Code code2 = codeBuilder
-                .skipLast(false)
+        Code optionList = new Code.CodeBuilder(expressionList)
+                .terminator(StatementTerminator.COMMA)
+                .brackets(Bracket.SQUARE_BRACKETS)
+                .skipLast(true)
                 .build();
 
-        for (String line : code1.getBlock()) {
-            System.out.println(line);
-        }
-
-        System.out.println("******************");
-        for (String line : code1.getExpressionList().getLines()) {
-            System.out.println(line);
-        }
-        System.out.println("******************");
-
-
-        for (String line : code2.getBlock()) {
+        for (String line : optionList.getBlock()) {
             System.out.println(line);
         }
 
 
-        ExpressionList newList = new ExpressionList(code1.getBlock());
-        for (String line : newList.getLines()) {
-            System.out.println(line);
-        }
-
-
-        System.out.println(code1.getInline());
-
-        Environment document = new Environment.EnvironmentBuilder(EnvironmentName.DOCUMENT, codeBlock)
-                .inlineOptions(false)
-                .optionalArguments(expressionList)
-                .trailingOpeningBracketBody(true)
-                .trailingOpeningBracketOption(false)
+        Code bodyCode = new Code.CodeBuilder(codeBlock)
+                .brackets(Bracket.CURLY_BRACES)
+                .skipLast(true)
+                .prepend(optionList)
                 .build();
 
-        for (String line : document.getBlock()) {
+
+
+
+        System.out.println("******************");
+        for (String line : bodyCode.getBlock()) {
             System.out.println(line);
         }
+        System.out.println("******************");
+
+
+
+//        for (String line : code2.getBlock()) {
+//            System.out.println(line);
+//        }
+//
+//
+//        ExpressionList newList = new ExpressionList(code1.getBlock());
+//        for (String line : newList.getLines()) {
+//            System.out.println(line);
+//        }
+//
+//
+//        System.out.println(code1.getInline());
+//
+//        Environment document = new Environment.EnvironmentBuilder(EnvironmentName.DOCUMENT, codeBlock)
+//                .inlineOptions(false)
+//                .optionalArguments(expressionList)
+//                .trailingOpeningBracketBody(true)
+//                .trailingOpeningBracketOption(false)
+//                .build();
+//
+//        for (String line : document.getBlock()) {
+//            System.out.println(line);
+//        }
 
     }
 }
