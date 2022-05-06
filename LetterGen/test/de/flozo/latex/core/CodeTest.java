@@ -3,6 +3,7 @@ package de.flozo.latex.core;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -105,59 +106,125 @@ class CodeTest {
         assertEquals(expected.getLines(), formattedCode.getBlock());
     }
 
-//    @ParameterizedTest
-//    @EnumSource(
-//            value = Bracket.class,
-//            names = "NONE",
-//            mode = EnumSource.Mode.EXCLUDE)
-//    void getBlock_skipOpeningBracket(Bracket bracket) {
-//        ExpressionList expected = new ExpressionList(
-//                "inner xsep=0pt",
-//                "inner ysep=0pt",
-//                "trim left=0pt",
-//                "trim right={20 cm}",
-//                bracket.getRightBracket()
-//        );
-//        Code formattedCode = code
-//                .terminator(StatementTerminator.NONE)
-//                .brackets(bracket)
-//                .build();
-//        for (String line : expected.getLines()) {
-//            System.out.println(line);
-//        }
-//        System.out.println("***********");
-//        for (String line : formattedCode.getBlock(true)) {
-//            System.out.println(line);
-//        }
-//        assertEquals(expected.getLines(), formattedCode.getBlock(true));
-//    }
 
-//    @ParameterizedTest
-//    @EnumSource(
-//            value = Bracket.class,
-//            names = "NONE",
-//            mode = EnumSource.Mode.EXCLUDE)
-//    void getBlock_skipClosingBracket(Bracket bracket) {
-//        ExpressionList expected = new ExpressionList(
-//                bracket.getLeftBracket(),
-//                "inner xsep=0pt",
-//                "inner ysep=0pt",
-//                "trim left=0pt",
-//                "trim right={20 cm}"
-//        );
-//        Code formattedCode = code
-//                .terminator(StatementTerminator.NONE)
-//                .brackets(bracket)
-//                .build();
-//        for (String line : expected.getLines()) {
-//            System.out.println(line);
-//        }
-//        System.out.println("***********");
-//        for (String line : formattedCode.getBlock(false, true)) {
-//            System.out.println(line);
-//        }
-//        assertEquals(expected.getLines(), formattedCode.getBlock(false, true));
-//    }
+    @Test
+    void getBlock_prepend_mergeBracketLinesFalse() {
+        ExpressionList expected = new ExpressionList(
+                "[",
+                "inner xsep=0pt,",
+                "inner ysep=0pt,",
+                "trim left=0pt,",
+                "trim right={20 cm}",
+                "]",
+                "{",
+                "inner xsep=0pt,",
+                "inner ysep=0pt,",
+                "trim left=0pt,",
+                "trim right={20 cm}",
+                "}"
+        );
+        Code formattedCodeToPrepend = code
+                .terminator(StatementTerminator.COMMA)
+                .brackets(Bracket.SQUARE_BRACKETS)
+                .build();
+        Code formattedCode = code
+                .terminator(StatementTerminator.COMMA)
+                .brackets(Bracket.CURLY_BRACES)
+                .prepend(formattedCodeToPrepend)
+                .mergeBracketLines(false)
+                .build();
+        assertEquals(expected.getLines(), formattedCode.getBlock());
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = {true, false})
+    void getBlock_prepend_mergeBracketLinesTrue(boolean spacing) {
+        ExpressionList expected = new ExpressionList(
+                "[",
+                "inner xsep=0pt,",
+                "inner ysep=0pt,",
+                "trim left=0pt,",
+                "trim right={20 cm}",
+                spacing ? "] {" : "]{",
+                "inner xsep=0pt,",
+                "inner ysep=0pt,",
+                "trim left=0pt,",
+                "trim right={20 cm}",
+                "}"
+        );
+        Code formattedCodeToPrepend = code
+                .terminator(StatementTerminator.COMMA)
+                .brackets(Bracket.SQUARE_BRACKETS)
+                .build();
+        Code formattedCode = code
+                .terminator(StatementTerminator.COMMA)
+                .brackets(Bracket.CURLY_BRACES)
+                .prepend(formattedCodeToPrepend)
+                .mergeBracketLines(true)
+                .interBracketSpacing(spacing)
+                .build();
+        assertEquals(expected.getLines(), formattedCode.getBlock());
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = {true, false})
+    void getBlock_append_mergeBracketLinesFalse(boolean spacing) {
+        ExpressionList expected = new ExpressionList(
+                "{",
+                "inner xsep=0pt,",
+                "inner ysep=0pt,",
+                "trim left=0pt,",
+                "trim right={20 cm}",
+                spacing ? "} [" : "}[",
+                "inner xsep=0pt,",
+                "inner ysep=0pt,",
+                "trim left=0pt,",
+                "trim right={20 cm}",
+                "]"
+        );
+        Code formattedCodeToAppend = code
+                .terminator(StatementTerminator.COMMA)
+                .brackets(Bracket.SQUARE_BRACKETS)
+                .build();
+        Code formattedCode = code
+                .terminator(StatementTerminator.COMMA)
+                .brackets(Bracket.CURLY_BRACES)
+                .append(formattedCodeToAppend)
+                .mergeBracketLines(true)
+                .interBracketSpacing(spacing)
+                .build();
+        assertEquals(expected.getLines(), formattedCode.getBlock());
+    }
+
+    @Test
+    void getBlock_append_mergeBracketLinesTrue() {
+        ExpressionList expected = new ExpressionList(
+                "{",
+                "inner xsep=0pt,",
+                "inner ysep=0pt,",
+                "trim left=0pt,",
+                "trim right={20 cm}",
+                "}",
+                "[",
+                "inner xsep=0pt,",
+                "inner ysep=0pt,",
+                "trim left=0pt,",
+                "trim right={20 cm}",
+                "]"
+        );
+        Code formattedCodeToAppend = code
+                .terminator(StatementTerminator.COMMA)
+                .brackets(Bracket.SQUARE_BRACKETS)
+                .build();
+        Code formattedCode = code
+                .terminator(StatementTerminator.COMMA)
+                .brackets(Bracket.CURLY_BRACES)
+                .append(formattedCodeToAppend)
+                .mergeBracketLines(false)
+                .build();
+        assertEquals(expected.getLines(), formattedCode.getBlock());
+    }
+
 
 
     @ParameterizedTest
