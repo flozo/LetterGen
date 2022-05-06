@@ -148,6 +148,10 @@ public class Code {
                 // and opening Bracket from appended code
                 codeLines.add(brackets.getRightBracket() + bracketSeparator + append.getBrackets().getLeftBracket());
             }
+            if (prepend == null && append==null) {
+                codeLines.add(0, brackets.getLeftBracket());
+                codeLines.add(brackets.getRightBracket());
+            }
         } else {
             // Surround with brackets
             codeLines.add(0, brackets.getLeftBracket());

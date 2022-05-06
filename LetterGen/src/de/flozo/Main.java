@@ -55,7 +55,6 @@ public class Main {
                 .terminator(StatementTerminator.COMMA)
                 .brackets(Bracket.SQUARE_BRACKETS)
                 .interBracketSpacing(true)
-                .mergeBracketLines(false)
                 .skipLast(true)
                 .build();
 
