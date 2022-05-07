@@ -58,15 +58,15 @@ public class Main {
                 .skipLast(true)
                 .build();
 
-        System.out.println("------- optionList");
-        for (String line : optionList.getBlock()) {
-            System.out.println(line);
-        }
-        System.out.println("------- optionList");
+//        System.out.println("------- optionList");
+//        for (String line : optionList.getBlock()) {
+//            System.out.println(line);
+//        }
+//        System.out.println("------- optionList");
 
 
         Code bodyCode = new Code.CodeBuilder(codeBlock)
-                .brackets(Bracket.CURLY_BRACES)
+                .brackets(Bracket.NONE)
                 .skipLast(true)
                 .append(optionList)
                 .mergeBracketLines(true)
@@ -76,9 +76,10 @@ public class Main {
 
 
         System.out.println("******************");
-        for (String line : bodyCode.getBlock()) {
-            System.out.println(line);
-        }
+        System.out.println(bodyCode.getInline());
+//        for (String line : bodyCode.getBlock()) {
+//            System.out.println(line);
+//        }
         System.out.println("******************");
 
 

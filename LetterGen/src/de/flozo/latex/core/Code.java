@@ -85,31 +85,33 @@ public class Code {
 
 
     public String getInline() {
-        return getInline(false, false);
-    }
-
-    public String getInline(boolean skipOpeningBracket) {
-        return getInline(skipOpeningBracket, false);
-    }
-
-    public String getInline(boolean skipOpeningBracket, boolean skipClosingBracket) {
         List<String> codeLines = new ArrayList<>(expressionList.getLines());
         String spacer = INLINE_SEPARATOR;
         if (!inlineSpacing) {
             spacer = "";
         }
         StringBuilder sb = new StringBuilder();
-        if (!skipOpeningBracket) {
-            sb.append(brackets.getLeftBracket());
+        // Prepend code if given
+        if (prepend != null) {
+            sb.append(prepend.brackets.getLeftBracket());
+            sb.append(String.join(spacer, prepend.getInline()));
+            sb.append(prepend.brackets.getRightBracket());
         }
+        // Add code of this instance
         addTerminator(codeLines);
+        sb.append(brackets.getLeftBracket());
         sb.append(String.join(spacer, codeLines));
-        if (!skipClosingBracket) {
-            sb.append(brackets.getRightBracket());
+        sb.append(brackets.getRightBracket());
+        // Append code if given
+        if (append != null) {
+            sb.append(append.brackets.getLeftBracket());
+            sb.append(String.join(spacer, append.getInline()));
+            sb.append(append.brackets.getRightBracket());
         }
         return sb.toString();
     }
 
+    
     // Assemble code for this instance
     private List<String> assembleCode() {
         List<String> codeLines = new ArrayList<>(expressionList.getLines());
