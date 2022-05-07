@@ -1,7 +1,6 @@
 package de.flozo;
 
 import de.flozo.latex.Command;
-import de.flozo.latex.core.ExpressionList;
 import de.flozo.latex.core.*;
 
 public class Main {
@@ -43,8 +42,6 @@ public class Main {
 //        }
 
 
-
-
 //        Code code = new Code.CodeBuilder(expressionList)
 //                .terminator(StatementTerminator.COMMA)
 //                .dropLast(true)
@@ -73,8 +70,6 @@ public class Main {
                 .build();
 
 
-
-
         System.out.println("******************");
         System.out.println(bodyCode.getInline());
 //        for (String line : bodyCode.getBlock()) {
@@ -83,12 +78,16 @@ public class Main {
         System.out.println("******************");
 
 
-        Command command = new Command("usepackage", codeBlock, expressionList);
+        Command command = new Command(CommandName.USEPACKAGE, codeBlock, expressionList);
         System.out.println(command.getInline());
 
         for (String line : command.getBlock()) {
             System.out.println(line);
         }
+
+        Command documentclass = new Command(CommandName.DOCUMENTCLASS, new ExpressionList(PackageName.STANDALONE.getString()));
+        System.out.println(documentclass.getInline());
+
 //
 //
 //        ExpressionList newList = new ExpressionList(code1.getBlock());

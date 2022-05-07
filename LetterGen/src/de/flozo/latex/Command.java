@@ -1,9 +1,6 @@
 package de.flozo.latex;
 
-import de.flozo.latex.core.Bracket;
-import de.flozo.latex.core.Code;
-import de.flozo.latex.core.ExpressionList;
-import de.flozo.latex.core.StatementTerminator;
+import de.flozo.latex.core.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +14,16 @@ public class Command {
     public static final StatementTerminator COMMAND_OPTIONS_TERMINATOR = StatementTerminator.COMMA;
     public static final String INDENT_CHARACTER = "\t";
 
-    private final String name;
+    private final CommandName name;
     private final ExpressionList optionList;
     private final ExpressionList body;
 
 
-    public Command(String name, ExpressionList body) {
+    public Command(CommandName name, ExpressionList body) {
         this(name, body, null);
     }
 
-    public Command(String name, ExpressionList body, ExpressionList optionList) {
+    public Command(CommandName name, ExpressionList body, ExpressionList optionList) {
         this.name = name;
         this.optionList = optionList;
         this.body = body;
@@ -44,7 +41,7 @@ public class Command {
             body.prepend(optionsCode);
         }
         List<String> codeLines = new ArrayList<>();
-        codeLines.add(COMMAND_MARKER_CHAR + name);
+        codeLines.add(COMMAND_MARKER_CHAR + name.getString());
         codeLines.addAll(indent(body.build().getBlock()));
         return codeLines;
     }
@@ -63,7 +60,7 @@ public class Command {
                 .brackets(COMMAND_BODY_BRACKETS)
                 .terminator(COMMAND_BODY_TERMINATOR)
                 .build();
-        return COMMAND_MARKER_CHAR + name + options +
+        return COMMAND_MARKER_CHAR + name.getString() + options +
                 body.getInline();
     }
 
