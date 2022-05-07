@@ -111,7 +111,7 @@ public class Code {
         return sb.toString();
     }
 
-    
+
     // Assemble code for this instance
     private List<String> assembleCode() {
         List<String> codeLines = new ArrayList<>(expressionList.getLines());

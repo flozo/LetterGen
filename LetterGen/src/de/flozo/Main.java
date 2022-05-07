@@ -1,5 +1,6 @@
 package de.flozo;
 
+import de.flozo.latex.Command;
 import de.flozo.latex.core.ExpressionList;
 import de.flozo.latex.core.*;
 
@@ -68,7 +69,6 @@ public class Main {
         Code bodyCode = new Code.CodeBuilder(codeBlock)
                 .brackets(Bracket.NONE)
                 .skipLast(true)
-                .append(optionList)
                 .mergeBracketLines(true)
                 .build();
 
@@ -83,10 +83,12 @@ public class Main {
         System.out.println("******************");
 
 
+        Command command = new Command("usepackage", codeBlock, expressionList);
+        System.out.println(command.getInline());
 
-//        for (String line : code2.getBlock()) {
-//            System.out.println(line);
-//        }
+        for (String line : command.getBlock()) {
+            System.out.println(line);
+        }
 //
 //
 //        ExpressionList newList = new ExpressionList(code1.getBlock());
