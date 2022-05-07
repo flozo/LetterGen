@@ -19,6 +19,10 @@ public class Command {
     private final ExpressionList body;
 
 
+    public Command(CommandName name, String... body) {
+        this(name, new ExpressionList(body));
+    }
+
     public Command(CommandName name, ExpressionList body) {
         this(name, body, null);
     }
@@ -28,6 +32,7 @@ public class Command {
         this.optionList = optionList;
         this.body = body;
     }
+
 
     public List<String> getBlock() {
         Code.CodeBuilder body = new Code.CodeBuilder(this.body)
@@ -49,6 +54,14 @@ public class Command {
 
     public String getInline() {
         String options = "";
+//        System.out.println("*********************");
+//        System.out.println(name.getString() + " :");
+//        System.out.println("-------------------");
+//        System.out.println(optionList == null);
+//        System.out.println("====");
+//        for (String line: optionList.getLines()) {
+//            System.out.println(line);
+//        }
         if (optionList != null) {
             Code optionsCode = new Code.CodeBuilder(optionList)
                     .brackets(COMMAND_OPTIONS_BRACKETS)

@@ -49,12 +49,12 @@ public class Main {
 //                .build();
 
 
-        Code optionList = new Code.CodeBuilder(expressionList)
-                .terminator(StatementTerminator.COMMA)
-                .brackets(Bracket.SQUARE_BRACKETS)
-                .interBracketSpacing(true)
-                .skipLast(true)
-                .build();
+//        Code optionList = new Code.CodeBuilder(expressionList)
+//                .terminator(StatementTerminator.COMMA)
+//                .brackets(Bracket.SQUARE_BRACKETS)
+//                .interBracketSpacing(true)
+//                .skipLast(true)
+//                .build();
 
 //        System.out.println("------- optionList");
 //        for (String line : optionList.getBlock()) {
@@ -63,32 +63,51 @@ public class Main {
 //        System.out.println("------- optionList");
 
 
-        Code bodyCode = new Code.CodeBuilder(codeBlock)
-                .brackets(Bracket.NONE)
-                .skipLast(true)
-                .mergeBracketLines(true)
-                .build();
 
 
-        System.out.println("******************");
-        System.out.println(bodyCode.getInline());
-//        for (String line : bodyCode.getBlock()) {
-//            System.out.println(line);
-//        }
-        System.out.println("******************");
 
+        Documentclass documentclass = new Documentclass(PackageName.STANDALONE, "12pt", "tikz", "multi", "crop");
+        Usepackage inputenc = new Usepackage(PackageName.INPUTENC, "utf8");
+        Usepackage fontenc = new Usepackage(PackageName.FONTENC, "T1");
+        Usepackage babel = new Usepackage(PackageName.BABEL, "german");
+        Usepackage hyperxmp = new Usepackage(PackageName.HYPERXMP);
+        Usepackage firaSans = new Usepackage(PackageName.FIRASANS, "sfdefault", "scaled=1.0098");
+        Usepackage newtxsf = new Usepackage(PackageName.NEWTXSF);
+        Usepackage fontawesome = new Usepackage(PackageName.FONTAWESOME5);
+        Usepackage csquotes = new Usepackage(PackageName.CSQUOTES, "autostyle=true");
+        Usepackage enumitem = new Usepackage(PackageName.ENUMITEM);
+        Usepackage microtype = new Usepackage(PackageName.MICROTYPE, "activate={true, nocompatibility}", "final", "tracking=true", "kerning=true", "spacing=true", "factor=1100", "stretch=8", "shrink=8");
+        Usepackage tikz = new Usepackage(PackageName.TIKZ);
+        Usepackage hyperref = new Usepackage(PackageName.HYPERREF, "unicode");
+        Command usetikzlibrary = new Command(CommandName.USETIKZLIBRARY, "positioning", "math", "colorbrewer", "backgrounds", "matrix");
+        Command standanloneenv = new Command(CommandName.STANDALONEENV, "tikzpicture");
 
-        Command command = new Command(CommandName.USEPACKAGE, codeBlock, expressionList);
-        System.out.println(command.getInline());
+        Command hypersetup = new Command(CommandName.HYPERSETUP);
 
-        for (String line : command.getBlock()) {
+        ExpressionList preamble = new ExpressionList(
+                documentclass.getInline(),
+                inputenc.getInline(),
+                fontenc.getInline(),
+                babel.getInline(),
+                hyperxmp.getInline(),
+                firaSans.getInline(),
+                newtxsf.getInline(),
+                fontawesome.getInline(),
+                csquotes.getInline(),
+                enumitem.getInline(),
+                microtype.getInline(),
+                tikz.getInline(),
+                hyperref.getInline(),
+                usetikzlibrary.getInline(),
+                standanloneenv.getInline()
+        );
+
+        for (String line : preamble.getLines()) {
             System.out.println(line);
         }
 
-        Command documentclass = new Command(CommandName.DOCUMENTCLASS, new ExpressionList(PackageName.STANDALONE.getString()));
-        System.out.println(documentclass.getInline());
 
-//
+
 //
 //        ExpressionList newList = new ExpressionList(code1.getBlock());
 //        for (String line : newList.getLines()) {
