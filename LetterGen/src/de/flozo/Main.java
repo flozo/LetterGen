@@ -83,18 +83,6 @@ public class Main {
         }
 
 
-//        Usepackage inputenc = new Usepackage(PackageName.INPUTENC, "utf8");
-//        Usepackage fontenc = new Usepackage(PackageName.FONTENC, "T1");
-//        Usepackage babel = new Usepackage(PackageName.BABEL, "german");
-//        Usepackage hyperxmp = new Usepackage(PackageName.HYPERXMP);
-//        Usepackage firaSans = new Usepackage(PackageName.FIRASANS, "sfdefault", "scaled=1.0098");
-//        Usepackage newtxsf = new Usepackage(PackageName.NEWTXSF);
-//        Usepackage fontawesome = new Usepackage(PackageName.FONTAWESOME5);
-//        Usepackage csquotes = new Usepackage(PackageName.CSQUOTES, "autostyle=true");
-//        Usepackage enumitem = new Usepackage(PackageName.ENUMITEM);
-//        Usepackage microtype = new Usepackage(PackageName.MICROTYPE, "activate={true, nocompatibility}", "final", "tracking=true", "kerning=true", "spacing=true", "factor=1100", "stretch=8", "shrink=8");
-//        Usepackage tikz = new Usepackage(PackageName.TIKZ);
-//        Usepackage hyperref = new Usepackage(PackageName.HYPERREF, "unicode");
 //        Command usetikzlibrary = new Command(CommandName.USETIKZLIBRARY, "positioning", "math", "colorbrewer", "backgrounds", "matrix");
 //        Command standanloneenv = new Command(CommandName.STANDALONEENV, "tikzpicture");
 //

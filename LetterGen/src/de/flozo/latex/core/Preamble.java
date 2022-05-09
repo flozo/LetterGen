@@ -4,19 +4,18 @@ import java.util.*;
 
 public class Preamble {
 
-    // required
     private final Documentclass documentclass;
 
-    // optional
     private final Map<PackageName, ExpressionList> usepackageList;
 
-    // Constructor using settings from subclass CodeBuilder
+
     public Preamble(Documentclass documentclass) {
         this.documentclass = documentclass;
         this.usepackageList = new LinkedHashMap<>();
     }
 
 
+    // Add new usepackage statements; allow chaining of add method
     public Preamble add(PackageName packageName, String... options) {
         usepackageList.put(packageName, new ExpressionList(options));
         return this;
