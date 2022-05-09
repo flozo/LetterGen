@@ -1,7 +1,5 @@
 package de.flozo.latex.core;
 
-import de.flozo.latex.Command;
-
 public class Usepackage extends Command {
 
     public static final CommandName KEYWORD = CommandName.USEPACKAGE;

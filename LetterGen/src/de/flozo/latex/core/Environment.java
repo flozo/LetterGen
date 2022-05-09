@@ -18,10 +18,12 @@ public class Environment {
 
     // required
     private final EnvironmentName name;
-    private final ExpressionList body;
+    //    private final ExpressionList body;
+    private final Code body;
 
     // optional
-    private final ExpressionList optionalArguments;
+    private final Code optionalArguments;
+    //    private final ExpressionList optionalArguments;
     private final boolean inlineOptions;
     private final boolean trailingOpeningBracketOption;
     private final boolean trailingOpeningBracketBody;
@@ -39,45 +41,47 @@ public class Environment {
 
     public List<String> getBlock() {
         List<String> codeLines = new ArrayList<>();
-        Code argumentList = new Code.CodeBuilder(optionalArguments)
-                .terminator(StatementTerminator.COMMA)
-                .skipLast(true)
-                .brackets(DEFAULT_OPTION_BRACKET)
-                .inlineSpacing(true)
-                .build();
-        Code bodyLines = new Code.CodeBuilder(body)
-                .brackets(Bracket.CURLY_BRACES)
-                .build();
+        StringBuilder sb = new StringBuilder();
+        sb.append(openingTag());
+        if (optionalArguments == null) {
+            codeLines.add(sb.toString());
+            codeLines.addAll(indent(body.getBlock()));
+            codeLines.add(closingTag());
+            return codeLines;
+        }
+        if (inlineOptions) {
+            sb.append(optionalArguments.getInline());
+            codeLines.add(sb.toString());
+            codeLines.addAll(indent(body.getBlock()));
+            codeLines.add(closingTag());
+            return codeLines;
+        }
+        codeLines.add(sb.toString());
+        codeLines.addAll(indent(optionalArguments.getBlock()));
+        codeLines.addAll(indent(body.getBlock()));
+        codeLines.add(closingTag());
 
-        String openingTag = buildTag(OPENING_KEYWORD);
-        String closingTag = buildTag(CLOSING_KEYWORD);
-
-
-//        boolean skipOpeningBracket = trailingOpeningBracketBody;
-//        if (inlineOptions) {
-//            codeLines.add(buildFirstLine(argumentList, bodyLines));
-//        } else {
-//            codeLines.add(openingTag);
-//            codeLines.addAll(indent(argumentList.getBlock(skipOpeningBracket)));
-//            if (trailingOpeningBracketBody) {
-//                codeLines.add(argumentList.getBrackets().getRightBracket() + " " + bodyLines.getBrackets().getLeftBracket());
-////                int lastLine = argumentList.getBlock().size();
-////                codeLines.set(lastLine, codeLines.get(lastLine) + " " + bodyLines.getBrackets().getLeftBracket());
-//            }
-//        }
-//        codeLines.addAll(indent(bodyLines.getBlock(skipOpeningBracket)));
-        codeLines.add(closingTag);
         return codeLines;
     }
 
     private String buildFirstLine(Code argumentList, Code body) {
-        // Example result: \begin{tikzpicture} [inner xsep=0pt, inner ysep=0pt] {
+        // Example: \begin{tikzpicture} [inner xsep=0pt, inner ysep=0pt] {
         return buildTag(OPENING_KEYWORD) + SPACE_BEFORE_OPTION_LIST + argumentList.getInline() +
                 (trailingOpeningBracketBody ? " " + body.getBrackets().getLeftBracket() : "");
     }
 
+    private String openingTag() {
+        // Example: \begin
+        return buildTag(OPENING_KEYWORD);
+    }
+
+    private String closingTag() {
+        // Example: \end
+        return buildTag(CLOSING_KEYWORD);
+    }
+
     private String buildTag(String keyword) {
-        // Example result: \begin{tikzpicture}
+        // Example: \begin{tikzpicture}
         return "\\" + keyword + ENVIRONMENT_NAME_BRACKET.getLeftBracket() +
                 name.getString() + ENVIRONMENT_NAME_BRACKET.getRightBracket();
     }
@@ -92,20 +96,39 @@ public class Environment {
 
         // required
         private final EnvironmentName name;
-        private final ExpressionList body;
+        private final Code body;
 
         // optional; defaults specified
-        private ExpressionList optionalArguments = new ExpressionList("");
+        private Code optionalArguments;
         private boolean inlineOptions = DEFAULT_INLINE_OPTIONS;
         private boolean trailingOpeningBracketOption = TRAILING_OPENING_BRACKET_OPTIONS;
         private boolean trailingOpeningBracketBody = TRAILING_OPENING_BRACKET_BODY;
 
+
         public EnvironmentBuilder(EnvironmentName name, ExpressionList body) {
+            this(name, new Code.CodeBuilder(body)
+                    .brackets(Bracket.CURLY_BRACES)
+                    .build());
+        }
+
+        public EnvironmentBuilder(EnvironmentName name, Code body) {
             this.name = name;
             this.body = body;
         }
 
+
         public EnvironmentBuilder optionalArguments(ExpressionList optionalArguments) {
+            Code argumentList = new Code.CodeBuilder(optionalArguments)
+                    .terminator(StatementTerminator.COMMA)
+                    .skipLast(true)
+                    .brackets(DEFAULT_OPTION_BRACKET)
+                    .inlineSpacing(true)
+                    .build();
+            return optionalArguments(argumentList);
+        }
+
+
+        public EnvironmentBuilder optionalArguments(Code optionalArguments) {
             this.optionalArguments = optionalArguments;
             return this;
         }

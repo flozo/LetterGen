@@ -1,6 +1,4 @@
-package de.flozo.latex;
-
-import de.flozo.latex.core.*;
+package de.flozo.latex.core;
 
 import java.util.ArrayList;
 import java.util.List;

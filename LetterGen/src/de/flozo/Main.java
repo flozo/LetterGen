@@ -1,6 +1,6 @@
 package de.flozo;
 
-import de.flozo.latex.Command;
+import de.flozo.latex.core.Command;
 import de.flozo.latex.core.*;
 
 public class Main {
@@ -107,26 +107,15 @@ public class Main {
         }
 
 
-
-//
-//        ExpressionList newList = new ExpressionList(code1.getBlock());
-//        for (String line : newList.getLines()) {
-//            System.out.println(line);
-//        }
-//
-//
-//        System.out.println(code1.getInline());
-//
-//        Environment document = new Environment.EnvironmentBuilder(EnvironmentName.DOCUMENT, codeBlock)
-//                .inlineOptions(false)
+        Environment document = new Environment.EnvironmentBuilder(EnvironmentName.DOCUMENT, codeBlock)
 //                .optionalArguments(expressionList)
-//                .trailingOpeningBracketBody(true)
-//                .trailingOpeningBracketOption(false)
-//                .build();
-//
-//        for (String line : document.getBlock()) {
-//            System.out.println(line);
-//        }
+                .inlineOptions(false)
+                .build();
+
+        for (String line : document.getBlock()) {
+            System.out.println(line);
+        }
+
 
     }
 }

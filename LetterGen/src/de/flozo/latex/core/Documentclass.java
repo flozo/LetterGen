@@ -1,7 +1,5 @@
 package de.flozo.latex.core;
 
-import de.flozo.latex.Command;
-
 public class Documentclass extends Command {
 
     public static final CommandName KEYWORD = CommandName.DOCUMENTCLASS;
