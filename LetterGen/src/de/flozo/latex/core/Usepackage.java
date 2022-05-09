@@ -6,11 +6,10 @@ public class Usepackage extends Command {
     private final PackageName packageName;
 
     public Usepackage(PackageName packageName) {
-        super(KEYWORD, new ExpressionList(packageName.getString()), null);
-        this.packageName = packageName;
+        this(packageName, new ExpressionList(""));
     }
 
-    public Usepackage(PackageName packageName, String... optionList) {
+    public Usepackage(PackageName packageName, String[] optionList) {
         this(packageName, new ExpressionList(optionList));
     }
 

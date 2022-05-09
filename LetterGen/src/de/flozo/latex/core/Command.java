@@ -60,7 +60,7 @@ public class Command {
 //        for (String line: optionList.getLines()) {
 //            System.out.println(line);
 //        }
-        if (optionList != null) {
+        if (optionList.length() != 0) {
             Code optionsCode = new Code.CodeBuilder(optionList)
                     .brackets(COMMAND_OPTIONS_BRACKETS)
                     .terminator(COMMAND_OPTIONS_TERMINATOR)

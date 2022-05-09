@@ -1,6 +1,5 @@
 package de.flozo;
 
-import de.flozo.latex.core.Command;
 import de.flozo.latex.core.*;
 
 public class Main {
@@ -62,59 +61,76 @@ public class Main {
 //        }
 //        System.out.println("------- optionList");
 
-
-
-
-
         Documentclass documentclass = new Documentclass(PackageName.STANDALONE, "12pt", "tikz", "multi", "crop");
-        Usepackage inputenc = new Usepackage(PackageName.INPUTENC, "utf8");
-        Usepackage fontenc = new Usepackage(PackageName.FONTENC, "T1");
-        Usepackage babel = new Usepackage(PackageName.BABEL, "german");
-        Usepackage hyperxmp = new Usepackage(PackageName.HYPERXMP);
-        Usepackage firaSans = new Usepackage(PackageName.FIRASANS, "sfdefault", "scaled=1.0098");
-        Usepackage newtxsf = new Usepackage(PackageName.NEWTXSF);
-        Usepackage fontawesome = new Usepackage(PackageName.FONTAWESOME5);
-        Usepackage csquotes = new Usepackage(PackageName.CSQUOTES, "autostyle=true");
-        Usepackage enumitem = new Usepackage(PackageName.ENUMITEM);
-        Usepackage microtype = new Usepackage(PackageName.MICROTYPE, "activate={true, nocompatibility}", "final", "tracking=true", "kerning=true", "spacing=true", "factor=1100", "stretch=8", "shrink=8");
-        Usepackage tikz = new Usepackage(PackageName.TIKZ);
-        Usepackage hyperref = new Usepackage(PackageName.HYPERREF, "unicode");
-        Command usetikzlibrary = new Command(CommandName.USETIKZLIBRARY, "positioning", "math", "colorbrewer", "backgrounds", "matrix");
-        Command standanloneenv = new Command(CommandName.STANDALONEENV, "tikzpicture");
 
-        Command hypersetup = new Command(CommandName.HYPERSETUP);
+        Preamble preamble = new Preamble(documentclass);
+        preamble.add(PackageName.INPUTENC, "utf8")
+                .add(PackageName.FONTENC, "T1")
+                .add(PackageName.BABEL, "german")
+                .add(PackageName.HYPERXMP)
+                .add(PackageName.FIRASANS, "sfdefault", "scaled=1.0098")
+                .add(PackageName.NEWTXSF)
+                .add(PackageName.FONTAWESOME5)
+                .add(PackageName.CSQUOTES, "autostyle=true")
+                .add(PackageName.ENUMITEM)
+                .add(PackageName.MICROTYPE, "activate={true, nocompatibility}", "final", "tracking=true", "kerning=true", "spacing=true", "factor=1100", "stretch=8", "shrink=8")
+                .add(PackageName.TIKZ)
+                .add(PackageName.HYPERREF, "unicode");
 
-        ExpressionList preamble = new ExpressionList(
-                documentclass.getInline(),
-                inputenc.getInline(),
-                fontenc.getInline(),
-                babel.getInline(),
-                hyperxmp.getInline(),
-                firaSans.getInline(),
-                newtxsf.getInline(),
-                fontawesome.getInline(),
-                csquotes.getInline(),
-                enumitem.getInline(),
-                microtype.getInline(),
-                tikz.getInline(),
-                hyperref.getInline(),
-                usetikzlibrary.getInline(),
-                standanloneenv.getInline()
-        );
 
-        for (String line : preamble.getLines()) {
+        for (String line : preamble.getBlock()) {
             System.out.println(line);
         }
 
 
-        Environment document = new Environment.EnvironmentBuilder(EnvironmentName.DOCUMENT, codeBlock)
-//                .optionalArguments(expressionList)
-                .inlineOptions(false)
-                .build();
-
-        for (String line : document.getBlock()) {
-            System.out.println(line);
-        }
+//        Usepackage inputenc = new Usepackage(PackageName.INPUTENC, "utf8");
+//        Usepackage fontenc = new Usepackage(PackageName.FONTENC, "T1");
+//        Usepackage babel = new Usepackage(PackageName.BABEL, "german");
+//        Usepackage hyperxmp = new Usepackage(PackageName.HYPERXMP);
+//        Usepackage firaSans = new Usepackage(PackageName.FIRASANS, "sfdefault", "scaled=1.0098");
+//        Usepackage newtxsf = new Usepackage(PackageName.NEWTXSF);
+//        Usepackage fontawesome = new Usepackage(PackageName.FONTAWESOME5);
+//        Usepackage csquotes = new Usepackage(PackageName.CSQUOTES, "autostyle=true");
+//        Usepackage enumitem = new Usepackage(PackageName.ENUMITEM);
+//        Usepackage microtype = new Usepackage(PackageName.MICROTYPE, "activate={true, nocompatibility}", "final", "tracking=true", "kerning=true", "spacing=true", "factor=1100", "stretch=8", "shrink=8");
+//        Usepackage tikz = new Usepackage(PackageName.TIKZ);
+//        Usepackage hyperref = new Usepackage(PackageName.HYPERREF, "unicode");
+//        Command usetikzlibrary = new Command(CommandName.USETIKZLIBRARY, "positioning", "math", "colorbrewer", "backgrounds", "matrix");
+//        Command standanloneenv = new Command(CommandName.STANDALONEENV, "tikzpicture");
+//
+//        Command hypersetup = new Command(CommandName.HYPERSETUP);
+//
+//        ExpressionList preamble = new ExpressionList(
+//                documentclass.getInline(),
+//                inputenc.getInline(),
+//                fontenc.getInline(),
+//                babel.getInline(),
+//                hyperxmp.getInline(),
+//                firaSans.getInline(),
+//                newtxsf.getInline(),
+//                fontawesome.getInline(),
+//                csquotes.getInline(),
+//                enumitem.getInline(),
+//                microtype.getInline(),
+//                tikz.getInline(),
+//                hyperref.getInline(),
+//                usetikzlibrary.getInline(),
+//                standanloneenv.getInline()
+//        );
+//
+//        for (String line : preamble.getLines()) {
+//            System.out.println(line);
+//        }
+//
+//
+//        Environment document = new Environment.EnvironmentBuilder(EnvironmentName.DOCUMENT, codeBlock)
+////                .optionalArguments(expressionList)
+//                .inlineOptions(false)
+//                .build();
+//
+//        for (String line : document.getBlock()) {
+//            System.out.println(line);
+//        }
 
 
     }
