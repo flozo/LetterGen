@@ -85,7 +85,7 @@ public class Main {
         }
 
 
-        Node myNode = new Node.NodeBuilder(2.5, 27.7, "Test text")
+        Node myNode = new Node.NodeBuilder(2.5, 127.12545, "Test text")
                 .anchor(Anchor.NORTH_WEST)
                 .textWidth(16.5)
                 .fontSize(FontSize.LARGE)

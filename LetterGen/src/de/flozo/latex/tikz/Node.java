@@ -2,6 +2,8 @@ package de.flozo.latex.tikz;
 
 import de.flozo.latex.core.*;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -66,7 +68,8 @@ public class Node {
     }
 
     private String coordinates(double x, double y) {
-        return String.format(Locale.US, "(%.2f, %.2f)", x, y);
+        DecimalFormat df = new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.US));
+        return String.format("(%s, %s)", df.format(x), df.format(y));
     }
 
 
