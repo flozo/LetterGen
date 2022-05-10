@@ -14,6 +14,7 @@ public class Node {
     public static final String KEYWORD = CommandName.NODE.getString();
     public static final Bracket BODY_BRACKETS = Bracket.CURLY_BRACES;
     public static final Bracket OPTIONS_BRACKETS = Bracket.SQUARE_BRACKETS;
+    public static final StatementTerminator TERMINATOR = StatementTerminator.SEMICOLON;
 
     // required
     private final double x;
@@ -21,6 +22,7 @@ public class Node {
     private final String text;
 
     // optional
+    private final String name;
     private final List<String> optionalArguments;
     private final Anchor anchor;
     private final FontSize fontSize;
@@ -35,6 +37,7 @@ public class Node {
 
 
     public Node(NodeBuilder builder) {
+        this.name = builder.name;
         this.optionalArguments = builder.optionalArguments;
         this.x = builder.x;
         this.y = builder.y;
@@ -54,6 +57,9 @@ public class Node {
 
     public String getStatement() {
         StringBuilder sb = new StringBuilder(COMMAND_MARKER_CHAR + KEYWORD);
+        if (name != null && !name.strip().equals("")) {
+            sb.append(String.format(" (%s)", name));
+        }
         if (!optionalArguments.isEmpty()) {
             sb.append(" ").append(inlineOptions());
         }
@@ -63,6 +69,7 @@ public class Node {
         sb.append(BODY_BRACKETS.getLeftBracket());
         sb.append(text);
         sb.append(BODY_BRACKETS.getRightBracket());
+        sb.append(TERMINATOR.getString());
         return sb.toString();
     }
 
@@ -91,6 +98,7 @@ public class Node {
         private final String text;
 
         // optional
+        private String name;
         private List<String> optionalArguments = new ArrayList<>();
         private Anchor anchor;
         private FontSize fontSize;
@@ -108,6 +116,11 @@ public class Node {
             this.x = x;
             this.y = y;
             this.text = text;
+        }
+
+        public NodeBuilder name(String name) {
+            this.name = name;
+            return this;
         }
 
         public NodeBuilder anchor(Anchor anchor) {

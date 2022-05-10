@@ -97,6 +97,7 @@ public class Main {
                 .minimumHeight(2.73)
                 .alignment(Alignment.CENTER)
                 .textDepth(0.5)
+                .name("name")
                 .build();
 
         System.out.println(myNode.getStatement());
