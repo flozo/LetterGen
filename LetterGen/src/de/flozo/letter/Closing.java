@@ -39,6 +39,7 @@ public class Closing  {
                 .inlineSpacing(false)
                 .build();
         Node closing = new Node.NodeBuilder(x, y, closingText.getInline())
+                .name("closing")
                 .anchor(Anchor.NORTH_WEST)
                 .textWidth(10)
                 .build();

@@ -28,6 +28,7 @@ public class Enclosure {
                 .inlineSpacing(true)
                 .build();
         Node enclosure = new Node.NodeBuilder(x, y, enclosureTag + ": " + enclosureText.getInline())
+                .name("enclosure")
                 .anchor(Anchor.NORTH_WEST)
                 .textWidth(16.5)
                 .build();
