@@ -1,6 +1,8 @@
 package de.flozo;
 
 import de.flozo.latex.core.*;
+import de.flozo.latex.tikz.Anchor;
+import de.flozo.latex.tikz.Node;
 
 public class Main {
 
@@ -81,6 +83,18 @@ public class Main {
         for (String line : preamble.getBlock()) {
             System.out.println(line);
         }
+
+
+        Node myNode = new Node.NodeBuilder(2.5, 27.7, "Test text")
+                .anchor(Anchor.NORTH_WEST)
+                .textWidth(16.5)
+                .fontSize(FontSize.LARGE)
+                .color(new Color(ColorScheme.BLUES, ColorLetter.M))
+                .xShift(0.1)
+                .yShift(0.5)
+                .build();
+
+        System.out.println(myNode.getStatement());
 
 
 //        Command usetikzlibrary = new Command(CommandName.USETIKZLIBRARY, "positioning", "math", "colorbrewer", "backgrounds", "matrix");
