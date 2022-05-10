@@ -28,6 +28,9 @@ public class Node {
     private final double xShift;
     private final double yShift;
     private final double textWidth;
+    private double minimumWidth;
+    private double minimumHeight;
+
 
     public Node(NodeBuilder builder) {
         this.optionalArguments = builder.optionalArguments;
@@ -40,6 +43,8 @@ public class Node {
         this.xShift = builder.xShift;
         this.yShift = builder.yShift;
         this.textWidth = builder.textWidth;
+        this.minimumWidth = builder.minimumWidth;
+        this.minimumHeight = builder.minimumHeight;
     }
 
 
@@ -68,6 +73,7 @@ public class Node {
     }
 
     private String coordinates(double x, double y) {
+        // Avoid trailing zeros; ensure point is used as decimal separator
         DecimalFormat df = new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.US));
         return String.format("(%s, %s)", df.format(x), df.format(y));
     }
@@ -85,9 +91,11 @@ public class Node {
         private Anchor anchor;
         private FontSize fontSize;
         private Color color;
-        private double xShift = 0.0d;
-        private double yShift = 0.0d;
+        private double xShift;
+        private double yShift;
         private double textWidth;
+        private double minimumWidth;
+        private double minimumHeight;
 
 
         public NodeBuilder(double x, double y, String text) {
@@ -131,6 +139,19 @@ public class Node {
             this.optionalArguments.add("text width=" + textWidth);
             return this;
         }
+
+        public NodeBuilder minimumWidth(double minimumWidth) {
+            this.minimumWidth = minimumWidth;
+            this.optionalArguments.add("minimum width=" + minimumWidth);
+            return this;
+        }
+
+        public NodeBuilder minimumHeight(double minimumHeight) {
+            this.minimumHeight = minimumHeight;
+            this.optionalArguments.add("minimum height=" + minimumHeight);
+            return this;
+        }
+
 
         public Node build() {
             return new Node(this);

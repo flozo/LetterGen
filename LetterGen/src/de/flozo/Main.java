@@ -85,13 +85,15 @@ public class Main {
         }
 
 
-        Node myNode = new Node.NodeBuilder(2.5, 127.12545, "Test text")
+        Node myNode = new Node.NodeBuilder(2.5, 127.10, "Test text")
                 .anchor(Anchor.NORTH_WEST)
                 .textWidth(16.5)
                 .fontSize(FontSize.LARGE)
                 .color(new Color(ColorScheme.BLUES, ColorLetter.M))
                 .xShift(0.1)
                 .yShift(0.5)
+                .minimumWidth(9.0)
+                .minimumHeight(2.73)
                 .build();
 
         System.out.println(myNode.getStatement());
