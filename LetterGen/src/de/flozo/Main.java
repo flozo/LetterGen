@@ -5,6 +5,7 @@ import de.flozo.latex.tikz.Alignment;
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
 import de.flozo.letter.Closing;
+import de.flozo.letter.Enclosure;
 
 public class Main {
 
@@ -150,6 +151,10 @@ public class Main {
                 2.5,
                 5.7);
         System.out.println(closing.generate());
+
+        ExpressionList enclosureItems = new ExpressionList("Lebenslauf", "Arbeitszeugnis", "Doktorurkunde", "Diplom");
+        Enclosure enclosure = new Enclosure("Anlagen", enclosureItems, 2.5, 5.7);
+        System.out.println(enclosure.generate());
 
     }
 
