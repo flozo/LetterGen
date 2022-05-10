@@ -28,8 +28,10 @@ public class Node {
     private final double xShift;
     private final double yShift;
     private final double textWidth;
+    private double textDepth;
     private double minimumWidth;
     private double minimumHeight;
+    private Alignment alignment;
 
 
     public Node(NodeBuilder builder) {
@@ -43,8 +45,10 @@ public class Node {
         this.xShift = builder.xShift;
         this.yShift = builder.yShift;
         this.textWidth = builder.textWidth;
+        this.textDepth = builder.textDepth;
         this.minimumWidth = builder.minimumWidth;
         this.minimumHeight = builder.minimumHeight;
+        this.alignment = builder.alignment;
     }
 
 
@@ -94,8 +98,10 @@ public class Node {
         private double xShift;
         private double yShift;
         private double textWidth;
+        private double textDepth;
         private double minimumWidth;
         private double minimumHeight;
+        private Alignment alignment;
 
 
         public NodeBuilder(double x, double y, String text) {
@@ -140,6 +146,12 @@ public class Node {
             return this;
         }
 
+        public NodeBuilder textDepth(double textDepth) {
+            this.textDepth = textDepth;
+            this.optionalArguments.add("text depth=" + textDepth);
+            return this;
+        }
+
         public NodeBuilder minimumWidth(double minimumWidth) {
             this.minimumWidth = minimumWidth;
             this.optionalArguments.add("minimum width=" + minimumWidth);
@@ -149,6 +161,12 @@ public class Node {
         public NodeBuilder minimumHeight(double minimumHeight) {
             this.minimumHeight = minimumHeight;
             this.optionalArguments.add("minimum height=" + minimumHeight);
+            return this;
+        }
+
+        public NodeBuilder alignment(Alignment alignment) {
+            this.alignment = alignment;
+            this.optionalArguments.add("align=" + alignment.getString());
             return this;
         }
 

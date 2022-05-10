@@ -1,6 +1,7 @@
 package de.flozo;
 
 import de.flozo.latex.core.*;
+import de.flozo.latex.tikz.Alignment;
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
 
@@ -94,6 +95,8 @@ public class Main {
                 .yShift(0.5)
                 .minimumWidth(9.0)
                 .minimumHeight(2.73)
+                .alignment(Alignment.CENTER)
+                .textDepth(0.5)
                 .build();
 
         System.out.println(myNode.getStatement());
