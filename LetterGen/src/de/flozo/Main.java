@@ -4,6 +4,7 @@ import de.flozo.latex.core.*;
 import de.flozo.latex.tikz.Alignment;
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
+import de.flozo.letter.Closing;
 
 public class Main {
 
@@ -103,6 +104,9 @@ public class Main {
         System.out.println(myNode.getStatement());
 
 
+
+
+
 //        Command usetikzlibrary = new Command(CommandName.USETIKZLIBRARY, "positioning", "math", "colorbrewer", "backgrounds", "matrix");
 //        Command standanloneenv = new Command(CommandName.STANDALONEENV, "tikzpicture");
 //
@@ -140,6 +144,13 @@ public class Main {
 //            System.out.println(line);
 //        }
 
+        Closing closing = new Closing("/home/user/images/signature.pdf",
+                "Mit freundlichen Grüßen",
+                "Mein Name",
+                2.5,
+                5.7);
+        System.out.println(closing.generate());
 
     }
+
 }

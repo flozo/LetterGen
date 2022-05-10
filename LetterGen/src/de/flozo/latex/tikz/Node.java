@@ -11,7 +11,7 @@ import java.util.Locale;
 public class Node {
 
     public static final String COMMAND_MARKER_CHAR = "\\";
-    public static final String KEYWORD = CommandName.NODE.getString();
+    public static final CommandName KEYWORD = CommandName.NODE;
     public static final Bracket BODY_BRACKETS = Bracket.CURLY_BRACES;
     public static final Bracket OPTIONS_BRACKETS = Bracket.SQUARE_BRACKETS;
     public static final StatementTerminator TERMINATOR = StatementTerminator.SEMICOLON;
@@ -56,13 +56,16 @@ public class Node {
 
 
     public String getStatement() {
-        StringBuilder sb = new StringBuilder(COMMAND_MARKER_CHAR + KEYWORD);
+        StringBuilder sb = new StringBuilder(COMMAND_MARKER_CHAR + KEYWORD.getString());
+        // Append name in parentheses if name is not null, empty, or only whitespaces
         if (name != null && !name.strip().equals("")) {
             sb.append(String.format(" (%s)", name));
         }
+        // Append options if at least one option is present
         if (!optionalArguments.isEmpty()) {
             sb.append(" ").append(inlineOptions());
         }
+        // Append required parts
         sb.append(" at ");
         sb.append(coordinates(x, y));
         sb.append(" ");
