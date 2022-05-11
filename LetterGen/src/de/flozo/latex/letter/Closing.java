@@ -1,4 +1,4 @@
-package de.flozo.letter;
+package de.flozo.latex.letter;
 
 import de.flozo.latex.core.Code;
 import de.flozo.latex.core.ExpressionList;

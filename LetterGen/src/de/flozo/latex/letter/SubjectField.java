@@ -1,4 +1,4 @@
-package de.flozo.letter;
+package de.flozo.latex.letter;
 
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;

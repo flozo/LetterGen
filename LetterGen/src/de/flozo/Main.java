@@ -4,10 +4,10 @@ import de.flozo.latex.core.*;
 import de.flozo.latex.tikz.Alignment;
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
-import de.flozo.letter.Closing;
-import de.flozo.letter.DateField;
-import de.flozo.letter.Enclosure;
-import de.flozo.letter.SubjectField;
+import de.flozo.latex.letter.Closing;
+import de.flozo.latex.letter.DateField;
+import de.flozo.latex.letter.Enclosure;
+import de.flozo.latex.letter.SubjectField;
 
 public class Main {
 

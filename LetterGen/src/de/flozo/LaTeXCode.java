@@ -1,6 +1,6 @@
 package de.flozo;
 
-import de.flozo.letter.Defaults;
+import de.flozo.data.Defaults;
 
 import java.io.IOException;
 import java.io.PrintWriter;

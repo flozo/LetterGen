@@ -1,4 +1,4 @@
-package de.flozo.letter;
+package de.flozo.data;
 
 import de.flozo.latex.core.Color;
 import de.flozo.latex.core.ColorLetter;

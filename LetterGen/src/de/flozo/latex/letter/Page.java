@@ -1,4 +1,4 @@
-package de.flozo.letter;
+package de.flozo.latex.letter;
 
 public class Page {
 
