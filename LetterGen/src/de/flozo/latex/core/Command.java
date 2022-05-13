@@ -52,14 +52,6 @@ public class Command {
 
     public String getInline() {
         String options = "";
-//        System.out.println("*********************");
-//        System.out.println(name.getString() + " :");
-//        System.out.println("-------------------");
-//        System.out.println(optionList == null);
-//        System.out.println("====");
-//        for (String line: optionList.getLines()) {
-//            System.out.println(line);
-//        }
         if (optionList.length() != 0) {
             Code optionsCode = new Code.CodeBuilder(optionList)
                     .brackets(COMMAND_OPTIONS_BRACKETS)

@@ -20,7 +20,7 @@ public class Includegraphics {
     private final double height;
     private final double width;
 
-    public Includegraphics(IncludegraphicsBuilder builder) {
+    private Includegraphics(IncludegraphicsBuilder builder) {
         this.fileName = builder.fileName;
         this.optionalArguments = builder.optionalArguments;
         this.height = builder.height;

@@ -17,16 +17,14 @@ public class Rectangle extends Path {
     private final double yOppositeCorner;
 
     // optional
-    private Color fillColor;
-    private LineWidthStyle lineWidthStyle;
+//    private Color fillColor;
+//    private LineWidthStyle lineWidthStyle;
 
 
     private Rectangle(RectangleBuilder builder) {
         super(builder.xOrigin, builder.yOrigin, builder.optionalArguments, builder.name, builder.drawColor,builder.fillColor, builder.lineWidthStyle, builder.lineCap, builder.lineJoin, builder.dashPatternStyle);
         this.xOppositeCorner = builder.xOppositeCorner;
         this.yOppositeCorner = builder.yOppositeCorner;
-        this.fillColor = builder.fillColor;
-        this.lineWidthStyle = builder.lineWidthStyle;
     }
 
 
@@ -48,9 +46,6 @@ public class Rectangle extends Path {
         sb.append(TERMINATOR.getString());
         return sb.toString();
     }
-
-
-
 
 
     public static class RectangleBuilder {
@@ -78,6 +73,12 @@ public class Rectangle extends Path {
             this.xOppositeCorner = xOppositeCorner;
             this.yOppositeCorner = yOppositeCorner;
         }
+
+        public RectangleBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
 
         public RectangleBuilder drawColor(Color drawColor) {
             this.drawColor = drawColor;

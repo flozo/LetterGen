@@ -14,29 +14,45 @@ public class Node extends Path {
     private final String text;
 
     // optional
-    private final Anchor anchor;
-    private final FontSize fontSize;
-    private final double xShift;
-    private final double yShift;
-    private final double textWidth;
-    private double textDepth;
-    private double minimumWidth;
-    private double minimumHeight;
-    private Alignment alignment;
+    private final String name;
+//    private final List<String> optionalArguments;
+//    private final Anchor anchor;
+//    private final FontSize fontSize;
+//    private final Color textColor;
+//    private final Color drawColor;
+//    private final Color fillColor;
+//    private final LineWidthStyle lineWidthStyle;
+//    private final LineCap lineCap;
+//    private final LineJoin lineJoin;
+//    private final DashPatternStyle dashPatternStyle;
+//    private final double xShift;
+//    private final double yShift;
+//    private final double textWidth;
+//    private double textDepth;
+//    private double minimumWidth;
+//    private double minimumHeight;
+//    private Alignment alignment;
+//    private double innerXSep;
+//    private double innerYSep;
 
 
-    public Node(NodeBuilder builder) {
+
+    private Node(NodeBuilder builder) {
         super(builder.xOrigin, builder.yOrigin, builder.optionalArguments, builder.name, builder.drawColor, builder.fillColor, builder.lineWidthStyle, builder.lineCap, builder.lineJoin, builder.dashPatternStyle);
         this.text = builder.text;
-        this.anchor = builder.anchor;
-        this.fontSize = builder.fontSize;
-        this.xShift = builder.xShift;
-        this.yShift = builder.yShift;
-        this.textWidth = builder.textWidth;
-        this.textDepth = builder.textDepth;
-        this.minimumWidth = builder.minimumWidth;
-        this.minimumHeight = builder.minimumHeight;
-        this.alignment = builder.alignment;
+        this.name = builder.name;
+//        this.anchor = builder.anchor;
+//        this.fontSize = builder.fontSize;
+//        this.textColor = builder.textColor;
+//        this.xShift = builder.xShift;
+//        this.yShift = builder.yShift;
+//        this.textWidth = builder.textWidth;
+//        this.textDepth = builder.textDepth;
+//        this.minimumWidth = builder.minimumWidth;
+//        this.minimumHeight = builder.minimumHeight;
+//        this.alignment = builder.alignment;
+//        this.innerXSep = builder.innerXSep;
+//        this.innerYSep = builder.innerYSep;
     }
 
     @Override
@@ -88,6 +104,8 @@ public class Node extends Path {
         private double minimumWidth;
         private double minimumHeight;
         private Alignment alignment;
+        private double innerXSep;
+        private double innerYSep;
 
 
         public NodeBuilder(double xOrigin, double yOrigin, String text) {
@@ -196,6 +214,20 @@ public class Node extends Path {
             this.optionalArguments.add("align=" + alignment.getString());
             return this;
         }
+
+
+        public NodeBuilder innerXSep(double innerXSep) {
+            this.innerXSep = innerXSep;
+            this.optionalArguments.add("inner xsep=" + innerXSep);
+            return this;
+        }
+
+        public NodeBuilder innerYSep(double innerYSep) {
+            this.innerYSep = innerYSep;
+            this.optionalArguments.add("inner ysep=" + innerYSep);
+            return this;
+        }
+
 
 
         public Node build() {

@@ -115,6 +115,8 @@ public class Main {
                 .lineWidthStyle(LineWidthStyle.ULTRA_THICK)
                 .drawColor(new Color(ColorScheme.BU_GN, ColorLetter.C))
                 .dashPatternStyle(DashPatternStyle.DENSELY_DASH_DOT_DOT)
+                .innerXSep(6)
+                .innerYSep(12)
                 .build();
         System.out.println(mySecondNode.getStatement());
         System.out.println("**************");
@@ -144,9 +146,20 @@ public class Main {
                 .lineWidthStyle(LineWidthStyle.SEMITHICK)
                 .lineCap(LineCap.ROUND)
                 .lineWidth(20)
+                .name("Naaaame")
                 .build();
 
         System.out.println(myRectangle.getStatement());
+
+
+        Node.NodeBuilder newNode = new Node.NodeBuilder(0, 0, "hallo")
+                .innerXSep(5)
+                .alignment(Alignment.JUSTIFY);
+
+        newNode.textColor(new Color(ColorScheme.PURPLES, ColorLetter.H));
+        System.out.println(newNode.build().getStatement());
+
+        Node anotherNode = new Node.NodeBuilder(1, 2, "test").build();
 
     }
 
