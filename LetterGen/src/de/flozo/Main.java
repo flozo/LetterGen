@@ -104,8 +104,14 @@ public class Main {
 
         System.out.println(myNode.getStatement());
 
-
-
+        System.out.println("**************");
+        Node mySecondNode = new Node.NodeBuilder(0.123, 0.346, "This is a new test")
+                .name("MyNode")
+                .textWidth(10.5)
+                .color(new Color(ColorScheme.BU_GN, ColorLetter.C))
+                .build();
+        System.out.println(mySecondNode.getStatement());
+        System.out.println("**************");
 
 
 //        Command usetikzlibrary = new Command(CommandName.USETIKZLIBRARY, "positioning", "math", "colorbrewer", "backgrounds", "matrix");
@@ -160,8 +166,6 @@ public class Main {
         System.out.println(subjectField.generate());
         DateField dateField = new DateField(19.0, 19.2, "City", "01.01.2022");
         System.out.println(dateField.generate());
-
-
 
 
     }

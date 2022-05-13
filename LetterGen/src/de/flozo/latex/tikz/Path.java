@@ -21,30 +21,33 @@ public abstract class Path {
     protected double xOrigin;
     protected double yOrigin;
 
-    // optional
-    private String name;
-    private List<String> optionalArguments;
-    private Color color;
+    // optional; visible for subclasses
+    protected List<String> optionalArguments;
+    protected String name;
+    protected Color color;
 
 
-    public Path(double xOrigin, double yOrigin) {
+    public Path(double xOrigin, double yOrigin, List<String> optionalArguments, String name, Color color) {
         this.xOrigin = xOrigin;
         this.yOrigin = yOrigin;
+        this.optionalArguments = optionalArguments;
+        this.name = name;
+        this.color = color;
     }
 
 
     public abstract String getStatement();
 
 
-//    protected String inlineOptions() {
-//        Code options = new Code.CodeBuilder(new ExpressionList(optionalArguments))
-//                .brackets(OPTIONS_BRACKETS)
-//                .terminator(StatementTerminator.COMMA)
-//                .skipLast(true)
-//                .inlineSpacing(true)
-//                .build();
-//        return options.getInline();
-//    }
+    protected String inlineOptions() {
+        Code options = new Code.CodeBuilder(new ExpressionList(optionalArguments))
+                .brackets(OPTIONS_BRACKETS)
+                .terminator(StatementTerminator.COMMA)
+                .skipLast(true)
+                .inlineSpacing(true)
+                .build();
+        return options.getInline();
+    }
 
     protected String coordinates(double x, double y) {
         // Avoid trailing zeros; ensure point is used as decimal separator

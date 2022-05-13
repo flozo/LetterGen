@@ -5,26 +5,17 @@ import de.flozo.latex.core.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//public class Node {
 public class Node extends Path {
 
-//    public static final String COMMAND_MARKER_CHAR = "\\";
     public static final CommandName KEYWORD = CommandName.NODE;
     public static final Bracket BODY_BRACKETS = Bracket.CURLY_BRACES;
-//    public static final Bracket OPTIONS_BRACKETS = Bracket.SQUARE_BRACKETS;
-//    public static final StatementTerminator TERMINATOR = StatementTerminator.SEMICOLON;
 
     // required
-//    private final double x;
-//    private final double y;
     private final String text;
 
     // optional
-    private final String name;
-    private final List<String> optionalArguments;
     private final Anchor anchor;
     private final FontSize fontSize;
-    private final Color color;
     private final double xShift;
     private final double yShift;
     private final double textWidth;
@@ -35,15 +26,10 @@ public class Node extends Path {
 
 
     public Node(NodeBuilder builder) {
-        super(builder.x, builder.y);
-        this.name = builder.name;
-        this.optionalArguments = builder.optionalArguments;
-//        this.x = builder.x;
-//        this.y = builder.y;
+        super(builder.xOrigin, builder.yOrigin, builder.optionalArguments, builder.name, builder.color);
         this.text = builder.text;
         this.anchor = builder.anchor;
         this.fontSize = builder.fontSize;
-        this.color = builder.color;
         this.xShift = builder.xShift;
         this.yShift = builder.yShift;
         this.textWidth = builder.textWidth;
@@ -75,33 +61,17 @@ public class Node extends Path {
         return sb.toString();
     }
 
-    private String inlineOptions() {
-        Code options = new Code.CodeBuilder(new ExpressionList(optionalArguments))
-                .brackets(OPTIONS_BRACKETS)
-                .terminator(StatementTerminator.COMMA)
-                .skipLast(true)
-                .inlineSpacing(true)
-                .build();
-        return options.getInline();
-    }
-
-//    private String coordinates(double x, double y) {
-//        // Avoid trailing zeros; ensure point is used as decimal separator
-//        DecimalFormat df = new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.US));
-//        return String.format("(%s, %s)", df.format(x), df.format(y));
-//    }
-
 
     public static class NodeBuilder {
 
         // required
-        private final double x;
-        private final double y;
+        private final double xOrigin;
+        private final double yOrigin;
         private final String text;
 
         // optional
         private String name;
-        private List<String> optionalArguments = new ArrayList<>();
+        private final List<String> optionalArguments = new ArrayList<>();
         private Anchor anchor;
         private FontSize fontSize;
         private Color color;
@@ -114,9 +84,9 @@ public class Node extends Path {
         private Alignment alignment;
 
 
-        public NodeBuilder(double x, double y, String text) {
-            this.x = x;
-            this.y = y;
+        public NodeBuilder(double xOrigin, double yOrigin, String text) {
+            this.xOrigin = xOrigin;
+            this.yOrigin = yOrigin;
             this.text = text;
         }
 
