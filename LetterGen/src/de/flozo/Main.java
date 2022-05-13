@@ -6,6 +6,7 @@ import de.flozo.latex.letter.Closing;
 import de.flozo.latex.letter.DateField;
 import de.flozo.latex.letter.Enclosure;
 import de.flozo.latex.letter.SubjectField;
+import de.flozo.latex.tikz.Rectangle;
 
 public class Main {
 
@@ -92,7 +93,7 @@ public class Main {
                 .anchor(Anchor.NORTH_WEST)
                 .textWidth(16.5)
                 .fontSize(FontSize.LARGE)
-                .color(new Color(ColorScheme.BLUES, ColorLetter.M))
+                .drawColor(new Color(ColorScheme.BLUES, ColorLetter.M))
                 .xShift(0.1)
                 .yShift(0.5)
                 .minimumWidth(9.0)
@@ -108,48 +109,15 @@ public class Main {
         Node mySecondNode = new Node.NodeBuilder(0.123, 0.346, "This is a new test")
                 .name("MyNode")
                 .textWidth(10.5)
-                .color(new Color(ColorScheme.BU_GN, ColorLetter.C))
+                .lineCap(LineCap.BUTT)
+                .lineJoin(LineJoin.ROUND)
+                .lineWidthStyle(LineWidthStyle.ULTRA_THICK)
+                .drawColor(new Color(ColorScheme.BU_GN, ColorLetter.C))
+                .dashPatternStyle(DashPatternStyle.DENSELY_DASH_DOT_DOT)
                 .build();
         System.out.println(mySecondNode.getStatement());
         System.out.println("**************");
 
-
-//        Command usetikzlibrary = new Command(CommandName.USETIKZLIBRARY, "positioning", "math", "colorbrewer", "backgrounds", "matrix");
-//        Command standanloneenv = new Command(CommandName.STANDALONEENV, "tikzpicture");
-//
-//        Command hypersetup = new Command(CommandName.HYPERSETUP);
-//
-//        ExpressionList preamble = new ExpressionList(
-//                documentclass.getInline(),
-//                inputenc.getInline(),
-//                fontenc.getInline(),
-//                babel.getInline(),
-//                hyperxmp.getInline(),
-//                firaSans.getInline(),
-//                newtxsf.getInline(),
-//                fontawesome.getInline(),
-//                csquotes.getInline(),
-//                enumitem.getInline(),
-//                microtype.getInline(),
-//                tikz.getInline(),
-//                hyperref.getInline(),
-//                usetikzlibrary.getInline(),
-//                standanloneenv.getInline()
-//        );
-//
-//        for (String line : preamble.getLines()) {
-//            System.out.println(line);
-//        }
-//
-//
-//        Environment document = new Environment.EnvironmentBuilder(EnvironmentName.DOCUMENT, codeBlock)
-////                .optionalArguments(expressionList)
-//                .inlineOptions(false)
-//                .build();
-//
-//        for (String line : document.getBlock()) {
-//            System.out.println(line);
-//        }
 
         Closing closing = new Closing("/home/user/images/signature.pdf",
                 "Sincerely",
@@ -167,6 +135,17 @@ public class Main {
         DateField dateField = new DateField(19.0, 19.2, "City", "01.01.2022");
         System.out.println(dateField.generate());
 
+
+        System.out.println("~~~~~~~~~~~~~");
+        Rectangle myRectangle = new Rectangle.RectangleBuilder(0, 0, 10, 10)
+                .drawColor(new Color(ColorScheme.BU_GN, ColorLetter.M))
+                .fillColor(new Color(ColorScheme.GREYS, ColorLetter.D))
+                .lineWidthStyle(LineWidthStyle.SEMITHICK)
+                .lineCap(LineCap.ROUND)
+                .lineWidth(20)
+                .build();
+
+        System.out.println(myRectangle.getStatement());
 
     }
 

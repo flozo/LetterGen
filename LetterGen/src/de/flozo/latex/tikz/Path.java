@@ -24,17 +24,26 @@ public abstract class Path {
     // optional; visible for subclasses
     protected List<String> optionalArguments;
     protected String name;
-    protected Color color;
+    protected Color drawColor;
+    protected Color fillColor;
+    protected LineWidthStyle lineWidthStyle;
+    protected LineCap lineCap;
+    protected LineJoin lineJoin;
+    protected DashPatternStyle dashPatternStyle;
 
 
-    public Path(double xOrigin, double yOrigin, List<String> optionalArguments, String name, Color color) {
+    public Path(double xOrigin, double yOrigin, List<String> optionalArguments, String name, Color drawColor, Color fillColor, LineWidthStyle lineWidthStyle, LineCap lineCap, LineJoin lineJoin, DashPatternStyle dashPatternStyle) {
         this.xOrigin = xOrigin;
         this.yOrigin = yOrigin;
         this.optionalArguments = optionalArguments;
         this.name = name;
-        this.color = color;
+        this.drawColor = drawColor;
+        this.fillColor = fillColor;
+        this.lineWidthStyle = lineWidthStyle;
+        this.lineCap = lineCap;
+        this.lineJoin = lineJoin;
+        this.dashPatternStyle = dashPatternStyle;
     }
-
 
     public abstract String getStatement();
 

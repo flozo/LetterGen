@@ -26,7 +26,7 @@ public class Node extends Path {
 
 
     public Node(NodeBuilder builder) {
-        super(builder.xOrigin, builder.yOrigin, builder.optionalArguments, builder.name, builder.color);
+        super(builder.xOrigin, builder.yOrigin, builder.optionalArguments, builder.name, builder.drawColor, builder.fillColor, builder.lineWidthStyle, builder.lineCap, builder.lineJoin, builder.dashPatternStyle);
         this.text = builder.text;
         this.anchor = builder.anchor;
         this.fontSize = builder.fontSize;
@@ -74,7 +74,12 @@ public class Node extends Path {
         private final List<String> optionalArguments = new ArrayList<>();
         private Anchor anchor;
         private FontSize fontSize;
-        private Color color;
+        private Color drawColor;
+        private Color fillColor;
+        private LineWidthStyle lineWidthStyle;
+        private LineCap lineCap;
+        private LineJoin lineJoin;
+        private DashPatternStyle dashPatternStyle;
         private double xShift;
         private double yShift;
         private double textWidth;
@@ -107,9 +112,39 @@ public class Node extends Path {
             return this;
         }
 
-        public NodeBuilder color(Color color) {
-            this.color = color;
-            this.optionalArguments.add("color=" + color.getString());
+        public NodeBuilder drawColor(Color drawColor) {
+            this.drawColor = drawColor;
+            this.optionalArguments.add("draw=" + drawColor.getString());
+            return this;
+        }
+
+        public NodeBuilder fillColor(Color fillColor) {
+            this.fillColor = fillColor;
+            this.optionalArguments.add("fill=" + fillColor.getString());
+            return this;
+        }
+
+        public NodeBuilder lineWidthStyle(LineWidthStyle lineWidthStyle) {
+            this.lineWidthStyle = lineWidthStyle;
+            this.optionalArguments.add(lineWidthStyle.getString());
+            return this;
+        }
+
+        public NodeBuilder lineCap(LineCap lineCap) {
+            this.lineCap = lineCap;
+            this.optionalArguments.add("line cap=" + lineCap.getString());
+            return this;
+        }
+
+        public NodeBuilder lineJoin(LineJoin lineJoin) {
+            this.lineJoin = lineJoin;
+            this.optionalArguments.add("line join=" + lineJoin.getString());
+            return this;
+        }
+
+        public NodeBuilder dashPatternStyle(DashPatternStyle dashPatternStyle) {
+            this.dashPatternStyle = dashPatternStyle;
+            this.optionalArguments.add(dashPatternStyle.getString());
             return this;
         }
 
