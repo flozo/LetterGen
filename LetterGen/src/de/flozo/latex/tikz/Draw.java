@@ -1,10 +1,5 @@
 package de.flozo.latex.tikz;
 
-import de.flozo.latex.core.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Draw {
 
 //    public static final String COMMAND_MARKER_CHAR = "\\";
@@ -129,5 +124,5 @@ public class Draw {
 //        }
 
 
-    }
+//    }
 }

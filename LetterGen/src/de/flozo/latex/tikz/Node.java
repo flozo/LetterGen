@@ -2,23 +2,21 @@ package de.flozo.latex.tikz;
 
 import de.flozo.latex.core.*;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-public class Node {
+//public class Node {
+public class Node extends Path {
 
-    public static final String COMMAND_MARKER_CHAR = "\\";
+//    public static final String COMMAND_MARKER_CHAR = "\\";
     public static final CommandName KEYWORD = CommandName.NODE;
     public static final Bracket BODY_BRACKETS = Bracket.CURLY_BRACES;
-    public static final Bracket OPTIONS_BRACKETS = Bracket.SQUARE_BRACKETS;
-    public static final StatementTerminator TERMINATOR = StatementTerminator.SEMICOLON;
+//    public static final Bracket OPTIONS_BRACKETS = Bracket.SQUARE_BRACKETS;
+//    public static final StatementTerminator TERMINATOR = StatementTerminator.SEMICOLON;
 
     // required
-    private final double x;
-    private final double y;
+//    private final double x;
+//    private final double y;
     private final String text;
 
     // optional
@@ -37,10 +35,11 @@ public class Node {
 
 
     public Node(NodeBuilder builder) {
+        super(builder.x, builder.y);
         this.name = builder.name;
         this.optionalArguments = builder.optionalArguments;
-        this.x = builder.x;
-        this.y = builder.y;
+//        this.x = builder.x;
+//        this.y = builder.y;
         this.text = builder.text;
         this.anchor = builder.anchor;
         this.fontSize = builder.fontSize;
@@ -54,7 +53,7 @@ public class Node {
         this.alignment = builder.alignment;
     }
 
-
+    @Override
     public String getStatement() {
         StringBuilder sb = new StringBuilder(COMMAND_MARKER_CHAR + KEYWORD.getString());
         // Append name in parentheses if name is not null, empty, or only whitespaces
@@ -67,7 +66,7 @@ public class Node {
         }
         // Append required parts
         sb.append(" at ");
-        sb.append(coordinates(x, y));
+        sb.append(coordinates(xOrigin, yOrigin));
         sb.append(" ");
         sb.append(BODY_BRACKETS.getLeftBracket());
         sb.append(text);
@@ -86,11 +85,11 @@ public class Node {
         return options.getInline();
     }
 
-    private String coordinates(double x, double y) {
-        // Avoid trailing zeros; ensure point is used as decimal separator
-        DecimalFormat df = new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.US));
-        return String.format("(%s, %s)", df.format(x), df.format(y));
-    }
+//    private String coordinates(double x, double y) {
+//        // Avoid trailing zeros; ensure point is used as decimal separator
+//        DecimalFormat df = new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.US));
+//        return String.format("(%s, %s)", df.format(x), df.format(y));
+//    }
 
 
     public static class NodeBuilder {
