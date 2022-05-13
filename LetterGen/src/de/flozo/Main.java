@@ -152,14 +152,15 @@ public class Main {
         System.out.println(myRectangle.getStatement());
 
 
-        Node.NodeBuilder newNode = new Node.NodeBuilder(0, 0, "hallo")
-                .innerXSep(5)
-                .alignment(Alignment.JUSTIFY);
 
-        newNode.textColor(new Color(ColorScheme.PURPLES, ColorLetter.H));
-        System.out.println(newNode.build().getStatement());
+        Circle myCircle = new Circle.CircleBuilder(5, 7)
+                .radius(5)
+                .xRadius(3)
+                .fillColor(new Color(ColorScheme.PURPLES, ColorLetter.H))
+                .yRadius(8)
+                .build();
 
-        Node anotherNode = new Node.NodeBuilder(1, 2, "test").build();
+        System.out.println(myCircle.getStatement());
 
     }
 
