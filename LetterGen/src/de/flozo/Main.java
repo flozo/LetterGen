@@ -97,6 +97,7 @@ public class Main {
                 .xShift(0.1)
                 .yShift(0.5)
                 .minimumWidth(9.0)
+                .textColor(new Color(ColorScheme.ORANGES, ColorLetter.D))
                 .minimumHeight(2.73)
                 .alignment(Alignment.CENTER)
                 .textDepth(0.5)

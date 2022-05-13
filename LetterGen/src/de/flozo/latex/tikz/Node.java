@@ -74,6 +74,7 @@ public class Node extends Path {
         private final List<String> optionalArguments = new ArrayList<>();
         private Anchor anchor;
         private FontSize fontSize;
+        private Color textColor;
         private Color drawColor;
         private Color fillColor;
         private LineWidthStyle lineWidthStyle;
@@ -115,6 +116,12 @@ public class Node extends Path {
         public NodeBuilder drawColor(Color drawColor) {
             this.drawColor = drawColor;
             this.optionalArguments.add("draw=" + drawColor.getString());
+            return this;
+        }
+
+        public NodeBuilder textColor(Color textColor) {
+            this.textColor = textColor;
+            this.optionalArguments.add("color=" + textColor.getString());
             return this;
         }
 
