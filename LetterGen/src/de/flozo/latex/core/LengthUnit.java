@@ -1,4 +1,4 @@
-package de.flozo.latex.tikz;
+package de.flozo.latex.core;
 
 public enum LengthUnit {
     DEFAULT(""),
