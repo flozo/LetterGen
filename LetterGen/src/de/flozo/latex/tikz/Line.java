@@ -99,6 +99,8 @@ public class Line extends Path {
         private LineJoin lineJoin;
         private DashPatternStyle dashPatternStyle;
 
+        // Constructor with optional CoordinateMode parameter
+
         public LineBuilder(double xOrigin, double yOrigin, double xNext, double yNext) {
             this(xOrigin, yOrigin, xNext, yNext, CoordinateMode.ABSOLUTE);
         }
@@ -111,10 +113,14 @@ public class Line extends Path {
             this.coordinateMode = coordinateMode;
         }
 
+
         public LineBuilder name(String name) {
             this.name = name;
             return this;
         }
+
+
+        // Point coordinates with optional CoordinateMode parameter
 
         public LineBuilder nextPoint(double x, double y) {
             return nextPoint(x, y, coordinateMode);

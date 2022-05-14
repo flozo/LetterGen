@@ -30,7 +30,6 @@ public abstract class Path {
     protected LineCap lineCap;
     protected LineJoin lineJoin;
     protected DashPatternStyle dashPatternStyle;
-//    protected CoordinateMode coordinateMode;
 
 
     public Path(double xOrigin, double yOrigin, List<String> optionalArguments, String name,
@@ -46,7 +45,6 @@ public abstract class Path {
         this.lineCap = lineCap;
         this.lineJoin = lineJoin;
         this.dashPatternStyle = dashPatternStyle;
-//        this.coordinateMode = CoordinateMode.ABSOLUTE;
     }
 
     public abstract String getStatement();
@@ -63,7 +61,7 @@ public abstract class Path {
     }
 
     protected String coordinates(double x, double y) {
-        return coordinates(x,y,CoordinateMode.ABSOLUTE);
+        return coordinates(x, y, CoordinateMode.ABSOLUTE);
     }
 
     protected String coordinates(double x, double y, CoordinateMode coordinateMode) {
