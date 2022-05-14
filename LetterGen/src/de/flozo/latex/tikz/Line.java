@@ -2,9 +2,9 @@ package de.flozo.latex.tikz;
 
 import de.flozo.latex.core.Color;
 import de.flozo.latex.core.CommandName;
+import de.flozo.latex.core.LengthUnit;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Line extends Path {
@@ -18,9 +18,9 @@ public class Line extends Path {
     private final double yNext;
 
     // optional
-    private final List<List<Double>> coordinateList;
-    private final List<CoordinateMode> coordinateModeList;
-    private CoordinateMode coordinateMode;
+    private final LengthUnit lengthUnit = LengthUnit.DEFAULT;
+    private List<Point> coordinateList;
+    private final CoordinateMode coordinateMode;
     private final boolean cycle;
 
 
@@ -38,7 +38,6 @@ public class Line extends Path {
         this.xNext = builder.xNext;
         this.yNext = builder.yNext;
         this.coordinateList = builder.coordinateList;
-        this.coordinateModeList = builder.coordinateModeList;
         this.coordinateMode = builder.coordinateMode;
         this.cycle = builder.cycle;
     }
@@ -61,9 +60,9 @@ public class Line extends Path {
         sb.append(" ").append(coordinates(xNext, yNext, coordinateMode));
         // Append line segments if at least one more is present
         if (!coordinateList.isEmpty()) {
-            for (int i = 0; i < coordinateList.size(); i++) {
+            for (Point point : coordinateList) {
                 sb.append(" ").append(OPERATION.getString());
-                sb.append(" ").append(coordinates(coordinateList.get(i).get(0), coordinateList.get(i).get(1), coordinateModeList.get(i)));
+                sb.append(" ").append(point.getStatement());
             }
         }
         // Optional cycle command
@@ -86,9 +85,11 @@ public class Line extends Path {
 
         // optional
         private String name;
-        private CoordinateMode coordinateMode;
-        private final List<List<Double>> coordinateList = new ArrayList<>();
-        private final List<CoordinateMode> coordinateModeList = new ArrayList<>();
+        private final CoordinateMode coordinateMode;
+        private final LengthUnit lengthUnit = LengthUnit.DEFAULT;
+        private final List<Point> coordinateList = new ArrayList<>();
+        //        private final List<List<Double>> coordinateList = new ArrayList<>();
+//        private final List<CoordinateMode> coordinateModeList = new ArrayList<>();
         private boolean cycle = false;
         private final List<String> optionalArguments = new ArrayList<>();
         private Color drawColor;
@@ -127,8 +128,16 @@ public class Line extends Path {
         }
 
         public LineBuilder nextPoint(double x, double y, CoordinateMode coordinateMode) {
-            this.coordinateList.add(new ArrayList<>(Arrays.asList(x, y)));
-            this.coordinateModeList.add(coordinateMode);
+            return nextPoint(x, y, coordinateMode, lengthUnit);
+        }
+
+        public LineBuilder nextPoint(double x, double y, LengthUnit lengthUnit) {
+            return nextPoint(x, y, coordinateMode, lengthUnit);
+        }
+
+
+        public LineBuilder nextPoint(double x, double y, CoordinateMode coordinateMode, LengthUnit lengthUnit) {
+            this.coordinateList.add(new Point.PointBuilder(x, y).coordinateMode(coordinateMode).xUnit(lengthUnit).yUnit(lengthUnit).build());
             return this;
         }
 

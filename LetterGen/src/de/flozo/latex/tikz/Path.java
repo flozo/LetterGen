@@ -2,10 +2,7 @@ package de.flozo.latex.tikz;
 
 import de.flozo.latex.core.*;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.List;
-import java.util.Locale;
 
 public abstract class Path {
 
@@ -61,13 +58,20 @@ public abstract class Path {
     }
 
     protected String coordinates(double x, double y) {
-        return coordinates(x, y, CoordinateMode.ABSOLUTE);
+        return coordinates(x, y, CoordinateMode.ABSOLUTE, LengthUnit.DEFAULT);
+    }
+
+    protected String coordinates(double x, double y, LengthUnit lengthUnit) {
+        return coordinates(x, y, CoordinateMode.ABSOLUTE, lengthUnit);
     }
 
     protected String coordinates(double x, double y, CoordinateMode coordinateMode) {
-        // Avoid trailing zeros; ensure point is used as decimal separator
-        DecimalFormat df = new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.US));
-        return String.format("%s(%s, %s)", coordinateMode.getString(), df.format(x), df.format(y));
+        return coordinates(x, y, coordinateMode, LengthUnit.DEFAULT);
+    }
+
+
+    protected String coordinates(double x, double y, CoordinateMode coordinateMode, LengthUnit lengthUnit) {
+        return new Point.PointBuilder(x,y).xUnit(lengthUnit).yUnit(lengthUnit).coordinateMode(coordinateMode).build().getStatement();
     }
 
 

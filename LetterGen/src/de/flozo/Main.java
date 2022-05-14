@@ -167,11 +167,18 @@ public class Main {
                 .drawColor(new Color(ColorScheme.ORANGES, ColorLetter.H))
                 .lineWidth(6)
                 .dashPatternStyle(DashPatternStyle.DENSELY_DASH_DOT_DOT)
-                .nextPoint(25, 27)
+                .nextPoint(25, 27, CoordinateMode.RELATIVE_SET_ORIGIN, LengthUnit.POINT)
                 .cycle(true)
+                .nextPoint(2,3,LengthUnit.CENTIMETER)
                 .build();
         System.out.println(myLine.getStatement());
 
+//        Point myPoint = new Point.PointBuilder(0,0)
+//                .coordinateMode(CoordinateMode.RELATIVE_SET_ORIGIN)
+//                .xUnit(LengthUnit.EM)
+//                .yUnit(LengthUnit.CENTIMETER)
+//                .build();
+//        System.out.println(myPoint.getStatement());
 
     }
 
