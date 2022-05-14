@@ -30,9 +30,12 @@ public abstract class Path {
     protected LineCap lineCap;
     protected LineJoin lineJoin;
     protected DashPatternStyle dashPatternStyle;
+//    protected CoordinateMode coordinateMode;
 
 
-    public Path(double xOrigin, double yOrigin, List<String> optionalArguments, String name, Color drawColor, Color fillColor, LineWidthStyle lineWidthStyle, LineCap lineCap, LineJoin lineJoin, DashPatternStyle dashPatternStyle) {
+    public Path(double xOrigin, double yOrigin, List<String> optionalArguments, String name,
+                Color drawColor, Color fillColor, LineWidthStyle lineWidthStyle,
+                LineCap lineCap, LineJoin lineJoin, DashPatternStyle dashPatternStyle) {
         this.xOrigin = xOrigin;
         this.yOrigin = yOrigin;
         this.optionalArguments = optionalArguments;
@@ -43,6 +46,7 @@ public abstract class Path {
         this.lineCap = lineCap;
         this.lineJoin = lineJoin;
         this.dashPatternStyle = dashPatternStyle;
+//        this.coordinateMode = CoordinateMode.ABSOLUTE;
     }
 
     public abstract String getStatement();
@@ -59,9 +63,13 @@ public abstract class Path {
     }
 
     protected String coordinates(double x, double y) {
+        return coordinates(x,y,CoordinateMode.ABSOLUTE);
+    }
+
+    protected String coordinates(double x, double y, CoordinateMode coordinateMode) {
         // Avoid trailing zeros; ensure point is used as decimal separator
         DecimalFormat df = new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.US));
-        return String.format("(%s, %s)", df.format(x), df.format(y));
+        return String.format("%s(%s, %s)", coordinateMode.getString(), df.format(x), df.format(y));
     }
 
 

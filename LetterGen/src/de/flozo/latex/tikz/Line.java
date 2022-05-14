@@ -19,8 +19,9 @@ public class Line extends Path {
 
     // optional
     private final List<List<Double>> coordinateList;
+    private final List<CoordinateMode> coordinateModeList;
+    private CoordinateMode coordinateMode;
     private final boolean cycle;
-
 
 
     public Line(LineBuilder builder) {
@@ -37,9 +38,10 @@ public class Line extends Path {
         this.xNext = builder.xNext;
         this.yNext = builder.yNext;
         this.coordinateList = builder.coordinateList;
+        this.coordinateModeList = builder.coordinateModeList;
+        this.coordinateMode = builder.coordinateMode;
         this.cycle = builder.cycle;
     }
-
 
 
     @Override
@@ -56,12 +58,12 @@ public class Line extends Path {
         // Append required parts
         sb.append(" ").append(coordinates(xOrigin, yOrigin));
         sb.append(" ").append(OPERATION.getString());
-        sb.append(" ").append(coordinates(xNext, yNext));
+        sb.append(" ").append(coordinates(xNext, yNext, coordinateMode));
         // Append line segments if at least one more is present
         if (!coordinateList.isEmpty()) {
-            for (List<Double> doubles : coordinateList) {
+            for (int i = 0; i < coordinateList.size(); i++) {
                 sb.append(" ").append(OPERATION.getString());
-                sb.append(" ").append(coordinates(doubles.get(0), doubles.get(1)));
+                sb.append(" ").append(coordinates(coordinateList.get(i).get(0), coordinateList.get(i).get(1), coordinateModeList.get(i)));
             }
         }
         // Optional cycle command
@@ -74,11 +76,6 @@ public class Line extends Path {
     }
 
 
-
-
-
-
-
     public static class LineBuilder {
 
         // required
@@ -89,7 +86,9 @@ public class Line extends Path {
 
         // optional
         private String name;
+        private CoordinateMode coordinateMode;
         private final List<List<Double>> coordinateList = new ArrayList<>();
+        private final List<CoordinateMode> coordinateModeList = new ArrayList<>();
         private boolean cycle = false;
         private final List<String> optionalArguments = new ArrayList<>();
         private Color drawColor;
@@ -100,12 +99,16 @@ public class Line extends Path {
         private LineJoin lineJoin;
         private DashPatternStyle dashPatternStyle;
 
-
         public LineBuilder(double xOrigin, double yOrigin, double xNext, double yNext) {
+            this(xOrigin, yOrigin, xNext, yNext, CoordinateMode.ABSOLUTE);
+        }
+
+        public LineBuilder(double xOrigin, double yOrigin, double xNext, double yNext, CoordinateMode coordinateMode) {
             this.xOrigin = xOrigin;
             this.yOrigin = yOrigin;
             this.xNext = xNext;
             this.yNext = yNext;
+            this.coordinateMode = coordinateMode;
         }
 
         public LineBuilder name(String name) {
@@ -113,10 +116,16 @@ public class Line extends Path {
             return this;
         }
 
-        public LineBuilder addLineSegmentTo(double x, double y) {
+        public LineBuilder nextPoint(double x, double y) {
+            return nextPoint(x, y, coordinateMode);
+        }
+
+        public LineBuilder nextPoint(double x, double y, CoordinateMode coordinateMode) {
             this.coordinateList.add(new ArrayList<>(Arrays.asList(x, y)));
+            this.coordinateModeList.add(coordinateMode);
             return this;
         }
+
 
         public LineBuilder cycle(boolean cycle) {
             this.cycle = cycle;
