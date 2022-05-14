@@ -152,7 +152,6 @@ public class Main {
         System.out.println(myRectangle.getStatement());
 
 
-
         Circle myCircle = new Circle.CircleBuilder(5, 7)
                 .radius(5)
                 .xRadius(3)
@@ -161,6 +160,18 @@ public class Main {
                 .build();
 
         System.out.println(myCircle.getStatement());
+
+
+        Line myLine = new Line.LineBuilder(5, 5, 15, 15)
+                .addLineSegmentTo(20, 22)
+                .drawColor(new Color(ColorScheme.ORANGES, ColorLetter.H))
+                .lineWidth(6)
+                .dashPatternStyle(DashPatternStyle.DENSELY_DASH_DOT_DOT)
+                .addLineSegmentTo(25, 27)
+                .cycle(true)
+                .build();
+        System.out.println(myLine.getStatement());
+
 
     }
 
