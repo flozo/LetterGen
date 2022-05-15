@@ -126,12 +126,5 @@ public class LaTeXCode {
 //    }
 
 
-    public void writeToFile(List<String> codeLines, String outputFile) throws IOException {
-        try (PrintWriter printWriter = new PrintWriter(outputFile)) {
-            for (String codeLine : codeLines) {
-                printWriter.println(codeLine);
-            }
-        }
-    }
 
 }

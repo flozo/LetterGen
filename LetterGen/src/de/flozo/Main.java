@@ -8,6 +8,10 @@ import de.flozo.latex.letter.Enclosure;
 import de.flozo.latex.letter.SubjectField;
 import de.flozo.latex.tikz.Rectangle;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -169,17 +173,39 @@ public class Main {
                 .dashPatternStyle(DashPatternStyle.DENSELY_DASH_DOT_DOT)
                 .nextPoint(25, 27, CoordinateMode.RELATIVE_SET_ORIGIN, LengthUnit.POINT)
                 .cycle(true)
-                .nextPoint(2,3,LengthUnit.CENTIMETER)
+                .nextPoint(2, 3, LengthUnit.CENTIMETER)
                 .build();
         System.out.println(myLine.getStatement());
 
-//        Point myPoint = new Point.PointBuilder(0,0)
-//                .coordinateMode(CoordinateMode.RELATIVE_SET_ORIGIN)
-//                .xUnit(LengthUnit.EM)
-//                .yUnit(LengthUnit.CENTIMETER)
-//                .build();
-//        System.out.println(myPoint.getStatement());
+
+        ExpressionList tikzCode = new ExpressionList(myLine.getStatement());
+
+        Environment tikzpicture = new Environment.EnvironmentBuilder(EnvironmentName.TIKZPICTURE, tikzCode)
+                .build();
+
+        Environment document = new Environment.EnvironmentBuilder(EnvironmentName.DOCUMENT, tikzpicture.getExpressionList())
+                .build();
+
+
+        // Assemble final code
+        ExpressionList finalCode = new ExpressionList(preamble.getBlock());
+        finalCode.append(document.getExpressionList());
+
+        try {
+            writeToFile(finalCode.getLines(), "test_output.tex");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
+
+    public static void writeToFile(List<String> codeLines, String outputFile) throws IOException {
+        try (PrintWriter printWriter = new PrintWriter(outputFile)) {
+            for (String codeLine : codeLines) {
+                printWriter.println(codeLine);
+            }
+        }
+    }
+
 
 }

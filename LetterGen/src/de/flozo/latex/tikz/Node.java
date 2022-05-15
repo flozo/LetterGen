@@ -100,6 +100,7 @@ public class Node extends Path {
         private double xShift;
         private double yShift;
         private double textWidth;
+        private double textHeight;
         private double textDepth;
         private double minimumWidth;
         private double minimumHeight;
@@ -188,6 +189,12 @@ public class Node extends Path {
         public NodeBuilder textWidth(double textWidth) {
             this.textWidth = textWidth;
             this.optionalArguments.add("text width=" + textWidth);
+            return this;
+        }
+
+        public NodeBuilder textHeight(double textHeight) {
+            this.textHeight = textHeight;
+            this.optionalArguments.add("text height=" + textHeight);
             return this;
         }
 

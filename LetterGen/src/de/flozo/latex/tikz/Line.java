@@ -19,7 +19,7 @@ public class Line extends Path {
 
     // optional
     private final LengthUnit lengthUnit = LengthUnit.DEFAULT;
-    private List<Point> coordinateList;
+    private final List<Point> coordinateList;
     private final CoordinateMode coordinateMode;
     private final boolean cycle;
 
@@ -88,8 +88,6 @@ public class Line extends Path {
         private final CoordinateMode coordinateMode;
         private final LengthUnit lengthUnit = LengthUnit.DEFAULT;
         private final List<Point> coordinateList = new ArrayList<>();
-        //        private final List<List<Double>> coordinateList = new ArrayList<>();
-//        private final List<CoordinateMode> coordinateModeList = new ArrayList<>();
         private boolean cycle = false;
         private final List<String> optionalArguments = new ArrayList<>();
         private Color drawColor;

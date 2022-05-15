@@ -38,6 +38,9 @@ public class Environment {
         this.trailingOpeningBracketBody = builder.trailingOpeningBracketBody;
     }
 
+    public ExpressionList getExpressionList() {
+        return new ExpressionList(getBlock());
+    }
 
     public List<String> getBlock() {
         List<String> codeLines = new ArrayList<>();

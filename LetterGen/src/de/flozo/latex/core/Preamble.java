@@ -15,7 +15,7 @@ public class Preamble {
     }
 
 
-    // Add new usepackage statements; allow chaining of add method
+    // Add new usepackage statement; allow chaining of add method
     public Preamble add(PackageName packageName, String... options) {
         usepackageList.put(packageName, new ExpressionList(options));
         return this;
@@ -23,6 +23,7 @@ public class Preamble {
 
     public List<String> getBlock() {
         List<String> codeLines = new ArrayList<>();
+        codeLines.add(documentclass.getInline());
         for (Map.Entry<PackageName, ExpressionList> entry : usepackageList.entrySet()) {
             Usepackage usepackage = new Usepackage(entry.getKey(), entry.getValue());
             codeLines.add(usepackage.getInline());
