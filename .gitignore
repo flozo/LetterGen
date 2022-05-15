@@ -4,7 +4,17 @@
 # My rules:
 .idea
 *.iml
+# LaTeX files:
 *.tex
+*.log
+*.aux
+*.out
+*.synctex.gz
+*.ps
+*.eps
+*.dvi
+*.pdf
+
 
 # User-specific stuff
 .idea/**/workspace.xml
