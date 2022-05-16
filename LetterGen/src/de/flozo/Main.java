@@ -1,75 +1,14 @@
 package de.flozo;
 
 import de.flozo.latex.core.*;
-import de.flozo.latex.tikz.*;
-import de.flozo.latex.letter.Closing;
-import de.flozo.latex.letter.DateField;
-import de.flozo.latex.letter.Enclosure;
-import de.flozo.latex.letter.SubjectField;
-import de.flozo.latex.tikz.Rectangle;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
+import de.flozo.latex.tikz.CoordinateMode;
+import de.flozo.latex.tikz.DashPatternStyle;
+import de.flozo.latex.tikz.Line;
 
 public class Main {
 
     public static void main(String[] args) {
 
-//        LaTeXCode code = new LaTeXCode();
-
-//        ExpressionList pgfonlayerCode = new ExpressionList(
-//                "\\fill [fill=black] (0, 0) rectangle (21.0, 29.7);",
-//                "\\fill [fill=white] (0, 0) rectangle (21.0, 29.7);"
-//        );
-        ExpressionList codeBlock = new ExpressionList(
-                "% Test line",
-                "% Another test line",
-                "% And another one"
-        );
-
-        ExpressionList codeBlock2 = new ExpressionList(
-                "% And another one",
-                "% And another one",
-                "% And another one"
-        );
-
-
-        ExpressionList expressionList = new ExpressionList(
-                "inner xsep=0pt",
-                "inner ysep=0pt",
-                "trim left=0pt",
-                "trim right={20 cm}"
-        );
-
-//        ArgumentList argumentListOptions = new ArgumentList(String.valueOf(expressionList.getLines()));
-//        ArgumentList argumentListBody = new ArgumentList(String.valueOf(codeBlock));
-//        String body = argumentListBody.getInline();
-//        InlineCommand inlineCommand = new InlineCommand("usepackage", argumentListOptions, body);
-//        for (String line : inlineCommand.getLines()) {
-//            System.out.println(line);
-//        }
-
-
-//        Code code = new Code.CodeBuilder(expressionList)
-//                .terminator(StatementTerminator.COMMA)
-//                .dropLast(true)
-//                .brackets(Bracket.SQUARE_BRACKETS)
-//                .build();
-
-
-//        Code optionList = new Code.CodeBuilder(expressionList)
-//                .terminator(StatementTerminator.COMMA)
-//                .brackets(Bracket.SQUARE_BRACKETS)
-//                .interBracketSpacing(true)
-//                .skipLast(true)
-//                .build();
-
-//        System.out.println("------- optionList");
-//        for (String line : optionList.getBlock()) {
-//            System.out.println(line);
-//        }
-//        System.out.println("------- optionList");
 
         Documentclass documentclass = new Documentclass(PackageName.STANDALONE, "12pt", "tikz", "multi", "crop");
 
@@ -88,84 +27,35 @@ public class Main {
                 .add(PackageName.HYPERREF, "unicode");
 
 
-        for (String line : preamble.getBlock()) {
-            System.out.println(line);
-        }
+//        Node myNode = new Node.NodeBuilder(2.5, 127.10, "Test text")
+//                .anchor(Anchor.NORTH_WEST)
+//                .textWidth(16.5)
+//                .fontSize(FontSize.LARGE)
+//                .drawColor(new Color(ColorScheme.BLUES, ColorLetter.M))
+//                .xShift(0.1)
+//                .yShift(0.5)
+//                .minimumWidth(9.0)
+//                .textColor(new Color(ColorScheme.ORANGES, ColorLetter.D))
+//                .minimumHeight(2.73)
+//                .alignment(Alignment.CENTER)
+//                .textDepth(0.5)
+//                .name("name")
+//                .build();
+//
+//        System.out.println(myNode.getStatement());
+//
 
 
-        Node myNode = new Node.NodeBuilder(2.5, 127.10, "Test text")
-                .anchor(Anchor.NORTH_WEST)
-                .textWidth(16.5)
-                .fontSize(FontSize.LARGE)
-                .drawColor(new Color(ColorScheme.BLUES, ColorLetter.M))
-                .xShift(0.1)
-                .yShift(0.5)
-                .minimumWidth(9.0)
-                .textColor(new Color(ColorScheme.ORANGES, ColorLetter.D))
-                .minimumHeight(2.73)
-                .alignment(Alignment.CENTER)
-                .textDepth(0.5)
-                .name("name")
-                .build();
-
-        System.out.println(myNode.getStatement());
-
-        System.out.println("**************");
-        Node mySecondNode = new Node.NodeBuilder(0.123, 0.346, "This is a new test")
-                .name("MyNode")
-                .textWidth(10.5)
-                .lineCap(LineCap.BUTT)
-                .lineJoin(LineJoin.ROUND)
-                .lineWidthStyle(LineWidthStyle.ULTRA_THICK)
-                .drawColor(new Color(ColorScheme.BU_GN, ColorLetter.C))
-                .dashPatternStyle(DashPatternStyle.DENSELY_DASH_DOT_DOT)
-                .innerXSep(6)
-                .innerYSep(12)
-                .build();
-        System.out.println(mySecondNode.getStatement());
-        System.out.println("**************");
-
-
-        Closing closing = new Closing("/home/user/images/signature.pdf",
-                "Sincerely",
-                "My Name",
-                2.5,
-                5.7);
-        System.out.println(closing.generate());
-
-        ExpressionList enclosureItems = new ExpressionList("CV", "Certificate1", "Certificate2");
-        Enclosure enclosure = new Enclosure("As attachment", enclosureItems, 2.5, 5.7);
-        System.out.println(enclosure.generate());
-
-        SubjectField subjectField = new SubjectField(2.5, 18.5, "Application for Java developer position");
-        System.out.println(subjectField.generate());
-        DateField dateField = new DateField(19.0, 19.2, "City", "01.01.2022");
-        System.out.println(dateField.generate());
-
-
-        System.out.println("~~~~~~~~~~~~~");
-        Rectangle myRectangle = new Rectangle.RectangleBuilder(0, 0, 10, 10)
-                .drawColor(new Color(ColorScheme.BU_GN, ColorLetter.M))
-                .fillColor(new Color(ColorScheme.GREYS, ColorLetter.D))
-                .lineWidthStyle(LineWidthStyle.SEMITHICK)
-                .lineCap(LineCap.ROUND)
-                .lineWidth(20)
-                .name("Naaaame")
-                .build();
-
-        System.out.println(myRectangle.getStatement());
-
-
-        Circle myCircle = new Circle.CircleBuilder(5, 7)
-                .radius(5)
-                .xRadius(3)
-                .fillColor(new Color(ColorScheme.PURPLES, ColorLetter.H))
-                .yRadius(8)
-                .build();
-
-        System.out.println(myCircle.getStatement());
-
-
+//        Circle myCircle = new Circle.CircleBuilder(5, 7)
+//                .radius(5)
+//                .xRadius(3)
+//                .fillColor(new Color(ColorScheme.PURPLES, ColorLetter.H))
+//                .yRadius(8)
+//                .build();
+//
+//        System.out.println(myCircle.getStatement());
+//
+//
         Line myLine = new Line.LineBuilder(5, 5, 15, 15, CoordinateMode.RELATIVE)
                 .nextPoint(20, 22, CoordinateMode.ABSOLUTE)
                 .drawColor(new Color(ColorScheme.ORANGES, ColorLetter.H))
@@ -175,13 +65,33 @@ public class Main {
                 .cycle(true)
                 .nextPoint(2, 3, LengthUnit.CENTIMETER)
                 .build();
-        System.out.println(myLine.getStatement());
+
+        Command usetikzlibrary = new Command(CommandName.USETIKZLIBRARY,
+                "positioning",
+                "math",
+                "colorbrewer",
+                "backgrounds",
+                "matrix");
+        Command standaloneenv = new Command(CommandName.STANDALONEENV, "tikzpicture");
+        Command hypersetup = new Command(CommandName.HYPERSETUP,
+                "colorlinks=true",
+                "urlcolor=Blues-K",
+                "pdftitle={Application}",
+                "pdfauthor={My Name}");
 
 
         ExpressionList tikzCode = new ExpressionList(myLine.getStatement());
 
+        ExpressionList packageSettings = new ExpressionList(usetikzlibrary.getBlock());
+        packageSettings.append(new ExpressionList(standaloneenv.getBlock())).append(new ExpressionList(hypersetup.getBlock()));
+
         Environment tikzpicture = new Environment.EnvironmentBuilder(EnvironmentName.TIKZPICTURE, tikzCode)
                 .build();
+
+        for (String line : tikzpicture.getExpressionList().getLines()) {
+            System.out.println(line);
+        }
+
 
         Environment document = new Environment.EnvironmentBuilder(EnvironmentName.DOCUMENT, tikzpicture.getExpressionList())
                 .build();
@@ -189,23 +99,19 @@ public class Main {
 
         // Assemble final code
         ExpressionList finalCode = new ExpressionList(preamble.getBlock());
+        finalCode.append(packageSettings);
         finalCode.append(document.getExpressionList());
 
-        try {
-            writeToFile(finalCode.getLines(), "test_output.tex");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+
+        String fileName = "test_output.tex";
+        String directory = "/tmp";
+
+
+        OutputFile outputFile = new OutputFile(directory, fileName, finalCode.getLines());
+        outputFile.create(true, true);
+
 
     }
-
-    public static void writeToFile(List<String> codeLines, String outputFile) throws IOException {
-        try (PrintWriter printWriter = new PrintWriter(outputFile)) {
-            for (String codeLine : codeLines) {
-                printWriter.println(codeLine);
-            }
-        }
-    }
-
 
 }

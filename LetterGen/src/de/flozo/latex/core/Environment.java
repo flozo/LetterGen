@@ -5,9 +5,12 @@ import java.util.List;
 
 public class Environment {
 
-    // constants for option defaults
+    // constants
+    public static final String COMMAND_MARKER_CHAR = "\\";
     public static final String OPENING_KEYWORD = "begin";
     public static final String CLOSING_KEYWORD = "end";
+    public static final String OPENING_COMMAND = COMMAND_MARKER_CHAR + OPENING_KEYWORD;
+    public static final String CLOSING_COMMAND = COMMAND_MARKER_CHAR + CLOSING_KEYWORD;
     public static final Bracket ENVIRONMENT_NAME_BRACKET = Bracket.CURLY_BRACES;
     public static final String SPACE_BEFORE_OPTION_LIST = " ";
     public static final String INDENT_CHARACTER = "\t";
@@ -69,23 +72,23 @@ public class Environment {
 
     private String buildFirstLine(Code argumentList, Code body) {
         // Example: \begin{tikzpicture} [inner xsep=0pt, inner ysep=0pt] {
-        return buildTag(OPENING_KEYWORD) + SPACE_BEFORE_OPTION_LIST + argumentList.getInline() +
+        return buildTag(OPENING_COMMAND) + SPACE_BEFORE_OPTION_LIST + argumentList.getInline() +
                 (trailingOpeningBracketBody ? " " + body.getBrackets().getLeftBracket() : "");
     }
 
     private String openingTag() {
         // Example: \begin
-        return buildTag(OPENING_KEYWORD);
+        return buildTag(OPENING_COMMAND);
     }
 
     private String closingTag() {
         // Example: \end
-        return buildTag(CLOSING_KEYWORD);
+        return buildTag(CLOSING_COMMAND);
     }
 
-    private String buildTag(String keyword) {
+    private String buildTag(String command) {
         // Example: \begin{tikzpicture}
-        return "\\" + keyword + ENVIRONMENT_NAME_BRACKET.getLeftBracket() +
+        return command + ENVIRONMENT_NAME_BRACKET.getLeftBracket() +
                 name.getString() + ENVIRONMENT_NAME_BRACKET.getRightBracket();
     }
 
