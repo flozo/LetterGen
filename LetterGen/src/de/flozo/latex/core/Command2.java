@@ -18,6 +18,8 @@ public class Command2 {
     public static final boolean DEFAULT_SKIP_LAST_TERMINATOR_BODY = true;
     public static final boolean DEFAULT_INLINE_SPACING_OPTIONS = true;
     public static final boolean DEFAULT_INLINE_SPACING_BODY = true;
+    public static final boolean DEFAULT_INDENT_BODY = true;
+    public static final boolean DEFAULT_INDENT_OPTIONS = true;
 
 
     // required
@@ -34,6 +36,8 @@ public class Command2 {
     private final boolean skipLastTerminatorBody;
     private final boolean inlineSpacingOptions;
     private final boolean inlineSpacingBody;
+    private final boolean indentBody;
+    private final boolean indentOptions;
 
 
     private Command2(Command2Builder builder) {
@@ -48,16 +52,26 @@ public class Command2 {
         this.skipLastTerminatorBody = builder.skipLastTerminatorBody;
         this.inlineSpacingOptions = builder.inlineSpacingOptions;
         this.inlineSpacingBody = builder.inlineSpacingBody;
+        this.indentBody = builder.indentBody;
+        this.indentOptions = builder.indentOptions;
     }
 
     public List<String> getBlock() {
         List<String> codeLines = new ArrayList<>();
         codeLines.add(COMMAND_MARKER_CHAR + name.getString());
         if (optionList != null) {
-            codeLines.addAll(assembleOptionList().getBlock());
+            if (indentOptions) {
+                codeLines.addAll(indent(assembleOptionList().getBlock()));
+            } else {
+                codeLines.addAll(assembleOptionList().getBlock());
+            }
         }
         if (body != null) {
-            codeLines.addAll(assembleBody().getBlock());
+            if (indentBody) {
+                codeLines.addAll(indent(assembleBody().getBlock()));
+            } else {
+                codeLines.addAll(assembleBody().getBlock());
+            }
         }
         return codeLines;
     }
@@ -93,8 +107,10 @@ public class Command2 {
                 .build();
     }
 
-    private void indent(List<String> code) {
-        code.replaceAll(s -> INDENT_CHARACTER + s);
+    private List<String> indent(List<String> code) {
+        List<String> indentedCode = new ArrayList<>(code);
+        indentedCode.replaceAll(s -> INDENT_CHARACTER + s);
+        return indentedCode;
     }
 
     public static class Command2Builder {
@@ -113,6 +129,8 @@ public class Command2 {
         private boolean skipLastTerminatorBody = DEFAULT_SKIP_LAST_TERMINATOR_BODY;
         private boolean inlineSpacingOptions = DEFAULT_INLINE_SPACING_OPTIONS;
         private boolean inlineSpacingBody = DEFAULT_INLINE_SPACING_BODY;
+        private boolean indentBody = DEFAULT_INDENT_BODY;
+        private boolean indentOptions = DEFAULT_INDENT_OPTIONS;
 
 
         public Command2Builder(CommandName name) {
@@ -191,6 +209,15 @@ public class Command2 {
             return this;
         }
 
+        public Command2Builder indentBody(boolean indentBody) {
+            this.indentBody = indentBody;
+            return this;
+        }
+
+        public Command2Builder indentOptions(boolean indentOptions) {
+            this.indentOptions = indentOptions;
+            return this;
+        }
 
         public Command2 build() {
             return new Command2(this);

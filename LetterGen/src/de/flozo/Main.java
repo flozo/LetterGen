@@ -125,7 +125,7 @@ public class Main {
 
         Command2 command2 = new Command2.Command2Builder(CommandName.USEPACKAGE)
                 .optionTerminator(StatementTerminator.COMMA)
-                .bodyTerminator(StatementTerminator.DOUBLE_BACKSLASH)
+                .bodyTerminator(StatementTerminator.NONE)
                 .inlineSpacingOptions(true)
                 .optionList("sfdefault", "scaled=1.0098")
                 .body("FiraSans")
@@ -139,24 +139,37 @@ public class Main {
         }
         System.out.println(command2.getInline());
 
-
-        // Assemble final code
-        ExpressionList finalCode = new ExpressionList(preamble.getBlock());
-        finalCode.append(packageSettings);
-        finalCode.append(document.getExpressionList());
-
-
-
-        String fileName = "test_output.tex";
-        String directory = "/tmp";
-
-
-        OutputFile outputFile = new OutputFile(directory, fileName, finalCode.getLines());
-        if (outputFile.create(true, true)) {
-            System.out.println("[output] Done!");
-        } else {
-            System.out.println("[output] Something went wrong!");
+        Command2 command21 = new Command2.Command2Builder(CommandName.HYPERSETUP)
+                .body(
+                        "colorlinks=true",
+                        "urlcolor=Blues-K",
+                        "pdftitle={Application}",
+                        "pdfauthor={My Name}"
+                )
+                .optionList("option1", "option2")
+                .bodyTerminator(StatementTerminator.COMMA)
+                .build();
+        for (String line : command21.getBlock()) {
+            System.out.println(line);
         }
+
+//        // Assemble final code
+//        ExpressionList finalCode = new ExpressionList(preamble.getBlock());
+//        finalCode.append(packageSettings);
+//        finalCode.append(document.getExpressionList());
+//
+//
+//
+//        String fileName = "test_output.tex";
+//        String directory = "/tmp";
+//
+//
+//        OutputFile outputFile = new OutputFile(directory, fileName, finalCode.getLines());
+//        if (outputFile.create(true, true)) {
+//            System.out.println("[output] Done!");
+//        } else {
+//            System.out.println("[output] Something went wrong!");
+//        }
 
 
     }

@@ -43,19 +43,26 @@ public class ExpressionList2 {
 
     // Return assembled code with optional additional spacing
     public String getInline() {
-        return brackets.getLeftBracket() +
-                String.join(inlineSpacing ? INLINE_SEPARATOR : "", assembleCode(false)) +
-                brackets.getRightBracket();
+        if (expressions == null) {
+            return "";
+        } else {
+            return brackets.getLeftBracket() +
+                    String.join(inlineSpacing ? INLINE_SEPARATOR : "", assembleCode(false)) +
+                    brackets.getRightBracket();
+        }
     }
 
     // Return expression with terminator and brackets added
     private List<String> assembleCode(boolean addBrackets) {
-        List<String> codeLines = new ArrayList<>(expressions);
-        if (terminator != StatementTerminator.NONE) {
-            addTerminator(codeLines);
-        }
-        if (brackets != Bracket.NONE && addBrackets) {
-            encloseInBrackets(codeLines);
+        List<String> codeLines = new ArrayList<>();
+        if (expressions != null) {
+            codeLines.addAll(expressions);
+            if (terminator != StatementTerminator.NONE) {
+                addTerminator(codeLines);
+            }
+            if (brackets != Bracket.NONE && addBrackets) {
+                encloseInBrackets(codeLines);
+            }
         }
         return codeLines;
     }
