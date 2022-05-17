@@ -11,7 +11,7 @@ public class Code {
     public static final String INTER_BRACKET_SEPARATOR = " ";
 
     // constants for option defaults
-    public static final StatementTerminator DEFAULT_TERMINATOR = StatementTerminator.COMMA;
+    public static final StatementTerminator DEFAULT_TERMINATOR = StatementTerminator.NONE;
     public static final boolean DEFAULT_INLINE_SPACING = true;
     public static final Bracket DEFAULT_BRACKETS = Bracket.NONE;
     public static final boolean DEFAULT_SKIP_LAST = true;

@@ -97,20 +97,67 @@ public class Main {
                 .build();
 
 
-        // Assemble final code
-        ExpressionList finalCode = new ExpressionList(preamble.getBlock());
-        finalCode.append(packageSettings);
-        finalCode.append(document.getExpressionList());
+        System.out.println("**************************");
+        ExpressionList2 list2 = new ExpressionList2.ExpressionList2Builder("bla1", "bla2", "bla3").build();
+
+        ExpressionList2 expressionList2 = new ExpressionList2.ExpressionList2Builder("test1", "test2", "test3")
+                .brackets(Bracket.PARENTHESIS)
+                .terminator(StatementTerminator.COMMA)
+                .skipLastTerminator(true)
+                .prepend(list2.getExpressions())
+                .inlineSpacing(true)
+                .append(list2.getExpressions())
+                .append("line1", "line2")
+                .prepend("another line1", "another lin2")
+                .build();
+        for (String line : expressionList2.getExpressions()) {
+            System.out.println(line);
+        }
+        System.out.println("**************************");
+
+        for (String line : expressionList2.getBlock()) {
+            System.out.println(line);
+        }
+        System.out.println("**************************");
+
+        System.out.println(expressionList2.getInline());
+        System.out.println("**************************");
+
+        Command2 command2 = new Command2.Command2Builder(CommandName.USEPACKAGE)
+                .optionTerminator(StatementTerminator.COMMA)
+                .bodyTerminator(StatementTerminator.DOUBLE_BACKSLASH)
+                .inlineSpacingOptions(true)
+                .optionList("sfdefault", "scaled=1.0098")
+                .body("FiraSans")
+                .bodyBrackets(Bracket.CURLY_BRACES)
+                .optionBrackets(Bracket.SQUARE_BRACKETS)
+                .skipLastTerminatorBody(true)
+                .skipLastTerminatorOptions(true)
+                .build();
+        for (String line : command2.getInlineOptions()) {
+            System.out.println(line);
+        }
+        System.out.println(command2.getInline());
 
 
-
-        String fileName = "test_output.tex";
-        String directory = "/tmp";
-
-
-        OutputFile outputFile = new OutputFile(directory, fileName, finalCode.getLines());
-        outputFile.create(true, true);
-
+//        // Assemble final code
+//        ExpressionList finalCode = new ExpressionList(preamble.getBlock());
+//        finalCode.append(packageSettings);
+//        finalCode.append(document.getExpressionList());
+//
+//
+//
+//        String fileName = "test_output.tex";
+//        String directory = "/tmp";
+//
+//
+//        OutputFile outputFile = new OutputFile(directory, fileName, finalCode.getLines());
+//        if (outputFile.create(true, true)) {
+//            System.out.println("[output] Done!");
+//        } else {
+//            System.out.println("[output] Something went wrong!");
+//        }
+//
 
     }
 

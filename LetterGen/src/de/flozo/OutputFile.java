@@ -29,29 +29,36 @@ public class OutputFile {
     }
 
 
-    public void create(boolean runPDFLatex, boolean openPDF) {
+    public boolean create(boolean runPDFLatex, boolean openPDF) {
         Path pathOfTexFile = Paths.get(outputDirectory, fileNameLatex);
         Path pathOfOutputLogFile = Paths.get(outputDirectory, fileNameOutputLog);
         Path pathOfErrorLogFile = Paths.get(outputDirectory, fileNameErrorLog);
         if (writeToFile(fileContent, pathOfTexFile.toString())) {
             System.out.println("[output] ... success!");
+        } else {
+            return false;
         }
         if (runPDFLatex || openPDF) {
             if (runPDFLatex(outputDirectory, fileNameLatex)) {
                 System.out.println("[output] ... success!");
+            } else {
+                return false;
             }
         }
         if (openPDF) {
             if (openPDF(removeFileExtension(pathOfTexFile.toString()) + "." + fileExtension)) {
                 System.out.println("[output] ... success!");
+            } else {
+                return false;
             }
         }
+        return true;
     }
 
 
     public boolean writeToFile(List<String> codeLines, String outputFile) {
         System.out.println("[output] Writing LaTeX code to file \"" + outputFile + "\" ...");
-        try (PrintWriter printWriter = new PrintWriter(outputDirectory, outputFile)) {
+        try (PrintWriter printWriter = new PrintWriter(outputFile)) {
             for (String codeLine : codeLines) {
                 printWriter.println(codeLine);
             }
