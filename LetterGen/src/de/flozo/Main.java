@@ -140,24 +140,24 @@ public class Main {
         System.out.println(command2.getInline());
 
 
-//        // Assemble final code
-//        ExpressionList finalCode = new ExpressionList(preamble.getBlock());
-//        finalCode.append(packageSettings);
-//        finalCode.append(document.getExpressionList());
-//
-//
-//
-//        String fileName = "test_output.tex";
-//        String directory = "/tmp";
-//
-//
-//        OutputFile outputFile = new OutputFile(directory, fileName, finalCode.getLines());
-//        if (outputFile.create(true, true)) {
-//            System.out.println("[output] Done!");
-//        } else {
-//            System.out.println("[output] Something went wrong!");
-//        }
-//
+        // Assemble final code
+        ExpressionList finalCode = new ExpressionList(preamble.getBlock());
+        finalCode.append(packageSettings);
+        finalCode.append(document.getExpressionList());
+
+
+
+        String fileName = "test_output.tex";
+        String directory = "/tmp";
+
+
+        OutputFile outputFile = new OutputFile(directory, fileName, finalCode.getLines());
+        if (outputFile.create(true, true)) {
+            System.out.println("[output] Done!");
+        } else {
+            System.out.println("[output] Something went wrong!");
+        }
+
 
     }
 
