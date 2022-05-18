@@ -20,6 +20,8 @@ public class Command2 {
     public static final boolean DEFAULT_INLINE_SPACING_BODY = true;
     public static final boolean DEFAULT_INDENT_BODY = true;
     public static final boolean DEFAULT_INDENT_OPTIONS = true;
+    public static final boolean DEFAULT_TRAILING_OPENING_BRACKET = true;
+    public static final boolean DEFAULT_INTER_BRACKET_SPACE = true;
 
 
     // required
@@ -38,6 +40,8 @@ public class Command2 {
     private final boolean inlineSpacingBody;
     private final boolean indentBody;
     private final boolean indentOptions;
+    private final boolean trailingOpeningBracket;
+    private final boolean interBracketSpace;
 
 
     private Command2(Command2Builder builder) {
@@ -54,33 +58,29 @@ public class Command2 {
         this.inlineSpacingBody = builder.inlineSpacingBody;
         this.indentBody = builder.indentBody;
         this.indentOptions = builder.indentOptions;
+        this.trailingOpeningBracket = builder.trailingOpeningBracket;
+        this.interBracketSpace = builder.interBracketSpace;
     }
 
     public List<String> getBlock() {
         List<String> codeLines = new ArrayList<>();
-        codeLines.add(COMMAND_MARKER_CHAR + name.getString());
+        codeLines.add(getFirstLine());
         if (optionList != null) {
-            if (indentOptions) {
-                codeLines.addAll(indent(assembleOptionList().getBlock()));
-            } else {
-                codeLines.addAll(assembleOptionList().getBlock());
-            }
+            codeLines.addAll(getOptionBlock());
+        }
+        if (trailingOpeningBracket && optionList != null) {
+            codeLines.add(bracketLine());
         }
         if (body != null) {
-            if (indentBody) {
-                codeLines.addAll(indent(assembleBody().getBlock()));
-            } else {
-                codeLines.addAll(assembleBody().getBlock());
-            }
+            codeLines.addAll(getBodyBlock());
         }
         return codeLines;
     }
 
-
     public List<String> getInlineOptions() {
         List<String> codeLines = new ArrayList<>();
-        codeLines.add(COMMAND_MARKER_CHAR + name.getString() + assembleOptionList().getInline());
-        codeLines.addAll(assembleBody().getBlock());
+        codeLines.add(getFirstLineInline());
+        codeLines.addAll(getBodyBlock());
         return codeLines;
     }
 
@@ -88,6 +88,23 @@ public class Command2 {
         return COMMAND_MARKER_CHAR + name.getString() + assembleOptionList().getInline() + assembleBody().getInline();
     }
 
+
+    private List<String> getOptionBlock() {
+        boolean skipClosingBracket = body != null && trailingOpeningBracket;
+        List<String> codeLines = new ArrayList<>(assembleOptionList().getBlock(trailingOpeningBracket, skipClosingBracket));
+        if (indentOptions) {
+            return indent(codeLines);
+        }
+        return codeLines;
+    }
+
+    private List<String> getBodyBlock() {
+        List<String> codeLines = new ArrayList<>(assembleBody().getBlock(trailingOpeningBracket, false));
+        if (indentBody) {
+            return indent(codeLines);
+        }
+        return codeLines;
+    }
 
     private ExpressionList2 assembleOptionList() {
         return new ExpressionList2.ExpressionList2Builder(optionList)
@@ -107,10 +124,54 @@ public class Command2 {
                 .build();
     }
 
+    private List<String> indent(String... code) {
+        return indent(new ArrayList<>(List.of(code)));
+    }
+
     private List<String> indent(List<String> code) {
         List<String> indentedCode = new ArrayList<>(code);
         indentedCode.replaceAll(s -> INDENT_CHARACTER + s);
         return indentedCode;
+    }
+
+    private String getFirstLine() {
+        StringBuilder firstLine = new StringBuilder(COMMAND_MARKER_CHAR + name.getString());
+        if (optionList == null && body == null) {
+            return firstLine.toString();
+        }
+        firstLine.append(interBracketSpace ? " " : "");
+        String trailingBracket = optionList == null ? bodyBrackets.getLeftBracket() : optionBrackets.getLeftBracket();
+        if (trailingOpeningBracket) {
+            firstLine.append(trailingBracket);
+        }
+        return firstLine.toString();
+    }
+
+    private String getFirstLineInline() {
+        StringBuilder firstLine = new StringBuilder(COMMAND_MARKER_CHAR + name.getString());
+        if (optionList == null && body == null) {
+            return firstLine.toString();
+        }
+        firstLine.append(assembleOptionList().getInline());
+        firstLine.append(interBracketSpace ? " " : "");
+        if (trailingOpeningBracket && body != null) {
+            firstLine.append(bodyBrackets.getLeftBracket());
+        }
+        return firstLine.toString();
+    }
+
+
+    private String bracketLine() {
+        StringBuilder line = new StringBuilder();
+        if (optionList != null) {
+            line.append(optionBrackets.getRightBracket());
+            line.append(interBracketSpace ? " " : "");
+        }
+        line.append(bodyBrackets.getLeftBracket());
+        if (indentOptions) {
+            return indent(line.toString()).get(0);
+        }
+        return line.toString();
     }
 
     public static class Command2Builder {
@@ -131,6 +192,8 @@ public class Command2 {
         private boolean inlineSpacingBody = DEFAULT_INLINE_SPACING_BODY;
         private boolean indentBody = DEFAULT_INDENT_BODY;
         private boolean indentOptions = DEFAULT_INDENT_OPTIONS;
+        private boolean trailingOpeningBracket = DEFAULT_TRAILING_OPENING_BRACKET;
+        private boolean interBracketSpace = DEFAULT_INTER_BRACKET_SPACE;
 
 
         public Command2Builder(CommandName name) {
@@ -149,11 +212,6 @@ public class Command2 {
             this.optionList = optionList;
             return this;
         }
-
-//        public Command2Builder optionList(ExpressionList2 optionList) {
-//            this.optionList = optionList.getBlock();
-//            return this;
-//        }
 
 
         // Accept ExpressionList, List<String>, or any number of Strings as body.
@@ -218,6 +276,17 @@ public class Command2 {
             this.indentOptions = indentOptions;
             return this;
         }
+
+        public Command2Builder trailingOpeningBracket(boolean trailingOpeningBracket) {
+            this.trailingOpeningBracket = trailingOpeningBracket;
+            return this;
+        }
+
+        public Command2Builder interBracketSpace(boolean interBracketSpace) {
+            this.interBracketSpace = interBracketSpace;
+            return this;
+        }
+
 
         public Command2 build() {
             return new Command2(this);

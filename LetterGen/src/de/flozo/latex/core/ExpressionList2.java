@@ -36,9 +36,13 @@ public class ExpressionList2 {
         return expressions;
     }
 
-    // Return assembled code enclosed in brackets as new ArrayList
+    // Return assembled code (optionally) enclosed in brackets as new ArrayList
     public List<String> getBlock() {
-        return new ArrayList<>(assembleCode(true));
+        return getBlock(false, false);
+    }
+
+    public List<String> getBlock(boolean skipOpeningBracket, boolean skipClosingBracket) {
+        return new ArrayList<>(assembleCode(skipOpeningBracket, skipClosingBracket));
     }
 
     // Return assembled code with optional additional spacing
@@ -47,21 +51,21 @@ public class ExpressionList2 {
             return "";
         } else {
             return brackets.getLeftBracket() +
-                    String.join(inlineSpacing ? INLINE_SEPARATOR : "", assembleCode(false)) +
+                    String.join(inlineSpacing ? INLINE_SEPARATOR : "", assembleCode(true, true)) +
                     brackets.getRightBracket();
         }
     }
 
     // Return expression with terminator and brackets added
-    private List<String> assembleCode(boolean addBrackets) {
+    private List<String> assembleCode(boolean skipOpeningBracket, boolean skipClosingBracket) {
         List<String> codeLines = new ArrayList<>();
         if (expressions != null) {
             codeLines.addAll(expressions);
             if (terminator != StatementTerminator.NONE) {
                 addTerminator(codeLines);
             }
-            if (brackets != Bracket.NONE && addBrackets) {
-                encloseInBrackets(codeLines);
+            if (brackets != Bracket.NONE) {
+                encloseInBrackets(codeLines, skipOpeningBracket, skipClosingBracket);
             }
         }
         return codeLines;
@@ -77,11 +81,13 @@ public class ExpressionList2 {
         }
     }
 
-    private void encloseInBrackets(List<String> codeLines) {
-//        if (!skipOpeningBracket) {
-        codeLines.add(0, brackets.getLeftBracket());
-//        }
-        codeLines.add(brackets.getRightBracket());
+    private void encloseInBrackets(List<String> codeLines, boolean skipOpeningBracket, boolean skipClosingBracket) {
+        if (!skipOpeningBracket) {
+            codeLines.add(0, brackets.getLeftBracket());
+        }
+        if (!skipClosingBracket) {
+            codeLines.add(brackets.getRightBracket());
+        }
     }
 
 

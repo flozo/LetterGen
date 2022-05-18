@@ -148,10 +148,14 @@ public class Main {
                 )
                 .optionList("option1", "option2")
                 .bodyTerminator(StatementTerminator.COMMA)
+                .skipLastTerminatorOptions(false)
+                .skipLastTerminatorBody(false)
+                .trailingOpeningBracket(true)
                 .build();
-        for (String line : command21.getBlock()) {
+        for (String line : command21.getInlineOptions()) {
             System.out.println(line);
         }
+        System.out.println(command21.getInline());
 
 //        // Assemble final code
 //        ExpressionList finalCode = new ExpressionList(preamble.getBlock());
