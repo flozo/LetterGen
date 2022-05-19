@@ -157,6 +157,22 @@ public class Main {
         }
         System.out.println(command21.getInline());
 
+
+        Environment2 myEnvironment = new Environment2.Environment2Builder(EnvironmentName.TIKZPICTURE)
+                .requiredArguments("background")
+                .body("positioning",
+                        "math",
+                        "colorbrewer",
+                        "backgrounds"
+                        )
+                .optionalArguments("test1=1", "test2=99")
+                .build();
+
+        for (String line : myEnvironment.getBlock()) {
+            System.out.println(line);
+        }
+
+
 //        // Assemble final code
 //        ExpressionList finalCode = new ExpressionList(preamble.getBlock());
 //        finalCode.append(packageSettings);
