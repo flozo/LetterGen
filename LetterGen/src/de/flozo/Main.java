@@ -1,10 +1,13 @@
 package de.flozo;
 
 import de.flozo.data.Defaults;
+import de.flozo.data.Settings;
 import de.flozo.latex.core.*;
 import de.flozo.latex.tikz.Layer;
 import de.flozo.latex.tikz.LayerEnvironment;
 import de.flozo.latex.tikz.Rectangle;
+
+import java.util.Map;
 
 public class Main {
 
@@ -82,6 +85,11 @@ public class Main {
             System.out.println(line);
         }
 
+        Map<String,String> letterSettings = new Settings().getVerifiedPropertiesMap();
+//        String backgroundColor = letterSettings.getProperties().getProperty("paper.width", 21.0);
+        String paperWidth = letterSettings.get("paper.width");
+//        double paperWidth = Double.parseDouble(letterSettings.getProperties().getProperty("paper.width", "21.0"));
+        System.out.println(paperWidth);
 
 //        // Assemble final code
 //        ExpressionList finalCode = new ExpressionList(preamble.getBlock());
