@@ -25,7 +25,8 @@ public class Command2 {
 
 
     // required
-    private final CommandName name;
+//    private final CommandName name;
+    private final String name;
 
     // optional
     private final List<String> optionList;
@@ -85,7 +86,7 @@ public class Command2 {
     }
 
     public String getInline() {
-        return COMMAND_MARKER_CHAR + name.getString() + assembleOptionList().getInline() + assembleBody().getInline();
+        return COMMAND_MARKER_CHAR + name + assembleOptionList().getInline() + assembleBody().getInline();
     }
 
 
@@ -135,7 +136,7 @@ public class Command2 {
     }
 
     private String getFirstLine() {
-        StringBuilder firstLine = new StringBuilder(COMMAND_MARKER_CHAR + name.getString());
+        StringBuilder firstLine = new StringBuilder(COMMAND_MARKER_CHAR + name);
         if (optionList == null && body == null) {
             return firstLine.toString();
         }
@@ -148,7 +149,7 @@ public class Command2 {
     }
 
     private String getFirstLineInline() {
-        StringBuilder firstLine = new StringBuilder(COMMAND_MARKER_CHAR + name.getString());
+        StringBuilder firstLine = new StringBuilder(COMMAND_MARKER_CHAR + name);
         if (optionList == null && body == null) {
             return firstLine.toString();
         }
@@ -177,7 +178,8 @@ public class Command2 {
     public static class Command2Builder {
 
         // required
-        private final CommandName name;
+//        private final CommandName name;
+        private final String name;
 
         // optional
         private List<String> body;
@@ -196,7 +198,8 @@ public class Command2 {
         private boolean interBracketSpace = DEFAULT_INTER_BRACKET_SPACE;
 
 
-        public Command2Builder(CommandName name) {
+//        public Command2Builder(CommandName name) {
+        public Command2Builder(String name) {
             this.name = name;
         }
 
