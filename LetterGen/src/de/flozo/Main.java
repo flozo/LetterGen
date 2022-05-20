@@ -1,7 +1,10 @@
 package de.flozo;
 
+import de.flozo.data.Defaults;
 import de.flozo.latex.core.*;
 import de.flozo.latex.tikz.Layer;
+import de.flozo.latex.tikz.LayerEnvironment;
+import de.flozo.latex.tikz.Rectangle;
 
 public class Main {
 
@@ -45,16 +48,24 @@ public class Main {
         Layer pfglayers = new Layer.LayerBuilder("background", "forebackground", "main", "foreground")
                 .build();
 
-        for (String line : pfglayers.getBlock()) {
+        Environment2 tikzpicture = new Environment2.Environment2Builder(EnvironmentName.TIKZPICTURE)
+                .optionalArguments("inner xsep=0pt", "inner ysep=0pt", "trim left=0pt", "trim right=" + Defaults.A4_WIDTH)
+                .build();
+
+        Rectangle background = new Rectangle.RectangleBuilder(0, 0, Defaults.A4_WIDTH, Defaults.A4_HEIGHT)
+                .fillColor(new Color(StandardColorName.NONE))
+                .drawColor(new Color(StandardColorName.NONE))
+                .build();
+
+        LayerEnvironment backgroundRectangle = new LayerEnvironment("background", background.getStatement());
+
+        for (String line : backgroundRectangle.getBlock()) {
             System.out.println(line);
         }
 
 
-
         Environment3 document = new Environment3.Environment3Builder(EnvironmentName.DOCUMENT)
                 .build();
-
-
 
 
         Environment3 newEnvironment = new Environment3.Environment3Builder(EnvironmentName.TIKZPICTURE)
@@ -65,7 +76,6 @@ public class Main {
                 )
                 .optionalArguments("test1=1", "test2=99")
                 .build();
-
 
 
         for (String line : newEnvironment.getBlock()) {

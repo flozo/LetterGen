@@ -2,28 +2,23 @@ package de.flozo.latex.core;
 
 public class Color {
 
-    private final ColorScheme colorScheme;
-    private final ColorLetter colorLetter;
+//    private final ColorScheme colorScheme;
+//    private final ColorLetter colorLetter;
+    private final String name;
+
 
     public Color(ColorScheme colorScheme, ColorLetter colorLetter) {
-        this.colorScheme = colorScheme;
-        this.colorLetter = colorLetter;
+//        this.colorScheme = colorScheme;
+//        this.colorLetter = colorLetter;
+        this.name = colorScheme.getString() + "-" + colorLetter.toString();
     }
 
-    public ColorScheme getColorScheme() {
-        return colorScheme;
+    public Color(StandardColorName colorName) {
+        this.name = colorName.getString();
     }
 
-    public ColorLetter getColorLetter() {
-        return colorLetter;
-    }
 
     public String getString() {
-        // Compose a valid ColorBrewer string from colorScheme and colorLetter
-        // example:
-        //      colorScheme = BLUES
-        //      colorLetter = G
-        //      => Color.toString = "Blues-G"
-        return colorScheme.getString() + "-" + colorLetter.toString();
+        return name;
     }
 }
