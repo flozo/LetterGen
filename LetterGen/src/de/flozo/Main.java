@@ -1,5 +1,7 @@
 package de.flozo;
 
+import de.flozo.data.ConfigFile;
+import de.flozo.data.ConfigGroup;
 import de.flozo.data.Defaults;
 import de.flozo.data.Settings;
 import de.flozo.latex.core.*;
@@ -7,7 +9,7 @@ import de.flozo.latex.tikz.Layer;
 import de.flozo.latex.tikz.LayerEnvironment;
 import de.flozo.latex.tikz.Rectangle;
 
-import java.util.Map;
+import java.util.Properties;
 
 public class Main {
 
@@ -85,11 +87,20 @@ public class Main {
             System.out.println(line);
         }
 
-        Map<String,String> letterSettings = new Settings().getVerifiedPropertiesMap();
+        Properties letterSettings = new ConfigFile("letter_geometry.config").getProperties();
 //        String backgroundColor = letterSettings.getProperties().getProperty("paper.width", 21.0);
-        String paperWidth = letterSettings.get("paper.width");
+        String paperWidth = letterSettings.getProperty("sender.z", "300");
+
+        Settings settings = new Settings("master.config");
+
+//        for (Map.Entry<Object, Object> line : settings.getAll().get("letter.geometry").entrySet()) {
+//            System.out.println(line.getKey() + ": " + line.getValue());
+//        }
+        System.out.println(settings.getAll().get(ConfigGroup.SENDER_DATA).get("person.children"));
+
+        System.out.println(settings.getProperty(ConfigGroup.SENDER_DATA,"person.children","test"));
+
 //        double paperWidth = Double.parseDouble(letterSettings.getProperties().getProperty("paper.width", "21.0"));
-        System.out.println(paperWidth);
 
 //        // Assemble final code
 //        ExpressionList finalCode = new ExpressionList(preamble.getBlock());
