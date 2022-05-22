@@ -2,21 +2,21 @@ package de.flozo.latex.core;
 
 import java.util.*;
 
-public class Preamble {
+public class PackageList {
 
     private final Documentclass documentclass;
 
     private final Map<PackageName, ExpressionList> usepackageList;
 
 
-    public Preamble(Documentclass documentclass) {
+    public PackageList(Documentclass documentclass) {
         this.documentclass = documentclass;
         this.usepackageList = new LinkedHashMap<>();
     }
 
 
     // Add new usepackage statement; allow chaining of add method
-    public Preamble add(PackageName packageName, String... options) {
+    public PackageList add(PackageName packageName, String... options) {
         usepackageList.put(packageName, new ExpressionList(options));
         return this;
     }
