@@ -15,7 +15,7 @@ public class Environment3 {
     // constants for option defaults
     public static final Bracket DEFAULT_OPTIONAL_ARGUMENTS_BRACKET = Bracket.SQUARE_BRACKETS;
     public static final Bracket DEFAULT_REQUIRED_ARGUMENTS_BRACKET = Bracket.CURLY_BRACES;
-    public static final Bracket DEFAULT_BODY_BRACKET = Bracket.NONE;
+    public static final Bracket DEFAULT_BODY_BRACKETS = Bracket.NONE;
     public static final boolean DEFAULT_INDENT_BODY = true;
 
     // required
@@ -26,6 +26,9 @@ public class Environment3 {
     private final List<String> optionalArguments;
     private final List<String> body;
     private final boolean indentBody;
+    private final Bracket optionBrackets;
+    private final Bracket bodyBrackets;
+
 
 
     private Environment3(Environment3Builder builder) {
@@ -34,6 +37,8 @@ public class Environment3 {
         this.optionalArguments = builder.optionalArguments;
         this.body = builder.body;
         this.indentBody = builder.indentBody;
+        this.optionBrackets = builder.optionBrackets;
+        this.bodyBrackets = builder.bodyBrackets;
     }
 
 
@@ -41,6 +46,8 @@ public class Environment3 {
         Command2 command = new Command2.Command2Builder(OPENING_KEYWORD + ENVIRONMENT_NAME_BRACKET.getLeftBracket() + name.getString() + ENVIRONMENT_NAME_BRACKET.getRightBracket())
                 .optionList(optionalArguments)
                 .body(body)
+                .bodyBrackets(bodyBrackets)
+                .optionBrackets(optionBrackets)
                 .indentBody(indentBody)
                 .build();
         List<String> codeLines = new ArrayList<>(command.getBlock());
@@ -112,6 +119,9 @@ public class Environment3 {
         private List<String> optionalArguments;
         private List<String> body;
         private boolean indentBody = DEFAULT_INDENT_BODY;
+        private Bracket optionBrackets = DEFAULT_OPTIONAL_ARGUMENTS_BRACKET;
+        private Bracket bodyBrackets = DEFAULT_BODY_BRACKETS;
+
 
 
         public Environment3Builder(EnvironmentName name) {
@@ -149,6 +159,17 @@ public class Environment3 {
             this.indentBody = indentBody;
             return this;
         }
+
+        public Environment3Builder optionBrackets(Bracket optionBrackets) {
+            this.optionBrackets = optionBrackets;
+            return this;
+        }
+
+        public Environment3Builder bodyBrackets(Bracket bodyBrackets) {
+            this.bodyBrackets = bodyBrackets;
+            return this;
+        }
+
 
         public Environment3 build() {
             return new Environment3(this);
