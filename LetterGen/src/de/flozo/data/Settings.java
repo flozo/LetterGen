@@ -19,6 +19,11 @@ public class Settings {
     }
 
 
+    public Properties getConfigGroupProperties(ConfigGroup configGroup) {
+        return getAll().get(configGroup);
+    }
+
+
     public Map<ConfigGroup, Properties> getAll() {
         Map<ConfigGroup, Properties> settings = new HashMap<>();
         for (ConfigGroup configGroup : ConfigGroup.values()) {
