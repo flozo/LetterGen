@@ -1,58 +1,82 @@
 package de.flozo.data;
 
+import de.flozo.latex.core.*;
+
 public enum LetterGeometryProperty {
 
-    PAPER_WIDTH("paper.width"),
-    PAPER_HEIGHT("paper.height"),
-    BACKGROUND_COLOR("background.color"),
-    DRAFT_MODE_HIGHLIGHT_COLOR("draft_mode.highlight_color"),
-    URL_COLOR("url.color"),
+    PAPER_WIDTH("paper.width", 21.0),
+    PAPER_HEIGHT("paper.height", 29.7),
+    BACKGROUND_COLOR("background.color", new Color(StandardColorName.NONE).getString()),
+    DRAFT_MODE_HIGHLIGHT_COLOR("draft_mode.highlight_color", new Color(ColorScheme.GREYS, ColorLetter.D).getString()),
+    URL_COLOR("url_hyperlink.color", "Blues-K"),
 
-    BORDER_MARGIN_TOP("border_margin.top"),
-    BORDER_MARGIN_BOTTOM("border_margin.bottom"),
-    BORDER_MARGIN_LEFT("border_margin.left"),
-    BORDER_MARGIN_RIGHT("border_margin.right"),
+    BORDER_MARGIN_TOP("border_margin.top", 2.0),
+    BORDER_MARGIN_BOTTOM("border_margin.bottom", 2.0),
+    BORDER_MARGIN_LEFT("border_margin.left", 2.5),
+    BORDER_MARGIN_RIGHT("border_margin.right", 2.0),
 
-    ADDRESS_X("address.x"),
-    ADDRESS_Y("address.y"),
-    ADDRESS_WIDTH("address.width"),
-    ADDRESS_HEIGHT("address.height"),
+    ADDRESS_X("address.x", 2.0),
+    ADDRESS_Y("address.y", 20.7),
+    ADDRESS_WIDTH("address.width", 9.0),
+    ADDRESS_HEIGHT("address.height", 4.5),
 
-    BACKADDRESS_Y("backaddress.y"),
-    BACKADDRESS_SEPLINE_THICKNESS("backaddress.sepline.thickness"),
-    BACKADDRESS_SEPCHAR("backaddress.sepchar"),
-    BACKADDRESS_FONTSIZE("backaddress.fontsize"),
+    BACKADDRESS_X("backaddress.x", 2.5),
+    BACKADDRESS_Y("backaddress.y", 23.43),
+    BACKADDRESS_WIDTH("backaddress.width", 9.0),
+    BACKADDRESS_HEIGHT("backaddress.height", 1.0),
+    BACKADDRESS_SEPLINE_LINEWIDTH("backaddress.sepline.line_width", 0.5),
+    BACKADDRESS_SEPCHAR("backaddress.sepchar", "bullet"),
+    BACKADDRESS_FONTSIZE("backaddress.fontsize", FontSize.SCRIPT_SIZE.getString()),
 
-    SENDER_X("sender.x"),
-    SENDER_Y("sender.y"),
-    SENDER_WIDTH("sender.width"),
-    SENDER_HEIGHT("sender.height"),
+    SENDER_X("sender.x", 11.0),
+    SENDER_Y("sender.y", 20.7),
+    SENDER_WIDTH("sender.width", 20.7),
+    SENDER_HEIGHT("sender.height", 20.7),
 
-    SUBJECT_Y("subject.y"),
-    TEXT_Y("text.y"),
-    CLOSING_Y_SHIFT("closing.y_shift"),
-    ENCLOSURES_Y_SHIFT("enclosures.y_shift"),
+    SUBJECT_Y("subject.y", 18.5),
+    TEXT_Y("text.y", 17.8),
+    CLOSING_Y_SHIFT("closing.y_shift", 3.7),
+    ENCLOSURES_Y_SHIFT("enclosures.y_shift", -0.7),
 
-    PERFORATION_MARK_X("perforation_mark.x"),
-    PERFORATION_MARK_Y("perforation_mark.y"),
-    PERFORATION_MARK_WIDTH("perforation_mark.width"),
-    PERFORATION_MARK_THICKNESS("perforation_mark.thickness"),
-    FOLDING_MARK_1_X("folding_mark_1.x"),
-    FOLDING_MARK_1_Y("folding_mark_1.y"),
-    FOLDING_MARK_1_WIDTH("folding_mark_1.width"),
-    FOLDING_MARK_1_THICKNESS("folding_mark_1.thickness"),
-    FOLDING_MARK_2_X("folding_mark_2.x"),
-    FOLDING_MARK_2_Y("folding_mark_2.y"),
-    FOLDING_MARK_2_WIDTH("folding_mark_2.width"),
-    FOLDING_MARK_2_THICKNESS("folding_mark_2.thickness");
+    PERFORATION_MARK_X("perforation_mark.x", 0.1),
+    PERFORATION_MARK_Y("perforation_mark.y", 14.85),
+    PERFORATION_MARK_LENGTH("perforation_mark.length", 0.5),
+    PERFORATION_MARK_LINE_WIDTH("perforation_mark.line_width", 0.3),
+    FOLDING_MARK_1_X("folding_mark_1.x", 0.1),
+    FOLDING_MARK_1_Y("folding_mark_1.y", 19.2),
+    FOLDING_MARK_1_LENGTH("folding_mark_1.length", 0.25),
+    FOLDING_MARK_1_LINE_WIDTH("folding_mark_1.line_width", 0.3),
+    FOLDING_MARK_2_X("folding_mark_2.x", 0.1),
+    FOLDING_MARK_2_Y("folding_mark_2.y", 8.7),
+    FOLDING_MARK_2_LENGTH("folding_mark_2.length", 0.25),
+    FOLDING_MARK_2_LINE_WIDTH("folding_mark_2.line_width", 0.3);
 
     private final String property;
+    private final double numericalValue;
+    private final String stringValue;
 
-    LetterGeometryProperty(String property) {
+    LetterGeometryProperty(String property, double numericalValue) {
         this.property = property;
+        this.numericalValue = numericalValue;
+        this.stringValue = "";
     }
 
-    public String getString() {
+    LetterGeometryProperty(String property, String stringValue) {
+        this.property = property;
+        this.numericalValue = 0.0;
+        this.stringValue = stringValue;
+    }
+
+
+    public String getPropertyName() {
         return property;
+    }
+
+    public double getNumericalValue() {
+        return numericalValue;
+    }
+
+    public String getStringValue() {
+        return stringValue;
     }
 }
