@@ -26,12 +26,12 @@ public class Settings {
 
     public Map<ConfigGroup, Properties> getAll() {
         Map<ConfigGroup, Properties> settings = new HashMap<>();
+        Properties configFileNames = readConfigFileNames();
         for (ConfigGroup configGroup : ConfigGroup.values()) {
-            settings.put(configGroup, new ConfigFile(readConfigFileNames().getProperty(configGroup.getString())).getProperties());
+            settings.put(configGroup, new ConfigFile(configFileNames.getProperty(configGroup.getString())).getProperties());
         }
         return settings;
     }
-
 
     private Properties readConfigFileNames() {
         ConfigFile master = new ConfigFile(masterConfigFile);

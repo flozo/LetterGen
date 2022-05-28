@@ -38,7 +38,7 @@ public class ConfigFile {
 
 
     private boolean checkNumericValues(Properties properties) {
-        String[] numericKeys = {".width", ".height", ".x", ".y", ".x_shift", ".y_shift", ".thickness"};
+        String[] numericKeys = {".width", ".height", ".length", ".x", ".y", ".x_shift", ".y_shift", ".line_width"};
         for (Map.Entry<Object, Object> property : properties.entrySet()) {
             for (String numericKey : numericKeys) {
                 if (property.getKey().toString().endsWith(numericKey)) {
@@ -46,7 +46,6 @@ public class ConfigFile {
                         System.out.println("[config] [error] Numeric value expected for property \"" + property.getKey() + "\"; found non-numeric value \"" + property.getValue() + "\"");
                         return false;
                     }
-                    ;
                 }
             }
         }

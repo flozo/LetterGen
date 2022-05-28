@@ -100,6 +100,11 @@ public class Line extends Path {
 
         // Constructor with optional CoordinateMode parameter
 
+//        public LineBuilder(String xOrigin, String yOrigin, String xNext, String yNext, CoordinateMode coordinateMode) {
+//            this(Double.parseDouble(xOrigin), Double.parseDouble(yOrigin), Double.parseDouble(xNext), Double.parseDouble(yNext), coordinateMode);
+//        }
+
+
         public LineBuilder(double xOrigin, double yOrigin, double xNext, double yNext) {
             this(xOrigin, yOrigin, xNext, yNext, CoordinateMode.ABSOLUTE);
         }
