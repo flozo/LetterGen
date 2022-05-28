@@ -2,6 +2,8 @@ package de.flozo.data;
 
 import de.flozo.latex.core.*;
 
+import java.util.Objects;
+
 public enum LetterGeometryProperty {
 
     PAPER_WIDTH("paper.width", 21.0),
@@ -78,5 +80,9 @@ public enum LetterGeometryProperty {
 
     public String getStringValue() {
         return stringValue;
+    }
+
+    public String getEntry() {
+        return property + " = " + (Objects.equals(stringValue, "") ? numericalValue : stringValue);
     }
 }
