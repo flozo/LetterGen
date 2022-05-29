@@ -21,20 +21,20 @@ public class Address {
 
 
     public Address() {
-        this.firstName = AddressData.NAME_FIRST.getStringValue();
-        this.middleName = AddressData.NAME_MIDDLE.getStringValue();
-        this.lastName = AddressData.NAME_LAST.getStringValue();
-        this.title = AddressData.NAME_TITLE.getStringValue();
-        this.company = AddressData.NAME_COMPANY.getStringValue();
-        this.street = AddressData.ADDRESS_STREET.getStringValue();
-        this.houseNumber = AddressData.ADDRESS_HOUSE_NUMBER.getStringValue();
-        this.postalCode = AddressData.ADDRESS_POSTAL_CODE.getStringValue();
-        this.city = AddressData.ADDRESS_CITY.getStringValue();
-        this.country = AddressData.ADDRESS_COUNTRY.getStringValue();
-        this.phoneNumber = AddressData.COMMUNICATION_PHONE.getStringValue();
-        this.mobileNumber = AddressData.COMMUNICATION_MOBILE.getStringValue();
-        this.emailAddress = AddressData.COMMUNICATION_EMAIL.getStringValue();
-        this.webpage = AddressData.COMMUNICATION_WEBPAGE.getStringValue();
+        this.firstName = AddressProperty.NAME_FIRST.getStringValue();
+        this.middleName = AddressProperty.NAME_MIDDLE.getStringValue();
+        this.lastName = AddressProperty.NAME_LAST.getStringValue();
+        this.title = AddressProperty.NAME_TITLE.getStringValue();
+        this.company = AddressProperty.NAME_COMPANY.getStringValue();
+        this.street = AddressProperty.ADDRESS_STREET.getStringValue();
+        this.houseNumber = AddressProperty.ADDRESS_HOUSE_NUMBER.getStringValue();
+        this.postalCode = AddressProperty.ADDRESS_POSTAL_CODE.getStringValue();
+        this.city = AddressProperty.ADDRESS_CITY.getStringValue();
+        this.country = AddressProperty.ADDRESS_COUNTRY.getStringValue();
+        this.phoneNumber = AddressProperty.COMMUNICATION_PHONE.getStringValue();
+        this.mobileNumber = AddressProperty.COMMUNICATION_MOBILE.getStringValue();
+        this.emailAddress = AddressProperty.COMMUNICATION_EMAIL.getStringValue();
+        this.webpage = AddressProperty.COMMUNICATION_WEBPAGE.getStringValue();
     }
 
     public String getFirstName() {
