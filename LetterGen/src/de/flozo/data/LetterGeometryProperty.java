@@ -4,7 +4,7 @@ import de.flozo.latex.core.*;
 
 import java.util.Objects;
 
-public enum LetterGeometryProperty {
+public enum LetterGeometryProperty implements Property {
 
     PAPER_WIDTH("paper.width", 21.0),
     PAPER_HEIGHT("paper.height", 29.7),
@@ -70,6 +70,7 @@ public enum LetterGeometryProperty {
     }
 
 
+    @Override
     public String getPropertyName() {
         return property;
     }
@@ -82,6 +83,7 @@ public enum LetterGeometryProperty {
         return stringValue;
     }
 
+    @Override
     public String getEntry() {
         return property + " = " + (Objects.equals(stringValue, "") ? numericalValue : stringValue);
     }

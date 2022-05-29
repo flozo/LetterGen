@@ -1,6 +1,6 @@
 package de.flozo.data;
 
-public enum AddressData {
+public enum AddressData implements Property {
 
     NAME_FIRST("name.first", "FIRST_NAME"),
     NAME_MIDDLE("name.middle", "MIDDLE_NAME"),
@@ -25,12 +25,18 @@ public enum AddressData {
         this.stringValue = stringValue;
     }
 
+    @Override
     public String getPropertyName() {
         return property;
     }
 
     public String getStringValue() {
         return stringValue;
+    }
+
+    @Override
+    public String getEntry() {
+        return property + " = " + stringValue;
     }
 
 }
