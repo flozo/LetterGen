@@ -9,7 +9,7 @@ import de.flozo.latex.tikz.Rectangle;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
+import java.util.Map;
 
 public class Main {
 
@@ -28,22 +28,32 @@ public class Main {
     public static void main(String[] args) {
 
         // read settings from config files
-        Settings settings = new Settings(MASTER_CONFIG_FILE_NAME);
-        System.out.println("**************");
-        Properties geometryProperties = settings.getConfigGroupProperties(ConfigGroup.LETTER_GEOMETRY);
-        System.out.println("**************");
-        System.out.println("From file: " + geometryProperties.get(LetterGeometryProperty.BACKADDRESS_Y.getPropertyName()));
+//        Settings settings = new Settings(MASTER_CONFIG_FILE_NAME);
+//        System.out.println("**************");
+//        Properties geometryProperties = settings.getConfigGroupProperties(ConfigGroup.LETTER_GEOMETRY);
+//        System.out.println("**************");
+//        System.out.println("From file: " + geometryProperties.get(LetterGeometryProperty.BACKADDRESS_Y.getPropertyName()));
 
-        LetterGeometry geometry = new LetterGeometry();
+        PropertyMap letterGeometry = new PropertyMap(ConfigGroup.LETTER_GEOMETRY);
+
+        LetterGeometry geometry = new LetterGeometry(letterGeometry);
         System.out.println("**************");
         System.out.println("Backaddress font soze: " + geometry.getBackaddressFontSize());
-        System.out.println("Backaddress x: " + geometry.getBackaddressX());
+        System.out.println("Backaddress x: " + geometry.getBackaddressX()*2);
 
-        System.out.println(geometry.getDefaults().get(LetterGeometryProperty.BACKGROUND_COLOR).getString());
+
 
         System.out.println("==========0");
         System.out.println(LetterGeometryProperty.ADDRESS_X.getEntry());
         System.out.println(LetterGeometryProperty.BACKADDRESS_SEPCHAR.getEntry());
+
+        System.out.println("???????????");
+
+        Map<String, String> rawMap = letterGeometry.getRawMap();
+        System.out.println(rawMap.get(LetterGeometryProperty.PAPER_WIDTH.getPropertyName()));
+        System.out.println(letterGeometry.getTypedMap(rawMap).get(LetterGeometryProperty.PAPER_WIDTH.getPropertyName()).getNumber() * 2);
+        System.out.println(letterGeometry.numericSubMap(rawMap).get(LetterGeometryProperty.PAPER_WIDTH.getPropertyName()) * 3);
+        System.out.println("???????????");
 
 //        System.out.println(typedSettings.getAllTyped().get(LetterGeometryProperty.BACKGROUND_COLOR.getString()).getString());
 //        LetterGeometry geometry = new LetterGeometry(typedSettings);

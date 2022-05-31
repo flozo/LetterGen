@@ -1,6 +1,5 @@
 package de.flozo.data;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class LetterGeometry {
@@ -57,63 +56,95 @@ public class LetterGeometry {
     private final double foldingMark2LineWidth;
 
 
-    public LetterGeometry() {
-        this.backgroundColor = LetterGeometryProperty.BACKGROUND_COLOR.getStringValue();
-        this.draftModeHighlightColor = LetterGeometryProperty.DRAFT_MODE_HIGHLIGHT_COLOR.getStringValue();
-        this.urlHyperlinkColor = LetterGeometryProperty.URL_COLOR.getStringValue();
-        this.paperWidth = LetterGeometryProperty.PAPER_WIDTH.getNumericalValue();
-        this.paperHeight = LetterGeometryProperty.PAPER_HEIGHT.getNumericalValue();
-        this.borderMarginTop = LetterGeometryProperty.BORDER_MARGIN_TOP.getNumericalValue();
-        this.borderMarginBottom = LetterGeometryProperty.BORDER_MARGIN_BOTTOM.getNumericalValue();
-        this.borderMarginLeft = LetterGeometryProperty.BORDER_MARGIN_LEFT.getNumericalValue();
-        this.borderMarginRight = LetterGeometryProperty.BORDER_MARGIN_RIGHT.getNumericalValue();
-        this.addressX = LetterGeometryProperty.ADDRESS_X.getNumericalValue();
-        this.addressY = LetterGeometryProperty.ADDRESS_Y.getNumericalValue();
-        this.addressWidth = LetterGeometryProperty.ADDRESS_WIDTH.getNumericalValue();
-        this.addressHeight = LetterGeometryProperty.ADDRESS_HEIGHT.getNumericalValue();
-        this.backaddressX = LetterGeometryProperty.BACKADDRESS_X.getNumericalValue();
-        this.backaddressY = LetterGeometryProperty.BACKADDRESS_Y.getNumericalValue();
-        this.backaddressWidth = LetterGeometryProperty.BACKADDRESS_WIDTH.getNumericalValue();
-        this.backaddressHeight = LetterGeometryProperty.BACKADDRESS_HEIGHT.getNumericalValue();
-        this.backaddressSeplineLineWidth = LetterGeometryProperty.BACKADDRESS_SEPLINE_LINEWIDTH.getNumericalValue();
-        this.backaddressSepChar = LetterGeometryProperty.BACKADDRESS_SEPCHAR.getStringValue();
-        this.backaddressFontSize = LetterGeometryProperty.BACKADDRESS_FONTSIZE.getStringValue();
-        this.senderX = LetterGeometryProperty.SENDER_X.getNumericalValue();
-        this.senderY = LetterGeometryProperty.SENDER_Y.getNumericalValue();
-        this.senderWidth = LetterGeometryProperty.SENDER_WIDTH.getNumericalValue();
-        this.senderHeight = LetterGeometryProperty.SENDER_HEIGHT.getNumericalValue();
-        this.subjectY = LetterGeometryProperty.SUBJECT_Y.getNumericalValue();
-        this.textY = LetterGeometryProperty.TEXT_Y.getNumericalValue();
-        this.closingYShift = LetterGeometryProperty.CLOSING_Y_SHIFT.getNumericalValue();
-        this.enclosuresYShift = LetterGeometryProperty.ENCLOSURES_Y_SHIFT.getNumericalValue();
-        this.perforationMarkX = LetterGeometryProperty.PERFORATION_MARK_X.getNumericalValue();
-        this.perforationMarkY = LetterGeometryProperty.PERFORATION_MARK_Y.getNumericalValue();
-        this.perforationMarkLength = LetterGeometryProperty.PERFORATION_MARK_LENGTH.getNumericalValue();
-        this.perforationMarkLineWidth = LetterGeometryProperty.PERFORATION_MARK_LINE_WIDTH.getNumericalValue();
-        this.foldingMark1X = LetterGeometryProperty.FOLDING_MARK_1_X.getNumericalValue();
-        this.foldingMark1Y = LetterGeometryProperty.FOLDING_MARK_1_Y.getNumericalValue();
-        this.foldingMark1Length = LetterGeometryProperty.FOLDING_MARK_1_LENGTH.getNumericalValue();
-        this.foldingMark1LineWidth = LetterGeometryProperty.FOLDING_MARK_1_LINE_WIDTH.getNumericalValue();
-        this.foldingMark2X = LetterGeometryProperty.FOLDING_MARK_2_X.getNumericalValue();
-        this.foldingMark2Y = LetterGeometryProperty.FOLDING_MARK_2_Y.getNumericalValue();
-        this.foldingMark2Length = LetterGeometryProperty.FOLDING_MARK_2_LENGTH.getNumericalValue();
-        this.foldingMark2LineWidth = LetterGeometryProperty.FOLDING_MARK_2_LINE_WIDTH.getNumericalValue();
+//    public LetterGeometry() {
+//        this.backgroundColor = LetterGeometryProperty.BACKGROUND_COLOR.getStringValue();
+//        this.draftModeHighlightColor = LetterGeometryProperty.DRAFT_MODE_HIGHLIGHT_COLOR.getStringValue();
+//        this.urlHyperlinkColor = LetterGeometryProperty.URL_COLOR.getStringValue();
+//        this.paperWidth = LetterGeometryProperty.PAPER_WIDTH.getNumericalValue();
+//        this.paperHeight = LetterGeometryProperty.PAPER_HEIGHT.getNumericalValue();
+//        this.borderMarginTop = LetterGeometryProperty.BORDER_MARGIN_TOP.getNumericalValue();
+//        this.borderMarginBottom = LetterGeometryProperty.BORDER_MARGIN_BOTTOM.getNumericalValue();
+//        this.borderMarginLeft = LetterGeometryProperty.BORDER_MARGIN_LEFT.getNumericalValue();
+//        this.borderMarginRight = LetterGeometryProperty.BORDER_MARGIN_RIGHT.getNumericalValue();
+//        this.addressX = LetterGeometryProperty.ADDRESS_X.getNumericalValue();
+//        this.addressY = LetterGeometryProperty.ADDRESS_Y.getNumericalValue();
+//        this.addressWidth = LetterGeometryProperty.ADDRESS_WIDTH.getNumericalValue();
+//        this.addressHeight = LetterGeometryProperty.ADDRESS_HEIGHT.getNumericalValue();
+//        this.backaddressX = LetterGeometryProperty.BACKADDRESS_X.getNumericalValue();
+//        this.backaddressY = LetterGeometryProperty.BACKADDRESS_Y.getNumericalValue();
+//        this.backaddressWidth = LetterGeometryProperty.BACKADDRESS_WIDTH.getNumericalValue();
+//        this.backaddressHeight = LetterGeometryProperty.BACKADDRESS_HEIGHT.getNumericalValue();
+//        this.backaddressSeplineLineWidth = LetterGeometryProperty.BACKADDRESS_SEPLINE_LINEWIDTH.getNumericalValue();
+//        this.backaddressSepChar = LetterGeometryProperty.BACKADDRESS_SEPCHAR.getStringValue();
+//        this.backaddressFontSize = LetterGeometryProperty.BACKADDRESS_FONTSIZE.getStringValue();
+//        this.senderX = LetterGeometryProperty.SENDER_X.getNumericalValue();
+//        this.senderY = LetterGeometryProperty.SENDER_Y.getNumericalValue();
+//        this.senderWidth = LetterGeometryProperty.SENDER_WIDTH.getNumericalValue();
+//        this.senderHeight = LetterGeometryProperty.SENDER_HEIGHT.getNumericalValue();
+//        this.subjectY = LetterGeometryProperty.SUBJECT_Y.getNumericalValue();
+//        this.textY = LetterGeometryProperty.TEXT_Y.getNumericalValue();
+//        this.closingYShift = LetterGeometryProperty.CLOSING_Y_SHIFT.getNumericalValue();
+//        this.enclosuresYShift = LetterGeometryProperty.ENCLOSURES_Y_SHIFT.getNumericalValue();
+//        this.perforationMarkX = LetterGeometryProperty.PERFORATION_MARK_X.getNumericalValue();
+//        this.perforationMarkY = LetterGeometryProperty.PERFORATION_MARK_Y.getNumericalValue();
+//        this.perforationMarkLength = LetterGeometryProperty.PERFORATION_MARK_LENGTH.getNumericalValue();
+//        this.perforationMarkLineWidth = LetterGeometryProperty.PERFORATION_MARK_LINE_WIDTH.getNumericalValue();
+//        this.foldingMark1X = LetterGeometryProperty.FOLDING_MARK_1_X.getNumericalValue();
+//        this.foldingMark1Y = LetterGeometryProperty.FOLDING_MARK_1_Y.getNumericalValue();
+//        this.foldingMark1Length = LetterGeometryProperty.FOLDING_MARK_1_LENGTH.getNumericalValue();
+//        this.foldingMark1LineWidth = LetterGeometryProperty.FOLDING_MARK_1_LINE_WIDTH.getNumericalValue();
+//        this.foldingMark2X = LetterGeometryProperty.FOLDING_MARK_2_X.getNumericalValue();
+//        this.foldingMark2Y = LetterGeometryProperty.FOLDING_MARK_2_Y.getNumericalValue();
+//        this.foldingMark2Length = LetterGeometryProperty.FOLDING_MARK_2_LENGTH.getNumericalValue();
+//        this.foldingMark2LineWidth = LetterGeometryProperty.FOLDING_MARK_2_LINE_WIDTH.getNumericalValue();
+//    }
+
+    public LetterGeometry(PropertyMap propertyMap) {
+        Map<String, String> rawMap = propertyMap.getRawMap();
+        Map<String, String> stringSubMap = propertyMap.stringSubMap(rawMap);
+        Map<String, Double> numericSubMap = propertyMap.numericSubMap(rawMap);
+        this.backgroundColor = stringSubMap.get(LetterGeometryProperty.BACKGROUND_COLOR.getPropertyName());
+        this.draftModeHighlightColor = stringSubMap.get(LetterGeometryProperty.DRAFT_MODE_HIGHLIGHT_COLOR.getPropertyName());
+        this.urlHyperlinkColor = stringSubMap.get(LetterGeometryProperty.URL_COLOR.getPropertyName());
+        this.paperWidth = numericSubMap.get(LetterGeometryProperty.PAPER_WIDTH.getPropertyName());
+        this.paperHeight = numericSubMap.get(LetterGeometryProperty.PAPER_HEIGHT.getPropertyName());
+        this.borderMarginTop = numericSubMap.get(LetterGeometryProperty.BORDER_MARGIN_TOP.getPropertyName());
+        this.borderMarginBottom = numericSubMap.get(LetterGeometryProperty.BORDER_MARGIN_BOTTOM.getPropertyName());
+        this.borderMarginLeft = numericSubMap.get(LetterGeometryProperty.BORDER_MARGIN_LEFT.getPropertyName());
+        this.borderMarginRight = numericSubMap.get(LetterGeometryProperty.BORDER_MARGIN_RIGHT.getPropertyName());
+        this.addressX = numericSubMap.get(LetterGeometryProperty.ADDRESS_X.getPropertyName());
+        this.addressY = numericSubMap.get(LetterGeometryProperty.ADDRESS_Y.getPropertyName());
+        this.addressWidth = numericSubMap.get(LetterGeometryProperty.ADDRESS_WIDTH.getPropertyName());
+        this.addressHeight = numericSubMap.get(LetterGeometryProperty.ADDRESS_HEIGHT.getPropertyName());
+        this.backaddressX = numericSubMap.get(LetterGeometryProperty.BACKADDRESS_X.getPropertyName());
+        this.backaddressY = numericSubMap.get(LetterGeometryProperty.BACKADDRESS_Y.getPropertyName());
+        this.backaddressWidth = numericSubMap.get(LetterGeometryProperty.BACKADDRESS_WIDTH.getPropertyName());
+        this.backaddressHeight = numericSubMap.get(LetterGeometryProperty.BACKADDRESS_HEIGHT.getPropertyName());
+        this.backaddressSeplineLineWidth = numericSubMap.get(LetterGeometryProperty.BACKADDRESS_SEPLINE_LINEWIDTH.getPropertyName());
+        this.backaddressSepChar = stringSubMap.get(LetterGeometryProperty.BACKADDRESS_SEPCHAR.getPropertyName());
+        this.backaddressFontSize = stringSubMap.get(LetterGeometryProperty.BACKADDRESS_FONTSIZE.getPropertyName());
+        this.senderX = numericSubMap.get(LetterGeometryProperty.SENDER_X.getPropertyName());
+        this.senderY = numericSubMap.get(LetterGeometryProperty.SENDER_Y.getPropertyName());
+        this.senderWidth = numericSubMap.get(LetterGeometryProperty.SENDER_WIDTH.getPropertyName());
+        this.senderHeight = numericSubMap.get(LetterGeometryProperty.SENDER_HEIGHT.getPropertyName());
+        this.subjectY = numericSubMap.get(LetterGeometryProperty.SUBJECT_Y.getPropertyName());
+        this.textY = numericSubMap.get(LetterGeometryProperty.TEXT_Y.getPropertyName());
+        this.closingYShift = numericSubMap.get(LetterGeometryProperty.CLOSING_Y_SHIFT.getPropertyName());
+        this.enclosuresYShift = numericSubMap.get(LetterGeometryProperty.ENCLOSURES_Y_SHIFT.getPropertyName());
+        this.perforationMarkX = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_X.getPropertyName());
+        this.perforationMarkY = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_Y.getPropertyName());
+        this.perforationMarkLength = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_LENGTH.getPropertyName());
+        this.perforationMarkLineWidth = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_LINE_WIDTH.getPropertyName());
+        this.foldingMark1X = numericSubMap.get(LetterGeometryProperty.FOLDING_MARK_1_X.getPropertyName());
+        this.foldingMark1Y = numericSubMap.get(LetterGeometryProperty.FOLDING_MARK_1_Y.getPropertyName());
+        this.foldingMark1Length = numericSubMap.get(LetterGeometryProperty.FOLDING_MARK_1_LENGTH.getPropertyName());
+        this.foldingMark1LineWidth = numericSubMap.get(LetterGeometryProperty.FOLDING_MARK_1_LINE_WIDTH.getPropertyName());
+        this.foldingMark2X = numericSubMap.get(LetterGeometryProperty.FOLDING_MARK_2_X.getPropertyName());
+        this.foldingMark2Y = numericSubMap.get(LetterGeometryProperty.FOLDING_MARK_2_Y.getPropertyName());
+        this.foldingMark2Length = numericSubMap.get(LetterGeometryProperty.FOLDING_MARK_2_LENGTH.getPropertyName());
+        this.foldingMark2LineWidth = numericSubMap.get(LetterGeometryProperty.FOLDING_MARK_2_LINE_WIDTH.getPropertyName());
     }
 
-    public Map<LetterGeometryProperty, GenericTypeValue> getDefaults() {
-        String[] numericKeys = {".width", ".height", ".length", ".x", ".y", ".x_shift", ".y_shift", ".line_width"};
-        Map<LetterGeometryProperty, GenericTypeValue> defaultValues = new HashMap<>();
-        for (LetterGeometryProperty property : LetterGeometryProperty.values()) {
-            for (String numericKey : numericKeys) {
-                if (property.getPropertyName().endsWith(numericKey)) {
-                    defaultValues.put(property, new DoubleTypeValue(property.getNumericalValue()));
-                } else {
-                    defaultValues.put(property, new StringTypeValue(property.getStringValue()));
-                }
-            }
-        }
-        return defaultValues;
-    }
 
     public String getBackgroundColor() {
         return backgroundColor;

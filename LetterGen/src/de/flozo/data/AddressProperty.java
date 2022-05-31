@@ -39,4 +39,5 @@ public enum AddressProperty implements Property {
         return property + " = " + stringValue;
     }
 
+
 }

@@ -83,8 +83,15 @@ public enum LetterGeometryProperty implements Property {
         return stringValue;
     }
 
+    public String getGenericStringValue() {
+        return (Objects.equals(stringValue, "") ? String.valueOf(numericalValue) : stringValue);
+    }
+
     @Override
     public String getEntry() {
-        return property + " = " + (Objects.equals(stringValue, "") ? numericalValue : stringValue);
+        return property + " = " + getGenericStringValue();
     }
+
+
+
 }
