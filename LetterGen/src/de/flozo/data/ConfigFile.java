@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Properties;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class ConfigFile {
 
@@ -37,21 +39,41 @@ public class ConfigFile {
     }
 
 
+
+
+//    private boolean checkNumericValues(Properties properties) {
+//        String[] numericKeys = {".width", ".height", ".length", ".x", ".y", ".x_shift", ".y_shift", ".line_width"};
+//        for (Map.Entry<Object, Object> property : properties.entrySet()) {
+//            for (String numericKey : numericKeys) {
+//                if (property.getKey().toString().endsWith(numericKey)) {
+//                    if (!isNumeric(property.getValue().toString())) {
+//                        System.out.println("[config] [error] Numeric value expected for property \"" + property.getKey() + "\"; found non-numeric value \"" + property.getValue() + "\"");
+//                        return false;
+//                    }
+//                }
+//            }
+//        }
+//        return true;
+//    }
+
     private boolean checkNumericValues(Properties properties) {
-        String[] numericKeys = {".width", ".height", ".length", ".x", ".y", ".x_shift", ".y_shift", ".line_width"};
-        for (Map.Entry<Object, Object> property : properties.entrySet()) {
-            for (String numericKey : numericKeys) {
-                if (property.getKey().toString().endsWith(numericKey)) {
-                    if (!isNumeric(property.getValue().toString())) {
-                        System.out.println("[config] [error] Numeric value expected for property \"" + property.getKey() + "\"; found non-numeric value \"" + property.getValue() + "\"");
-                        return false;
-                    }
-                }
+        for (Map.Entry<String, String> entry : toCheckIfNumeric(properties).entrySet()) {
+            if (!isNumeric(entry.getValue())) {
+                System.out.println("[config] [error] Numeric value expected for property \"" + entry.getKey() + "\"; found non-numeric value \"" + entry.getValue() + "\"");
+                return false;
             }
         }
         return true;
     }
 
+    private Map<String, String> toCheckIfNumeric(Properties properties) {
+        return properties.entrySet()
+                .stream()
+                .filter(entry -> numericEntryCondition().test(entry.getKey().toString()))
+                .collect(Collectors.toMap(
+                        entry -> String.valueOf(entry.getKey()),
+                        entry -> String.valueOf(entry.getValue())));
+    }
 
     private boolean isNumeric(String propertyValue) {
         if (propertyValue == null) {
@@ -64,5 +86,19 @@ public class ConfigFile {
         }
         return true;
     }
+
+    private Predicate<String> numericEntryCondition() {
+        Predicate<String> isWidth = key -> key.endsWith(".width");
+        Predicate<String> isHeight = key -> key.endsWith(".height");
+        Predicate<String> isLength = key -> key.endsWith(".length");
+        Predicate<String> isLineWidth = key -> key.endsWith(".line_width");
+        Predicate<String> isX = key -> key.endsWith(".x");
+        Predicate<String> isY = key -> key.endsWith(".y");
+        Predicate<String> isXShift = key -> key.endsWith(".x_shift");
+        Predicate<String> isYShift = key -> key.endsWith(".y_shift");
+        Predicate<String> isBorderMargin = key -> key.startsWith("border_margin");
+        return isWidth.or(isHeight).or(isLength).or(isLineWidth).or(isX).or(isY).or(isXShift).or(isYShift).or(isBorderMargin);
+    }
+
 
 }

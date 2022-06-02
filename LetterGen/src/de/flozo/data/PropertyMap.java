@@ -8,47 +8,41 @@ import java.util.stream.Collectors;
 public class PropertyMap {
 
     private final ConfigGroup configGroup;
+    private Map<String, String> properties;
 
     public PropertyMap(ConfigGroup configGroup) {
         this.configGroup = configGroup;
+        this.properties = new HashMap<>();
     }
 
-//    public Map<String, GenericTypeValue> getMap() {
-//        String[] numericKeys = {".width", ".height", ".length", ".x", ".y", ".x_shift", ".y_shift", ".line_width",
-//                ".top", ".bottom", ".left", ".right"};
-//        for (LetterGeometryProperty property : LetterGeometryProperty.values()) {
-//            boolean isNumericKey = false;
-//            for (String numericKey : numericKeys) {
-//                if (property.getPropertyName().endsWith(numericKey)) {
-//                    isNumericKey = true;
-//                    break;
-//                }
-//            }
-//            if (isNumericKey) {
-//                propertyMap.put(property, new DoubleTypeValue(property.getNumericalValue()));
-//            } else {
-//                propertyMap.put(property, new StringTypeValue(property.getStringValue()));
-//            }
-//        }
-//        return propertyMap;
-//    }
 
+    public void updateDefaults(Settings settings) {
+        Map<String, String> updated = new HashMap<>(getDefaults());
+        for (Map.Entry<String,String> entry: getFromFile(settings).entrySet()) {
+            updated.replace(entry.getKey(), entry.getValue());
+        }
+        this.properties = updated;
+    }
 
-    public Map<String, String> getRawMap() {
+    public Map<String, String> getFromFile(Settings settings) {
+        return settings.getRawMap(configGroup);
+    }
+
+    public Map<String, String> getDefaults() {
         Map<String, String> propertiesRawMap = new HashMap<>();
         if (configGroup == ConfigGroup.LETTER_GEOMETRY) {
             for (LetterGeometryProperty property : LetterGeometryProperty.values()) {
-                propertiesRawMap.put(property.getPropertyName(), property.getGenericStringValue());
+                propertiesRawMap.put(property.getPropertyKey(), property.getGenericStringValue());
             }
         } else if (configGroup == ConfigGroup.SENDER_DATA || configGroup == ConfigGroup.RECEIVER_DATA) {
             for (AddressProperty property : AddressProperty.values()) {
-                propertiesRawMap.put(property.getPropertyName(), property.getStringValue());
+                propertiesRawMap.put(property.getPropertyKey(), property.getStringValue());
             }
         }
         return propertiesRawMap;
     }
 
-    public Map<String,GenericTypeValue> getTypedMap(Map<String, String> rawMap) {
+    public Map<String, GenericTypeValue> getTypedMap(Map<String, String> rawMap) {
         Map<String, GenericTypeValue> typedMap = new HashMap<>();
         typedMap.putAll(stringSubMap(rawMap).entrySet()
                 .stream()
@@ -86,5 +80,7 @@ public class PropertyMap {
         return isWidth.or(isHeight).or(isLength).or(isLineWidth).or(isX).or(isY).or(isXShift).or(isYShift).or(isBorderMargin);
     }
 
-
+    public Map<String, String> getProperties() {
+        return properties;
+    }
 }

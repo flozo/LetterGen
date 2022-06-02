@@ -1,6 +1,6 @@
 package de.flozo.data;
 
 public interface Property {
-    public String getPropertyName();
+    public String getPropertyKey();
     public String getEntry();
 }

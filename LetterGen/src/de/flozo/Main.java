@@ -9,7 +9,6 @@ import de.flozo.latex.tikz.Rectangle;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Main {
 
@@ -28,19 +27,44 @@ public class Main {
     public static void main(String[] args) {
 
         // read settings from config files
-//        Settings settings = new Settings(MASTER_CONFIG_FILE_NAME);
 //        System.out.println("**************");
 //        Properties geometryProperties = settings.getConfigGroupProperties(ConfigGroup.LETTER_GEOMETRY);
 //        System.out.println("**************");
 //        System.out.println("From file: " + geometryProperties.get(LetterGeometryProperty.BACKADDRESS_Y.getPropertyName()));
 
-        PropertyMap letterGeometry = new PropertyMap(ConfigGroup.LETTER_GEOMETRY);
 
-        LetterGeometry geometry = new LetterGeometry(letterGeometry);
+        Settings settings = new Settings(MASTER_CONFIG_FILE_NAME);
+
+        PropertyMap letterGeometryMap = new PropertyMap(ConfigGroup.LETTER_GEOMETRY);
+        letterGeometryMap.updateDefaults(settings);
+        LetterGeometry geometry = new LetterGeometry(letterGeometryMap);
+
+        PropertyMap senderMap = new PropertyMap(ConfigGroup.SENDER_DATA);
+        senderMap.updateDefaults(settings);
+        Address senderData = new Address(senderMap);
+
+        PropertyMap receiverMap = new PropertyMap(ConfigGroup.RECEIVER_DATA);
+        receiverMap.updateDefaults(settings);
+        Address receiverData = new Address(receiverMap);
+
+
         System.out.println("**************");
         System.out.println("Backaddress font soze: " + geometry.getBackaddressFontSize());
         System.out.println("Backaddress x: " + geometry.getBackaddressX()*2);
+        System.out.println(senderData.getFirstName());
+        System.out.println(senderData.getLastName());
+        System.out.println(senderData.getStreet());
+        System.out.println(senderData.getHouseNumber());
+        System.out.println(senderData.getPostalCode());
+        System.out.println(senderData.getCity());
+        System.out.println("--------------");
 
+        System.out.println(receiverData.getFirstName());
+        System.out.println(receiverData.getLastName());
+        System.out.println(receiverData.getStreet());
+        System.out.println(receiverData.getHouseNumber());
+        System.out.println(receiverData.getPostalCode());
+        System.out.println(receiverData.getCity());
 
 
         System.out.println("==========0");
@@ -49,11 +73,6 @@ public class Main {
 
         System.out.println("???????????");
 
-        Map<String, String> rawMap = letterGeometry.getRawMap();
-        System.out.println(rawMap.get(LetterGeometryProperty.PAPER_WIDTH.getPropertyName()));
-        System.out.println(letterGeometry.getTypedMap(rawMap).get(LetterGeometryProperty.PAPER_WIDTH.getPropertyName()).getNumber() * 2);
-        System.out.println(letterGeometry.numericSubMap(rawMap).get(LetterGeometryProperty.PAPER_WIDTH.getPropertyName()) * 3);
-        System.out.println("???????????");
 
 //        System.out.println(typedSettings.getAllTyped().get(LetterGeometryProperty.BACKGROUND_COLOR.getString()).getString());
 //        LetterGeometry geometry = new LetterGeometry(typedSettings);

@@ -1,5 +1,7 @@
 package de.flozo.data;
 
+import java.util.Map;
+
 public class Address {
 
     private final String firstName;
@@ -20,21 +22,22 @@ public class Address {
     private final String webpage;
 
 
-    public Address() {
-        this.firstName = AddressProperty.NAME_FIRST.getStringValue();
-        this.middleName = AddressProperty.NAME_MIDDLE.getStringValue();
-        this.lastName = AddressProperty.NAME_LAST.getStringValue();
-        this.title = AddressProperty.NAME_TITLE.getStringValue();
-        this.company = AddressProperty.NAME_COMPANY.getStringValue();
-        this.street = AddressProperty.ADDRESS_STREET.getStringValue();
-        this.houseNumber = AddressProperty.ADDRESS_HOUSE_NUMBER.getStringValue();
-        this.postalCode = AddressProperty.ADDRESS_POSTAL_CODE.getStringValue();
-        this.city = AddressProperty.ADDRESS_CITY.getStringValue();
-        this.country = AddressProperty.ADDRESS_COUNTRY.getStringValue();
-        this.phoneNumber = AddressProperty.COMMUNICATION_PHONE.getStringValue();
-        this.mobileNumber = AddressProperty.COMMUNICATION_MOBILE.getStringValue();
-        this.emailAddress = AddressProperty.COMMUNICATION_EMAIL.getStringValue();
-        this.webpage = AddressProperty.COMMUNICATION_WEBPAGE.getStringValue();
+    public Address(PropertyMap propertyMap) {
+        Map<String, String> map = propertyMap.getProperties();
+        this.firstName = map.get(AddressProperty.NAME_FIRST.getPropertyKey());
+        this.middleName = map.get(AddressProperty.NAME_MIDDLE.getPropertyKey());
+        this.lastName = map.get(AddressProperty.NAME_LAST.getPropertyKey());
+        this.title = map.get(AddressProperty.NAME_TITLE.getPropertyKey());
+        this.company = map.get(AddressProperty.NAME_COMPANY.getPropertyKey());
+        this.street = map.get(AddressProperty.ADDRESS_STREET.getPropertyKey());
+        this.houseNumber = map.get(AddressProperty.ADDRESS_HOUSE_NUMBER.getPropertyKey());
+        this.postalCode = map.get(AddressProperty.ADDRESS_POSTAL_CODE.getPropertyKey());
+        this.city = map.get(AddressProperty.ADDRESS_CITY.getPropertyKey());
+        this.country = map.get(AddressProperty.ADDRESS_COUNTRY.getPropertyKey());
+        this.phoneNumber = map.get(AddressProperty.COMMUNICATION_PHONE.getPropertyKey());
+        this.mobileNumber = map.get(AddressProperty.COMMUNICATION_MOBILE.getPropertyKey());
+        this.emailAddress = map.get(AddressProperty.COMMUNICATION_EMAIL.getPropertyKey());
+        this.webpage = map.get(AddressProperty.COMMUNICATION_WEBPAGE.getPropertyKey());
     }
 
     public String getFirstName() {

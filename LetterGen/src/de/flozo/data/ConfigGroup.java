@@ -16,7 +16,7 @@ public enum ConfigGroup {
         this.configGroup = configGroup;
     }
 
-    public String getString() {
+    public String getPropertyKey() {
         return configGroup;
     }
 

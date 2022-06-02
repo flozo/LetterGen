@@ -71,7 +71,7 @@ public enum LetterGeometryProperty implements Property {
 
 
     @Override
-    public String getPropertyName() {
+    public String getPropertyKey() {
         return property;
     }
 

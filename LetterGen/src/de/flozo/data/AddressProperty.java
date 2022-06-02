@@ -26,7 +26,7 @@ public enum AddressProperty implements Property {
     }
 
     @Override
-    public String getPropertyName() {
+    public String getPropertyKey() {
         return property;
     }
 

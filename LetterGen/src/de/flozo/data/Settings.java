@@ -23,12 +23,20 @@ public class Settings {
         return getAll().get(configGroup);
     }
 
+    public Map<String, String> getRawMap(ConfigGroup configGroup) {
+        Map<String, String> propertiesRawMap = new HashMap<>();
+        Properties groupProperties = getConfigGroupProperties(configGroup);
+        for (Map.Entry<Object, Object> property : groupProperties.entrySet()) {
+            propertiesRawMap.put(property.getKey().toString(), property.getValue().toString());
+        }
+        return propertiesRawMap;
+    }
 
     public Map<ConfigGroup, Properties> getAll() {
         Map<ConfigGroup, Properties> settings = new HashMap<>();
         Properties configFileNames = readConfigFileNames();
         for (ConfigGroup configGroup : ConfigGroup.values()) {
-            settings.put(configGroup, new ConfigFile(configFileNames.getProperty(configGroup.getString())).getProperties());
+            settings.put(configGroup, new ConfigFile(configFileNames.getProperty(configGroup.getPropertyKey())).getProperties());
         }
         return settings;
     }
@@ -47,14 +55,13 @@ public class Settings {
 
     private boolean isComplete(Properties properties) {
         for (ConfigGroup configGroup : ConfigGroup.values()) {
-            if (!properties.containsKey(configGroup.getString())) {
-                System.out.println("[config] [error] ... required config group \"" + configGroup.getString() + "\" not found in master config!");
+            if (!properties.containsKey(configGroup.getPropertyKey())) {
+                System.out.println("[config] [error] ... required config group \"" + configGroup.getPropertyKey() + "\" not found in master config!");
                 return false;
             }
         }
         System.out.println("[config] ... master-config groups are complete!");
         return true;
     }
-
 
 }
