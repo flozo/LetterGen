@@ -8,7 +8,6 @@ public enum DashPatternStyle {
     // dashed, densely dashed, loosely dashed, dash dot, densely dash dot, loosely dash dot,
     // dash dot dot, densely dash dot dot, and loosely dash dot dot
 
-
     SOLID("solid"),
     DOTTED("dotted"),
     DENSELY_DOTTED("densely dotted"),
@@ -23,6 +22,7 @@ public enum DashPatternStyle {
     DENSELY_DASH_DOT_DOT("densely dash dot dot"),
     LOOSELY_DASH_DOT_DOT("loosely dash dot dot");
 
+
     private final String dashPatternStyle;
 
     DashPatternStyle(String dashPatternStyle) {
@@ -32,5 +32,4 @@ public enum DashPatternStyle {
     public String getString() {
         return dashPatternStyle;
     }
-
 }

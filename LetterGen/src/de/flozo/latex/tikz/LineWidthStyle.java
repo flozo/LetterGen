@@ -6,7 +6,6 @@ public enum LineWidthStyle {
     // (used without parameter name; version with parameter name takes numerical values only)
     // permissible types are ultra thin, very thin, thin, semithick, thick, very thick, and ultra thick
 
-
     ULTRA_THIN("ultra thin"),
     VERY_THIN("very thin"),
     THIN("thin"),
@@ -14,6 +13,7 @@ public enum LineWidthStyle {
     THICK("thick"),
     VERY_THICK("very thin"),
     ULTRA_THICK("ultra thick");
+
 
     private final String lineWidthStyle;
 

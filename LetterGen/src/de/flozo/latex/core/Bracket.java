@@ -1,6 +1,7 @@
 package de.flozo.latex.core;
 
 public enum Bracket {
+
     NONE("", ""),
     PARENTHESIS("(", ")"),
     SQUARE_BRACKETS("[", "]"),
@@ -22,5 +23,4 @@ public enum Bracket {
     public String getRightBracket() {
         return rightBracket;
     }
-
 }

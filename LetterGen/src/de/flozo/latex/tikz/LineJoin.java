@@ -9,6 +9,7 @@ public enum LineJoin {
     BUTT("bevel"),
     RECT("miter");
 
+
     private final String lineJoin;
 
     LineJoin(String lineJoin) {
@@ -18,5 +19,4 @@ public enum LineJoin {
     public String getString() {
         return lineJoin;
     }
-
 }

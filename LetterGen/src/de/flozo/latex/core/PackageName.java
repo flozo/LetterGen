@@ -1,6 +1,7 @@
 package de.flozo.latex.core;
 
 public enum PackageName {
+
     STANDALONE("standalone"),
     INPUTENC("inputenc"),
     FONTENC("fontenc"),
@@ -15,6 +16,7 @@ public enum PackageName {
     TIKZ("tikz"),
     HYPERREF("hyperref");
 
+
     private final String packageName;
 
     PackageName(String packageName) {
@@ -24,5 +26,4 @@ public enum PackageName {
     public String getString() {
         return packageName;
     }
-
 }

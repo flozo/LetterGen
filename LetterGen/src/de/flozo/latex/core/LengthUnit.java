@@ -1,6 +1,7 @@
 package de.flozo.latex.core;
 
 public enum LengthUnit {
+
     DEFAULT(""),
     POINT("pt"),
     MILLIMETER("mm"),
@@ -20,6 +21,4 @@ public enum LengthUnit {
     public String getString() {
         return lengthUnit;
     }
-
-
 }

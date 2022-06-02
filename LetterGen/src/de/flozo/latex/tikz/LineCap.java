@@ -9,6 +9,7 @@ public enum LineCap {
     BUTT("butt"),
     RECT("rect");
 
+
     private final String lineCap;
 
     LineCap(String lineCap) {
@@ -18,5 +19,4 @@ public enum LineCap {
     public String getString() {
         return lineCap;
     }
-
 }

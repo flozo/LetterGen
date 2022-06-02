@@ -1,6 +1,7 @@
 package de.flozo.latex.core;
 
 public enum EnvironmentName {
+
     DOCUMENT,
     SCOPE,
     TIKZPICTURE,

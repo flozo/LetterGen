@@ -1,6 +1,7 @@
 package de.flozo.latex.core;
 
 public enum CommandName {
+
     DOCUMENTCLASS("documentclass"),
     USEPACKAGE("usepackage"),
     HYPERSETUP("hypersetup"),
@@ -23,6 +24,7 @@ public enum CommandName {
     INCLUDEGRAPHICS("includegraphics"),
     FAICON("faIcon");
 
+
     private final String commandName;
 
     CommandName(String commandName) {
@@ -32,5 +34,4 @@ public enum CommandName {
     public String getString() {
         return commandName;
     }
-
 }

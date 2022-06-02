@@ -26,12 +26,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // read settings from config files
-//        System.out.println("**************");
-//        Properties geometryProperties = settings.getConfigGroupProperties(ConfigGroup.LETTER_GEOMETRY);
-//        System.out.println("**************");
-//        System.out.println("From file: " + geometryProperties.get(LetterGeometryProperty.BACKADDRESS_Y.getPropertyName()));
-
 
         Settings settings = new Settings(MASTER_CONFIG_FILE_NAME);
 
@@ -47,49 +41,6 @@ public class Main {
         receiverMap.updateDefaults(settings);
         Address receiverData = new Address(receiverMap);
 
-
-        System.out.println("**************");
-        System.out.println("Backaddress font soze: " + geometry.getBackaddressFontSize());
-        System.out.println("Backaddress x: " + geometry.getBackaddressX()*2);
-        System.out.println(senderData.getFirstName());
-        System.out.println(senderData.getLastName());
-        System.out.println(senderData.getStreet());
-        System.out.println(senderData.getHouseNumber());
-        System.out.println(senderData.getPostalCode());
-        System.out.println(senderData.getCity());
-        System.out.println("--------------");
-
-        System.out.println(receiverData.getFirstName());
-        System.out.println(receiverData.getLastName());
-        System.out.println(receiverData.getStreet());
-        System.out.println(receiverData.getHouseNumber());
-        System.out.println(receiverData.getPostalCode());
-        System.out.println(receiverData.getCity());
-
-
-        System.out.println("==========0");
-        System.out.println(LetterGeometryProperty.ADDRESS_X.getEntry());
-        System.out.println(LetterGeometryProperty.BACKADDRESS_SEPCHAR.getEntry());
-
-        System.out.println("???????????");
-
-
-//        System.out.println(typedSettings.getAllTyped().get(LetterGeometryProperty.BACKGROUND_COLOR.getString()).getString());
-//        LetterGeometry geometry = new LetterGeometry(typedSettings);
-//
-//        System.out.println(geometry.getAddressWidth());
-
-//        LetterGeometry geometry = new LetterGeometry(geometryProperties);
-//        Address sender = new Address(senderData);
-//        Address receiver = new Address(receiverData);
-//        Map<String, GenericTypeValue> geometry = settings.getTypedProperties(ConfigGroup.LETTER_GEOMETRY);
-//        geometry.get(LetterGeometryProperty.PERFORATION_MARK_X).getNumber();
-
-
-//        System.out.println(geometry.getBackaddressFontSize());
-
-
-//        String pdfauthor = senderData.getProperty("person.name.first", "My") + " " + senderData.getProperty("person.name.family", "Name");
 
 
         Documentclass documentclass = new Documentclass(PackageName.STANDALONE, "12pt", "tikz", "multi", "crop");
@@ -121,15 +72,16 @@ public class Main {
                 .body("tikzpicture")
                 .build();
 
+        String pdfauthor = senderData.getFirstName() + " " + senderData.getLastName();
         Command2 hypersetup = new Command2.Command2Builder(CommandName.HYPERSETUP.getString())
                 .body(
                         "colorlinks=true",
-//                        String.format("urlcolor=%s", geometryProperties.getProperty("url_hyperlink.color", "Blues-K")),
+                        String.format("urlcolor=%s", geometry.getUrlHyperlinkColor()),
                         "pdftitle={Letter}",
-//                        String.format("pdfauthor={%s}", pdfauthor),
+                        String.format("pdfauthor={%s}", pdfauthor),
                         String.format("pdfdate={%s}", LocalDate.now()),
-                        String.format("pdfproducer={%s}", VERSION_INFO_PDF_META_DATA)
-//                        String.format("pdfcontactemail={%s}", senderData.getProperty("communication.email", "me@mail.com"))
+                        String.format("pdfproducer={%s}", VERSION_INFO_PDF_META_DATA),
+                        String.format("pdfcontactemail={%s}", senderData.getEmailAddress())
                 )
                 .bodyTerminator(StatementTerminator.COMMA)
                 .build();
@@ -144,7 +96,7 @@ public class Main {
         Layer pgflayers = new Layer.LayerBuilder("background", "forebackground", "main", "foreground")
                 .build();
 
-        Rectangle backgroundRectangle = new Rectangle.RectangleBuilder(0, 0, Defaults.A4_WIDTH, Defaults.A4_HEIGHT)
+        Rectangle backgroundRectangle = new Rectangle.RectangleBuilder(0, 0, geometry.getPaperWidth(), geometry.getPaperHeight())
                 .fillColor(new Color(StandardColorName.NONE))
                 .drawColor(new Color(StandardColorName.NONE))
                 .build();
@@ -162,7 +114,7 @@ public class Main {
                 .build();
 
         Environment3 tikzpicture = new Environment3.Environment3Builder(EnvironmentName.TIKZPICTURE)
-                .optionalArguments("inner xsep=0pt", "inner ysep=0pt", "trim left=0pt", "trim right=" + Defaults.A4_WIDTH + "cm")
+                .optionalArguments("inner xsep=0pt", "inner ysep=0pt", "trim left=0pt", "trim right=" + geometry.getPaperWidth() + "cm")
                 .body(tikzpictureBody.getBlock())
                 .build();
 

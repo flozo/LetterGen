@@ -5,7 +5,6 @@ import java.util.*;
 public class PackageList {
 
     private final Documentclass documentclass;
-
     private final Map<PackageName, ExpressionList> usepackageList;
 
 
@@ -30,5 +29,4 @@ public class PackageList {
         }
         return codeLines;
     }
-
 }

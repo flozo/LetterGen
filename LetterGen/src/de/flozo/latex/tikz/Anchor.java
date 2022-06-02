@@ -1,6 +1,7 @@
 package de.flozo.latex.tikz;
 
 public enum Anchor {
+
     NORTH("north"),
     EAST("east"),
     SOUTH("south"),
@@ -11,6 +12,7 @@ public enum Anchor {
     CENTER("center"),
     BASE("base"),
     MID("mid");
+
 
     private final String anchor;
 

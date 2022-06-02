@@ -56,8 +56,6 @@ public class Layer {
         }
 
 
-
-
         public Layer build() {
             return new Layer(this);
         }

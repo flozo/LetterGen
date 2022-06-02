@@ -1,6 +1,7 @@
 package de.flozo.latex.tikz;
 
 public enum Alignment {
+
     LEFT("left"),
     RIGHT("right"),
     CENTER("center"),
@@ -9,6 +10,7 @@ public enum Alignment {
     FLUSH_RIGHT("flush right"),
     FLUSH_CENTER("flush center"),
     NONE("none");
+
 
     private final String alignment;
 
@@ -19,5 +21,4 @@ public enum Alignment {
     public String getString() {
         return alignment;
     }
-
 }

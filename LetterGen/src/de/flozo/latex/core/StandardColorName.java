@@ -23,8 +23,8 @@ public enum StandardColorName {
     WHITE,
     YELLOW;
 
+
     public String getString() {
         return name().toLowerCase();
     }
-
 }

@@ -13,7 +13,7 @@ public class Includegraphics {
 
 
     // required
-    private String fileName;
+    private final String fileName;
 
     // optional
     private final List<String> optionalArguments;

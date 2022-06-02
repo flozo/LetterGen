@@ -25,5 +25,4 @@ public class Length {
         DecimalFormat df = new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.US));
         return (df.format(numericalValue) + unit.getString());
     }
-
 }

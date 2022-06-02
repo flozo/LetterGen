@@ -23,9 +23,7 @@ public class Command2 {
     public static final boolean DEFAULT_TRAILING_OPENING_BRACKET = true;
     public static final boolean DEFAULT_INTER_BRACKET_SPACE = true;
 
-
     // required
-//    private final CommandName name;
     private final String name;
 
     // optional
@@ -178,7 +176,6 @@ public class Command2 {
     public static class Command2Builder {
 
         // required
-//        private final CommandName name;
         private final String name;
 
         // optional
@@ -198,14 +195,11 @@ public class Command2 {
         private boolean interBracketSpace = DEFAULT_INTER_BRACKET_SPACE;
 
 
-//        public Command2Builder(CommandName name) {
         public Command2Builder(String name) {
             this.name = name;
         }
 
-        // Accept ExpressionList, List<String>, or any number of Strings as option list.
-        // In case of List<String> and String... use specified settings.
-        // In case of ExpressionList, take it as is.
+        // Accept List<String> or any number of Strings as option list.
 
         public Command2Builder optionList(String... optionList) {
             return optionList(new ArrayList<>(List.of(optionList)));
@@ -217,9 +211,7 @@ public class Command2 {
         }
 
 
-        // Accept ExpressionList, List<String>, or any number of Strings as body.
-        // In case of List<String> and String... use specified settings.
-        // In case of ExpressionList, take it as is.
+        // Accept List<String> or any number of Strings as body.
 
         public Command2Builder body(String... body) {
             return body(new ArrayList<>(List.of(body)));

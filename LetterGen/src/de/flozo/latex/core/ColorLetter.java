@@ -1,6 +1,7 @@
 package de.flozo.latex.core;
 
 public enum ColorLetter {
+
     A,
     B,
     C,
@@ -14,4 +15,5 @@ public enum ColorLetter {
     K,
     L,
     M;
+
 }

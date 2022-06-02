@@ -30,7 +30,6 @@ public class Environment3 {
     private final Bracket bodyBrackets;
 
 
-
     private Environment3(Environment3Builder builder) {
         this.name = builder.name;
         this.requiredArguments = builder.requiredArguments;
@@ -55,58 +54,9 @@ public class Environment3 {
         return codeLines;
     }
 
-//    private String getFirstLine() {
-//        StringBuilder firstLine = new StringBuilder();
-//        firstLine.append(buildTag(OPENING_KEYWORD));
-//        if (requiredArguments != null) {
-//            firstLine.append(buildRequiredArguments().getInline());
-//        }
-//        if (optionalArguments != null) {
-//            firstLine.append(buildOptionalArguments().getInline());
-//        }
-//        return firstLine.toString();
-//    }
-
     private String buildTag(String tagKeyword) {
         return COMMAND_MARKER_CHAR + tagKeyword + ENVIRONMENT_NAME_BRACKET.getLeftBracket() + name.getString() + ENVIRONMENT_NAME_BRACKET.getRightBracket();
     }
-//
-//    private List<String> indent(String... code) {
-//        return indent(new ArrayList<>(List.of(code)));
-//    }
-//
-//    private List<String> indent(List<String> code) {
-//        List<String> indentedCode = new ArrayList<>(code);
-//        indentedCode.replaceAll(s -> INDENT_CHARACTER + s);
-//        return indentedCode;
-//    }
-//
-//    private ExpressionList2 buildRequiredArguments() {
-//        return new ExpressionList2.ExpressionList2Builder(this.requiredArguments)
-//                .brackets(DEFAULT_REQUIRED_ARGUMENTS_BRACKET)
-//                .terminator(StatementTerminator.COMMA)
-//                .build();
-//    }
-
-//    private ExpressionList2 buildOptionalArguments() {
-//        return new ExpressionList2.ExpressionList2Builder(this.optionalArguments)
-//                .brackets(DEFAULT_OPTIONAL_ARGUMENTS_BRACKET)
-//                .terminator(StatementTerminator.COMMA)
-//                .build();
-//    }
-//
-//    private ExpressionList2 buildBody() {
-//        return new ExpressionList2.ExpressionList2Builder(this.body)
-//                .brackets(DEFAULT_BODY_BRACKET)
-//                .terminator(StatementTerminator.NONE)
-//                .build();
-//    }
-
-//    private Command2 buildCommand() {
-//        return new Command2.Command2Builder(buildTag(OPENING_KEYWORD))
-//                .
-//                .build();
-//    }
 
 
     public static class Environment3Builder {
@@ -121,7 +71,6 @@ public class Environment3 {
         private boolean indentBody = DEFAULT_INDENT_BODY;
         private Bracket optionBrackets = DEFAULT_OPTIONAL_ARGUMENTS_BRACKET;
         private Bracket bodyBrackets = DEFAULT_BODY_BRACKETS;
-
 
 
         public Environment3Builder(EnvironmentName name) {

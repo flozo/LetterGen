@@ -1,6 +1,7 @@
 package de.flozo.latex.core;
 
 public enum FontSize {
+
     TINY("tiny"),
     SCRIPT_SIZE("scriptsize"),
     FOOTNOTE_SIZE("footnotesize"),
@@ -11,6 +12,7 @@ public enum FontSize {
     LARGE3("LARGE"),
     HUGE("huge"),
     HUGE2("Huge");
+
 
     private final String fontSizeName;
 

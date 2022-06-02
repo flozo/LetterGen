@@ -1,6 +1,7 @@
 package de.flozo.latex.core;
 
 public enum ColorScheme {
+
     BU_GN("BuGn"),
     PU_RD("PuRd"),
     BU_PU("BuPu"),
@@ -19,6 +20,7 @@ public enum ColorScheme {
     ORANGES("Oranges"),
     PURPLES("Purples"),
     RED("Reds");
+
 
     private final String schemeName;
 

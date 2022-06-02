@@ -9,6 +9,7 @@ public enum CoordinateMode {
     RELATIVE("+"),
     RELATIVE_SET_ORIGIN("++");
 
+
     private final String coordinateMode;
 
     CoordinateMode(String coordinateMode) {
@@ -18,5 +19,4 @@ public enum CoordinateMode {
     public String getString() {
         return coordinateMode;
     }
-
 }

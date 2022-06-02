@@ -11,10 +11,8 @@ public class Documentclass extends Command {
         this.documentClassName = documentClassName;
     }
 
-
     public Documentclass(PackageName packageName, ExpressionList optionList) {
         super(KEYWORD, new ExpressionList(packageName.getString()), optionList);
         this.documentClassName = packageName;
     }
-
 }

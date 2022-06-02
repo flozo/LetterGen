@@ -1,6 +1,7 @@
 package de.flozo.latex.tikz;
 
 public enum PathOperation {
+
     LINE("--"),
     RECTANGLE("rectangle"),
     CIRCLE("circle"),
@@ -11,6 +12,7 @@ public enum PathOperation {
     SIN("sin"),
     COS("cos");
 
+
     private final String pathOperation;
 
     PathOperation(String pathOperation) {
@@ -20,6 +22,4 @@ public enum PathOperation {
     public String getString() {
         return pathOperation;
     }
-
-
 }
