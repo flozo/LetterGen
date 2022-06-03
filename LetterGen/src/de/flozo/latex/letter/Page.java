@@ -1,27 +1,29 @@
 package de.flozo.latex.letter;
 
+import de.flozo.data.LetterGeometry;
+
 public class Page {
 
-    private double width;
-    private double height;
-    private double marginTop;
-    private double marginBottom;
-    private double marginLeft;
-    private double marginRight;
-    private String backgroundColor;
-    private boolean inDraftMode;
-    private String draftHighlightColor;
+    private final double width;
+    private final double height;
+    private final double marginTop;
+    private final double marginBottom;
+    private final double marginLeft;
+    private final double marginRight;
+    private final String backgroundColor;
+    private final String draftHighlightColor;
+    private final String urlHyperlinkColor;
 
-    public Page(double width, double height, double marginTop, double marginBottom, double marginLeft, double marginRight, String backgroundColor, boolean inDraftMode, String draftHighlightColor) {
-        this.width = width;
-        this.height = height;
-        this.marginTop = marginTop;
-        this.marginBottom = marginBottom;
-        this.marginLeft = marginLeft;
-        this.marginRight = marginRight;
-        this.backgroundColor = backgroundColor;
-        this.inDraftMode = inDraftMode;
-        this.draftHighlightColor = draftHighlightColor;
+    public Page(LetterGeometry geometry) {
+        this.width = geometry.getPaperWidth();
+        this.height = geometry.getPaperHeight();
+        this.marginTop = geometry.getBorderMarginTop();
+        this.marginBottom = geometry.getBorderMarginBottom();
+        this.marginLeft = geometry.getBorderMarginLeft();
+        this.marginRight = geometry.getBorderMarginRight();
+        this.backgroundColor = geometry.getBackgroundColor();
+        this.draftHighlightColor = geometry.getDraftModeHighlightColor();
+        this.urlHyperlinkColor = geometry.getUrlHyperlinkColor();
     }
 
     public double getWidth() {
@@ -52,11 +54,11 @@ public class Page {
         return backgroundColor;
     }
 
-    public boolean isInDraftMode() {
-        return inDraftMode;
-    }
-
     public String getDraftHighlightColor() {
         return draftHighlightColor;
+    }
+
+    public String getUrlHyperlinkColor() {
+        return urlHyperlinkColor;
     }
 }

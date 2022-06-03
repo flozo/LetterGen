@@ -27,6 +27,7 @@ public class LetterGeometry {
     private final double backaddressHeight;
     private final double backaddressSeplineLineWidth;
     private final String backaddressSepChar;
+    private final double backaddressSepCharSpacing;
     private final String backaddressFontSize;
 
     private final double senderX;
@@ -79,6 +80,7 @@ public class LetterGeometry {
         this.backaddressHeight = numericSubMap.get(LetterGeometryProperty.BACKADDRESS_HEIGHT.getPropertyKey());
         this.backaddressSeplineLineWidth = numericSubMap.get(LetterGeometryProperty.BACKADDRESS_SEPLINE_LINEWIDTH.getPropertyKey());
         this.backaddressSepChar = stringSubMap.get(LetterGeometryProperty.BACKADDRESS_SEPCHAR.getPropertyKey());
+        this.backaddressSepCharSpacing = numericSubMap.get(LetterGeometryProperty.BACKADDRESS_SEPCHAR_SPACING.getPropertyKey());
         this.backaddressFontSize = stringSubMap.get(LetterGeometryProperty.BACKADDRESS_FONTSIZE.getPropertyKey());
         this.senderX = numericSubMap.get(LetterGeometryProperty.SENDER_X.getPropertyKey());
         this.senderY = numericSubMap.get(LetterGeometryProperty.SENDER_Y.getPropertyKey());
@@ -177,6 +179,10 @@ public class LetterGeometry {
 
     public String getBackaddressSepChar() {
         return backaddressSepChar;
+    }
+
+    public double getBackaddressSepCharSpacing() {
+        return backaddressSepCharSpacing;
     }
 
     public String getBackaddressFontSize() {

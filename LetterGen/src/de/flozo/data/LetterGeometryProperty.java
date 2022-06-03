@@ -28,6 +28,7 @@ public enum LetterGeometryProperty implements Property {
     BACKADDRESS_HEIGHT("backaddress.height", 1.0),
     BACKADDRESS_SEPLINE_LINEWIDTH("backaddress.sepline.line_width", 0.5),
     BACKADDRESS_SEPCHAR("backaddress.sepchar", "bullet"),
+    BACKADDRESS_SEPCHAR_SPACING("backaddress.sepchar.spacing", 8.0),
     BACKADDRESS_FONTSIZE("backaddress.fontsize", FontSize.SCRIPT_SIZE.getString()),
 
     SENDER_X("sender.x", 11.0),

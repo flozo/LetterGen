@@ -84,12 +84,13 @@ public class PropertyMap {
         Predicate<String> isHeight = key -> key.endsWith(".height");
         Predicate<String> isLength = key -> key.endsWith(".length");
         Predicate<String> isLineWidth = key -> key.endsWith(".line_width");
+        Predicate<String> isSpacing = key -> key.endsWith(".spacing");
         Predicate<String> isX = key -> key.endsWith(".x");
         Predicate<String> isY = key -> key.endsWith(".y");
         Predicate<String> isXShift = key -> key.endsWith(".x_shift");
         Predicate<String> isYShift = key -> key.endsWith(".y_shift");
         Predicate<String> isBorderMargin = key -> key.startsWith("border_margin");
-        return isWidth.or(isHeight).or(isLength).or(isLineWidth).or(isX).or(isY).or(isXShift).or(isYShift).or(isBorderMargin);
+        return isWidth.or(isHeight).or(isLength).or(isLineWidth).or(isSpacing).or(isX).or(isY).or(isXShift).or(isYShift).or(isBorderMargin);
     }
 
     private Predicate<String> booleanEntryCondition() {
