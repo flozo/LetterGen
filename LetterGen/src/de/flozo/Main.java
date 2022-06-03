@@ -2,6 +2,7 @@ package de.flozo;
 
 import de.flozo.data.*;
 import de.flozo.latex.core.*;
+import de.flozo.latex.letter.AddressField;
 import de.flozo.latex.tikz.Layer;
 import de.flozo.latex.tikz.LayerEnvironment;
 import de.flozo.latex.tikz.Rectangle;
@@ -46,10 +47,8 @@ public class Main {
         LetterGeneral letterGeneral = new LetterGeneral(general);
 
 
-
         System.out.println(letterGeneral.getDateFormat());
         System.out.println(letterGeneral.isDraftModeOn());
-
 
 
         Documentclass documentclass = new Documentclass(PackageName.STANDALONE, "12pt", "tikz", "multi", "crop");
@@ -117,8 +116,12 @@ public class Main {
 
 //        LayerEnvironment onForegroundLayer = new LayerEnvironment("foreground", perforationMark.getStatement());
 //
+        AddressField addressField = new AddressField(geometry, receiverData);
+
+
         ExpressionList2 tikzpictureBody = new ExpressionList2.ExpressionList2Builder()
                 .append(onBackgroundLayer.getBlock())
+                .append(addressField.getAddressField())
 //                .append(onForegroundLayer.getBlock())
                 .build();
 

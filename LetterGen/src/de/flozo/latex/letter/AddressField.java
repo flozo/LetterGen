@@ -24,7 +24,7 @@ public class AddressField {
     private final String receiverPostalCode;
     private final String receiverCity;
 
-    
+
     public AddressField(LetterGeometry geometry, Address address) {
         this.x = geometry.getAddressX();
         this.y = geometry.getAddressY();

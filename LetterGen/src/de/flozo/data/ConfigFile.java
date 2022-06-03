@@ -2,6 +2,8 @@ package de.flozo.data;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
@@ -27,8 +29,8 @@ public class ConfigFile {
         Path configDirectory = Paths.get(homeDirectory, CONFIG_DIR, SUB_DIR, fileName);
         System.out.println("[config] Read from config file \"" + configDirectory + "\" ...");
         Properties properties = new Properties();
-        try {
-            properties.load(new FileInputStream(configDirectory.toFile()));
+        try (InputStreamReader input = new InputStreamReader(new FileInputStream(configDirectory.toFile()), StandardCharsets.UTF_8)) {
+            properties.load(input);
         } catch (IOException e) {
             System.out.println("[config] [IOException] Failed to open config file!");
         }
