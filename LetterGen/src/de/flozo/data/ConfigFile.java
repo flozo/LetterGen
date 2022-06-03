@@ -32,29 +32,12 @@ public class ConfigFile {
         } catch (IOException e) {
             System.out.println("[config] [IOException] Failed to open config file!");
         }
-        if (!checkNumericValues(properties)) {
+        if (!checkNumericValues(properties) || !checkBooleanValues(properties)) {
             System.out.println("Possible type error in settings file!");
         }
         return properties;
     }
 
-
-
-
-//    private boolean checkNumericValues(Properties properties) {
-//        String[] numericKeys = {".width", ".height", ".length", ".x", ".y", ".x_shift", ".y_shift", ".line_width"};
-//        for (Map.Entry<Object, Object> property : properties.entrySet()) {
-//            for (String numericKey : numericKeys) {
-//                if (property.getKey().toString().endsWith(numericKey)) {
-//                    if (!isNumeric(property.getValue().toString())) {
-//                        System.out.println("[config] [error] Numeric value expected for property \"" + property.getKey() + "\"; found non-numeric value \"" + property.getValue() + "\"");
-//                        return false;
-//                    }
-//                }
-//            }
-//        }
-//        return true;
-//    }
 
     private boolean checkNumericValues(Properties properties) {
         for (Map.Entry<String, String> entry : toCheckIfNumeric(properties).entrySet()) {
@@ -66,6 +49,17 @@ public class ConfigFile {
         return true;
     }
 
+    private boolean checkBooleanValues(Properties properties) {
+        for (Map.Entry<String, String> entry : toCheckIfBoolean(properties).entrySet()) {
+            if (!isBoolean(entry.getValue())) {
+                System.out.println("[config] [error] Boolean value expected for property \"" + entry.getKey() + "\"; found non-boolean value \"" + entry.getValue() + "\"");
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     private Map<String, String> toCheckIfNumeric(Properties properties) {
         return properties.entrySet()
                 .stream()
@@ -74,6 +68,16 @@ public class ConfigFile {
                         entry -> String.valueOf(entry.getKey()),
                         entry -> String.valueOf(entry.getValue())));
     }
+
+    private Map<String, String> toCheckIfBoolean(Properties properties) {
+        return properties.entrySet()
+                .stream()
+                .filter(entry -> booleanEntryCondition().test(entry.getKey().toString()))
+                .collect(Collectors.toMap(
+                        entry -> String.valueOf(entry.getKey()),
+                        entry -> String.valueOf(entry.getValue())));
+    }
+
 
     private boolean isNumeric(String propertyValue) {
         if (propertyValue == null) {
@@ -86,6 +90,19 @@ public class ConfigFile {
         }
         return true;
     }
+
+    private boolean isBoolean(String propertyValue) {
+        if (propertyValue == null) {
+            return false;
+        }
+        try {
+            Boolean.parseBoolean(propertyValue);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
 
     private Predicate<String> numericEntryCondition() {
         Predicate<String> isWidth = key -> key.endsWith(".width");
@@ -100,5 +117,8 @@ public class ConfigFile {
         return isWidth.or(isHeight).or(isLength).or(isLineWidth).or(isX).or(isY).or(isXShift).or(isYShift).or(isBorderMargin);
     }
 
+    private Predicate<String> booleanEntryCondition() {
+        return key -> key.endsWith(".on");
+    }
 
 }

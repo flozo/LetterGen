@@ -6,16 +6,10 @@ import java.util.Properties;
 
 public class Settings {
 
-
     private final String masterConfigFile;
-
 
     public Settings(String masterConfigFile) {
         this.masterConfigFile = masterConfigFile;
-    }
-
-    public String getProperty(ConfigGroup configGroup, String propertyName, String defaultValue) {
-        return getAll().get(configGroup).getProperty(propertyName, defaultValue);
     }
 
 

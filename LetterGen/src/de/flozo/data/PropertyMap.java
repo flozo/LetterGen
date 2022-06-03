@@ -42,32 +42,40 @@ public class PropertyMap {
         return propertiesRawMap;
     }
 
-    public Map<String, GenericTypeValue> getTypedMap(Map<String, String> rawMap) {
-        Map<String, GenericTypeValue> typedMap = new HashMap<>();
-        typedMap.putAll(stringSubMap(rawMap).entrySet()
-                .stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, value -> new StringTypeValue(value.getValue()))));
-        typedMap.putAll(numericSubMap(rawMap).entrySet()
-                .stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, value -> new DoubleTypeValue(value.getValue()))));
-        return typedMap;
-    }
+//    public Map<String, GenericTypeValue> getTypedMap(Map<String, String> rawMap) {
+//        Map<String, GenericTypeValue> typedMap = new HashMap<>();
+//        typedMap.putAll(stringSubMap(rawMap).entrySet()
+//                .stream()
+//                .collect(Collectors.toMap(Map.Entry::getKey, value -> new StringTypeValue(value.getValue()))));
+//        typedMap.putAll(numericSubMap(rawMap).entrySet()
+//                .stream()
+//                .collect(Collectors.toMap(Map.Entry::getKey, value -> new DoubleTypeValue(value.getValue()))));
+//        return typedMap;
+//    }
 
     public Map<String, String> stringSubMap(Map<String, String> rawMap) {
         return rawMap.entrySet()
                 .stream()
-                .filter(entry -> numericEntry().negate().test(entry.getKey()))
+                .filter(entry -> numericEntryCondition().negate().test(entry.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     public Map<String, Double> numericSubMap(Map<String, String> rawMap) {
         return rawMap.entrySet()
                 .stream()
-                .filter(entry -> numericEntry().test(entry.getKey()))
+                .filter(entry -> numericEntryCondition().test(entry.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, value -> Double.parseDouble(value.getValue())));
     }
 
-    private Predicate<String> numericEntry() {
+    public Map<String, Boolean> booleanSubMap(Map<String, String> rawMap) {
+        return rawMap.entrySet()
+                .stream()
+                .filter(entry -> booleanEntryCondition().test(entry.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, value -> Boolean.parseBoolean(value.getValue())));
+    }
+
+
+    private Predicate<String> numericEntryCondition() {
         Predicate<String> isWidth = key -> key.endsWith(".width");
         Predicate<String> isHeight = key -> key.endsWith(".height");
         Predicate<String> isLength = key -> key.endsWith(".length");
@@ -79,6 +87,11 @@ public class PropertyMap {
         Predicate<String> isBorderMargin = key -> key.startsWith("border_margin");
         return isWidth.or(isHeight).or(isLength).or(isLineWidth).or(isX).or(isY).or(isXShift).or(isYShift).or(isBorderMargin);
     }
+
+    private Predicate<String> booleanEntryCondition() {
+        return key -> key.endsWith(".on");
+    }
+
 
     public Map<String, String> getProperties() {
         return properties;
