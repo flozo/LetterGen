@@ -38,6 +38,10 @@ public class PropertyMap {
             for (AddressProperty property : AddressProperty.values()) {
                 propertiesRawMap.put(property.getPropertyKey(), property.getStringValue());
             }
+        } else if (configGroup == ConfigGroup.LETTER_GENERAL) {
+            for (LetterGeneralProperty property : LetterGeneralProperty.values()) {
+                propertiesRawMap.put(property.getPropertyKey(),property.getGenericStringValue());
+            }
         }
         return propertiesRawMap;
     }

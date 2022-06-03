@@ -41,6 +41,15 @@ public class Main {
         receiverMap.updateDefaults(settings);
         Address receiverData = new Address(receiverMap);
 
+        PropertyMap general = new PropertyMap(ConfigGroup.LETTER_GENERAL);
+        general.updateDefaults(settings);
+        LetterGeneral letterGeneral = new LetterGeneral(general);
+
+
+
+        System.out.println(letterGeneral.getDateFormat());
+        System.out.println(letterGeneral.isDraftModeOn());
+
 
 
         Documentclass documentclass = new Documentclass(PackageName.STANDALONE, "12pt", "tikz", "multi", "crop");
