@@ -19,6 +19,9 @@ public class Length {
         this.unit = unit;
     }
 
+    public double getNumericalValue() {
+        return numericalValue;
+    }
 
     public String getString() {
         // Avoid trailing zeros; ensure point is used as decimal separator

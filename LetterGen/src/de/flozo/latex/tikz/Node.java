@@ -35,10 +35,16 @@ public class Node extends Path {
 //    private double innerXSep;
 //    private double innerYSep;
 
-
-
     private Node(NodeBuilder builder) {
-        super(builder.xOrigin, builder.yOrigin, builder.optionalArguments, builder.name, builder.drawColor, builder.fillColor, builder.lineWidthStyle, builder.lineCap, builder.lineJoin, builder.dashPatternStyle);
+        super(builder.xOrigin,
+                builder.yOrigin,
+                builder.optionalArguments,
+                builder.name, builder.drawColor,
+                builder.fillColor,
+                builder.lineWidthStyle,
+                builder.lineCap,
+                builder.lineJoin,
+                builder.dashPatternStyle);
         this.text = builder.text;
         this.name = builder.name;
 //        this.anchor = builder.anchor;
@@ -175,44 +181,79 @@ public class Node extends Path {
         }
 
         public NodeBuilder xShift(double xShift) {
-            this.xShift = xShift;
-            this.optionalArguments.add("xshift=" + xShift);
+            return xShift(xShift, LengthUnit.CENTIMETER);
+        }
+
+        public NodeBuilder xShift(double xShift, LengthUnit lengthUnit) {
+            Length length = new Length(xShift, lengthUnit);
+            this.xShift = length.getNumericalValue();
+            this.optionalArguments.add("xshift=" + length.getString());
             return this;
         }
 
         public NodeBuilder yShift(double yShift) {
-            this.yShift = yShift;
-            this.optionalArguments.add("yshift=" + yShift);
+            return yShift(yShift, LengthUnit.CENTIMETER);
+        }
+
+        public NodeBuilder yShift(double yShift, LengthUnit lengthUnit) {
+            Length length = new Length(yShift, lengthUnit);
+            this.yShift = length.getNumericalValue();
+            this.optionalArguments.add("yshift=" + length.getString());
             return this;
         }
 
         public NodeBuilder textWidth(double textWidth) {
-            this.textWidth = textWidth;
-            this.optionalArguments.add("text width=" + textWidth);
+            return textWidth(textWidth, LengthUnit.CENTIMETER);
+        }
+
+        public NodeBuilder textWidth(double textWidth, LengthUnit lengthUnit) {
+            Length length = new Length(textWidth, lengthUnit);
+            this.textWidth = length.getNumericalValue();
+            this.optionalArguments.add("text width=" + length.getString());
             return this;
         }
 
         public NodeBuilder textHeight(double textHeight) {
-            this.textHeight = textHeight;
-            this.optionalArguments.add("text height=" + textHeight);
+            return textHeight(textHeight, LengthUnit.CENTIMETER);
+        }
+
+        public NodeBuilder textHeight(double textHeight, LengthUnit lengthUnit) {
+            Length length = new Length(textHeight, lengthUnit);
+            this.textHeight = length.getNumericalValue();
+            this.optionalArguments.add("text height=" + length.getString());
             return this;
         }
 
         public NodeBuilder textDepth(double textDepth) {
-            this.textDepth = textDepth;
-            this.optionalArguments.add("text depth=" + textDepth);
+            return textDepth(textDepth, LengthUnit.CENTIMETER);
+        }
+
+        public NodeBuilder textDepth(double textDepth, LengthUnit lengthUnit) {
+            Length length = new Length(textDepth, lengthUnit);
+            this.textDepth = length.getNumericalValue();
+            this.optionalArguments.add("text depth=" + length.getString());
             return this;
         }
 
         public NodeBuilder minimumWidth(double minimumWidth) {
-            this.minimumWidth = minimumWidth;
-            this.optionalArguments.add("minimum width=" + minimumWidth);
+            return minimumWidth(minimumWidth, LengthUnit.CENTIMETER);
+        }
+
+        public NodeBuilder minimumWidth(double minimumWidth, LengthUnit lengthUnit) {
+            Length length = new Length(minimumWidth, lengthUnit);
+            this.minimumWidth = length.getNumericalValue();
+            this.optionalArguments.add("minimum width=" + length.getString());
             return this;
         }
 
         public NodeBuilder minimumHeight(double minimumHeight) {
-            this.minimumHeight = minimumHeight;
-            this.optionalArguments.add("minimum height=" + minimumHeight);
+            return minimumHeight(minimumHeight, LengthUnit.CENTIMETER);
+        }
+
+        public NodeBuilder minimumHeight(double minimumHeight, LengthUnit lengthUnit) {
+            Length length = new Length(minimumHeight, lengthUnit);
+            this.minimumHeight = length.getNumericalValue();
+            this.optionalArguments.add("minimum height=" + length.getString());
             return this;
         }
 
@@ -222,19 +263,27 @@ public class Node extends Path {
             return this;
         }
 
-
         public NodeBuilder innerXSep(double innerXSep) {
-            this.innerXSep = innerXSep;
-            this.optionalArguments.add("inner xsep=" + innerXSep);
+            return innerXSep(innerXSep, LengthUnit.CENTIMETER);
+        }
+
+        public NodeBuilder innerXSep(double innerXSep, LengthUnit lengthUnit) {
+            Length length = new Length(innerXSep, lengthUnit);
+            this.innerXSep = length.getNumericalValue();
+            this.optionalArguments.add("inner xsep=" + length.getString());
             return this;
         }
 
         public NodeBuilder innerYSep(double innerYSep) {
-            this.innerYSep = innerYSep;
-            this.optionalArguments.add("inner ysep=" + innerYSep);
-            return this;
+            return innerYSep(innerYSep, LengthUnit.CENTIMETER);
         }
 
+        public NodeBuilder innerYSep(double innerYSep, LengthUnit lengthUnit) {
+            Length length = new Length(innerYSep, lengthUnit);
+            this.innerYSep = length.getNumericalValue();
+            this.optionalArguments.add("inner ysep=" + length.getString());
+            return this;
+        }
 
 
         public Node build() {

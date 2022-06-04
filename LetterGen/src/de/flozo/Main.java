@@ -3,6 +3,7 @@ package de.flozo;
 import de.flozo.data.*;
 import de.flozo.latex.core.*;
 import de.flozo.latex.letter.AddressField;
+import de.flozo.latex.letter.BackaddressField;
 import de.flozo.latex.tikz.Layer;
 import de.flozo.latex.tikz.LayerEnvironment;
 import de.flozo.latex.tikz.Rectangle;
@@ -117,11 +118,16 @@ public class Main {
 //        LayerEnvironment onForegroundLayer = new LayerEnvironment("foreground", perforationMark.getStatement());
 //
         AddressField addressField = new AddressField(geometry, receiverData);
+        BackaddressField backaddressField = new BackaddressField(geometry,senderData);
+
+
 
 
         ExpressionList2 tikzpictureBody = new ExpressionList2.ExpressionList2Builder()
                 .append(onBackgroundLayer.getBlock())
                 .append(addressField.getAddressField())
+                .append(backaddressField.getBackaddressText())
+                .append(backaddressField.getSeparationLine())
 //                .append(onForegroundLayer.getBlock())
                 .build();
 

@@ -5,10 +5,10 @@ import de.flozo.latex.tikz.Node;
 
 public class DateField {
 
-    private double x;
-    private double y;
-    private String place;
-    private String date;
+    private final double x;
+    private final double y;
+    private final String place;
+    private final String date;
 
     public DateField(double x, double y, String place, String date) {
         this.x = x;

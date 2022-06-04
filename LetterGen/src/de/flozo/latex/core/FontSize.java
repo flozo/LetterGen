@@ -1,5 +1,7 @@
 package de.flozo.latex.core;
 
+import java.util.Arrays;
+
 public enum FontSize {
 
     TINY("tiny"),
@@ -22,5 +24,9 @@ public enum FontSize {
 
     public String getString() {
         return fontSizeName;
+    }
+
+    public static FontSize getByValue(String fontSizeValue) {
+        return Arrays.stream(values()).filter(value -> value.getString().equals(fontSizeValue)).findFirst().orElse(NORMAL_SIZE);
     }
 }

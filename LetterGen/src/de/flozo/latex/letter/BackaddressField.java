@@ -2,11 +2,10 @@ package de.flozo.latex.letter;
 
 import de.flozo.data.Address;
 import de.flozo.data.LetterGeometry;
-import de.flozo.latex.core.FontSize;
-import de.flozo.latex.tikz.Anchor;
-import de.flozo.latex.tikz.Node;
+import de.flozo.latex.core.*;
+import de.flozo.latex.tikz.*;
 
-public class BackaddressLine {
+public class BackaddressField {
 
     // appearance
     private final double x;
@@ -14,6 +13,7 @@ public class BackaddressLine {
     private final double width;
     private final double height;
 
+    private final double separationLineX;
     private final double separationLineWidth;
     private final String separationCharacter;
     private final double separationCharacterSpacing;
@@ -28,7 +28,7 @@ public class BackaddressLine {
     private final String postalCode;
     private final String city;
 
-    public BackaddressLine(LetterGeometry geometry, Address address) {
+    public BackaddressField(LetterGeometry geometry, Address address) {
         this.x = geometry.getBackaddressX();
         this.y = geometry.getBackaddressY();
         this.width = geometry.getBackaddressWidth();
@@ -40,20 +40,27 @@ public class BackaddressLine {
         this.houseNumber = address.getHouseNumber();
         this.postalCode = address.getPostalCode();
         this.city = address.getCity();
+        this.separationLineX = geometry.getBackaddressSeplineX();
         this.separationLineWidth = geometry.getBackaddressSeplineLineWidth();
         this.separationCharacter = geometry.getBackaddressSepChar();
         this.separationCharacterSpacing = geometry.getBackaddressSepCharSpacing();
-        this.fontSize = FontSize.valueOf(geometry.getBackaddressFontSize());
+        this.fontSize = FontSize.getByValue(geometry.getBackaddressFontSize());
     }
 
-    public String getBackaddressLine() {
-        Node backaddressNode = new Node.NodeBuilder(x, y, assembleText())
+    public String getBackaddressText() {
+        return new Node.NodeBuilder(x, y, assembleText())
                 .name("backaddress")
                 .anchor(Anchor.SOUTH_WEST)
                 .textWidth(width)
                 .fontSize(fontSize)
-                .build();
-        return backaddressNode.getStatement();
+                .alignment(Alignment.CENTER)
+                .build().getStatement();
+    }
+
+    public String getSeparationLine() {
+        return new Line.LineBuilder(separationLineX, y, width, 0, CoordinateMode.RELATIVE)
+                .lineWidth(separationLineWidth)
+                .build().getStatement();
     }
 
     private String assembleText() {
@@ -66,7 +73,14 @@ public class BackaddressLine {
     }
 
     private String assembleSeparator() {
-        return separationCharacterSpacing + separationCharacter + separationCharacterSpacing;
+        return hSpace(separationCharacterSpacing) + separationCharacter + hSpace(separationCharacterSpacing);
+    }
+
+    private String hSpace(double width) {
+        return new Command2.Command2Builder(CommandName.HSPACE.getString())
+                .body(new Length(width, LengthUnit.POINT).getString())
+                .build()
+                .getInline();
     }
 
     public double getX() {
