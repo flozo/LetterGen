@@ -53,9 +53,13 @@ public class AddressField {
     }
 
     private String assembleText() {
-        return receiverFirstName + " " + receiverLastName + "\\\\" +
+        return assembleName() + "\\\\" +
                 receiverStreet + " " + receiverHouseNumber + "\\\\" +
                 receiverPostalCode + " " + receiverCity;
+    }
+
+    private String assembleName() {
+        return receiverLastName.isEmpty() ? receiverCompany : receiverFirstName + " " + receiverLastName;
     }
 
     public double getX() {
