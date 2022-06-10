@@ -78,7 +78,7 @@ public class BackaddressField {
 
     private String hSpace(double width) {
         return new Command2.Command2Builder(CommandName.HSPACE.getString())
-                .body(new Length(width, LengthUnit.POINT).getString())
+                .body(Length.createFromNumberAndUnit(width, LengthUnit.POINT).getString())
                 .build()
                 .getInline();
     }

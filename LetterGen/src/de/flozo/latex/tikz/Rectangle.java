@@ -22,7 +22,16 @@ public class Rectangle extends Path {
 
 
     private Rectangle(RectangleBuilder builder) {
-        super(builder.xOrigin, builder.yOrigin, builder.optionalArguments, builder.name, builder.drawColor,builder.fillColor, builder.lineWidthStyle, builder.lineCap, builder.lineJoin, builder.dashPatternStyle);
+        super(builder.xOrigin,
+                builder.yOrigin,
+                builder.optionalArguments,
+                builder.name,
+                builder.drawColor,
+                builder.fillColor,
+                builder.lineWidthStyle,
+                builder.lineCap,
+                builder.lineJoin,
+                builder.dashPatternStyle);
         this.xOppositeCorner = builder.xOppositeCorner;
         this.yOppositeCorner = builder.yOppositeCorner;
     }
@@ -46,6 +55,7 @@ public class Rectangle extends Path {
         sb.append(TERMINATOR.getString());
         return sb.toString();
     }
+
 
 
     public static class RectangleBuilder {

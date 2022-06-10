@@ -19,6 +19,14 @@ public class Length {
         this.unit = unit;
     }
 
+    public static Length createWithDefaultUnit(double numericalValue) {
+        return new Length(numericalValue);
+    }
+
+    public static Length createFromNumberAndUnit(double numericalValue, LengthUnit unit) {
+        return new Length(numericalValue, unit);
+    }
+
     public double getNumericalValue() {
         return numericalValue;
     }

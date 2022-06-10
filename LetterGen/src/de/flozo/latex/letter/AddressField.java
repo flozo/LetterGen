@@ -8,6 +8,8 @@ import de.flozo.latex.tikz.Node;
 
 public class AddressField {
 
+    public static final String FIELD_NAME = "receiver_address";
+
     // appearance
     private final double x;
     private final double y;
@@ -42,7 +44,7 @@ public class AddressField {
 
     public String getAddressField() {
         Node addressNode = new Node.NodeBuilder(x, y, assembleText())
-                .name("receiver_address")
+                .name(FIELD_NAME)
                 .anchor(Anchor.NORTH_WEST)
                 .minimumWidth(width)
                 .minimumHeight(2.73)
