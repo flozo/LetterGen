@@ -48,13 +48,12 @@ public abstract class Path {
 
 
     protected String inlineOptions() {
-        Code options = new Code.CodeBuilder(new ExpressionList(optionalArguments))
+        return new Code.CodeBuilder(new ExpressionList(optionalArguments))
                 .brackets(OPTIONS_BRACKETS)
                 .terminator(StatementTerminator.COMMA)
                 .skipLast(true)
                 .inlineSpacing(true)
-                .build();
-        return options.getInline();
+                .build().getInline();
     }
 
     protected String coordinates(double x, double y) {
@@ -71,8 +70,51 @@ public abstract class Path {
 
 
     protected String coordinates(double x, double y, CoordinateMode coordinateMode, LengthUnit lengthUnit) {
-        return new Point.PointBuilder(x,y).xUnit(lengthUnit).yUnit(lengthUnit).coordinateMode(coordinateMode).build().getStatement();
+        return new Point.PointBuilder(x, y)
+                .xUnit(lengthUnit)
+                .yUnit(lengthUnit)
+                .coordinateMode(coordinateMode)
+                .build().getStatement();
     }
 
 
+    public double getXOrigin() {
+        return xOrigin;
+    }
+
+    public double getYOrigin() {
+        return yOrigin;
+    }
+
+    public List<String> getOptionalArguments() {
+        return optionalArguments;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Color getDrawColor() {
+        return drawColor;
+    }
+
+    public Color getFillColor() {
+        return fillColor;
+    }
+
+    public LineWidthStyle getLineWidthStyle() {
+        return lineWidthStyle;
+    }
+
+    public LineCap getLineCap() {
+        return lineCap;
+    }
+
+    public LineJoin getLineJoin() {
+        return lineJoin;
+    }
+
+    public DashPatternStyle getDashPatternStyle() {
+        return dashPatternStyle;
+    }
 }
