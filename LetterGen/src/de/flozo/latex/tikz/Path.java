@@ -46,12 +46,11 @@ public abstract class Path {
 
     public abstract String getStatement();
 
-
     protected String inlineOptions() {
-        return new Code.CodeBuilder(new ExpressionList(optionalArguments))
+        return new ExpressionList2.ExpressionList2Builder(optionalArguments)
                 .brackets(OPTIONS_BRACKETS)
                 .terminator(StatementTerminator.COMMA)
-                .skipLast(true)
+                .skipLastTerminator(true)
                 .inlineSpacing(true)
                 .build().getInline();
     }
