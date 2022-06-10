@@ -22,6 +22,7 @@ public enum CommandName {
     HREF("href"),
     BF("bf"),
     INCLUDEGRAPHICS("includegraphics"),
+    MATRIX("matrix"),
     FAICON("faIcon");
 
 
