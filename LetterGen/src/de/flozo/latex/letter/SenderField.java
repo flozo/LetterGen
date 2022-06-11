@@ -73,5 +73,21 @@ public class SenderField {
         return senderLastName.isEmpty() ? senderCompany : senderFirstName + " " + senderLastName;
     }
 
-
+    @Override
+    public String toString() {
+        return "SenderField{" +
+                "x=" + x +
+                ", y=" + y +
+                ", width=" + width +
+                ", height=" + height +
+                ", senderFirstName='" + senderFirstName + '\'' +
+                ", senderMiddleName='" + senderMiddleName + '\'' +
+                ", senderLastName='" + senderLastName + '\'' +
+                ", senderCompany='" + senderCompany + '\'' +
+                ", senderStreet='" + senderStreet + '\'' +
+                ", senderHouseNumber='" + senderHouseNumber + '\'' +
+                ", senderPostalCode='" + senderPostalCode + '\'' +
+                ", senderCity='" + senderCity + '\'' +
+                '}';
+    }
 }

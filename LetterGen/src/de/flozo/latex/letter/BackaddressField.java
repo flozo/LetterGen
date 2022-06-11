@@ -138,4 +138,26 @@ public class BackaddressField {
     public String getCity() {
         return city;
     }
+
+    @Override
+    public String toString() {
+        return "BackaddressField{" +
+                "x=" + x +
+                ", y=" + y +
+                ", width=" + width +
+                ", height=" + height +
+                ", separationLineX=" + separationLineX +
+                ", separationLineWidth=" + separationLineWidth +
+                ", separationCharacter='" + separationCharacter + '\'' +
+                ", separationCharacterSpacing=" + separationCharacterSpacing +
+                ", fontSize=" + fontSize +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", street='" + street + '\'' +
+                ", houseNumber='" + houseNumber + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", city='" + city + '\'' +
+                '}';
+    }
 }

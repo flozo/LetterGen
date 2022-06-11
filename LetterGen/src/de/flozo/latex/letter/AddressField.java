@@ -111,4 +111,22 @@ public class AddressField {
     public String getReceiverCity() {
         return receiverCity;
     }
+
+    @Override
+    public String toString() {
+        return "AddressField{" +
+                "x=" + x +
+                ", y=" + y +
+                ", width=" + width +
+                ", height=" + height +
+                ", receiverFirstName='" + receiverFirstName + '\'' +
+                ", receiverMiddleName='" + receiverMiddleName + '\'' +
+                ", receiverLastName='" + receiverLastName + '\'' +
+                ", receiverCompany='" + receiverCompany + '\'' +
+                ", receiverStreet='" + receiverStreet + '\'' +
+                ", receiverHouseNumber='" + receiverHouseNumber + '\'' +
+                ", receiverPostalCode='" + receiverPostalCode + '\'' +
+                ", receiverCity='" + receiverCity + '\'' +
+                '}';
+    }
 }
