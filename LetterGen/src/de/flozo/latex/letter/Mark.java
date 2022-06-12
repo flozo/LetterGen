@@ -30,7 +30,7 @@ public class Mark {
 //                LetterGeometryProperty.PERFORATION_MARK_Y,
 //                LetterGeometryProperty.PERFORATION_MARK_WIDTH,
 //                LetterGeometryProperty.PERFORATION_MARK_THICKNESS);
-        return getLine().getStatement();
+        return getLine().getInline();
     }
 
     public Line getLine() {

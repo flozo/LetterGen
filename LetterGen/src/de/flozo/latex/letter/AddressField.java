@@ -2,9 +2,12 @@ package de.flozo.latex.letter;
 
 import de.flozo.data.Address;
 import de.flozo.data.LetterGeometry;
+import de.flozo.latex.core.StatementTerminator;
 import de.flozo.latex.tikz.Alignment;
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
+
+import java.util.List;
 
 public class AddressField {
 
@@ -51,15 +54,20 @@ public class AddressField {
                 .minimumHeight(2.73)
                 .textWidth(width)
                 .alignment(Alignment.LEFT)
+                .bodyTerminator(StatementTerminator.DOUBLE_BACKSLASH)
                 .build();
-        return addressNode.getStatement();
+        return addressNode.getInline();
     }
 
-    private String assembleText() {
-        return assembleName() + "\\\\" +
-                receiverStreet + " " + receiverHouseNumber + "\\\\" +
-                receiverPostalCode + " " + receiverCity;
+    private List<String> assembleText() {
+        return List.of(assembleName(), receiverStreet + " " + receiverHouseNumber, receiverPostalCode + " " + receiverCity);
     }
+
+//    private String assembleText() {
+//        return assembleName() + "\\\\" +
+//                receiverStreet + " " + receiverHouseNumber + "\\\\" +
+//                receiverPostalCode + " " + receiverCity;
+//    }
 
     private String assembleName() {
         return receiverLastName.isEmpty() ? receiverCompany : receiverFirstName + " " + receiverLastName;

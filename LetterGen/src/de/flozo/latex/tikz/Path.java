@@ -44,7 +44,7 @@ public abstract class Path {
         this.dashPatternStyle = dashPatternStyle;
     }
 
-    public abstract String getStatement();
+    public abstract String getInline();
 
     private ExpressionList2 buildOptionList() {
         return new ExpressionList2.ExpressionList2Builder(optionalArguments)

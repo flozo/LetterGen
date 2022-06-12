@@ -7,12 +7,14 @@ public class ExpressionList2 {
 
     // constants
     public static final String INLINE_SEPARATOR = " ";
+    public static final String INDENT_CHARACTER = "\t";
 
     // constants for option defaults
     public static final StatementTerminator DEFAULT_TERMINATOR = StatementTerminator.NONE;
     public static final boolean DEFAULT_INLINE_SPACING = true;
     public static final Bracket DEFAULT_BRACKETS = Bracket.NONE;
     public static final boolean DEFAULT_SKIP_LAST_TERMINATOR = true;
+    public static final boolean DEFAULT_INDENT = false;
 
     // required
     private final List<String> expressions;
@@ -22,6 +24,7 @@ public class ExpressionList2 {
     private final Bracket brackets;
     private final boolean inlineSpacing;
     private final boolean skipLastTerminator;
+    private final boolean indentBlock;
 
     private ExpressionList2(ExpressionList2Builder builder) {
         this.expressions = builder.expressions;
@@ -29,6 +32,7 @@ public class ExpressionList2 {
         this.brackets = builder.brackets;
         this.inlineSpacing = builder.inlineSpacing;
         this.skipLastTerminator = builder.skipLastTerminator;
+        this.indentBlock = builder.indentBlock;
     }
 
     // Return raw expressions
@@ -68,6 +72,9 @@ public class ExpressionList2 {
                 encloseInBrackets(codeLines, skipOpeningBracket, skipClosingBracket);
             }
         }
+        if (indentBlock) {
+            return indent(codeLines);
+        }
         return codeLines;
     }
 
@@ -90,6 +97,16 @@ public class ExpressionList2 {
         }
     }
 
+    private List<String> indent(String... code) {
+        return indent(new ArrayList<>(List.of(code)));
+    }
+
+    private List<String> indent(List<String> code) {
+        List<String> indentedCode = new ArrayList<>(code);
+        indentedCode.replaceAll(s -> INDENT_CHARACTER + s);
+        return indentedCode;
+    }
+
 
     public static class ExpressionList2Builder {
 
@@ -101,6 +118,7 @@ public class ExpressionList2 {
         private Bracket brackets = DEFAULT_BRACKETS;
         private boolean inlineSpacing = DEFAULT_INLINE_SPACING;
         private boolean skipLastTerminator = DEFAULT_SKIP_LAST_TERMINATOR;
+        private boolean indentBlock = DEFAULT_INDENT;
 
         // Accept List<String> or any number of Strings for constructor
 
@@ -152,6 +170,10 @@ public class ExpressionList2 {
             return this;
         }
 
+        public ExpressionList2Builder indentBlock(boolean indentBlock) {
+            this.indentBlock = indentBlock;
+            return this;
+        }
 
         public ExpressionList2 build() {
             return new ExpressionList2(this);

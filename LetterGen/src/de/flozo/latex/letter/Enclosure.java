@@ -32,7 +32,7 @@ public class Enclosure {
                 .anchor(Anchor.NORTH_WEST)
                 .textWidth(16.5)
                 .build();
-        return enclosure.getStatement();
+        return enclosure.getInline();
 
     }
 }

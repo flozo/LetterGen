@@ -44,7 +44,7 @@ public class Line extends Path {
 
 
     @Override
-    public String getStatement() {
+    public String getInline() {
         StringBuilder sb = new StringBuilder(COMMAND_MARKER_CHAR + KEYWORD.getString());
         // Append name in parentheses if name is not null, empty, or only whitespaces
         if (name != null && !name.strip().equals("")) {

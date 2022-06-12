@@ -9,12 +9,14 @@ public class Node extends Path {
 
     public static final CommandName KEYWORD = CommandName.NODE;
     public static final Bracket BODY_BRACKETS = Bracket.CURLY_BRACES;
+    public static final String INDENT_CHARACTER = "\t";
 
     // required
-    private final String text;
+    private final List<String> body;
 
     // optional
     private final String name;
+    private final StatementTerminator bodyTerminator;
 //    private final List<String> optionalArguments;
 //    private final Anchor anchor;
 //    private final FontSize fontSize;
@@ -45,8 +47,9 @@ public class Node extends Path {
                 builder.lineCap,
                 builder.lineJoin,
                 builder.dashPatternStyle);
-        this.text = builder.text;
+        this.body = builder.body;
         this.name = builder.name;
+        this.bodyTerminator = builder.bodyTerminator;
 //        this.anchor = builder.anchor;
 //        this.fontSize = builder.fontSize;
 //        this.textColor = builder.textColor;
@@ -62,7 +65,42 @@ public class Node extends Path {
     }
 
     @Override
-    public String getStatement() {
+    public String getInline() {
+        StringBuilder sb = new StringBuilder(assembleOpeningTag());
+        // Append options if at least one option is present
+        if (!optionalArguments.isEmpty()) {
+            sb.append(" ").append(inlineOptions());
+        }
+        // Append remaining required parts
+        sb.append(" ");
+        sb.append(BODY_BRACKETS.getLeftBracket());
+        sb.append(String.join(bodyTerminator.getString(), body));
+        sb.append(BODY_BRACKETS.getRightBracket());
+        sb.append(TERMINATOR.getString());
+        return sb.toString();
+    }
+
+    public List<String> getBlock() {
+        List<String> lines = new ArrayList<>();
+        lines.add(assembleOpeningTag());
+        // Append block options if at least one option is present
+        if (!optionalArguments.isEmpty()) {
+            lines.addAll(blockOptions());
+        }
+        // Append remaining required parts
+        lines.addAll(buildBody().getBlock());
+        lines.add(TERMINATOR.getString());
+        return lines;
+    }
+
+    private ExpressionList2 buildBody() {
+        return new ExpressionList2.ExpressionList2Builder(body)
+                .brackets(Bracket.CURLY_BRACES)
+                .terminator(bodyTerminator)
+                .build();
+    }
+
+    private String assembleOpeningTag() {
         StringBuilder sb = new StringBuilder(COMMAND_MARKER_CHAR + KEYWORD.getString());
         // Append name in parentheses if name is not null, empty, or only whitespaces
         if (name != null && !name.strip().equals("")) {
@@ -71,30 +109,30 @@ public class Node extends Path {
         // Append required positioning statement
         sb.append(" at ");
         sb.append(coordinates(xOrigin, yOrigin));
-        // Append options if at least one option is present
-        if (!optionalArguments.isEmpty()) {
-            sb.append(" ").append(inlineOptions());
-        }
-        // Append remaining required parts
-        sb.append(" ");
-        sb.append(BODY_BRACKETS.getLeftBracket());
-        sb.append(text);
-        sb.append(BODY_BRACKETS.getRightBracket());
-        sb.append(TERMINATOR.getString());
         return sb.toString();
     }
 
+    private List<String> indent(String... code) {
+        return indent(new ArrayList<>(List.of(code)));
+    }
+
+    private List<String> indent(List<String> code) {
+        List<String> indentedCode = new ArrayList<>(code);
+        indentedCode.replaceAll(s -> INDENT_CHARACTER + s);
+        return indentedCode;
+    }
 
     public static class NodeBuilder {
 
         // required
         private final double xOrigin;
         private final double yOrigin;
-        private final String text;
+        private final List<String> body;
 
         // optional
         private String name;
         private final List<String> optionalArguments = new ArrayList<>();
+        private StatementTerminator bodyTerminator = StatementTerminator.NONE;
         private Anchor anchor;
         private FontSize fontSize;
         private Color textColor;
@@ -115,15 +153,23 @@ public class Node extends Path {
         private double innerXSep;
         private double innerYSep;
 
+        public NodeBuilder(double xOrigin, double yOrigin, String... body) {
+            this(xOrigin, yOrigin, new ArrayList<>(List.of(body)));
+        }
 
-        public NodeBuilder(double xOrigin, double yOrigin, String text) {
+        public NodeBuilder(double xOrigin, double yOrigin, List<String> body) {
             this.xOrigin = xOrigin;
             this.yOrigin = yOrigin;
-            this.text = text;
+            this.body = body;
         }
 
         public NodeBuilder name(String name) {
             this.name = name;
+            return this;
+        }
+
+        public NodeBuilder bodyTerminator(StatementTerminator bodyTerminator) {
+            this.bodyTerminator = bodyTerminator;
             return this;
         }
 

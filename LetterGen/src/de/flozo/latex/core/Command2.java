@@ -84,53 +84,37 @@ public class Command2 {
     }
 
     public String getInline() {
-        return COMMAND_MARKER_CHAR + name + assembleOptionList().getInline() + assembleBody().getInline();
+        return COMMAND_MARKER_CHAR + name + assembleOptionList(false).getInline() + assembleBody(false).getInline();
     }
 
 
     private List<String> getOptionBlock() {
         boolean skipClosingBracket = body != null && trailingOpeningBracket;
-        List<String> codeLines = new ArrayList<>(assembleOptionList().getBlock(trailingOpeningBracket, skipClosingBracket));
-        if (indentOptions) {
-            return indent(codeLines);
-        }
-        return codeLines;
+        return new ArrayList<>(assembleOptionList(indentOptions).getBlock(trailingOpeningBracket, skipClosingBracket));
     }
 
     private List<String> getBodyBlock() {
-        List<String> codeLines = new ArrayList<>(assembleBody().getBlock(trailingOpeningBracket, false));
-        if (indentBody) {
-            return indent(codeLines);
-        }
-        return codeLines;
+        return new ArrayList<>(assembleBody(indentBody).getBlock(trailingOpeningBracket, false));
     }
 
-    private ExpressionList2 assembleOptionList() {
+    private ExpressionList2 assembleOptionList(boolean indent) {
         return new ExpressionList2.ExpressionList2Builder(optionList)
                 .terminator(optionTerminator)
                 .brackets(optionBrackets)
                 .skipLastTerminator(skipLastTerminatorOptions)
+                .indentBlock(indent)
                 .inlineSpacing(inlineSpacingOptions)
                 .build();
     }
 
-    private ExpressionList2 assembleBody() {
+    private ExpressionList2 assembleBody(boolean indent) {
         return new ExpressionList2.ExpressionList2Builder(body)
                 .terminator(bodyTerminator)
                 .brackets(bodyBrackets)
                 .skipLastTerminator(skipLastTerminatorBody)
+                .indentBlock(indent)
                 .inlineSpacing(inlineSpacingBody)
                 .build();
-    }
-
-    private List<String> indent(String... code) {
-        return indent(new ArrayList<>(List.of(code)));
-    }
-
-    private List<String> indent(List<String> code) {
-        List<String> indentedCode = new ArrayList<>(code);
-        indentedCode.replaceAll(s -> INDENT_CHARACTER + s);
-        return indentedCode;
     }
 
     private String getFirstLine() {
@@ -151,7 +135,7 @@ public class Command2 {
         if (optionList == null && body == null) {
             return firstLine.toString();
         }
-        firstLine.append(assembleOptionList().getInline());
+        firstLine.append(assembleOptionList(false).getInline());
         firstLine.append(interBracketSpace ? " " : "");
         if (trailingOpeningBracket && body != null) {
             firstLine.append(bodyBrackets.getLeftBracket());
@@ -159,19 +143,19 @@ public class Command2 {
         return firstLine.toString();
     }
 
-
     private String bracketLine() {
         StringBuilder line = new StringBuilder();
+        if (indentBody) {
+            line.append(INDENT_CHARACTER);
+        }
         if (optionList != null) {
             line.append(optionBrackets.getRightBracket());
             line.append(interBracketSpace ? " " : "");
         }
         line.append(bodyBrackets.getLeftBracket());
-        if (indentOptions) {
-            return indent(line.toString()).get(0);
-        }
         return line.toString();
     }
+
 
     public static class Command2Builder {
 

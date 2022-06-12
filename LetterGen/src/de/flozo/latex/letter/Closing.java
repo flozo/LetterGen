@@ -43,7 +43,7 @@ public class Closing  {
                 .anchor(Anchor.NORTH_WEST)
                 .textWidth(10)
                 .build();
-        return closing.getStatement();
+        return closing.getInline();
     }
 
 

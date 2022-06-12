@@ -20,6 +20,6 @@ public class SubjectField {
                 .name("subject field")
                 .anchor(Anchor.SOUTH_WEST)
                 .build();
-        return subjectField.getStatement();
+        return subjectField.getInline();
     }
 }

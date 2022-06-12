@@ -22,7 +22,7 @@ public class DateField {
                 .name("date field")
                 .anchor(Anchor.SOUTH_EAST)
                 .build();
-        return subjectField.getStatement();
+        return subjectField.getInline();
     }
 
 }

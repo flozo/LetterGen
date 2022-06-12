@@ -61,7 +61,7 @@ public class SenderField {
                 .textWidth(width)
                 .alignment(Alignment.LEFT)
                 .build();
-        return addressNode.getStatement();
+        return addressNode.getInline();
     }
 
     private String assembleText() {

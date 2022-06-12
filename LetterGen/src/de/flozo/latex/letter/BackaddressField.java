@@ -56,13 +56,13 @@ public class BackaddressField {
                 .textWidth(width)
                 .fontSize(fontSize)
                 .alignment(Alignment.CENTER)
-                .build().getStatement();
+                .build().getInline();
     }
 
     public String getSeparationLine() {
         return new Line.LineBuilder(separationLineX, y, width, 0, CoordinateMode.RELATIVE)
                 .lineWidth(separationLineWidth)
-                .build().getStatement();
+                .build().getInline();
     }
 
     private String assembleText() {
