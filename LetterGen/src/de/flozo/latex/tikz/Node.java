@@ -97,6 +97,7 @@ public class Node extends Path {
         return new ExpressionList2.ExpressionList2Builder(body)
                 .brackets(Bracket.CURLY_BRACES)
                 .terminator(bodyTerminator)
+                .indentBlock(true)
                 .build();
     }
 
@@ -112,15 +113,6 @@ public class Node extends Path {
         return sb.toString();
     }
 
-    private List<String> indent(String... code) {
-        return indent(new ArrayList<>(List.of(code)));
-    }
-
-    private List<String> indent(List<String> code) {
-        List<String> indentedCode = new ArrayList<>(code);
-        indentedCode.replaceAll(s -> INDENT_CHARACTER + s);
-        return indentedCode;
-    }
 
     public static class NodeBuilder {
 

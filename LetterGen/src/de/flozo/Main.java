@@ -4,8 +4,7 @@ import de.flozo.data.*;
 import de.flozo.latex.core.*;
 import de.flozo.latex.letter.AddressField;
 import de.flozo.latex.letter.BackaddressField;
-import de.flozo.latex.tikz.Layer;
-import de.flozo.latex.tikz.LayerEnvironment;
+import de.flozo.latex.tikz.*;
 import de.flozo.latex.tikz.Rectangle;
 
 import java.time.LocalDate;
@@ -110,7 +109,7 @@ public class Main {
                 .drawColor(new Color(StandardColorName.NONE))
                 .build();
 
-        LayerEnvironment onBackgroundLayer = new LayerEnvironment("background", backgroundRectangle.getStatement());
+        LayerEnvironment onBackgroundLayer = new LayerEnvironment("background", backgroundRectangle.getInline());
 
 
 //        PerforationMark perforationMark = new PerforationMark(geometryProperties);
@@ -118,10 +117,18 @@ public class Main {
 //        LayerEnvironment onForegroundLayer = new LayerEnvironment("foreground", perforationMark.getStatement());
 //
         AddressField addressField = new AddressField(geometry, receiverData);
-        BackaddressField backaddressField = new BackaddressField(geometry,senderData);
+        BackaddressField backaddressField = new BackaddressField(geometry, senderData);
 
+        Node cell11 = new Node.NodeBuilder(4.0, 24, new Command2.Command2Builder(CommandName.FAICON.getString()).body("map-marker-alt").build().getInline()).build();
+        Node cell12 = new Node.NodeBuilder(4.0, 24, "My street 25\\12345 City").build();
+        MatrixOfNodes matrix = new MatrixOfNodes.MatrixBuilder("contact", 4.0, 24, Anchor.NORTH_WEST)
+                .addRow(cell11.getInline(), cell12.getInline(), cell11.getInline())
+                .addRow(cell12.getInline(), cell11.getInline(), cell12.getInline())
+                .build();
 
-
+        for (String line : matrix.getBlock()) {
+            System.out.println(line);
+        }
 
         ExpressionList2 tikzpictureBody = new ExpressionList2.ExpressionList2Builder()
                 .append(onBackgroundLayer.getBlock())
@@ -146,6 +153,24 @@ public class Main {
         Environment3 document = new Environment3.Environment3Builder(EnvironmentName.DOCUMENT)
                 .body(documentBody.getBlock())
                 .build();
+
+        Environment2 test = new Environment2.Environment2Builder(EnvironmentName.PGFONLAYER)
+                .requiredArguments("layerName")
+                .body("test line1", "test line2")
+                .build();
+
+        Environment3 test2 = new Environment3.Environment3Builder(EnvironmentName.PGFONLAYER)
+                .requiredArguments("layerName")
+                .body("test line1", "test line2")
+                .build();
+
+
+        for (String line : test.getBlock()) {
+            System.out.println(line);
+        }
+        for (String line : test2.getBlock()) {
+            System.out.println(line);
+        }
 
 
         // Assemble final code
