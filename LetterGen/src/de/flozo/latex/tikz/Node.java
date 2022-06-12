@@ -68,13 +68,14 @@ public class Node extends Path {
         if (name != null && !name.strip().equals("")) {
             sb.append(String.format(" (%s)", name));
         }
+        // Append required positioning statement
+        sb.append(" at ");
+        sb.append(coordinates(xOrigin, yOrigin));
         // Append options if at least one option is present
         if (!optionalArguments.isEmpty()) {
             sb.append(" ").append(inlineOptions());
         }
-        // Append required parts
-        sb.append(" at ");
-        sb.append(coordinates(xOrigin, yOrigin));
+        // Append remaining required parts
         sb.append(" ");
         sb.append(BODY_BRACKETS.getLeftBracket());
         sb.append(text);
