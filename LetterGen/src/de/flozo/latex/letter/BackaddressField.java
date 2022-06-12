@@ -28,6 +28,8 @@ public class BackaddressField {
     private final String postalCode;
     private final String city;
 
+
+    // Constructor with dependency injection
     public BackaddressField(LetterGeometry geometry, Address address) {
         this.x = geometry.getBackaddressX();
         this.y = geometry.getBackaddressY();

@@ -27,6 +27,7 @@ public class AddressField {
     private final String receiverCity;
 
 
+    // Constructor with dependency injection
     public AddressField(LetterGeometry geometry, Address address) {
         this.x = geometry.getAddressX();
         this.y = geometry.getAddressY();

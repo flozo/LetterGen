@@ -36,6 +36,7 @@ public class SenderField {
     private final String senderCity;
 
 
+    // Constructor with dependency injection
     public SenderField(LetterGeometry geometry, Address address) {
         this.x = geometry.getAddressX();
         this.y = geometry.getAddressY();

@@ -14,6 +14,8 @@ public class Page {
     private final String draftHighlightColor;
     private final String urlHyperlinkColor;
 
+
+    // Constructor with dependency injection
     public Page(LetterGeometry geometry) {
         this.width = geometry.getPaperWidth();
         this.height = geometry.getPaperHeight();
