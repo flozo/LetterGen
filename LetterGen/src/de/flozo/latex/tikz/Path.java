@@ -46,14 +46,23 @@ public abstract class Path {
 
     public abstract String getStatement();
 
-    protected String inlineOptions() {
+    private ExpressionList2 buildOptionList() {
         return new ExpressionList2.ExpressionList2Builder(optionalArguments)
                 .brackets(OPTIONS_BRACKETS)
                 .terminator(StatementTerminator.COMMA)
                 .skipLastTerminator(true)
                 .inlineSpacing(true)
-                .build().getInline();
+                .build();
     }
+
+    protected String inlineOptions() {
+        return buildOptionList().getInline();
+    }
+
+    protected List<String> blockOptions() {
+        return buildOptionList().getBlock();
+    }
+
 
     protected String coordinates(double x, double y) {
         return coordinates(x, y, CoordinateMode.ABSOLUTE, LengthUnit.DEFAULT);
