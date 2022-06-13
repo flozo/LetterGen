@@ -42,7 +42,7 @@ public class Environment3 {
 
 
     public List<String> getBlock() {
-        Command2 command = new Command2.Command2Builder(OPENING_KEYWORD + ENVIRONMENT_NAME_BRACKET.getLeftBracket() + name.getString() + ENVIRONMENT_NAME_BRACKET.getRightBracket())
+        Command2 command = new Command2.Command2Builder(buildOpeningTag())
                 .optionList(optionalArguments)
                 .body(body)
                 .bodyBrackets(bodyBrackets)
@@ -58,6 +58,17 @@ public class Environment3 {
         return COMMAND_MARKER_CHAR + tagKeyword + ENVIRONMENT_NAME_BRACKET.getLeftBracket() + name.getString() + ENVIRONMENT_NAME_BRACKET.getRightBracket();
     }
 
+    private String buildOpeningTag() {
+        if (requiredArguments == null) {
+            return OPENING_KEYWORD + ENVIRONMENT_NAME_BRACKET.getLeftBracket() + name.getString() + ENVIRONMENT_NAME_BRACKET.getRightBracket();
+        } else {
+            ExpressionList args = new FormattedExpressionList.FormattedExpressionListBuilder(requiredArguments)
+                    .brackets(Bracket.CURLY_BRACES)
+                    .terminator(StatementTerminator.COMMA)
+                    .build();
+            return OPENING_KEYWORD + ENVIRONMENT_NAME_BRACKET.getLeftBracket() + name.getString() + ENVIRONMENT_NAME_BRACKET.getRightBracket() + args.getInline();
+        }
+    }
 
     public static class Environment3Builder {
 

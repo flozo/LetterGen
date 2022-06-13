@@ -3,7 +3,7 @@ package de.flozo.latex.core;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Command2 {
+public class Command2 implements Command {
 
     // constants
     public static final String COMMAND_MARKER_CHAR = "\\";
@@ -61,6 +61,7 @@ public class Command2 {
         this.interBracketSpace = builder.interBracketSpace;
     }
 
+    @Override
     public List<String> getBlock() {
         List<String> codeLines = new ArrayList<>();
         codeLines.add(getFirstLine());
@@ -76,6 +77,7 @@ public class Command2 {
         return codeLines;
     }
 
+    @Override
     public List<String> getInlineOptions() {
         List<String> codeLines = new ArrayList<>();
         codeLines.add(getFirstLineInline());
@@ -83,37 +85,42 @@ public class Command2 {
         return codeLines;
     }
 
+    @Override
     public String getInline() {
-        return COMMAND_MARKER_CHAR + name + assembleOptionList(false).getInline() + assembleBody(false).getInline();
+        return COMMAND_MARKER_CHAR + name + assembleOptionList(false, false, false).getInline() + assembleBody(false, false, false).getInline();
     }
 
 
     private List<String> getOptionBlock() {
         boolean skipClosingBracket = body != null && trailingOpeningBracket;
-        return new ArrayList<>(assembleOptionList(indentOptions).getBlock(trailingOpeningBracket, skipClosingBracket));
+        return new ArrayList<>(assembleOptionList(indentOptions, trailingOpeningBracket, skipClosingBracket).getBlock());
     }
 
     private List<String> getBodyBlock() {
-        return new ArrayList<>(assembleBody(indentBody).getBlock(trailingOpeningBracket, false));
+        return new ArrayList<>(assembleBody(indentBody, trailingOpeningBracket, false).getBlock());
     }
 
-    private FormattedExpressionList assembleOptionList(boolean indent) {
+    private ExpressionList assembleOptionList(boolean indent, boolean skipOpeningBracket, boolean skipClosingBracket) {
         return new FormattedExpressionList.FormattedExpressionListBuilder(optionList)
                 .terminator(optionTerminator)
                 .brackets(optionBrackets)
                 .skipLastTerminator(skipLastTerminatorOptions)
                 .indentBlock(indent)
                 .inlineSpacing(inlineSpacingOptions)
+                .skipOpeningBracket(skipOpeningBracket)
+                .skipClosingBracket(skipClosingBracket)
                 .build();
     }
 
-    private FormattedExpressionList assembleBody(boolean indent) {
+    private ExpressionList assembleBody(boolean indent, boolean skipOpeningBracket, boolean skipClosingBracket) {
         return new FormattedExpressionList.FormattedExpressionListBuilder(body)
                 .terminator(bodyTerminator)
                 .brackets(bodyBrackets)
                 .skipLastTerminator(skipLastTerminatorBody)
                 .indentBlock(indent)
                 .inlineSpacing(inlineSpacingBody)
+                .skipOpeningBracket(skipOpeningBracket)
+                .skipClosingBracket(skipClosingBracket)
                 .build();
     }
 
@@ -135,7 +142,7 @@ public class Command2 {
         if (optionList == null && body == null) {
             return firstLine.toString();
         }
-        firstLine.append(assembleOptionList(false).getInline());
+        firstLine.append(assembleOptionList(false, false, false).getInline());
         firstLine.append(interBracketSpace ? " " : "");
         if (trailingOpeningBracket && body != null) {
             firstLine.append(bodyBrackets.getLeftBracket());

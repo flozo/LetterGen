@@ -51,7 +51,7 @@ public class Main {
         System.out.println(letterGeneral.isDraftModeOn());
 
 
-        Command2 documentclass = Documentclass.createWithOptions(DocumentClassName.STANDALONE, "12pt", "tikz", "multi", "crop");
+        Command documentclass = Documentclass.createWithOptions(DocumentClassName.STANDALONE, "12pt", "tikz", "multi", "crop");
 
         PackageList packageList = new PackageList(documentclass);
         packageList.add(PackageName.INPUTENC, "utf8")
@@ -67,7 +67,7 @@ public class Main {
                 .add(PackageName.TIKZ)
                 .add(PackageName.HYPERREF, "unicode");
 
-        Command2 usetikzlibrary = new Command2.Command2Builder(CommandName.USETIKZLIBRARY.getString())
+        Command usetikzlibrary = new Command2.Command2Builder(CommandName.USETIKZLIBRARY.getString())
                 .body(
                         "positioning",
                         "math",
@@ -76,12 +76,12 @@ public class Main {
                         "matrix")
                 .bodyTerminator(StatementTerminator.COMMA)
                 .build();
-        Command2 standaloneenv = new Command2.Command2Builder(CommandName.STANDALONEENV.getString())
+        Command standaloneenv = new Command2.Command2Builder(CommandName.STANDALONEENV.getString())
                 .body("tikzpicture")
                 .build();
 
         String pdfauthor = senderData.getFirstName() + " " + senderData.getLastName();
-        Command2 hypersetup = new Command2.Command2Builder(CommandName.HYPERSETUP.getString())
+        Command hypersetup = new Command2.Command2Builder(CommandName.HYPERSETUP.getString())
                 .body(
                         "colorlinks=true",
                         String.format("urlcolor=%s", geometry.getUrlHyperlinkColor()),
@@ -130,7 +130,8 @@ public class Main {
             System.out.println(line);
         }
 
-        FormattedExpressionList tikzpictureBody = new FormattedExpressionList.FormattedExpressionListBuilder()
+
+        ExpressionList tikzpictureBody = new FormattedExpressionList.FormattedExpressionListBuilder()
                 .append(onBackgroundLayer.getBlock())
                 .append(addressField.getAddressField())
                 .append(backaddressField.getBackaddressText())
@@ -144,7 +145,7 @@ public class Main {
                 .build();
 
 
-        FormattedExpressionList documentBody = new FormattedExpressionList.FormattedExpressionListBuilder()
+        ExpressionList documentBody = new FormattedExpressionList.FormattedExpressionListBuilder()
                 .append(pgflayers.getBlock())
                 .append(tikzpicture.getBlock())
                 .append()

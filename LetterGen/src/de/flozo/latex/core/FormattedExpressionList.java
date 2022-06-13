@@ -15,6 +15,8 @@ public class FormattedExpressionList implements ExpressionList {
     public static final Bracket DEFAULT_BRACKETS = Bracket.NONE;
     public static final boolean DEFAULT_SKIP_LAST_TERMINATOR = true;
     public static final boolean DEFAULT_INDENT = false;
+    public static final boolean DEFAULT_SKIP_OPENING_BRACKET = false;
+    public static final boolean DEFAULT_SKIP_CLOSING_BRACKET = false;
 
     // required
     private final List<String> expressions;
@@ -25,6 +27,8 @@ public class FormattedExpressionList implements ExpressionList {
     private final boolean inlineSpacing;
     private final boolean skipLastTerminator;
     private final boolean indentBlock;
+    private final boolean skipOpeningBracket;
+    private final boolean skipClosingBracket;
 
     private FormattedExpressionList(FormattedExpressionListBuilder builder) {
         this.expressions = builder.expressions;
@@ -33,6 +37,8 @@ public class FormattedExpressionList implements ExpressionList {
         this.inlineSpacing = builder.inlineSpacing;
         this.skipLastTerminator = builder.skipLastTerminator;
         this.indentBlock = builder.indentBlock;
+        this.skipOpeningBracket = builder.skipOpeningBracket;
+        this.skipClosingBracket = builder.skipClosingBracket;
     }
 
     // Return raw expressions
@@ -41,12 +47,13 @@ public class FormattedExpressionList implements ExpressionList {
     }
 
     // Return assembled code (optionally) enclosed in brackets as new ArrayList
+//    @Override
+//    public List<String> getBlock() {
+//        return getBlock(false, false);
+//    }
+
     @Override
     public List<String> getBlock() {
-        return getBlock(false, false);
-    }
-
-    public List<String> getBlock(boolean skipOpeningBracket, boolean skipClosingBracket) {
         return new ArrayList<>(assembleCode(skipOpeningBracket, skipClosingBracket));
     }
 
@@ -81,8 +88,15 @@ public class FormattedExpressionList implements ExpressionList {
     }
 
     private void addTerminator(List<String> codeLines) {
+        if (skipLastTerminator && codeLines.size() <= 1) {
+            return;
+        }
         if (skipLastTerminator) {
             // Append terminator to each code line, except the last one
+            System.out.println("*****");
+            for (String line : codeLines) {
+                System.out.println(line);
+            }
             codeLines.subList(0, codeLines.size() - 1).replaceAll(s -> s + terminator.getString());
         } else {
             // Append terminator to each code line
@@ -121,6 +135,8 @@ public class FormattedExpressionList implements ExpressionList {
         private boolean inlineSpacing = DEFAULT_INLINE_SPACING;
         private boolean skipLastTerminator = DEFAULT_SKIP_LAST_TERMINATOR;
         private boolean indentBlock = DEFAULT_INDENT;
+        private boolean skipOpeningBracket = DEFAULT_SKIP_OPENING_BRACKET;
+        private boolean skipClosingBracket = DEFAULT_SKIP_CLOSING_BRACKET;
 
         // Accept List<String> or any number of Strings for constructor
 
@@ -176,6 +192,17 @@ public class FormattedExpressionList implements ExpressionList {
             this.indentBlock = indentBlock;
             return this;
         }
+
+        public FormattedExpressionListBuilder skipOpeningBracket(boolean skipOpeningBracket) {
+            this.skipOpeningBracket = skipOpeningBracket;
+            return this;
+        }
+
+        public FormattedExpressionListBuilder skipClosingBracket(boolean skipClosingBracket) {
+            this.skipClosingBracket = skipClosingBracket;
+            return this;
+        }
+
 
         public FormattedExpressionList build() {
             return new FormattedExpressionList(this);
