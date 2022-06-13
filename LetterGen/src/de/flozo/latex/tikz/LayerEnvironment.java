@@ -1,6 +1,6 @@
 package de.flozo.latex.tikz;
 
-import de.flozo.latex.core.Environment3;
+import de.flozo.latex.core.Environment;
 import de.flozo.latex.core.EnvironmentName;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class LayerEnvironment {
     }
 
     public List<String> getBlock() {
-        return new Environment3.Environment3Builder(EnvironmentName.PGFONLAYER)
+        return new Environment.EnvironmentBuilder(EnvironmentName.PGFONLAYER)
                 .requiredArguments(layerName)
                 .body(body)
                 .build().getBlock();

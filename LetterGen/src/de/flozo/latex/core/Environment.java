@@ -3,7 +3,7 @@ package de.flozo.latex.core;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Environment3 {
+public class Environment {
 
     // constants
     public static final String COMMAND_MARKER_CHAR = "\\";
@@ -30,7 +30,7 @@ public class Environment3 {
     private final Bracket bodyBrackets;
 
 
-    private Environment3(Environment3Builder builder) {
+    private Environment(EnvironmentBuilder builder) {
         this.name = builder.name;
         this.requiredArguments = builder.requiredArguments;
         this.optionalArguments = builder.optionalArguments;
@@ -70,7 +70,7 @@ public class Environment3 {
         }
     }
 
-    public static class Environment3Builder {
+    public static class EnvironmentBuilder {
 
         // required
         private final EnvironmentName name;
@@ -84,55 +84,55 @@ public class Environment3 {
         private Bracket bodyBrackets = DEFAULT_BODY_BRACKETS;
 
 
-        public Environment3Builder(EnvironmentName name) {
+        public EnvironmentBuilder(EnvironmentName name) {
             this.name = name;
         }
 
-        public Environment3Builder requiredArguments(String... requiredArguments) {
+        public EnvironmentBuilder requiredArguments(String... requiredArguments) {
             return requiredArguments(new ArrayList<>(List.of(requiredArguments)));
         }
 
-        public Environment3Builder requiredArguments(List<String> requiredArguments) {
+        public EnvironmentBuilder requiredArguments(List<String> requiredArguments) {
             this.requiredArguments = requiredArguments;
             return this;
         }
 
-        public Environment3Builder optionalArguments(String... optionalArguments) {
+        public EnvironmentBuilder optionalArguments(String... optionalArguments) {
             return optionalArguments(new ArrayList<>(List.of(optionalArguments)));
         }
 
-        public Environment3Builder optionalArguments(List<String> optionalArguments) {
+        public EnvironmentBuilder optionalArguments(List<String> optionalArguments) {
             this.optionalArguments = optionalArguments;
             return this;
         }
 
-        public Environment3Builder body(String... body) {
+        public EnvironmentBuilder body(String... body) {
             return body(new ArrayList<>(List.of(body)));
         }
 
-        public Environment3Builder body(List<String> body) {
+        public EnvironmentBuilder body(List<String> body) {
             this.body = body;
             return this;
         }
 
-        public Environment3Builder indentBody(boolean indentBody) {
+        public EnvironmentBuilder indentBody(boolean indentBody) {
             this.indentBody = indentBody;
             return this;
         }
 
-        public Environment3Builder optionBrackets(Bracket optionBrackets) {
+        public EnvironmentBuilder optionBrackets(Bracket optionBrackets) {
             this.optionBrackets = optionBrackets;
             return this;
         }
 
-        public Environment3Builder bodyBrackets(Bracket bodyBrackets) {
+        public EnvironmentBuilder bodyBrackets(Bracket bodyBrackets) {
             this.bodyBrackets = bodyBrackets;
             return this;
         }
 
 
-        public Environment3 build() {
-            return new Environment3(this);
+        public Environment build() {
+            return new Environment(this);
         }
 
     }

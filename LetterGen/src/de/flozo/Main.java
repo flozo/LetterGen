@@ -139,7 +139,7 @@ public class Main {
 //                .append(onForegroundLayer.getBlock())
                 .build();
 
-        Environment3 tikzpicture = new Environment3.Environment3Builder(EnvironmentName.TIKZPICTURE)
+        Environment tikzpicture = new Environment.EnvironmentBuilder(EnvironmentName.TIKZPICTURE)
                 .optionalArguments("inner xsep=0pt", "inner ysep=0pt", "trim left=0pt", "trim right=" + geometry.getPaperWidth() + "cm")
                 .body(tikzpictureBody.getBlock())
                 .build();
@@ -151,7 +151,7 @@ public class Main {
                 .append()
                 .build();
 
-        Environment3 document = new Environment3.Environment3Builder(EnvironmentName.DOCUMENT)
+        Environment document = new Environment.EnvironmentBuilder(EnvironmentName.DOCUMENT)
                 .body(documentBody.getBlock())
                 .build();
 
