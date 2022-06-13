@@ -154,23 +154,6 @@ public class Main {
                 .body(documentBody.getBlock())
                 .build();
 
-        Environment2 test = new Environment2.Environment2Builder(EnvironmentName.PGFONLAYER)
-                .requiredArguments("layerName")
-                .body("test line1", "test line2")
-                .build();
-
-        Environment3 test2 = new Environment3.Environment3Builder(EnvironmentName.PGFONLAYER)
-                .requiredArguments("layerName")
-                .body("test line1", "test line2")
-                .build();
-
-
-        for (String line : test.getBlock()) {
-            System.out.println(line);
-        }
-        for (String line : test2.getBlock()) {
-            System.out.println(line);
-        }
 
 
         // Assemble final code

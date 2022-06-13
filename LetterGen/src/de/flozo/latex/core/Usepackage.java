@@ -1,6 +1,6 @@
 package de.flozo.latex.core;
 
-public class Usepackage extends Command {
+public class Usepackage {//} extends Command {
 
     public static final CommandName KEYWORD = CommandName.USEPACKAGE;
     private final PackageName packageName;
@@ -14,8 +14,8 @@ public class Usepackage extends Command {
     }
 
 
-    public Usepackage(PackageName packageName, ExpressionList optionList) {
-        super(KEYWORD, new ExpressionList(packageName.getString()), optionList);
+    public Usepackage(PackageName packageName, FormattedExpressionList optionList) {
+//        super(KEYWORD, new ExpressionList(packageName.getString()), optionList);
         this.packageName = packageName;
     }
 

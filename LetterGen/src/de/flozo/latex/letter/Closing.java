@@ -1,12 +1,5 @@
 package de.flozo.latex.letter;
 
-import de.flozo.latex.core.Code;
-import de.flozo.latex.core.ExpressionList;
-import de.flozo.latex.core.Includegraphics;
-import de.flozo.latex.core.StatementTerminator;
-import de.flozo.latex.tikz.Anchor;
-import de.flozo.latex.tikz.Node;
-
 public class Closing  {
 
     private String signatureFileName;
@@ -24,27 +17,27 @@ public class Closing  {
         this.y = y;
     }
 
-    public String generate(){
-        // Generate letter closing
-        Includegraphics signature = new Includegraphics.IncludegraphicsBuilder(signatureFileName)
-                .height(1.3)
-                .build();
-        ExpressionList closingTextLines = new ExpressionList(
-                complimentaryClosing,
-                signature.getStatement(),
-                name
-        );
-        Code closingText = new Code.CodeBuilder(closingTextLines)
-                .terminator(StatementTerminator.DOUBLE_BACKSLASH)
-                .inlineSpacing(false)
-                .build();
-        Node closing = new Node.NodeBuilder(x, y, closingText.getInline())
-                .name("closing")
-                .anchor(Anchor.NORTH_WEST)
-                .textWidth(10)
-                .build();
-        return closing.getInline();
-    }
+//    public String generate(){
+//        // Generate letter closing
+//        Includegraphics signature = new Includegraphics.IncludegraphicsBuilder(signatureFileName)
+//                .height(1.3)
+//                .build();
+//        ExpressionList closingTextLines = new ExpressionList(
+//                complimentaryClosing,
+//                signature.getStatement(),
+//                name
+//        );
+//        Code closingText = new Code.CodeBuilder(closingTextLines)
+//                .terminator(StatementTerminator.DOUBLE_BACKSLASH)
+//                .inlineSpacing(false)
+//                .build();
+//        Node closing = new Node.NodeBuilder(x, y, closingText.getInline())
+//                .name("closing")
+//                .anchor(Anchor.NORTH_WEST)
+//                .textWidth(10)
+//                .build();
+//        return closing.getInline();
+//    }
 
 
 }

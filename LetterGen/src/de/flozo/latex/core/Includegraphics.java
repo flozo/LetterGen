@@ -27,29 +27,29 @@ public class Includegraphics {
         this.width = builder.width;
     }
 
-    public String getStatement() {
-        StringBuilder sb = new StringBuilder(COMMAND_MARKER_CHAR + KEYWORD.getString());
-        // Append options if at least one option is present
-        if (!optionalArguments.isEmpty()) {
-            sb.append(" ").append(inlineOptions());
-        }
-        // Append required parts
-        sb.append(BODY_BRACKETS.getLeftBracket());
-        sb.append(fileName);
-        sb.append(BODY_BRACKETS.getRightBracket());
-        return sb.toString();
-    }
-
-
-    private String inlineOptions() {
-        Code options = new Code.CodeBuilder(new ExpressionList(optionalArguments))
-                .brackets(OPTIONS_BRACKETS)
-                .terminator(StatementTerminator.COMMA)
-                .skipLast(true)
-                .inlineSpacing(true)
-                .build();
-        return options.getInline();
-    }
+//    public String getStatement() {
+//        StringBuilder sb = new StringBuilder(COMMAND_MARKER_CHAR + KEYWORD.getString());
+//        // Append options if at least one option is present
+//        if (!optionalArguments.isEmpty()) {
+//            sb.append(" ").append(inlineOptions());
+//        }
+//        // Append required parts
+//        sb.append(BODY_BRACKETS.getLeftBracket());
+//        sb.append(fileName);
+//        sb.append(BODY_BRACKETS.getRightBracket());
+//        return sb.toString();
+//    }
+//
+//
+//    private String inlineOptions() {
+//        Code options = new Code.CodeBuilder(new ExpressionList(optionalArguments))
+//                .brackets(OPTIONS_BRACKETS)
+//                .terminator(StatementTerminator.COMMA)
+//                .skipLast(true)
+//                .inlineSpacing(true)
+//                .build();
+//        return options.getInline();
+//    }
 
 
 
