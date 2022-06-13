@@ -2,7 +2,6 @@ package de.flozo.latex.core;
 
 public enum PackageName {
 
-    STANDALONE("standalone"),
     INPUTENC("inputenc"),
     FONTENC("fontenc"),
     BABEL("babel"),

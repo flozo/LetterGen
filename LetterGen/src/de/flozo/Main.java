@@ -51,7 +51,7 @@ public class Main {
         System.out.println(letterGeneral.isDraftModeOn());
 
 
-        Documentclass documentclass = new Documentclass(PackageName.STANDALONE, "12pt", "tikz", "multi", "crop");
+        Documentclass documentclass = new Documentclass(DocumentClassName.STANDALONE, "12pt", "tikz", "multi", "crop");
 
         PackageList packageList = new PackageList(documentclass);
         packageList.add(PackageName.INPUTENC, "utf8")
