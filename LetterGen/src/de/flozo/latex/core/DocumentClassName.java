@@ -1,6 +1,7 @@
 package de.flozo.latex.core;
 
 public enum DocumentClassName {
+
     ARTICLE("article"),
     PROC("proc"),
     MINIMAL("minimal"),
@@ -15,6 +16,7 @@ public enum DocumentClassName {
     SCRARTCL("scrartcl"),
     SCRLTTR2("scrlttr2"),
     STANDALONE("standalone");
+
 
     private final String documentClassName;
 
