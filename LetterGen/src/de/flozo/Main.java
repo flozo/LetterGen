@@ -51,7 +51,7 @@ public class Main {
         System.out.println(letterGeneral.isDraftModeOn());
 
 
-        Documentclass documentclass = Documentclass.createWithOptions(DocumentClassName.STANDALONE, "12pt", "tikz", "multi", "crop");
+        Command2 documentclass = Documentclass.createWithOptions(DocumentClassName.STANDALONE, "12pt", "tikz", "multi", "crop");
 
         PackageList packageList = new PackageList(documentclass);
         packageList.add(PackageName.INPUTENC, "utf8")
@@ -130,7 +130,7 @@ public class Main {
             System.out.println(line);
         }
 
-        ExpressionList2 tikzpictureBody = new ExpressionList2.ExpressionList2Builder()
+        FormattedExpressionList tikzpictureBody = new FormattedExpressionList.FormattedExpressionListBuilder()
                 .append(onBackgroundLayer.getBlock())
                 .append(addressField.getAddressField())
                 .append(backaddressField.getBackaddressText())
@@ -144,7 +144,7 @@ public class Main {
                 .build();
 
 
-        ExpressionList2 documentBody = new ExpressionList2.ExpressionList2Builder()
+        FormattedExpressionList documentBody = new FormattedExpressionList.FormattedExpressionListBuilder()
                 .append(pgflayers.getBlock())
                 .append(tikzpicture.getBlock())
                 .append()

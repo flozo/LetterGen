@@ -46,8 +46,8 @@ public abstract class Path {
 
     public abstract String getInline();
 
-    private ExpressionList2 buildOptionList() {
-        return new ExpressionList2.ExpressionList2Builder(optionalArguments)
+    private FormattedExpressionList buildOptionList() {
+        return new FormattedExpressionList.FormattedExpressionListBuilder(optionalArguments)
                 .brackets(OPTIONS_BRACKETS)
                 .terminator(StatementTerminator.COMMA)
                 .skipLastTerminator(true)

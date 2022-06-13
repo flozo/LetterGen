@@ -97,8 +97,8 @@ public class Command2 {
         return new ArrayList<>(assembleBody(indentBody).getBlock(trailingOpeningBracket, false));
     }
 
-    private ExpressionList2 assembleOptionList(boolean indent) {
-        return new ExpressionList2.ExpressionList2Builder(optionList)
+    private FormattedExpressionList assembleOptionList(boolean indent) {
+        return new FormattedExpressionList.FormattedExpressionListBuilder(optionList)
                 .terminator(optionTerminator)
                 .brackets(optionBrackets)
                 .skipLastTerminator(skipLastTerminatorOptions)
@@ -107,8 +107,8 @@ public class Command2 {
                 .build();
     }
 
-    private ExpressionList2 assembleBody(boolean indent) {
-        return new ExpressionList2.ExpressionList2Builder(body)
+    private FormattedExpressionList assembleBody(boolean indent) {
+        return new FormattedExpressionList.FormattedExpressionListBuilder(body)
                 .terminator(bodyTerminator)
                 .brackets(bodyBrackets)
                 .skipLastTerminator(skipLastTerminatorBody)

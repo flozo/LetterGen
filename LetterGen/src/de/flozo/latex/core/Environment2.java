@@ -77,22 +77,22 @@ public class Environment2 {
         return indentedCode;
     }
 
-    private ExpressionList2 buildRequiredArguments() {
-        return new ExpressionList2.ExpressionList2Builder(this.requiredArguments)
+    private FormattedExpressionList buildRequiredArguments() {
+        return new FormattedExpressionList.FormattedExpressionListBuilder(this.requiredArguments)
                 .brackets(DEFAULT_REQUIRED_ARGUMENTS_BRACKET)
                 .terminator(StatementTerminator.COMMA)
                 .build();
     }
 
-    private ExpressionList2 buildOptionalArguments() {
-        return new ExpressionList2.ExpressionList2Builder(this.optionalArguments)
+    private FormattedExpressionList buildOptionalArguments() {
+        return new FormattedExpressionList.FormattedExpressionListBuilder(this.optionalArguments)
                 .brackets(DEFAULT_OPTIONAL_ARGUMENTS_BRACKET)
                 .terminator(StatementTerminator.COMMA)
                 .build();
     }
 
-    private ExpressionList2 buildBody() {
-        return new ExpressionList2.ExpressionList2Builder(this.body)
+    private FormattedExpressionList buildBody() {
+        return new FormattedExpressionList.FormattedExpressionListBuilder(this.body)
                 .brackets(DEFAULT_BODY_BRACKET)
                 .terminator(StatementTerminator.NONE)
                 .build();

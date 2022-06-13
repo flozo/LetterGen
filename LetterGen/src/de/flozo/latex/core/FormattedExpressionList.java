@@ -3,7 +3,7 @@ package de.flozo.latex.core;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpressionList2 {
+public class FormattedExpressionList {
 
     // constants
     public static final String INLINE_SEPARATOR = " ";
@@ -26,7 +26,7 @@ public class ExpressionList2 {
     private final boolean skipLastTerminator;
     private final boolean indentBlock;
 
-    private ExpressionList2(ExpressionList2Builder builder) {
+    private FormattedExpressionList(FormattedExpressionListBuilder builder) {
         this.expressions = builder.expressions;
         this.terminator = builder.terminator;
         this.brackets = builder.brackets;
@@ -108,7 +108,7 @@ public class ExpressionList2 {
     }
 
 
-    public static class ExpressionList2Builder {
+    public static class FormattedExpressionListBuilder {
 
         // required
         private final List<String> expressions;
@@ -122,61 +122,61 @@ public class ExpressionList2 {
 
         // Accept List<String> or any number of Strings for constructor
 
-        public ExpressionList2Builder(String... lines) {
+        public FormattedExpressionListBuilder(String... lines) {
             this.expressions = new ArrayList<>(List.of(lines));
         }
 
-        public ExpressionList2Builder(List<String> expressions) {
+        public FormattedExpressionListBuilder(List<String> expressions) {
             this.expressions = expressions;
         }
 
         // Accept List<String> or any number of Strings to prepend or append
 
-        public ExpressionList2Builder prepend(String... lines) {
+        public FormattedExpressionListBuilder prepend(String... lines) {
             return prepend(new ArrayList<>(List.of(lines)));
         }
 
-        public ExpressionList2Builder prepend(List<String> prepend) {
+        public FormattedExpressionListBuilder prepend(List<String> prepend) {
             this.expressions.addAll(0, prepend);
             return this;
         }
 
-        public ExpressionList2Builder append(String... lines) {
+        public FormattedExpressionListBuilder append(String... lines) {
             return append(new ArrayList<>(List.of(lines)));
         }
 
-        public ExpressionList2Builder append(List<String> append) {
+        public FormattedExpressionListBuilder append(List<String> append) {
             this.expressions.addAll(append);
             return this;
         }
 
-        public ExpressionList2Builder terminator(StatementTerminator terminator) {
+        public FormattedExpressionListBuilder terminator(StatementTerminator terminator) {
             this.terminator = terminator;
             return this;
         }
 
-        public ExpressionList2Builder brackets(Bracket brackets) {
+        public FormattedExpressionListBuilder brackets(Bracket brackets) {
             this.brackets = brackets;
             return this;
         }
 
-        public ExpressionList2Builder inlineSpacing(boolean inlineSpacing) {
+        public FormattedExpressionListBuilder inlineSpacing(boolean inlineSpacing) {
             this.inlineSpacing = inlineSpacing;
             return this;
         }
 
-        public ExpressionList2Builder skipLastTerminator(boolean skipLastTerminator) {
+        public FormattedExpressionListBuilder skipLastTerminator(boolean skipLastTerminator) {
             this.skipLastTerminator = skipLastTerminator;
             return this;
         }
 
-        public ExpressionList2Builder indentBlock(boolean indentBlock) {
+        public FormattedExpressionListBuilder indentBlock(boolean indentBlock) {
             this.indentBlock = indentBlock;
             return this;
         }
 
-        public ExpressionList2 build() {
-            return new ExpressionList2(this);
+        public FormattedExpressionList build() {
+            return new FormattedExpressionList(this);
         }
     }
 }

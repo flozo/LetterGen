@@ -4,11 +4,11 @@ import java.util.*;
 
 public class PackageList {
 
-    private final Documentclass documentclass;
+    private final Command2 documentclass;
     private final Map<PackageName, ExpressionList> usepackageList;
 
 
-    public PackageList(Documentclass documentclass) {
+    public PackageList(Command2 documentclass) {
         this.documentclass = documentclass;
         this.usepackageList = new LinkedHashMap<>();
     }

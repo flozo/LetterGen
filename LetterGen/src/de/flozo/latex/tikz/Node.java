@@ -93,8 +93,8 @@ public class Node extends Path {
         return lines;
     }
 
-    private ExpressionList2 buildBody() {
-        return new ExpressionList2.ExpressionList2Builder(body)
+    private FormattedExpressionList buildBody() {
+        return new FormattedExpressionList.FormattedExpressionListBuilder(body)
                 .brackets(Bracket.CURLY_BRACES)
                 .terminator(bodyTerminator)
                 .indentBlock(true)
