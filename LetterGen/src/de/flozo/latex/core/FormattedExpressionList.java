@@ -3,7 +3,7 @@ package de.flozo.latex.core;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FormattedExpressionList {
+public class FormattedExpressionList implements ExpressionList {
 
     // constants
     public static final String INLINE_SEPARATOR = " ";
@@ -41,6 +41,7 @@ public class FormattedExpressionList {
     }
 
     // Return assembled code (optionally) enclosed in brackets as new ArrayList
+    @Override
     public List<String> getBlock() {
         return getBlock(false, false);
     }
@@ -50,6 +51,7 @@ public class FormattedExpressionList {
     }
 
     // Return assembled code with optional additional spacing
+    @Override
     public String getInline() {
         if (expressions == null) {
             return "";
