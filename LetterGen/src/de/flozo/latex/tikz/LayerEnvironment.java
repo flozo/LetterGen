@@ -22,7 +22,7 @@ public class LayerEnvironment {
     }
 
     public List<String> getBlock() {
-        return new Environment.EnvironmentBuilder(EnvironmentName.PGFONLAYER)
+        return new Environment.Builder(EnvironmentName.PGFONLAYER)
                 .requiredArguments(layerName)
                 .body(body)
                 .build().getBlock();

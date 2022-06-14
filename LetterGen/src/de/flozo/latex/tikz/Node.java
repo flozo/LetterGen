@@ -37,7 +37,7 @@ public class Node extends Path {
 //    private double innerXSep;
 //    private double innerYSep;
 
-    private Node(NodeBuilder builder) {
+    private Node(Builder builder) {
         super(builder.xOrigin,
                 builder.yOrigin,
                 builder.optionalArguments,
@@ -94,7 +94,7 @@ public class Node extends Path {
     }
 
     private FormattedExpressionList buildBody() {
-        return new FormattedExpressionList.FormattedExpressionListBuilder(body)
+        return new FormattedExpressionList.Builder(body)
                 .brackets(Bracket.CURLY_BRACES)
                 .terminator(bodyTerminator)
                 .indentBlock(true)
@@ -122,7 +122,7 @@ public class Node extends Path {
                 '}';
     }
 
-    public static class NodeBuilder {
+    public static class Builder {
 
         // required
         private final double xOrigin;
@@ -153,179 +153,179 @@ public class Node extends Path {
         private double innerXSep;
         private double innerYSep;
 
-        public NodeBuilder(double xOrigin, double yOrigin, String... body) {
+        public Builder(double xOrigin, double yOrigin, String... body) {
             this(xOrigin, yOrigin, new ArrayList<>(List.of(body)));
         }
 
-        public NodeBuilder(double xOrigin, double yOrigin, List<String> body) {
+        public Builder(double xOrigin, double yOrigin, List<String> body) {
             this.xOrigin = xOrigin;
             this.yOrigin = yOrigin;
             this.body = body;
         }
 
-        public NodeBuilder name(String name) {
+        public Builder name(String name) {
             this.name = name;
             return this;
         }
 
-        public NodeBuilder bodyTerminator(StatementTerminator bodyTerminator) {
+        public Builder bodyTerminator(StatementTerminator bodyTerminator) {
             this.bodyTerminator = bodyTerminator;
             return this;
         }
 
-        public NodeBuilder anchor(Anchor anchor) {
+        public Builder anchor(Anchor anchor) {
             this.anchor = anchor;
             this.optionalArguments.add("anchor=" + anchor.getString());
             return this;
         }
 
-        public NodeBuilder fontSize(FontSize fontSize) {
+        public Builder fontSize(FontSize fontSize) {
             this.fontSize = fontSize;
             this.optionalArguments.add("font=" + COMMAND_MARKER_CHAR + fontSize.getString());
             return this;
         }
 
-        public NodeBuilder drawColor(Color drawColor) {
+        public Builder drawColor(Color drawColor) {
             this.drawColor = drawColor;
             this.optionalArguments.add("draw=" + drawColor.getString());
             return this;
         }
 
-        public NodeBuilder textColor(Color textColor) {
+        public Builder textColor(Color textColor) {
             this.textColor = textColor;
             this.optionalArguments.add("color=" + textColor.getString());
             return this;
         }
 
-        public NodeBuilder fillColor(Color fillColor) {
+        public Builder fillColor(Color fillColor) {
             this.fillColor = fillColor;
             this.optionalArguments.add("fill=" + fillColor.getString());
             return this;
         }
 
-        public NodeBuilder lineWidthStyle(LineWidthStyle lineWidthStyle) {
+        public Builder lineWidthStyle(LineWidthStyle lineWidthStyle) {
             this.lineWidthStyle = lineWidthStyle;
             this.optionalArguments.add(lineWidthStyle.getString());
             return this;
         }
 
-        public NodeBuilder lineCap(LineCap lineCap) {
+        public Builder lineCap(LineCap lineCap) {
             this.lineCap = lineCap;
             this.optionalArguments.add("line cap=" + lineCap.getString());
             return this;
         }
 
-        public NodeBuilder lineJoin(LineJoin lineJoin) {
+        public Builder lineJoin(LineJoin lineJoin) {
             this.lineJoin = lineJoin;
             this.optionalArguments.add("line join=" + lineJoin.getString());
             return this;
         }
 
-        public NodeBuilder dashPatternStyle(DashPatternStyle dashPatternStyle) {
+        public Builder dashPatternStyle(DashPatternStyle dashPatternStyle) {
             this.dashPatternStyle = dashPatternStyle;
             this.optionalArguments.add(dashPatternStyle.getString());
             return this;
         }
 
-        public NodeBuilder xShift(double xShift) {
+        public Builder xShift(double xShift) {
             return xShift(xShift, LengthUnit.CENTIMETER);
         }
 
-        public NodeBuilder xShift(double xShift, LengthUnit lengthUnit) {
+        public Builder xShift(double xShift, LengthUnit lengthUnit) {
             Length length = new Length(xShift, lengthUnit);
             this.xShift = length.getNumericalValue();
             this.optionalArguments.add("xshift=" + length.getString());
             return this;
         }
 
-        public NodeBuilder yShift(double yShift) {
+        public Builder yShift(double yShift) {
             return yShift(yShift, LengthUnit.CENTIMETER);
         }
 
-        public NodeBuilder yShift(double yShift, LengthUnit lengthUnit) {
+        public Builder yShift(double yShift, LengthUnit lengthUnit) {
             Length length = new Length(yShift, lengthUnit);
             this.yShift = length.getNumericalValue();
             this.optionalArguments.add("yshift=" + length.getString());
             return this;
         }
 
-        public NodeBuilder textWidth(double textWidth) {
+        public Builder textWidth(double textWidth) {
             return textWidth(textWidth, LengthUnit.CENTIMETER);
         }
 
-        public NodeBuilder textWidth(double textWidth, LengthUnit lengthUnit) {
+        public Builder textWidth(double textWidth, LengthUnit lengthUnit) {
             Length length = new Length(textWidth, lengthUnit);
             this.textWidth = length.getNumericalValue();
             this.optionalArguments.add("text width=" + length.getString());
             return this;
         }
 
-        public NodeBuilder textHeight(double textHeight) {
+        public Builder textHeight(double textHeight) {
             return textHeight(textHeight, LengthUnit.CENTIMETER);
         }
 
-        public NodeBuilder textHeight(double textHeight, LengthUnit lengthUnit) {
+        public Builder textHeight(double textHeight, LengthUnit lengthUnit) {
             Length length = new Length(textHeight, lengthUnit);
             this.textHeight = length.getNumericalValue();
             this.optionalArguments.add("text height=" + length.getString());
             return this;
         }
 
-        public NodeBuilder textDepth(double textDepth) {
+        public Builder textDepth(double textDepth) {
             return textDepth(textDepth, LengthUnit.CENTIMETER);
         }
 
-        public NodeBuilder textDepth(double textDepth, LengthUnit lengthUnit) {
+        public Builder textDepth(double textDepth, LengthUnit lengthUnit) {
             Length length = new Length(textDepth, lengthUnit);
             this.textDepth = length.getNumericalValue();
             this.optionalArguments.add("text depth=" + length.getString());
             return this;
         }
 
-        public NodeBuilder minimumWidth(double minimumWidth) {
+        public Builder minimumWidth(double minimumWidth) {
             return minimumWidth(minimumWidth, LengthUnit.CENTIMETER);
         }
 
-        public NodeBuilder minimumWidth(double minimumWidth, LengthUnit lengthUnit) {
+        public Builder minimumWidth(double minimumWidth, LengthUnit lengthUnit) {
             Length length = new Length(minimumWidth, lengthUnit);
             this.minimumWidth = length.getNumericalValue();
             this.optionalArguments.add("minimum width=" + length.getString());
             return this;
         }
 
-        public NodeBuilder minimumHeight(double minimumHeight) {
+        public Builder minimumHeight(double minimumHeight) {
             return minimumHeight(minimumHeight, LengthUnit.CENTIMETER);
         }
 
-        public NodeBuilder minimumHeight(double minimumHeight, LengthUnit lengthUnit) {
+        public Builder minimumHeight(double minimumHeight, LengthUnit lengthUnit) {
             Length length = new Length(minimumHeight, lengthUnit);
             this.minimumHeight = length.getNumericalValue();
             this.optionalArguments.add("minimum height=" + length.getString());
             return this;
         }
 
-        public NodeBuilder alignment(Alignment alignment) {
+        public Builder alignment(Alignment alignment) {
             this.alignment = alignment;
             this.optionalArguments.add("align=" + alignment.getString());
             return this;
         }
 
-        public NodeBuilder innerXSep(double innerXSep) {
+        public Builder innerXSep(double innerXSep) {
             return innerXSep(innerXSep, LengthUnit.CENTIMETER);
         }
 
-        public NodeBuilder innerXSep(double innerXSep, LengthUnit lengthUnit) {
+        public Builder innerXSep(double innerXSep, LengthUnit lengthUnit) {
             Length length = new Length(innerXSep, lengthUnit);
             this.innerXSep = length.getNumericalValue();
             this.optionalArguments.add("inner xsep=" + length.getString());
             return this;
         }
 
-        public NodeBuilder innerYSep(double innerYSep) {
+        public Builder innerYSep(double innerYSep) {
             return innerYSep(innerYSep, LengthUnit.CENTIMETER);
         }
 
-        public NodeBuilder innerYSep(double innerYSep, LengthUnit lengthUnit) {
+        public Builder innerYSep(double innerYSep, LengthUnit lengthUnit) {
             Length length = new Length(innerYSep, lengthUnit);
             this.innerYSep = length.getNumericalValue();
             this.optionalArguments.add("inner ysep=" + length.getString());

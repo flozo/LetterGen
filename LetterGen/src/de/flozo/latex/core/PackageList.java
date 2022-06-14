@@ -16,7 +16,7 @@ public class PackageList {
 
     // Add new usepackage statement; allow chaining of add method
     public PackageList add(PackageName packageName, String... options) {
-        usepackageList.put(packageName, new FormattedExpressionList.FormattedExpressionListBuilder(options)
+        usepackageList.put(packageName, new FormattedExpressionList.Builder(options)
                 .terminator(StatementTerminator.COMMA).build());
         return this;
     }

@@ -34,7 +34,7 @@ public class Mark {
     }
 
     public Line getLine() {
-        return new Line.LineBuilder(x, y, width, 0, CoordinateMode.RELATIVE).lineWidth(thickness).build();
+        return new Line.Builder(x, y, width, 0, CoordinateMode.RELATIVE).lineWidth(thickness).build();
     }
 
 

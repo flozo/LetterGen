@@ -17,7 +17,7 @@ public class MatrixOfNodes {
     private final FontSize fontSize;
 
 
-    public MatrixOfNodes(MatrixBuilder builder) {
+    public MatrixOfNodes(Builder builder) {
         this.name = builder.name;
         this.matrix = builder.matrix;
         this.x = builder.x;
@@ -28,7 +28,7 @@ public class MatrixOfNodes {
 
 
     public List<String> getBlock() {
-        return new Node.NodeBuilder(x, y, assembleTable())
+        return new Node.Builder(x, y, assembleTable())
                 .name(name)
                 .anchor(anchor)
                 .fontSize(fontSize)
@@ -66,7 +66,7 @@ public class MatrixOfNodes {
                 '}';
     }
 
-    public static class MatrixBuilder {
+    public static class Builder {
 
         // required
         private final String name;
@@ -79,23 +79,23 @@ public class MatrixOfNodes {
         private FontSize fontSize = FontSize.NORMAL_SIZE;
 
 
-        public MatrixBuilder(String name, double x, double y, Anchor anchor) {
+        public Builder(String name, double x, double y, Anchor anchor) {
             this.name = name;
             this.x = x;
             this.y = y;
             this.anchor = anchor;
         }
 
-        public MatrixBuilder addRow(String... row) {
+        public Builder addRow(String... row) {
             return addRow(new ArrayList<>(List.of(row)));
         }
 
-        public MatrixBuilder addRow(List<String> row) {
+        public Builder addRow(List<String> row) {
             this.matrix.add(row);
             return this;
         }
 
-        public MatrixBuilder fontSize(FontSize fontSize) {
+        public Builder fontSize(FontSize fontSize) {
             this.fontSize = fontSize;
             return this;
         }

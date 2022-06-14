@@ -21,7 +21,7 @@ public class Rectangle extends Path {
 //    private LineWidthStyle lineWidthStyle;
 
 
-    private Rectangle(RectangleBuilder builder) {
+    private Rectangle(Builder builder) {
         super(builder.xOrigin,
                 builder.yOrigin,
                 builder.optionalArguments,
@@ -64,7 +64,7 @@ public class Rectangle extends Path {
                 '}';
     }
 
-    public static class RectangleBuilder {
+    public static class Builder {
         // required
         private final double xOrigin;
         private final double yOrigin;
@@ -83,57 +83,57 @@ public class Rectangle extends Path {
         private DashPatternStyle dashPatternStyle;
 
 
-        public RectangleBuilder(double xOrigin, double yOrigin, double xOppositeCorner, double yOppositeCorner) {
+        public Builder(double xOrigin, double yOrigin, double xOppositeCorner, double yOppositeCorner) {
             this.xOrigin = xOrigin;
             this.yOrigin = yOrigin;
             this.xOppositeCorner = xOppositeCorner;
             this.yOppositeCorner = yOppositeCorner;
         }
 
-        public RectangleBuilder name(String name) {
+        public Builder name(String name) {
             this.name = name;
             return this;
         }
 
 
-        public RectangleBuilder drawColor(Color drawColor) {
+        public Builder drawColor(Color drawColor) {
             this.drawColor = drawColor;
             this.optionalArguments.add("draw=" + drawColor.getString());
             return this;
         }
 
-        public RectangleBuilder fillColor(Color fillColor) {
+        public Builder fillColor(Color fillColor) {
             this.fillColor = fillColor;
             this.optionalArguments.add("fill=" + fillColor.getString());
             return this;
         }
 
 
-        public RectangleBuilder lineWidthStyle(LineWidthStyle lineWidthStyle) {
+        public Builder lineWidthStyle(LineWidthStyle lineWidthStyle) {
             this.lineWidthStyle = lineWidthStyle;
             this.optionalArguments.add(lineWidthStyle.getString());
             return this;
         }
 
-        public RectangleBuilder lineWidth(double lineWidth) {
+        public Builder lineWidth(double lineWidth) {
             this.lineWidth = lineWidth;
             this.optionalArguments.add("line width=" + lineWidth);
             return this;
         }
 
-        public RectangleBuilder lineCap(LineCap lineCap) {
+        public Builder lineCap(LineCap lineCap) {
             this.lineCap = lineCap;
             this.optionalArguments.add("line cap=" + lineCap.getString());
             return this;
         }
 
-        public RectangleBuilder lineJoin(LineJoin lineJoin) {
+        public Builder lineJoin(LineJoin lineJoin) {
             this.lineJoin = lineJoin;
             this.optionalArguments.add("line join=" + lineJoin.getString());
             return this;
         }
 
-        public RectangleBuilder dashPatternStyle(DashPatternStyle dashPatternStyle) {
+        public Builder dashPatternStyle(DashPatternStyle dashPatternStyle) {
             this.dashPatternStyle = dashPatternStyle;
             this.optionalArguments.add(dashPatternStyle.getString());
             return this;

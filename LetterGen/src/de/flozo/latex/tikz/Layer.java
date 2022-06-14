@@ -27,14 +27,14 @@ public class Layer {
         List<String> codeLines = new ArrayList<>();
         for (String layer : layers) {
             if (!Objects.equals(layer, "main")) {
-                codeLines.add(new Command2.Command2Builder(CommandName.PGFDECLARELAYER.getString()).body(layer).build().getInline());
+                codeLines.add(new Command2.Builder(CommandName.PGFDECLARELAYER.getString()).body(layer).build().getInline());
             }
         }
         return codeLines;
     }
 
     public String getSetLayers() {
-        return new Command2.Command2Builder(CommandName.PGFSETLAYERS.getString()).body(layers).bodyTerminator(StatementTerminator.COMMA).build().getInline();
+        return new Command2.Builder(CommandName.PGFSETLAYERS.getString()).body(layers).bodyTerminator(StatementTerminator.COMMA).build().getInline();
     }
 
 

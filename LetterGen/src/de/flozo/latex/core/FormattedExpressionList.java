@@ -30,7 +30,7 @@ public class FormattedExpressionList implements ExpressionList {
     private final boolean skipOpeningBracket;
     private final boolean skipClosingBracket;
 
-    private FormattedExpressionList(FormattedExpressionListBuilder builder) {
+    private FormattedExpressionList(Builder builder) {
         this.expressions = builder.expressions;
         this.terminator = builder.terminator;
         this.brackets = builder.brackets;
@@ -137,7 +137,7 @@ public class FormattedExpressionList implements ExpressionList {
                 '}';
     }
 
-    public static class FormattedExpressionListBuilder {
+    public static class Builder {
 
         // required
         private final List<String> expressions;
@@ -153,65 +153,65 @@ public class FormattedExpressionList implements ExpressionList {
 
         // Accept List<String> or any number of Strings for constructor
 
-        public FormattedExpressionListBuilder(String... lines) {
+        public Builder(String... lines) {
             this.expressions = new ArrayList<>(List.of(lines));
         }
 
-        public FormattedExpressionListBuilder(List<String> expressions) {
+        public Builder(List<String> expressions) {
             this.expressions = expressions;
         }
 
         // Accept List<String> or any number of Strings to prepend or append
 
-        public FormattedExpressionListBuilder prepend(String... lines) {
+        public Builder prepend(String... lines) {
             return prepend(new ArrayList<>(List.of(lines)));
         }
 
-        public FormattedExpressionListBuilder prepend(List<String> prepend) {
+        public Builder prepend(List<String> prepend) {
             this.expressions.addAll(0, prepend);
             return this;
         }
 
-        public FormattedExpressionListBuilder append(String... lines) {
+        public Builder append(String... lines) {
             return append(new ArrayList<>(List.of(lines)));
         }
 
-        public FormattedExpressionListBuilder append(List<String> append) {
+        public Builder append(List<String> append) {
             this.expressions.addAll(append);
             return this;
         }
 
-        public FormattedExpressionListBuilder terminator(StatementTerminator terminator) {
+        public Builder terminator(StatementTerminator terminator) {
             this.terminator = terminator;
             return this;
         }
 
-        public FormattedExpressionListBuilder brackets(Bracket brackets) {
+        public Builder brackets(Bracket brackets) {
             this.brackets = brackets;
             return this;
         }
 
-        public FormattedExpressionListBuilder inlineSpacing(boolean inlineSpacing) {
+        public Builder inlineSpacing(boolean inlineSpacing) {
             this.inlineSpacing = inlineSpacing;
             return this;
         }
 
-        public FormattedExpressionListBuilder skipLastTerminator(boolean skipLastTerminator) {
+        public Builder skipLastTerminator(boolean skipLastTerminator) {
             this.skipLastTerminator = skipLastTerminator;
             return this;
         }
 
-        public FormattedExpressionListBuilder indentBlock(boolean indentBlock) {
+        public Builder indentBlock(boolean indentBlock) {
             this.indentBlock = indentBlock;
             return this;
         }
 
-        public FormattedExpressionListBuilder skipOpeningBracket(boolean skipOpeningBracket) {
+        public Builder skipOpeningBracket(boolean skipOpeningBracket) {
             this.skipOpeningBracket = skipOpeningBracket;
             return this;
         }
 
-        public FormattedExpressionListBuilder skipClosingBracket(boolean skipClosingBracket) {
+        public Builder skipClosingBracket(boolean skipClosingBracket) {
             this.skipClosingBracket = skipClosingBracket;
             return this;
         }

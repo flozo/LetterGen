@@ -47,7 +47,7 @@ public class AddressField {
     }
 
     public String getAddressField() {
-        Node addressNode = new Node.NodeBuilder(x, y, assembleText())
+        Node addressNode = new Node.Builder(x, y, assembleText())
                 .name(FIELD_NAME)
                 .anchor(Anchor.NORTH_WEST)
                 .minimumWidth(width)

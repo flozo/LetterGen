@@ -15,7 +15,7 @@ public class Usepackage implements Command {
 
     @Override
     public List<String> getInlineOptions() {
-        return new Command2.Command2Builder(KEYWORD.getString())
+        return new Command2.Builder(KEYWORD.getString())
                 .optionList(options.getInline())
                 .body(packageName.getString())
                 .build().getInlineOptions();
@@ -23,7 +23,7 @@ public class Usepackage implements Command {
 
     @Override
     public List<String> getBlock() {
-        return new Command2.Command2Builder(KEYWORD.getString())
+        return new Command2.Builder(KEYWORD.getString())
                 .optionList(options.getBlock())
                 .body(packageName.getString())
                 .build().getBlock();
@@ -31,7 +31,7 @@ public class Usepackage implements Command {
 
     @Override
     public String getInline() {
-        return new Command2.Command2Builder(KEYWORD.getString())
+        return new Command2.Builder(KEYWORD.getString())
                 .optionList(options.getInline())
                 .body(packageName.getString())
                 .build().getInline();

@@ -67,7 +67,7 @@ public class Main {
                 .add(PackageName.TIKZ)
                 .add(PackageName.HYPERREF, "unicode");
 
-        Command usetikzlibrary = new Command2.Command2Builder(CommandName.USETIKZLIBRARY.getString())
+        Command usetikzlibrary = new Command2.Builder(CommandName.USETIKZLIBRARY.getString())
                 .body(
                         "positioning",
                         "math",
@@ -76,12 +76,12 @@ public class Main {
                         "matrix")
                 .bodyTerminator(StatementTerminator.COMMA)
                 .build();
-        Command standaloneenv = new Command2.Command2Builder(CommandName.STANDALONEENV.getString())
+        Command standaloneenv = new Command2.Builder(CommandName.STANDALONEENV.getString())
                 .body("tikzpicture")
                 .build();
 
         String pdfauthor = senderData.getFirstName() + " " + senderData.getLastName();
-        Command hypersetup = new Command2.Command2Builder(CommandName.HYPERSETUP.getString())
+        Command hypersetup = new Command2.Builder(CommandName.HYPERSETUP.getString())
                 .body(
                         "colorlinks=true",
                         String.format("urlcolor=%s", geometry.getUrlHyperlinkColor()),
@@ -104,7 +104,7 @@ public class Main {
         Layer pgflayers = new Layer.LayerBuilder("background", "forebackground", "main", "foreground")
                 .build();
 
-        Rectangle backgroundRectangle = new Rectangle.RectangleBuilder(0, 0, geometry.getPaperWidth(), geometry.getPaperHeight())
+        Rectangle backgroundRectangle = new Rectangle.Builder(0, 0, geometry.getPaperWidth(), geometry.getPaperHeight())
                 .fillColor(new Color(StandardColorName.NONE))
                 .drawColor(new Color(StandardColorName.NONE))
                 .build();
@@ -119,9 +119,9 @@ public class Main {
         AddressField addressField = new AddressField(geometry, receiverData);
         BackaddressField backaddressField = new BackaddressField(geometry, senderData);
 
-        Node cell11 = new Node.NodeBuilder(4.0, 24, new Command2.Command2Builder(CommandName.FAICON.getString()).body("map-marker-alt").build().getInline()).build();
-        Node cell12 = new Node.NodeBuilder(4.0, 24, "My street 25\\12345 City").build();
-        MatrixOfNodes matrix = new MatrixOfNodes.MatrixBuilder("contact", 4.0, 24, Anchor.NORTH_WEST)
+        Node cell11 = new Node.Builder(4.0, 24, new Command2.Builder(CommandName.FAICON.getString()).body("map-marker-alt").build().getInline()).build();
+        Node cell12 = new Node.Builder(4.0, 24, "My street 25\\12345 City").build();
+        MatrixOfNodes matrix = new MatrixOfNodes.Builder("contact", 4.0, 24, Anchor.NORTH_WEST)
                 .addRow(cell11.getInline(), cell12.getInline(), cell11.getInline())
                 .addRow(cell12.getInline(), cell11.getInline(), cell12.getInline())
                 .build();
@@ -131,7 +131,7 @@ public class Main {
         }
 
 
-        ExpressionList tikzpictureBody = new FormattedExpressionList.FormattedExpressionListBuilder()
+        ExpressionList tikzpictureBody = new FormattedExpressionList.Builder()
                 .append(onBackgroundLayer.getBlock())
                 .append(addressField.getAddressField())
                 .append(backaddressField.getBackaddressText())
@@ -139,19 +139,19 @@ public class Main {
 //                .append(onForegroundLayer.getBlock())
                 .build();
 
-        Environment tikzpicture = new Environment.EnvironmentBuilder(EnvironmentName.TIKZPICTURE)
+        Environment tikzpicture = new Environment.Builder(EnvironmentName.TIKZPICTURE)
                 .optionalArguments("inner xsep=0pt", "inner ysep=0pt", "trim left=0pt", "trim right=" + geometry.getPaperWidth() + "cm")
                 .body(tikzpictureBody.getBlock())
                 .build();
 
 
-        ExpressionList documentBody = new FormattedExpressionList.FormattedExpressionListBuilder()
+        ExpressionList documentBody = new FormattedExpressionList.Builder()
                 .append(pgflayers.getBlock())
                 .append(tikzpicture.getBlock())
                 .append()
                 .build();
 
-        Environment document = new Environment.EnvironmentBuilder(EnvironmentName.DOCUMENT)
+        Environment document = new Environment.Builder(EnvironmentName.DOCUMENT)
                 .body(documentBody.getBlock())
                 .build();
 

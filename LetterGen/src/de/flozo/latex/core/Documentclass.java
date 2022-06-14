@@ -12,7 +12,7 @@ public class Documentclass{//} extends Command {
     }
 
     public static Command2 createWithOptions(DocumentClassName documentClassName, String... options) {
-        return new Command2.Command2Builder(KEYWORD.getString())
+        return new Command2.Builder(KEYWORD.getString())
                 .optionList(options)
                 .body(documentClassName.getString())
                 .optionBrackets(Bracket.SQUARE_BRACKETS)

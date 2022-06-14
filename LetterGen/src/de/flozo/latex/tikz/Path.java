@@ -47,7 +47,7 @@ public abstract class Path {
     public abstract String getInline();
 
     private FormattedExpressionList buildOptionList() {
-        return new FormattedExpressionList.FormattedExpressionListBuilder(optionalArguments)
+        return new FormattedExpressionList.Builder(optionalArguments)
                 .brackets(OPTIONS_BRACKETS)
                 .terminator(StatementTerminator.COMMA)
                 .skipLastTerminator(true)
@@ -78,7 +78,7 @@ public abstract class Path {
 
 
     protected String coordinates(double x, double y, CoordinateMode coordinateMode, LengthUnit lengthUnit) {
-        return new Point.PointBuilder(x, y)
+        return new Point.Builder(x, y)
                 .xUnit(lengthUnit)
                 .yUnit(lengthUnit)
                 .coordinateMode(coordinateMode)

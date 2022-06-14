@@ -23,7 +23,7 @@ public class Line extends Path {
     private final CoordinateMode coordinateMode;
     private final boolean cycle;
 
-    public Line(LineBuilder builder) {
+    public Line(Builder builder) {
         super(builder.xOrigin,
                 builder.yOrigin,
                 builder.optionalArguments,
@@ -87,7 +87,7 @@ public class Line extends Path {
     }
 
 
-    public static class LineBuilder {
+    public static class Builder {
 
         // required
         private final double xOrigin;
@@ -117,11 +117,11 @@ public class Line extends Path {
 //        }
 
 
-        public LineBuilder(double xOrigin, double yOrigin, double xNext, double yNext) {
+        public Builder(double xOrigin, double yOrigin, double xNext, double yNext) {
             this(xOrigin, yOrigin, xNext, yNext, CoordinateMode.ABSOLUTE);
         }
 
-        public LineBuilder(double xOrigin, double yOrigin, double xNext, double yNext, CoordinateMode coordinateMode) {
+        public Builder(double xOrigin, double yOrigin, double xNext, double yNext, CoordinateMode coordinateMode) {
             this.xOrigin = xOrigin;
             this.yOrigin = yOrigin;
             this.xNext = xNext;
@@ -130,7 +130,7 @@ public class Line extends Path {
         }
 
 
-        public LineBuilder name(String name) {
+        public Builder name(String name) {
             this.name = name;
             return this;
         }
@@ -138,69 +138,69 @@ public class Line extends Path {
 
         // Point coordinates with optional CoordinateMode parameter
 
-        public LineBuilder nextPoint(double x, double y) {
+        public Builder nextPoint(double x, double y) {
             return nextPoint(x, y, coordinateMode);
         }
 
-        public LineBuilder nextPoint(double x, double y, CoordinateMode coordinateMode) {
+        public Builder nextPoint(double x, double y, CoordinateMode coordinateMode) {
             return nextPoint(x, y, coordinateMode, lengthUnit);
         }
 
-        public LineBuilder nextPoint(double x, double y, LengthUnit lengthUnit) {
+        public Builder nextPoint(double x, double y, LengthUnit lengthUnit) {
             return nextPoint(x, y, coordinateMode, lengthUnit);
         }
 
 
-        public LineBuilder nextPoint(double x, double y, CoordinateMode coordinateMode, LengthUnit lengthUnit) {
-            this.coordinateList.add(new Point.PointBuilder(x, y).coordinateMode(coordinateMode).xUnit(lengthUnit).yUnit(lengthUnit).build());
+        public Builder nextPoint(double x, double y, CoordinateMode coordinateMode, LengthUnit lengthUnit) {
+            this.coordinateList.add(new Point.Builder(x, y).coordinateMode(coordinateMode).xUnit(lengthUnit).yUnit(lengthUnit).build());
             return this;
         }
 
 
-        public LineBuilder cycle(boolean cycle) {
+        public Builder cycle(boolean cycle) {
             this.cycle = cycle;
             return this;
         }
 
 
-        public LineBuilder drawColor(Color drawColor) {
+        public Builder drawColor(Color drawColor) {
             this.drawColor = drawColor;
             this.optionalArguments.add("draw=" + drawColor.getString());
             return this;
         }
 
-        public LineBuilder fillColor(Color fillColor) {
+        public Builder fillColor(Color fillColor) {
             this.fillColor = fillColor;
             this.optionalArguments.add("fill=" + fillColor.getString());
             return this;
         }
 
 
-        public LineBuilder lineWidthStyle(LineWidthStyle lineWidthStyle) {
+        public Builder lineWidthStyle(LineWidthStyle lineWidthStyle) {
             this.lineWidthStyle = lineWidthStyle;
             this.optionalArguments.add(lineWidthStyle.getString());
             return this;
         }
 
-        public LineBuilder lineWidth(double lineWidth) {
+        public Builder lineWidth(double lineWidth) {
             this.lineWidth = lineWidth;
             this.optionalArguments.add("line width=" + lineWidth);
             return this;
         }
 
-        public LineBuilder lineCap(LineCap lineCap) {
+        public Builder lineCap(LineCap lineCap) {
             this.lineCap = lineCap;
             this.optionalArguments.add("line cap=" + lineCap.getString());
             return this;
         }
 
-        public LineBuilder lineJoin(LineJoin lineJoin) {
+        public Builder lineJoin(LineJoin lineJoin) {
             this.lineJoin = lineJoin;
             this.optionalArguments.add("line join=" + lineJoin.getString());
             return this;
         }
 
-        public LineBuilder dashPatternStyle(DashPatternStyle dashPatternStyle) {
+        public Builder dashPatternStyle(DashPatternStyle dashPatternStyle) {
             this.dashPatternStyle = dashPatternStyle;
             this.optionalArguments.add(dashPatternStyle.getString());
             return this;

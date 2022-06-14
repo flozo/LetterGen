@@ -16,7 +16,7 @@ public class SubjectField {
     }
 
     public String generate() {
-        Node subjectField = new Node.NodeBuilder(x, y, "\\bf " + subjectText)
+        Node subjectField = new Node.Builder(x, y, "\\bf " + subjectText)
                 .name("subject field")
                 .anchor(Anchor.SOUTH_WEST)
                 .build();

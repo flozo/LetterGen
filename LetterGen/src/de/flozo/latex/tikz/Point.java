@@ -23,7 +23,7 @@ public class Point {
     private final LengthUnit yUnit;
     private final CoordinateMode coordinateMode;
 
-    private Point(PointBuilder builder) {
+    private Point(Builder builder) {
         this.xValue = builder.xValue;
         this.yValue = builder.yValue;
         this.xUnit = builder.xUnit;
@@ -55,7 +55,7 @@ public class Point {
                 '}';
     }
 
-    public static class PointBuilder {
+    public static class Builder {
 
         // required
         private final double xValue;
@@ -67,22 +67,22 @@ public class Point {
         private CoordinateMode coordinateMode = CoordinateMode.ABSOLUTE;
 
 
-        public PointBuilder(double xValue, double yValue) {
+        public Builder(double xValue, double yValue) {
             this.xValue = xValue;
             this.yValue = yValue;
         }
 
-        public PointBuilder xUnit(LengthUnit xUnit) {
+        public Builder xUnit(LengthUnit xUnit) {
             this.xUnit = xUnit;
             return this;
         }
 
-        public PointBuilder yUnit(LengthUnit yUnit) {
+        public Builder yUnit(LengthUnit yUnit) {
             this.yUnit = yUnit;
             return this;
         }
 
-        public PointBuilder coordinateMode(CoordinateMode coordinateMode) {
+        public Builder coordinateMode(CoordinateMode coordinateMode) {
             this.coordinateMode = coordinateMode;
             return this;
         }

@@ -30,7 +30,7 @@ public class Environment {
     private final Bracket bodyBrackets;
 
 
-    private Environment(EnvironmentBuilder builder) {
+    private Environment(Builder builder) {
         this.name = builder.name;
         this.requiredArguments = builder.requiredArguments;
         this.optionalArguments = builder.optionalArguments;
@@ -42,7 +42,7 @@ public class Environment {
 
 
     public List<String> getBlock() {
-        Command2 command = new Command2.Command2Builder(buildOpeningTag())
+        Command2 command = new Command2.Builder(buildOpeningTag())
                 .optionList(optionalArguments)
                 .body(body)
                 .bodyBrackets(bodyBrackets)
@@ -62,7 +62,7 @@ public class Environment {
         if (requiredArguments == null) {
             return buildTag(OPENING_KEYWORD);
         } else {
-            ExpressionList args = new FormattedExpressionList.FormattedExpressionListBuilder(requiredArguments)
+            ExpressionList args = new FormattedExpressionList.Builder(requiredArguments)
                     .brackets(Bracket.CURLY_BRACES)
                     .terminator(StatementTerminator.COMMA)
                     .build();
@@ -84,7 +84,7 @@ public class Environment {
     }
 
 
-    public static class EnvironmentBuilder {
+    public static class Builder {
 
         // required
         private final EnvironmentName name;
@@ -98,48 +98,48 @@ public class Environment {
         private Bracket bodyBrackets = DEFAULT_BODY_BRACKETS;
 
 
-        public EnvironmentBuilder(EnvironmentName name) {
+        public Builder(EnvironmentName name) {
             this.name = name;
         }
 
-        public EnvironmentBuilder requiredArguments(String... requiredArguments) {
+        public Builder requiredArguments(String... requiredArguments) {
             return requiredArguments(new ArrayList<>(List.of(requiredArguments)));
         }
 
-        public EnvironmentBuilder requiredArguments(List<String> requiredArguments) {
+        public Builder requiredArguments(List<String> requiredArguments) {
             this.requiredArguments = requiredArguments;
             return this;
         }
 
-        public EnvironmentBuilder optionalArguments(String... optionalArguments) {
+        public Builder optionalArguments(String... optionalArguments) {
             return optionalArguments(new ArrayList<>(List.of(optionalArguments)));
         }
 
-        public EnvironmentBuilder optionalArguments(List<String> optionalArguments) {
+        public Builder optionalArguments(List<String> optionalArguments) {
             this.optionalArguments = optionalArguments;
             return this;
         }
 
-        public EnvironmentBuilder body(String... body) {
+        public Builder body(String... body) {
             return body(new ArrayList<>(List.of(body)));
         }
 
-        public EnvironmentBuilder body(List<String> body) {
+        public Builder body(List<String> body) {
             this.body = body;
             return this;
         }
 
-        public EnvironmentBuilder indentBody(boolean indentBody) {
+        public Builder indentBody(boolean indentBody) {
             this.indentBody = indentBody;
             return this;
         }
 
-        public EnvironmentBuilder optionBrackets(Bracket optionBrackets) {
+        public Builder optionBrackets(Bracket optionBrackets) {
             this.optionBrackets = optionBrackets;
             return this;
         }
 
-        public EnvironmentBuilder bodyBrackets(Bracket bodyBrackets) {
+        public Builder bodyBrackets(Bracket bodyBrackets) {
             this.bodyBrackets = bodyBrackets;
             return this;
         }

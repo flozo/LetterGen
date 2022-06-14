@@ -43,7 +43,7 @@ public class Command2 implements Command {
     private final boolean interBracketSpace;
 
 
-    private Command2(Command2Builder builder) {
+    private Command2(Builder builder) {
         this.name = builder.name;
         this.optionList = builder.optionList;
         this.body = builder.body;
@@ -101,7 +101,7 @@ public class Command2 implements Command {
     }
 
     private ExpressionList assembleOptionList(boolean indent, boolean skipOpeningBracket, boolean skipClosingBracket) {
-        return new FormattedExpressionList.FormattedExpressionListBuilder(optionList)
+        return new FormattedExpressionList.Builder(optionList)
                 .terminator(optionTerminator)
                 .brackets(optionBrackets)
                 .skipLastTerminator(skipLastTerminatorOptions)
@@ -113,7 +113,7 @@ public class Command2 implements Command {
     }
 
     private ExpressionList assembleBody(boolean indent, boolean skipOpeningBracket, boolean skipClosingBracket) {
-        return new FormattedExpressionList.FormattedExpressionListBuilder(body)
+        return new FormattedExpressionList.Builder(body)
                 .terminator(bodyTerminator)
                 .brackets(bodyBrackets)
                 .skipLastTerminator(skipLastTerminatorBody)
@@ -184,7 +184,7 @@ public class Command2 implements Command {
                 '}';
     }
 
-    public static class Command2Builder {
+    public static class Builder {
 
         // required
         private final String name;
@@ -206,17 +206,17 @@ public class Command2 implements Command {
         private boolean interBracketSpace = DEFAULT_INTER_BRACKET_SPACE;
 
 
-        public Command2Builder(String name) {
+        public Builder(String name) {
             this.name = name;
         }
 
         // Accept List<String> or any number of Strings as option list.
 
-        public Command2Builder optionList(String... optionList) {
+        public Builder optionList(String... optionList) {
             return optionList(new ArrayList<>(List.of(optionList)));
         }
 
-        public Command2Builder optionList(List<String> optionList) {
+        public Builder optionList(List<String> optionList) {
             this.optionList = optionList;
             return this;
         }
@@ -224,71 +224,71 @@ public class Command2 implements Command {
 
         // Accept List<String> or any number of Strings as body.
 
-        public Command2Builder body(String... body) {
+        public Builder body(String... body) {
             return body(new ArrayList<>(List.of(body)));
         }
 
-        public Command2Builder body(List<String> body) {
+        public Builder body(List<String> body) {
             this.body = body;
             return this;
         }
 
-        public Command2Builder optionBrackets(Bracket optionBrackets) {
+        public Builder optionBrackets(Bracket optionBrackets) {
             this.optionBrackets = optionBrackets;
             return this;
         }
 
-        public Command2Builder bodyBrackets(Bracket bodyBrackets) {
+        public Builder bodyBrackets(Bracket bodyBrackets) {
             this.bodyBrackets = bodyBrackets;
             return this;
         }
 
-        public Command2Builder optionTerminator(StatementTerminator optionTerminator) {
+        public Builder optionTerminator(StatementTerminator optionTerminator) {
             this.optionTerminator = optionTerminator;
             return this;
         }
 
-        public Command2Builder bodyTerminator(StatementTerminator bodyTerminator) {
+        public Builder bodyTerminator(StatementTerminator bodyTerminator) {
             this.bodyTerminator = bodyTerminator;
             return this;
         }
 
-        public Command2Builder skipLastTerminatorOptions(boolean skipLastTerminatorOptions) {
+        public Builder skipLastTerminatorOptions(boolean skipLastTerminatorOptions) {
             this.skipLastTerminatorOptions = skipLastTerminatorOptions;
             return this;
         }
 
-        public Command2Builder skipLastTerminatorBody(boolean skipLastTerminatorBody) {
+        public Builder skipLastTerminatorBody(boolean skipLastTerminatorBody) {
             this.skipLastTerminatorBody = skipLastTerminatorBody;
             return this;
         }
 
-        public Command2Builder inlineSpacingOptions(boolean inlineSpacingOptions) {
+        public Builder inlineSpacingOptions(boolean inlineSpacingOptions) {
             this.inlineSpacingOptions = inlineSpacingOptions;
             return this;
         }
 
-        public Command2Builder inlineSpacingBody(boolean inlineSpacingBody) {
+        public Builder inlineSpacingBody(boolean inlineSpacingBody) {
             this.inlineSpacingBody = inlineSpacingBody;
             return this;
         }
 
-        public Command2Builder indentBody(boolean indentBody) {
+        public Builder indentBody(boolean indentBody) {
             this.indentBody = indentBody;
             return this;
         }
 
-        public Command2Builder indentOptions(boolean indentOptions) {
+        public Builder indentOptions(boolean indentOptions) {
             this.indentOptions = indentOptions;
             return this;
         }
 
-        public Command2Builder trailingOpeningBracket(boolean trailingOpeningBracket) {
+        public Builder trailingOpeningBracket(boolean trailingOpeningBracket) {
             this.trailingOpeningBracket = trailingOpeningBracket;
             return this;
         }
 
-        public Command2Builder interBracketSpace(boolean interBracketSpace) {
+        public Builder interBracketSpace(boolean interBracketSpace) {
             this.interBracketSpace = interBracketSpace;
             return this;
         }

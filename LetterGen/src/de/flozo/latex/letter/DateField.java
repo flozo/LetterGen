@@ -18,7 +18,7 @@ public class DateField {
     }
 
     public String generate() {
-        Node subjectField = new Node.NodeBuilder(x, y, place + ", " + date)
+        Node subjectField = new Node.Builder(x, y, place + ", " + date)
                 .name("date field")
                 .anchor(Anchor.SOUTH_EAST)
                 .build();
