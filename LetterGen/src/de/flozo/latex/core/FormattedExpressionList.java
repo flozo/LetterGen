@@ -123,6 +123,19 @@ public class FormattedExpressionList implements ExpressionList {
         return indentedCode;
     }
 
+    @Override
+    public String toString() {
+        return "FormattedExpressionList{" +
+                "expressions=" + expressions +
+                ", terminator=" + terminator +
+                ", brackets=" + brackets +
+                ", inlineSpacing=" + inlineSpacing +
+                ", skipLastTerminator=" + skipLastTerminator +
+                ", indentBlock=" + indentBlock +
+                ", skipOpeningBracket=" + skipOpeningBracket +
+                ", skipClosingBracket=" + skipClosingBracket +
+                '}';
+    }
 
     public static class FormattedExpressionListBuilder {
 

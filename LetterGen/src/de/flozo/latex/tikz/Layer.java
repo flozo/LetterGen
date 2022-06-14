@@ -38,6 +38,13 @@ public class Layer {
     }
 
 
+    @Override
+    public String toString() {
+        return "Layer{" +
+                "layers=" + layers +
+                '}';
+    }
+
     public static class LayerBuilder {
 
         List<String> layers;

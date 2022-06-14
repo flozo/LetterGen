@@ -30,4 +30,13 @@ public class PackageList {
         }
         return codeLines;
     }
+
+
+    @Override
+    public String toString() {
+        return "PackageList{" +
+                "documentclass=" + documentclass +
+                ", usepackageList=" + usepackageList +
+                '}';
+    }
 }

@@ -23,7 +23,6 @@ public class Line extends Path {
     private final CoordinateMode coordinateMode;
     private final boolean cycle;
 
-
     public Line(LineBuilder builder) {
         super(builder.xOrigin,
                 builder.yOrigin,
@@ -72,6 +71,19 @@ public class Line extends Path {
         }
         sb.append(TERMINATOR.getString());
         return sb.toString();
+    }
+
+
+    @Override
+    public String toString() {
+        return "Line{" +
+                "xNext=" + xNext +
+                ", yNext=" + yNext +
+                ", lengthUnit=" + lengthUnit +
+                ", coordinateList=" + coordinateList +
+                ", coordinateMode=" + coordinateMode +
+                ", cycle=" + cycle +
+                '}';
     }
 
 

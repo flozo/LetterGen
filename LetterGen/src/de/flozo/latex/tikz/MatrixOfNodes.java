@@ -54,6 +54,18 @@ public class MatrixOfNodes {
     }
 
 
+    @Override
+    public String toString() {
+        return "MatrixOfNodes{" +
+                "name='" + name + '\'' +
+                ", matrix=" + matrix +
+                ", x=" + x +
+                ", y=" + y +
+                ", anchor=" + anchor +
+                ", fontSize=" + fontSize +
+                '}';
+    }
+
     public static class MatrixBuilder {
 
         // required

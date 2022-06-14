@@ -113,6 +113,14 @@ public class Node extends Path {
         return sb.toString();
     }
 
+    @Override
+    public String toString() {
+        return "Node{" +
+                "body=" + body +
+                ", name='" + name + '\'' +
+                ", bodyTerminator=" + bodyTerminator +
+                '}';
+    }
 
     public static class NodeBuilder {
 

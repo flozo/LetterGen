@@ -53,6 +53,15 @@ public class Circle extends Path {
     }
 
 
+    @Override
+    public String toString() {
+        return "Circle{" +
+                "radius=" + radius +
+                ", xRadius=" + xRadius +
+                ", yRadius=" + yRadius +
+                '}';
+    }
+
     public static class CircleBuilder {
         // required
         private final double xOrigin;

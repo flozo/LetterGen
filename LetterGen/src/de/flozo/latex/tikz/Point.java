@@ -42,6 +42,19 @@ public class Point {
     }
 
 
+    @Override
+    public String toString() {
+        return "Point{" +
+                "xValue=" + xValue +
+                ", yValue=" + yValue +
+                ", xLength=" + xLength +
+                ", yLength=" + yLength +
+                ", xUnit=" + xUnit +
+                ", yUnit=" + yUnit +
+                ", coordinateMode=" + coordinateMode +
+                '}';
+    }
+
     public static class PointBuilder {
 
         // required

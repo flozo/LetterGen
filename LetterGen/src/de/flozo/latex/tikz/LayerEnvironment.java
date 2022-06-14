@@ -27,4 +27,12 @@ public class LayerEnvironment {
                 .body(body)
                 .build().getBlock();
     }
+
+    @Override
+    public String toString() {
+        return "LayerEnvironment{" +
+                "layerName='" + layerName + '\'' +
+                ", body=" + body +
+                '}';
+    }
 }

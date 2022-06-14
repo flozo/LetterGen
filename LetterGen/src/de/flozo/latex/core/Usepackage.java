@@ -36,4 +36,12 @@ public class Usepackage implements Command {
                 .body(packageName.getString())
                 .build().getInline();
     }
+
+    @Override
+    public String toString() {
+        return "Usepackage{" +
+                "packageName=" + packageName +
+                ", options=" + options +
+                '}';
+    }
 }

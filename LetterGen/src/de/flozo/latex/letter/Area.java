@@ -33,6 +33,16 @@ public class Area {
     }
 
 
-
-
+    @Override
+    public String toString() {
+        return "Area{" +
+                "name='" + name + '\'' +
+                ", x=" + x +
+                ", y=" + y +
+                ", width=" + width +
+                ", height=" + height +
+                ", anchor=" + anchor +
+                ", fontSize=" + fontSize +
+                '}';
+    }
 }

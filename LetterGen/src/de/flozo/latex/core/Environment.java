@@ -50,25 +50,39 @@ public class Environment {
                 .indentBody(indentBody)
                 .build();
         List<String> codeLines = new ArrayList<>(command.getBlock());
-        codeLines.add(buildTag(CLOSING_KEYWORD));
+        codeLines.add(COMMAND_MARKER_CHAR + buildTag(CLOSING_KEYWORD));
         return codeLines;
     }
 
     private String buildTag(String tagKeyword) {
-        return COMMAND_MARKER_CHAR + tagKeyword + ENVIRONMENT_NAME_BRACKET.getLeftBracket() + name.getString() + ENVIRONMENT_NAME_BRACKET.getRightBracket();
+        return tagKeyword + ENVIRONMENT_NAME_BRACKET.getLeftBracket() + name.getString() + ENVIRONMENT_NAME_BRACKET.getRightBracket();
     }
 
     private String buildOpeningTag() {
         if (requiredArguments == null) {
-            return OPENING_KEYWORD + ENVIRONMENT_NAME_BRACKET.getLeftBracket() + name.getString() + ENVIRONMENT_NAME_BRACKET.getRightBracket();
+            return buildTag(OPENING_KEYWORD);
         } else {
             ExpressionList args = new FormattedExpressionList.FormattedExpressionListBuilder(requiredArguments)
                     .brackets(Bracket.CURLY_BRACES)
                     .terminator(StatementTerminator.COMMA)
                     .build();
-            return OPENING_KEYWORD + ENVIRONMENT_NAME_BRACKET.getLeftBracket() + name.getString() + ENVIRONMENT_NAME_BRACKET.getRightBracket() + args.getInline();
+            return buildTag(OPENING_KEYWORD) + args.getInline();
         }
     }
+
+    @Override
+    public String toString() {
+        return "Environment{" +
+                "name=" + name +
+                ", requiredArguments=" + requiredArguments +
+                ", optionalArguments=" + optionalArguments +
+                ", body=" + body +
+                ", indentBody=" + indentBody +
+                ", optionBrackets=" + optionBrackets +
+                ", bodyBrackets=" + bodyBrackets +
+                '}';
+    }
+
 
     public static class EnvironmentBuilder {
 

@@ -163,6 +163,26 @@ public class Command2 implements Command {
         return line.toString();
     }
 
+    @Override
+    public String toString() {
+        return "Command2{" +
+                "name='" + name + '\'' +
+                ", optionList=" + optionList +
+                ", body=" + body +
+                ", optionBrackets=" + optionBrackets +
+                ", bodyBrackets=" + bodyBrackets +
+                ", optionTerminator=" + optionTerminator +
+                ", bodyTerminator=" + bodyTerminator +
+                ", skipLastTerminatorOptions=" + skipLastTerminatorOptions +
+                ", skipLastTerminatorBody=" + skipLastTerminatorBody +
+                ", inlineSpacingOptions=" + inlineSpacingOptions +
+                ", inlineSpacingBody=" + inlineSpacingBody +
+                ", indentBody=" + indentBody +
+                ", indentOptions=" + indentOptions +
+                ", trailingOpeningBracket=" + trailingOpeningBracket +
+                ", interBracketSpace=" + interBracketSpace +
+                '}';
+    }
 
     public static class Command2Builder {
 

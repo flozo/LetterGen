@@ -21,11 +21,14 @@ public class Documentclass{//} extends Command {
                 .build();
     }
 
-//    private Command2 assembleCommand() {
-////        return
-//    }
-
     public DocumentClassName getDocumentClassName() {
         return documentClassName;
+    }
+
+    @Override
+    public String toString() {
+        return "Documentclass{" +
+                "documentClassName=" + documentClassName +
+                '}';
     }
 }

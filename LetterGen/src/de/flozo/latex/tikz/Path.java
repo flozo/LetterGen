@@ -125,4 +125,20 @@ public abstract class Path {
     public DashPatternStyle getDashPatternStyle() {
         return dashPatternStyle;
     }
+
+    @Override
+    public String toString() {
+        return "Path{" +
+                "xOrigin=" + xOrigin +
+                ", yOrigin=" + yOrigin +
+                ", optionalArguments=" + optionalArguments +
+                ", name='" + name + '\'' +
+                ", drawColor=" + drawColor +
+                ", fillColor=" + fillColor +
+                ", lineWidthStyle=" + lineWidthStyle +
+                ", lineCap=" + lineCap +
+                ", lineJoin=" + lineJoin +
+                ", dashPatternStyle=" + dashPatternStyle +
+                '}';
+    }
 }

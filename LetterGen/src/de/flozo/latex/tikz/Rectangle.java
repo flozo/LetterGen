@@ -56,7 +56,13 @@ public class Rectangle extends Path {
         return sb.toString();
     }
 
-
+    @Override
+    public String toString() {
+        return "Rectangle{" +
+                "xOppositeCorner=" + xOppositeCorner +
+                ", yOppositeCorner=" + yOppositeCorner +
+                '}';
+    }
 
     public static class RectangleBuilder {
         // required
