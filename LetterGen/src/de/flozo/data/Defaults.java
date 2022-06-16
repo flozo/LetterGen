@@ -1,9 +1,10 @@
 package de.flozo.data;
 
-import de.flozo.latex.core.Color;
-import de.flozo.latex.core.ColorLetter;
-import de.flozo.latex.core.ColorScheme;
 import de.flozo.latex.core.FontSize;
+import de.flozo.latex.core.color.BrewerColor;
+import de.flozo.latex.core.color.Color;
+import de.flozo.latex.core.color.Letter13;
+import de.flozo.latex.core.color.SequentialScheme;
 
 public class Defaults {
 
@@ -43,7 +44,7 @@ public class Defaults {
     public static final double FOLDING_MARK_2_THICKNESS = 0.3;
 
     public static final String LETTER_BACKGROUND_COLOR = "none";
-    public static final String LETTER_DRAFT_HIGHLIGHT_COLOR = new Color(ColorScheme.GREYS, ColorLetter.D).toString();
+    public static final Color LETTER_DRAFT_HIGHLIGHT_COLOR = BrewerColor.compose(SequentialScheme.GREYS, Letter13.D);
 
 
 

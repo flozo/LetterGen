@@ -1,6 +1,6 @@
-package de.flozo.latex.core;
+package de.flozo.latex.core.color;
 
-public enum ColorScheme {
+public enum SequentialScheme implements Scheme {
 
     BU_GN("BuGn"),
     PU_RD("PuRd"),
@@ -19,16 +19,16 @@ public enum ColorScheme {
     GREYS("Greys"),
     ORANGES("Oranges"),
     PURPLES("Purples"),
-    RED("Reds");
+    REDS("Reds");
 
+    private final String scheme;
 
-    private final String schemeName;
-
-    ColorScheme(String schemeName) {
-        this.schemeName = schemeName;
+    SequentialScheme(String scheme) {
+        this.scheme = scheme;
     }
 
+    @Override
     public String getString() {
-        return schemeName;
+        return scheme;
     }
 }

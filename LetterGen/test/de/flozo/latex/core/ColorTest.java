@@ -1,5 +1,6 @@
 package de.flozo.latex.core;
 
+import de.flozo.latex.core.color.SequentialScheme;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
@@ -8,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ColorTest {
 
     public static final ColorLetter TEST_COLOR_LETTER = ColorLetter.A;
-    public static final ColorScheme TEST_COLOR_SCHEME = ColorScheme.BLUES;
+    public static final SequentialScheme TEST_COLOR_SCHEME = SequentialScheme.BLUES;
     public static final String SEPARATOR = "-";
 
     @ParameterizedTest
-    @EnumSource(ColorScheme.class)
-    void getString(ColorScheme colorScheme) {
+    @EnumSource(SequentialScheme.class)
+    void getString(SequentialScheme colorScheme) {
         Color color = new Color(colorScheme, TEST_COLOR_LETTER);
         String expected = colorScheme.getString() + SEPARATOR + TEST_COLOR_LETTER;
         System.out.println(color.getString());

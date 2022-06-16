@@ -2,6 +2,7 @@ package de.flozo;
 
 import de.flozo.data.*;
 import de.flozo.latex.core.*;
+import de.flozo.latex.core.color.*;
 import de.flozo.latex.letter.AddressField;
 import de.flozo.latex.letter.BackaddressField;
 import de.flozo.latex.tikz.*;
@@ -105,8 +106,8 @@ public class Main {
                 .build();
 
         Rectangle backgroundRectangle = new Rectangle.Builder(0, 0, geometry.getPaperWidth(), geometry.getPaperHeight())
-                .fillColor(new Color(StandardColorName.NONE))
-                .drawColor(new Color(StandardColorName.NONE))
+                .fillColor(StandardColor.NONE)
+                .drawColor(StandardColor.NONE)
                 .build();
 
         LayerEnvironment onBackgroundLayer = new LayerEnvironment("background", backgroundRectangle.getInline());
@@ -120,7 +121,8 @@ public class Main {
         BackaddressField backaddressField = new BackaddressField(geometry, senderData);
 
         Node cell11 = new Node.Builder(4.0, 24, new Command2.Builder(CommandName.FAICON.getString()).body("map-marker-alt").build().getInline()).build();
-        Node cell12 = new Node.Builder(4.0, 24, "My street 25\\12345 City").build();
+        Node cell12 = new Node.Builder(4.0, 24, "My street 25", "12345 City")
+                .bodyTerminator(StatementTerminator.DOUBLE_BACKSLASH).build();
         MatrixOfNodes matrix = new MatrixOfNodes.Builder("contact", 4.0, 24, Anchor.NORTH_WEST)
                 .addRow(cell11.getInline(), cell12.getInline(), cell11.getInline())
                 .addRow(cell12.getInline(), cell11.getInline(), cell12.getInline())
@@ -129,6 +131,11 @@ public class Main {
         for (String line : matrix.getBlock()) {
             System.out.println(line);
         }
+
+        Color color = StandardColor.BLACK;
+        Color color1 = BrewerColor.compose(DivergingScheme.P_R_GN, Letter15.L);
+        System.out.println(color.getString());
+        System.out.println(color1.getString());
 
 
         ExpressionList tikzpictureBody = new FormattedExpressionList.Builder()

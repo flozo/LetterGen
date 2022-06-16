@@ -1,8 +1,8 @@
 package de.flozo.latex.tikz;
 
-import de.flozo.latex.core.Color;
 import de.flozo.latex.core.CommandName;
 import de.flozo.latex.core.LengthUnit;
+import de.flozo.latex.core.color.Color;
 
 import java.util.ArrayList;
 import java.util.List;

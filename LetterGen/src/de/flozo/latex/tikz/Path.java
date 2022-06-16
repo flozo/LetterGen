@@ -1,6 +1,10 @@
 package de.flozo.latex.tikz;
 
-import de.flozo.latex.core.*;
+import de.flozo.latex.core.Bracket;
+import de.flozo.latex.core.FormattedExpressionList;
+import de.flozo.latex.core.LengthUnit;
+import de.flozo.latex.core.StatementTerminator;
+import de.flozo.latex.core.color.Color;
 
 import java.util.List;
 

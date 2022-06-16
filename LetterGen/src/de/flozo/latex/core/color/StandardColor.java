@@ -1,6 +1,6 @@
-package de.flozo.latex.core;
+package de.flozo.latex.core.color;
 
-public enum StandardColorName {
+public enum StandardColor implements Color {
 
     NONE,
     BLACK,
@@ -23,7 +23,7 @@ public enum StandardColorName {
     WHITE,
     YELLOW;
 
-
+    @Override
     public String getString() {
         return name().toLowerCase();
     }
