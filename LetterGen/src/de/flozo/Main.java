@@ -2,11 +2,11 @@ package de.flozo;
 
 import de.flozo.data.*;
 import de.flozo.latex.core.*;
-import de.flozo.latex.core.color.*;
+import de.flozo.latex.core.color.StandardColor;
 import de.flozo.latex.letter.AddressField;
 import de.flozo.latex.letter.BackaddressField;
-import de.flozo.latex.tikz.*;
 import de.flozo.latex.tikz.Rectangle;
+import de.flozo.latex.tikz.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -132,10 +132,6 @@ public class Main {
             System.out.println(line);
         }
 
-        Color color = StandardColor.BLACK;
-        Color color1 = BrewerColor.compose(DivergingScheme.P_R_GN, Letter15.L);
-        System.out.println(color.getString());
-        System.out.println(color1.getString());
 
 
         ExpressionList tikzpictureBody = new FormattedExpressionList.Builder()

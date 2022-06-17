@@ -14,7 +14,7 @@ public enum LetterGeometryProperty implements Property {
     PAPER_HEIGHT("paper.height", 29.7),
     BACKGROUND_COLOR("background.color", StandardColor.NONE.getString()),
     DRAFT_MODE_HIGHLIGHT_COLOR("draft_mode.highlight_color", BrewerColor.compose(SequentialScheme.GREYS, Letter13.D).getString()),
-    URL_COLOR("url_hyperlink.color", "Blues-K"),
+    URL_COLOR("url_hyperlink.color", BrewerColor.compose(SequentialScheme.BLUES, Letter13.K).getString()),
 
     BORDER_MARGIN_TOP("border_margin.top", 2.0),
     BORDER_MARGIN_BOTTOM("border_margin.bottom", 2.0),
