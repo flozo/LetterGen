@@ -15,8 +15,8 @@ public class FormattedExpressionList implements ExpressionList {
     public static final Bracket DEFAULT_BRACKETS = Bracket.NONE;
     public static final boolean DEFAULT_SKIP_LAST_TERMINATOR = true;
     public static final boolean DEFAULT_INDENT = false;
-    public static final boolean DEFAULT_SKIP_OPENING_BRACKET = false;
-    public static final boolean DEFAULT_SKIP_CLOSING_BRACKET = false;
+    public static final BracketMode DEFAULT_OPENING_BRACKET_MODE = BracketMode.SEPARATE_LINE;
+    public static final BracketMode DEFAULT_CLOSING_BRACKET_MODE = BracketMode.SEPARATE_LINE;
 
     // required
     private final List<String> expressions;
@@ -27,8 +27,8 @@ public class FormattedExpressionList implements ExpressionList {
     private final boolean inlineSpacing;
     private final boolean skipLastTerminator;
     private final boolean indentBlock;
-    private final boolean skipOpeningBracket;
-    private final boolean skipClosingBracket;
+    private final BracketMode openingBracketMode;
+    private final BracketMode closingBracketMode;
 
     private FormattedExpressionList(Builder builder) {
         this.expressions = builder.expressions;
@@ -37,8 +37,8 @@ public class FormattedExpressionList implements ExpressionList {
         this.inlineSpacing = builder.inlineSpacing;
         this.skipLastTerminator = builder.skipLastTerminator;
         this.indentBlock = builder.indentBlock;
-        this.skipOpeningBracket = builder.skipOpeningBracket;
-        this.skipClosingBracket = builder.skipClosingBracket;
+        this.openingBracketMode = builder.openingBracketMode;
+        this.closingBracketMode = builder.closingBracketMode;
     }
 
     // Return raw expressions
@@ -46,15 +46,10 @@ public class FormattedExpressionList implements ExpressionList {
         return expressions;
     }
 
-    // Return assembled code (optionally) enclosed in brackets as new ArrayList
-//    @Override
-//    public List<String> getBlock() {
-//        return getBlock(false, false);
-//    }
 
     @Override
     public List<String> getBlock() {
-        return new ArrayList<>(assembleCode(skipOpeningBracket, skipClosingBracket));
+        return new ArrayList<>(assembleCode(openingBracketMode, closingBracketMode));
     }
 
     // Return assembled code with optional additional spacing
@@ -64,13 +59,13 @@ public class FormattedExpressionList implements ExpressionList {
             return "";
         } else {
             return brackets.getLeftBracket() +
-                    String.join(inlineSpacing ? INLINE_SEPARATOR : "", assembleCode(true, true)) +
+                    String.join(inlineSpacing ? INLINE_SEPARATOR : "", assembleCode(BracketMode.SKIP, BracketMode.SKIP)) +
                     brackets.getRightBracket();
         }
     }
 
     // Return expression with terminator and brackets added
-    private List<String> assembleCode(boolean skipOpeningBracket, boolean skipClosingBracket) {
+    private List<String> assembleCode(BracketMode openingBracketMode, BracketMode closingBracketMode) {
         List<String> codeLines = new ArrayList<>();
         if (expressions != null) {
             codeLines.addAll(expressions);
@@ -78,7 +73,7 @@ public class FormattedExpressionList implements ExpressionList {
                 addTerminator(codeLines);
             }
             if (brackets != Bracket.NONE) {
-                encloseInBrackets(codeLines, skipOpeningBracket, skipClosingBracket);
+                encloseInBrackets(codeLines, openingBracketMode, closingBracketMode);
             }
         }
         if (indentBlock) {
@@ -104,11 +99,11 @@ public class FormattedExpressionList implements ExpressionList {
         }
     }
 
-    private void encloseInBrackets(List<String> codeLines, boolean skipOpeningBracket, boolean skipClosingBracket) {
-        if (!skipOpeningBracket) {
+    private void encloseInBrackets(List<String> codeLines, BracketMode openingBracketMode, BracketMode closingBracketMode) {
+        if (openingBracketMode != BracketMode.SKIP) {
             codeLines.add(0, brackets.getLeftBracket());
         }
-        if (!skipClosingBracket) {
+        if (closingBracketMode != BracketMode.SKIP) {
             codeLines.add(brackets.getRightBracket());
         }
     }
@@ -123,6 +118,7 @@ public class FormattedExpressionList implements ExpressionList {
         return indentedCode;
     }
 
+
     @Override
     public String toString() {
         return "FormattedExpressionList{" +
@@ -132,8 +128,8 @@ public class FormattedExpressionList implements ExpressionList {
                 ", inlineSpacing=" + inlineSpacing +
                 ", skipLastTerminator=" + skipLastTerminator +
                 ", indentBlock=" + indentBlock +
-                ", skipOpeningBracket=" + skipOpeningBracket +
-                ", skipClosingBracket=" + skipClosingBracket +
+                ", openingBracketMode=" + openingBracketMode +
+                ", closingBracketMode=" + closingBracketMode +
                 '}';
     }
 
@@ -148,8 +144,8 @@ public class FormattedExpressionList implements ExpressionList {
         private boolean inlineSpacing = DEFAULT_INLINE_SPACING;
         private boolean skipLastTerminator = DEFAULT_SKIP_LAST_TERMINATOR;
         private boolean indentBlock = DEFAULT_INDENT;
-        private boolean skipOpeningBracket = DEFAULT_SKIP_OPENING_BRACKET;
-        private boolean skipClosingBracket = DEFAULT_SKIP_CLOSING_BRACKET;
+        private BracketMode openingBracketMode = DEFAULT_OPENING_BRACKET_MODE;
+        private BracketMode closingBracketMode = DEFAULT_CLOSING_BRACKET_MODE;
 
         // Accept List<String> or any number of Strings for constructor
 
@@ -206,13 +202,13 @@ public class FormattedExpressionList implements ExpressionList {
             return this;
         }
 
-        public Builder skipOpeningBracket(boolean skipOpeningBracket) {
-            this.skipOpeningBracket = skipOpeningBracket;
+        public Builder openingBracketMode(BracketMode openingBracketMode) {
+            this.openingBracketMode = openingBracketMode;
             return this;
         }
 
-        public Builder skipClosingBracket(boolean skipClosingBracket) {
-            this.skipClosingBracket = skipClosingBracket;
+        public Builder closingBracketMode(BracketMode closingBracketMode) {
+            this.closingBracketMode = closingBracketMode;
             return this;
         }
 

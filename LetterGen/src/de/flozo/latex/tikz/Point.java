@@ -70,46 +70,4 @@ public class Point {
                 '}';
     }
 
-    //    public static class Builder {
-//
-//        // required
-//        private final double xValue;
-//        private final double yValue;
-//        private final Length xLength;
-//        private final Length yLength;
-//
-//        // optional
-//        private LengthUnit xUnit = DEFAULT_LENGTH_UNIT;
-//        private LengthUnit yUnit = DEFAULT_LENGTH_UNIT;
-//        private CoordinateMode coordinateMode = CoordinateMode.ABSOLUTE;
-//
-//        public Builder(Length xLength, Length yLength) {
-//            this.xLength = xLength;
-//            this.yLength = yLength;
-//        }
-//
-//        public Builder(double xValue, double yValue) {
-//            this(Length.createWithDefaultUnit(xValue), Length.createWithDefaultUnit(yValue));
-//        }
-//
-//        public Builder xUnit(LengthUnit xUnit) {
-//            this.xUnit = xUnit;
-//            return this;
-//        }
-//
-//        public Builder yUnit(LengthUnit yUnit) {
-//            this.yUnit = yUnit;
-//            return this;
-//        }
-//
-//        public Builder coordinateMode(CoordinateMode coordinateMode) {
-//            this.coordinateMode = coordinateMode;
-//            return this;
-//        }
-//
-//
-//        public Point build() {
-//            return new Point(this);
-//        }
-//    }
 }

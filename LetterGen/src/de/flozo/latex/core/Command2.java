@@ -87,40 +87,44 @@ public class Command2 implements Command {
 
     @Override
     public String getInline() {
-        return COMMAND_MARKER_CHAR + name + assembleOptionList(false, false, false).getInline() + assembleBody(false, false, false).getInline();
+        return COMMAND_MARKER_CHAR + name + assembleOptionList(false, BracketMode.AFFIXED, BracketMode.AFFIXED).getInline() + assembleBody(false, BracketMode.AFFIXED, BracketMode.AFFIXED).getInline();
     }
 
-
     private List<String> getOptionBlock() {
-        boolean skipClosingBracket = body != null && trailingOpeningBracket;
-        return new ArrayList<>(assembleOptionList(indentOptions, trailingOpeningBracket, skipClosingBracket).getBlock());
+        BracketMode openingBracketMode = trailingOpeningBracket ? BracketMode.SKIP : BracketMode.AFFIXED;
+        BracketMode closingBracketMode = body != null && trailingOpeningBracket ? BracketMode.SKIP : BracketMode.AFFIXED;
+        return new ArrayList<>(assembleOptionList(indentOptions, openingBracketMode, closingBracketMode).getBlock());
     }
 
     private List<String> getBodyBlock() {
-        return new ArrayList<>(assembleBody(indentBody, trailingOpeningBracket, false).getBlock());
+        BracketMode openingBracketMode = BracketMode.AFFIXED;
+        if (trailingOpeningBracket) {
+            openingBracketMode = BracketMode.SKIP;
+        }
+        return new ArrayList<>(assembleBody(indentBody, openingBracketMode, BracketMode.AFFIXED).getBlock());
     }
 
-    private ExpressionList assembleOptionList(boolean indent, boolean skipOpeningBracket, boolean skipClosingBracket) {
+    private ExpressionList assembleOptionList(boolean indent, BracketMode openingBracketMode, BracketMode closingBracketMode) {
         return new FormattedExpressionList.Builder(optionList)
                 .terminator(optionTerminator)
                 .brackets(optionBrackets)
                 .skipLastTerminator(skipLastTerminatorOptions)
                 .indentBlock(indent)
                 .inlineSpacing(inlineSpacingOptions)
-                .skipOpeningBracket(skipOpeningBracket)
-                .skipClosingBracket(skipClosingBracket)
+                .openingBracketMode(openingBracketMode)
+                .closingBracketMode(closingBracketMode)
                 .build();
     }
 
-    private ExpressionList assembleBody(boolean indent, boolean skipOpeningBracket, boolean skipClosingBracket) {
+    private ExpressionList assembleBody(boolean indent, BracketMode openingBracketMode, BracketMode closingBracketMode) {
         return new FormattedExpressionList.Builder(body)
                 .terminator(bodyTerminator)
                 .brackets(bodyBrackets)
                 .skipLastTerminator(skipLastTerminatorBody)
                 .indentBlock(indent)
                 .inlineSpacing(inlineSpacingBody)
-                .skipOpeningBracket(skipOpeningBracket)
-                .skipClosingBracket(skipClosingBracket)
+                .openingBracketMode(openingBracketMode)
+                .closingBracketMode(closingBracketMode)
                 .build();
     }
 
@@ -142,7 +146,7 @@ public class Command2 implements Command {
         if (optionList == null && body == null) {
             return firstLine.toString();
         }
-        firstLine.append(assembleOptionList(false, false, false).getInline());
+        firstLine.append(assembleOptionList(false, BracketMode.AFFIXED, BracketMode.AFFIXED).getInline());
         firstLine.append(interBracketSpace ? " " : "");
         if (trailingOpeningBracket && body != null) {
             firstLine.append(bodyBrackets.getLeftBracket());
