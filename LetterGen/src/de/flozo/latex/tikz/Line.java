@@ -117,7 +117,7 @@ public class Line extends Path {
         }
 
         public Builder(double xOrigin, double yOrigin, double xNext, double yNext, CoordinateMode coordinateMode) {
-            this(Point.fromNumbersInMode(xOrigin, yOrigin, coordinateMode), Point.fromNumbersInMode(xNext, yNext, coordinateMode));
+            this(Point.fromNumbersInMode(xOrigin, yOrigin, CoordinateMode.ABSOLUTE), Point.fromNumbersInMode(xNext, yNext, coordinateMode));
         }
 
         public Builder(double xOrigin, double yOrigin, double xNext, double yNext) {
