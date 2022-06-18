@@ -31,9 +31,14 @@ public class MatrixOfNodes {
         return new Node.Builder(assembleTable())
                 .name(name)
                 .position(position)
+                .isMatrix(true)
                 .anchor(anchor)
                 .fontSize(fontSize)
+                // preliminary
+                .addCustomOption("column 1/.style={nodes={rectangle, draw=none, inner xsep=8pt, inner ysep=6pt, align=right, minimum width=0.6cm, minimum height=0.5cm, text width=7.8cm, text height=0.25cm}}")
+                .addCustomOption("column 2/.style={nodes={rectangle, draw=none, inner xsep=0pt, inner ysep=6pt, align=center, minimum width=0.4cm, minimum height=0.5cm, text width=0.4cm, text height=0.25cm}}")
                 .bodyTerminator(StatementTerminator.DOUBLE_BACKSLASH)
+                .skipLastTerminator(false)
                 .build().getBlock();
     }
 
@@ -43,7 +48,7 @@ public class MatrixOfNodes {
         for (int row = 0; row < getNumRows(); row++) {
             List<Node> rowNodes = matrix.get(row);
             List<String> rowStrings = rowNodes.stream().map(Node::getInline).collect(Collectors.toList());
-            matrixLines.add(String.join(" & ", rowStrings.get(row)));
+            matrixLines.add(String.join(" & ", rowStrings));
         }
         return matrixLines;
     }
@@ -98,6 +103,7 @@ public class MatrixOfNodes {
         }
 
         public Builder addRowOfNodes(List<Node> row) {
+            System.out.println(row);
             this.matrix.add(row);
             return this;
         }

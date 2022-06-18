@@ -65,7 +65,7 @@ public class SenderField {
 
     public MatrixOfNodes getMatrix() {
         return new MatrixOfNodes.Builder(FIELD_NAME, position, Anchor.NORTH_EAST)
-                .addRow(senderStreet + " " + senderHouseNumber + "\\\\" + senderPostalCode + " " + senderCity, ContactIcon.MAP_MARKED.getIconDefault())
+                .addRow(senderStreet + " " + senderHouseNumber + "\\\\" + senderPostalCode + " " + senderCity, ContactIcon.MAP_MARKER_ALT.getIconDefault())
                 .addRow(phoneNumber, ContactIcon.PHONE_ALT.getIconDefault())
                 .addRow(emailAddress, ContactIcon.ENVELOPE.getIconDefault())
                 .build();

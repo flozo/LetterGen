@@ -10,6 +10,8 @@ public class Node extends Path {
 
     public static final CommandName KEYWORD = CommandName.NODE;
     public static final Bracket BODY_BRACKETS = Bracket.CURLY_BRACES;
+    public static final boolean DEFAULT_SKIP_LAST_TERMINATOR = true;
+    public static final boolean DEFAULT_IS_MATRIX = false;
 
     // required
     private final List<String> body;
@@ -27,7 +29,8 @@ public class Node extends Path {
                 builder.lineWidthStyle,
                 builder.lineCap,
                 builder.lineJoin,
-                builder.dashPatternStyle);
+                builder.dashPatternStyle,
+                builder.skipLastTerminator);
         this.body = builder.body;
         this.name = builder.name;
         this.bodyTerminator = builder.bodyTerminator;
@@ -49,6 +52,7 @@ public class Node extends Path {
         return sb.toString();
     }
 
+
     public List<String> getBlock() {
         List<String> lines = new ArrayList<>();
         lines.add(assembleOpeningTag());
@@ -66,6 +70,7 @@ public class Node extends Path {
         return new FormattedExpressionList.Builder(body)
                 .brackets(Bracket.CURLY_BRACES)
                 .terminator(bodyTerminator)
+                .skipLastTerminator(skipLastTerminator)
                 .indentBlock(true)
                 .build();
     }
@@ -76,9 +81,11 @@ public class Node extends Path {
         if (name != null && !name.strip().equals("")) {
             sb.append(String.format(" (%s)", name));
         }
-        // Append required positioning statement
-        sb.append(" at ");
-        sb.append(position.getStatement());
+        // Append optional positioning statement
+        if (position != null) {
+            sb.append(" at ");
+            sb.append(position.getStatement());
+        }
         return sb.toString();
     }
 
@@ -101,6 +108,7 @@ public class Node extends Path {
         private Point position;
         private final List<String> optionalArguments = new ArrayList<>();
         private StatementTerminator bodyTerminator = StatementTerminator.NONE;
+        private boolean skipLastTerminator = DEFAULT_SKIP_LAST_TERMINATOR;
         private Anchor anchor;
         private FontSize fontSize;
         private Color textColor;
@@ -120,6 +128,7 @@ public class Node extends Path {
         private Alignment alignment;
         private double innerXSep;
         private double innerYSep;
+        private boolean isMatrix = DEFAULT_IS_MATRIX;
 
         public Builder(String... body) {
             this(new ArrayList<>(List.of(body)));
@@ -141,6 +150,11 @@ public class Node extends Path {
 
         public Builder bodyTerminator(StatementTerminator bodyTerminator) {
             this.bodyTerminator = bodyTerminator;
+            return this;
+        }
+
+        public Builder skipLastTerminator(boolean skipLastTerminator) {
+            this.skipLastTerminator = skipLastTerminator;
             return this;
         }
 
@@ -303,6 +317,16 @@ public class Node extends Path {
             return this;
         }
 
+        public Builder isMatrix(boolean isMatrix) {
+            this.optionalArguments.add(0, PathOperation.MATRIX.getString());
+            this.isMatrix = isMatrix;
+            return this;
+        }
+
+        public Builder addCustomOption(String customOption) {
+            this.optionalArguments.add(customOption);
+            return this;
+        }
 
         public Node build() {
             return new Node(this);

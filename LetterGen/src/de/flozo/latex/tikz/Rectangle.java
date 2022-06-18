@@ -25,7 +25,8 @@ public class Rectangle extends Path {
                 builder.lineWidthStyle,
                 builder.lineCap,
                 builder.lineJoin,
-                builder.dashPatternStyle);
+                builder.dashPatternStyle,
+                builder.skipLastTerminator);
         this.oppositeCorner = builder.oppositeCorner;
     }
 
@@ -81,6 +82,7 @@ public class Rectangle extends Path {
         private LineCap lineCap;
         private LineJoin lineJoin;
         private DashPatternStyle dashPatternStyle;
+        private boolean skipLastTerminator;
 
         public Builder(Point origin, Point oppositeCorner) {
             this.origin = origin;
@@ -137,6 +139,11 @@ public class Rectangle extends Path {
         public Builder dashPatternStyle(DashPatternStyle dashPatternStyle) {
             this.dashPatternStyle = dashPatternStyle;
             this.optionalArguments.add(dashPatternStyle.getString());
+            return this;
+        }
+
+        public Builder skipLastTerminator(boolean skipLastTerminator) {
+            this.skipLastTerminator = skipLastTerminator;
             return this;
         }
 

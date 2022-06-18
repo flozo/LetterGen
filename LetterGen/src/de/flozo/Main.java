@@ -115,7 +115,7 @@ public class Main {
 
         SenderField senderField = new SenderField(geometry, senderData);
 
-//        LayerEnvironment onForeBackgroundLayer = new LayerEnvironment("forebackground", senderField.getMatrix().getBlock());
+        LayerEnvironment onForeBackgroundLayer = new LayerEnvironment("forebackground", senderField.getMatrix().getBlock());
 
 
 //        PerforationMark perforationMark = new PerforationMark(geometryProperties);
@@ -140,7 +140,7 @@ public class Main {
 
         ExpressionList tikzpictureBody = new FormattedExpressionList.Builder()
                 .append(onBackgroundLayer.getBlock())
-//                .append(onForeBackgroundLayer.getBlock())
+                .append(onForeBackgroundLayer.getBlock())
                 .append(addressField.getAddressField())
                 .append(backaddressField.getBackaddressText())
                 .append(backaddressField.getSeparationLine())

@@ -33,7 +33,8 @@ public class Line extends Path {
                 builder.lineWidthStyle,
                 builder.lineCap,
                 builder.lineJoin,
-                builder.dashPatternStyle);
+                builder.dashPatternStyle,
+                builder.skipLastTerminator);
         this.next = builder.next;
         this.coordinateList = builder.coordinateList;
         this.cycle = builder.cycle;
@@ -109,6 +110,7 @@ public class Line extends Path {
         private LineCap lineCap;
         private LineJoin lineJoin;
         private DashPatternStyle dashPatternStyle;
+        private boolean skipLastTerminator;
 
 
         public Builder(Point origin, Point next) {
@@ -196,6 +198,11 @@ public class Line extends Path {
         public Builder dashPatternStyle(DashPatternStyle dashPatternStyle) {
             this.dashPatternStyle = dashPatternStyle;
             this.optionalArguments.add(dashPatternStyle.getString());
+            return this;
+        }
+
+        public Builder skipLastTerminator(boolean skipLastTerminator) {
+            this.skipLastTerminator = skipLastTerminator;
             return this;
         }
 

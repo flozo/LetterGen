@@ -10,7 +10,8 @@ public enum PathOperation {
     GRID("grid"),
     PARABOLA("parabola"),
     SIN("sin"),
-    COS("cos");
+    COS("cos"),
+    MATRIX("matrix");
 
 
     private final String pathOperation;

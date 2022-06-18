@@ -31,11 +31,13 @@ public abstract class Path {
     protected LineCap lineCap;
     protected LineJoin lineJoin;
     protected DashPatternStyle dashPatternStyle;
+    protected boolean skipLastTerminator;
 
 
     public Path(Point position, List<String> optionalArguments, String name,
                 Color drawColor, Color fillColor, LineWidthStyle lineWidthStyle,
-                LineCap lineCap, LineJoin lineJoin, DashPatternStyle dashPatternStyle) {
+                LineCap lineCap, LineJoin lineJoin, DashPatternStyle dashPatternStyle,
+                boolean skipLastTerminator) {
         this.position = position;
         this.optionalArguments = optionalArguments;
         this.name = name;
@@ -45,6 +47,7 @@ public abstract class Path {
         this.lineCap = lineCap;
         this.lineJoin = lineJoin;
         this.dashPatternStyle = dashPatternStyle;
+        this.skipLastTerminator = skipLastTerminator;
     }
 
     public abstract String getInline();
@@ -53,7 +56,7 @@ public abstract class Path {
         return new FormattedExpressionList.Builder(optionalArguments)
                 .brackets(OPTIONS_BRACKETS)
                 .terminator(StatementTerminator.COMMA)
-                .skipLastTerminator(true)
+                .skipLastTerminator(skipLastTerminator)
                 .inlineSpacing(true)
                 .build();
     }
@@ -67,60 +70,11 @@ public abstract class Path {
     }
 
 
-//    protected String coordinates(double x, double y) {
-//        return coordinates(x, y, CoordinateMode.ABSOLUTE, LengthUnit.DEFAULT);
-//    }
-//
-//    protected String coordinates(double x, double y, LengthUnit lengthUnit) {
-//        return coordinates(x, y, CoordinateMode.ABSOLUTE, lengthUnit);
-//    }
-//
-//    protected String coordinates(double x, double y, CoordinateMode coordinateMode) {
-//        return coordinates(x, y, coordinateMode, LengthUnit.DEFAULT);
-//    }
-//
-//
-//    protected String coordinates(double x, double y, CoordinateMode coordinateMode, LengthUnit lengthUnit) {
-//        return new Point.Builder(x, y)
-//                .xUnit(lengthUnit)
-//                .yUnit(lengthUnit)
-//                .coordinateMode(coordinateMode)
-//                .build().getStatement();
-//    }
-
-
-
-    public List<String> getOptionalArguments() {
-        return optionalArguments;
-    }
 
     public String getName() {
         return name;
     }
 
-    public Color getDrawColor() {
-        return drawColor;
-    }
-
-    public Color getFillColor() {
-        return fillColor;
-    }
-
-    public LineWidthStyle getLineWidthStyle() {
-        return lineWidthStyle;
-    }
-
-    public LineCap getLineCap() {
-        return lineCap;
-    }
-
-    public LineJoin getLineJoin() {
-        return lineJoin;
-    }
-
-    public DashPatternStyle getDashPatternStyle() {
-        return dashPatternStyle;
-    }
 
     @Override
     public String toString() {
@@ -134,6 +88,7 @@ public abstract class Path {
                 ", lineCap=" + lineCap +
                 ", lineJoin=" + lineJoin +
                 ", dashPatternStyle=" + dashPatternStyle +
+                ", skipLastTerminator=" + skipLastTerminator +
                 '}';
     }
 }

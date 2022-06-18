@@ -17,8 +17,11 @@ public class Circle extends Path {
     private final double xRadius;
     private final double yRadius;
 
-    public Circle(CircleBuilder builder) {
-        super(builder.position, builder.optionalArguments, builder.name, builder.drawColor, builder.fillColor, builder.lineWidthStyle, builder.lineCap, builder.lineJoin, builder.dashPatternStyle);
+    public Circle(Builder builder) {
+        super(builder.position, builder.optionalArguments, builder.name,
+                builder.drawColor, builder.fillColor, builder.lineWidthStyle,
+                builder.lineCap, builder.lineJoin, builder.dashPatternStyle,
+                builder.skipLastTerminator);
         this.radius = builder.radius;
         this.xRadius = builder.xRadius;
         this.yRadius = builder.yRadius;
@@ -52,7 +55,7 @@ public class Circle extends Path {
                 '}';
     }
 
-    public static class CircleBuilder {
+    public static class Builder {
         // required
         private final Point position;
 
@@ -69,81 +72,86 @@ public class Circle extends Path {
         private LineCap lineCap;
         private LineJoin lineJoin;
         private DashPatternStyle dashPatternStyle;
+        private boolean skipLastTerminator;
 
-        public CircleBuilder(Point position) {
+        public Builder(Point position) {
             this.position = position;
         }
 
-        public CircleBuilder(double xOrigin, double yOrigin) {
+        public Builder(double xOrigin, double yOrigin) {
             this(Point.fromNumbers(xOrigin,yOrigin));
         }
 
-        public CircleBuilder name(String name) {
+        public Builder name(String name) {
             this.name = name;
             return this;
         }
 
-        public CircleBuilder radius(double radius) {
+        public Builder radius(double radius) {
             this.radius = radius;
             this.optionalArguments.add("radius=" + radius);
             return this;
         }
 
-        public CircleBuilder xRadius(double xRadius) {
+        public Builder xRadius(double xRadius) {
             this.xRadius = xRadius;
             this.optionalArguments.add("x radius=" + xRadius);
             return this;
         }
 
-        public CircleBuilder yRadius(double yRadius) {
+        public Builder yRadius(double yRadius) {
             this.yRadius = yRadius;
             this.optionalArguments.add("y radius=" + yRadius);
             return this;
         }
 
-        public CircleBuilder drawColor(Color drawColor) {
+        public Builder drawColor(Color drawColor) {
             this.drawColor = drawColor;
             this.optionalArguments.add("draw=" + drawColor.getString());
             return this;
         }
 
-        public CircleBuilder fillColor(Color fillColor) {
+        public Builder fillColor(Color fillColor) {
             this.fillColor = fillColor;
             this.optionalArguments.add("fill=" + fillColor.getString());
             return this;
         }
 
 
-        public CircleBuilder lineWidthStyle(LineWidthStyle lineWidthStyle) {
+        public Builder lineWidthStyle(LineWidthStyle lineWidthStyle) {
             this.lineWidthStyle = lineWidthStyle;
             this.optionalArguments.add(lineWidthStyle.getString());
             return this;
         }
 
-        public CircleBuilder lineWidth(double lineWidth) {
+        public Builder lineWidth(double lineWidth) {
             this.lineWidth = lineWidth;
             this.optionalArguments.add("line width=" + lineWidth);
             return this;
         }
 
-        public CircleBuilder lineCap(LineCap lineCap) {
+        public Builder lineCap(LineCap lineCap) {
             this.lineCap = lineCap;
             this.optionalArguments.add("line cap=" + lineCap.getString());
             return this;
         }
 
-        public CircleBuilder lineJoin(LineJoin lineJoin) {
+        public Builder lineJoin(LineJoin lineJoin) {
             this.lineJoin = lineJoin;
             this.optionalArguments.add("line join=" + lineJoin.getString());
             return this;
         }
 
-        public CircleBuilder dashPatternStyle(DashPatternStyle dashPatternStyle) {
+        public Builder dashPatternStyle(DashPatternStyle dashPatternStyle) {
             this.dashPatternStyle = dashPatternStyle;
             this.optionalArguments.add(dashPatternStyle.getString());
             return this;
         }
 
+        public Builder skipLastTerminator(boolean skipLastTerminator) {
+            this.skipLastTerminator = skipLastTerminator;
+            return this;
+        }
 
         public Circle build() {
             return new Circle(this);
