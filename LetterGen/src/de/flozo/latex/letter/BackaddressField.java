@@ -50,8 +50,9 @@ public class BackaddressField {
     }
 
     public String getBackaddressText() {
-        return new Node.Builder(x, y, assembleText())
+        return new Node.Builder(assembleText())
                 .name("backaddress")
+                .position(Point.fromNumbers(x, y))
                 .anchor(Anchor.SOUTH_WEST)
                 .textWidth(width)
                 .fontSize(fontSize)
@@ -80,7 +81,7 @@ public class BackaddressField {
 
     private String hSpace(double width) {
         return new Command2.Builder(CommandName.HSPACE.getString())
-                .body(Length.createFromNumberAndUnit(width, LengthUnit.POINT).getString())
+                .body(Length.createFromNumberAndUnit(width, LengthUnit.POINT).getFormatted())
                 .build()
                 .getInline();
     }

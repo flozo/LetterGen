@@ -2,26 +2,15 @@ package de.flozo.latex.letter;
 
 import de.flozo.data.Address;
 import de.flozo.data.LetterGeometry;
-import de.flozo.latex.tikz.Alignment;
-import de.flozo.latex.tikz.Anchor;
-import de.flozo.latex.tikz.Node;
+import de.flozo.latex.tikz.*;
 
 public class SenderField {
 
     public static final String FIELD_NAME = "sender_address";
 
-//    public SenderField(double x, double y, double width, double height, Anchor anchor) {
-//        super(FIELD_NAME, x, y, width, height, anchor);
-//    }
-//
-//    public SenderField(String name, double x, double y, double width, double height, Anchor anchor, FontSize fontSize) {
-//        super(FIELD_NAME, x, y, width, height, anchor, fontSize);
-//    }
-
 
     // appearance
-    private final double x;
-    private final double y;
+    private final Point position;
     private final double width;
     private final double height;
 
@@ -34,14 +23,18 @@ public class SenderField {
     private final String senderHouseNumber;
     private final String senderPostalCode;
     private final String senderCity;
+    private final String country;
+    private final String phoneNumber;
+    private final String mobileNumber;
+    private final String emailAddress;
+    private final String webpage;
 
 
     // Constructor with dependency injection
     public SenderField(LetterGeometry geometry, Address address) {
-        this.x = geometry.getAddressX();
-        this.y = geometry.getAddressY();
-        this.width = geometry.getAddressWidth();
-        this.height = geometry.getAddressHeight();
+        this.position = Point.fromNumbers(geometry.getSenderX(), geometry.getSenderY());
+        this.width = geometry.getSenderWidth();
+        this.height = geometry.getSenderHeight();
         this.senderFirstName = address.getFirstName();
         this.senderMiddleName = address.getMiddleName();
         this.senderLastName = address.getLastName();
@@ -50,11 +43,17 @@ public class SenderField {
         this.senderHouseNumber = address.getHouseNumber();
         this.senderPostalCode = address.getPostalCode();
         this.senderCity = address.getCity();
+        this.country = address.getCountry();
+        this.phoneNumber = address.getPhoneNumber();
+        this.mobileNumber = address.getMobileNumber();
+        this.emailAddress = address.getEmailAddress();
+        this.webpage = address.getWebpage();
     }
 
     public String getAddressField() {
-        Node addressNode = new Node.Builder(x, y, assembleText())
+        Node addressNode = new Node.Builder(assembleText())
                 .name(FIELD_NAME)
+                .position(position)
                 .anchor(Anchor.NORTH_WEST)
                 .minimumWidth(width)
                 .minimumHeight(2.73)
@@ -63,6 +62,15 @@ public class SenderField {
                 .build();
         return addressNode.getInline();
     }
+
+    public MatrixOfNodes getMatrix() {
+        return new MatrixOfNodes.Builder(FIELD_NAME, position, Anchor.NORTH_EAST)
+                .addRow(senderStreet + " " + senderHouseNumber + "\\\\" + senderPostalCode + " " + senderCity, ContactIcon.MAP_MARKED.getIconDefault())
+                .addRow(phoneNumber, ContactIcon.PHONE_ALT.getIconDefault())
+                .addRow(emailAddress, ContactIcon.ENVELOPE.getIconDefault())
+                .build();
+    }
+
 
     private String assembleText() {
         return assembleName() + "\\\\" +
@@ -74,11 +82,11 @@ public class SenderField {
         return senderLastName.isEmpty() ? senderCompany : senderFirstName + " " + senderLastName;
     }
 
+
     @Override
     public String toString() {
         return "SenderField{" +
-                "x=" + x +
-                ", y=" + y +
+                "position=" + position +
                 ", width=" + width +
                 ", height=" + height +
                 ", senderFirstName='" + senderFirstName + '\'' +
@@ -89,6 +97,11 @@ public class SenderField {
                 ", senderHouseNumber='" + senderHouseNumber + '\'' +
                 ", senderPostalCode='" + senderPostalCode + '\'' +
                 ", senderCity='" + senderCity + '\'' +
+                ", country='" + country + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", mobileNumber='" + mobileNumber + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", webpage='" + webpage + '\'' +
                 '}';
     }
 }

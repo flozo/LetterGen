@@ -2,6 +2,7 @@ package de.flozo.latex.letter;
 
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
+import de.flozo.latex.tikz.Point;
 
 public class DateField {
 
@@ -18,8 +19,9 @@ public class DateField {
     }
 
     public String generate() {
-        Node subjectField = new Node.Builder(x, y, place + ", " + date)
+        Node subjectField = new Node.Builder(place + ", " + date)
                 .name("date field")
+                .position(Point.fromNumbers(x, y))
                 .anchor(Anchor.SOUTH_EAST)
                 .build();
         return subjectField.getInline();

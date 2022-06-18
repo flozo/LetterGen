@@ -1,6 +1,7 @@
 package de.flozo.latex.tikz;
 
 import de.flozo.latex.core.CommandName;
+import de.flozo.latex.core.Length;
 import de.flozo.latex.core.LengthUnit;
 import de.flozo.latex.core.color.Color;
 
@@ -12,20 +13,19 @@ public class Line extends Path {
     // constants
     public static final CommandName KEYWORD = CommandName.FILLDRAW;
     public static final PathOperation OPERATION = PathOperation.LINE;
+    public static final LengthUnit DEFAULT_LENGTH_UNIT = LengthUnit.DEFAULT;
+    public static final CoordinateMode DEFAULT_COORDINATE_MODE = CoordinateMode.ABSOLUTE;
+
 
     // required
-    private final double xNext;
-    private final double yNext;
+    private final Point next;
 
     // optional
-    private final LengthUnit lengthUnit = LengthUnit.DEFAULT;
     private final List<Point> coordinateList;
-    private final CoordinateMode coordinateMode;
     private final boolean cycle;
 
     public Line(Builder builder) {
-        super(builder.xOrigin,
-                builder.yOrigin,
+        super(builder.origin,
                 builder.optionalArguments,
                 builder.name,
                 builder.drawColor,
@@ -34,10 +34,8 @@ public class Line extends Path {
                 builder.lineCap,
                 builder.lineJoin,
                 builder.dashPatternStyle);
-        this.xNext = builder.xNext;
-        this.yNext = builder.yNext;
+        this.next = builder.next;
         this.coordinateList = builder.coordinateList;
-        this.coordinateMode = builder.coordinateMode;
         this.cycle = builder.cycle;
     }
 
@@ -54,9 +52,9 @@ public class Line extends Path {
             sb.append(" ").append(inlineOptions());
         }
         // Append required parts
-        sb.append(" ").append(coordinates(xOrigin, yOrigin));
+        sb.append(" ").append(position.getStatement());
         sb.append(" ").append(OPERATION.getString());
-        sb.append(" ").append(coordinates(xNext, yNext, coordinateMode));
+        sb.append(" ").append(next.getStatement());
         // Append line segments if at least one more is present
         if (!coordinateList.isEmpty()) {
             for (Point point : coordinateList) {
@@ -77,12 +75,18 @@ public class Line extends Path {
     @Override
     public String toString() {
         return "Line{" +
-                "xNext=" + xNext +
-                ", yNext=" + yNext +
-                ", lengthUnit=" + lengthUnit +
+                "next=" + next +
                 ", coordinateList=" + coordinateList +
-                ", coordinateMode=" + coordinateMode +
                 ", cycle=" + cycle +
+                ", position=" + position +
+                ", optionalArguments=" + optionalArguments +
+                ", name='" + name + '\'' +
+                ", drawColor=" + drawColor +
+                ", fillColor=" + fillColor +
+                ", lineWidthStyle=" + lineWidthStyle +
+                ", lineCap=" + lineCap +
+                ", lineJoin=" + lineJoin +
+                ", dashPatternStyle=" + dashPatternStyle +
                 '}';
     }
 
@@ -90,15 +94,11 @@ public class Line extends Path {
     public static class Builder {
 
         // required
-        private final double xOrigin;
-        private final double yOrigin;
-        private final double xNext;
-        private final double yNext;
+        private final Point origin;
+        private final Point next;
 
         // optional
         private String name;
-        private final CoordinateMode coordinateMode;
-        private final LengthUnit lengthUnit = LengthUnit.DEFAULT;
         private final List<Point> coordinateList = new ArrayList<>();
         private boolean cycle = false;
         private final List<String> optionalArguments = new ArrayList<>();
@@ -110,23 +110,18 @@ public class Line extends Path {
         private LineJoin lineJoin;
         private DashPatternStyle dashPatternStyle;
 
-        // Constructor with optional CoordinateMode parameter
 
-//        public LineBuilder(String xOrigin, String yOrigin, String xNext, String yNext, CoordinateMode coordinateMode) {
-//            this(Double.parseDouble(xOrigin), Double.parseDouble(yOrigin), Double.parseDouble(xNext), Double.parseDouble(yNext), coordinateMode);
-//        }
-
-
-        public Builder(double xOrigin, double yOrigin, double xNext, double yNext) {
-            this(xOrigin, yOrigin, xNext, yNext, CoordinateMode.ABSOLUTE);
+        public Builder(Point origin, Point next) {
+            this.origin = origin;
+            this.next = next;
         }
 
         public Builder(double xOrigin, double yOrigin, double xNext, double yNext, CoordinateMode coordinateMode) {
-            this.xOrigin = xOrigin;
-            this.yOrigin = yOrigin;
-            this.xNext = xNext;
-            this.yNext = yNext;
-            this.coordinateMode = coordinateMode;
+            this(Point.fromNumbersInMode(xOrigin, yOrigin, coordinateMode), Point.fromNumbersInMode(xNext, yNext, coordinateMode));
+        }
+
+        public Builder(double xOrigin, double yOrigin, double xNext, double yNext) {
+            this(Point.fromNumbers(xOrigin, yOrigin), Point.fromNumbers(xNext, yNext));
         }
 
 
@@ -135,24 +130,22 @@ public class Line extends Path {
             return this;
         }
 
-
         // Point coordinates with optional CoordinateMode parameter
 
         public Builder nextPoint(double x, double y) {
-            return nextPoint(x, y, coordinateMode);
+            return nextPoint(x, y, DEFAULT_COORDINATE_MODE);
         }
 
         public Builder nextPoint(double x, double y, CoordinateMode coordinateMode) {
-            return nextPoint(x, y, coordinateMode, lengthUnit);
+            return nextPoint(x, y, coordinateMode, DEFAULT_LENGTH_UNIT);
         }
 
         public Builder nextPoint(double x, double y, LengthUnit lengthUnit) {
-            return nextPoint(x, y, coordinateMode, lengthUnit);
+            return nextPoint(x, y, DEFAULT_COORDINATE_MODE, lengthUnit);
         }
 
-
         public Builder nextPoint(double x, double y, CoordinateMode coordinateMode, LengthUnit lengthUnit) {
-            this.coordinateList.add(new Point.Builder(x, y).coordinateMode(coordinateMode).xUnit(lengthUnit).yUnit(lengthUnit).build());
+            this.coordinateList.add(Point.fromLengthsInMode(Length.createFromNumberAndUnit(x, lengthUnit), Length.createFromNumberAndUnit(y, lengthUnit), coordinateMode));
             return this;
         }
 
@@ -210,7 +203,5 @@ public class Line extends Path {
         public Line build() {
             return new Line(this);
         }
-
-
     }
 }

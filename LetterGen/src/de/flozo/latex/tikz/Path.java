@@ -2,7 +2,6 @@ package de.flozo.latex.tikz;
 
 import de.flozo.latex.core.Bracket;
 import de.flozo.latex.core.FormattedExpressionList;
-import de.flozo.latex.core.LengthUnit;
 import de.flozo.latex.core.StatementTerminator;
 import de.flozo.latex.core.color.Color;
 
@@ -19,10 +18,11 @@ public abstract class Path {
 
 
     // required; visible for subclasses
-    protected double xOrigin;
-    protected double yOrigin;
+//    protected double xOrigin;
+//    protected double yOrigin;
 
     // optional; visible for subclasses
+    protected Point position;
     protected List<String> optionalArguments;
     protected String name;
     protected Color drawColor;
@@ -33,11 +33,10 @@ public abstract class Path {
     protected DashPatternStyle dashPatternStyle;
 
 
-    public Path(double xOrigin, double yOrigin, List<String> optionalArguments, String name,
+    public Path(Point position, List<String> optionalArguments, String name,
                 Color drawColor, Color fillColor, LineWidthStyle lineWidthStyle,
                 LineCap lineCap, LineJoin lineJoin, DashPatternStyle dashPatternStyle) {
-        this.xOrigin = xOrigin;
-        this.yOrigin = yOrigin;
+        this.position = position;
         this.optionalArguments = optionalArguments;
         this.name = name;
         this.drawColor = drawColor;
@@ -68,35 +67,28 @@ public abstract class Path {
     }
 
 
-    protected String coordinates(double x, double y) {
-        return coordinates(x, y, CoordinateMode.ABSOLUTE, LengthUnit.DEFAULT);
-    }
+//    protected String coordinates(double x, double y) {
+//        return coordinates(x, y, CoordinateMode.ABSOLUTE, LengthUnit.DEFAULT);
+//    }
+//
+//    protected String coordinates(double x, double y, LengthUnit lengthUnit) {
+//        return coordinates(x, y, CoordinateMode.ABSOLUTE, lengthUnit);
+//    }
+//
+//    protected String coordinates(double x, double y, CoordinateMode coordinateMode) {
+//        return coordinates(x, y, coordinateMode, LengthUnit.DEFAULT);
+//    }
+//
+//
+//    protected String coordinates(double x, double y, CoordinateMode coordinateMode, LengthUnit lengthUnit) {
+//        return new Point.Builder(x, y)
+//                .xUnit(lengthUnit)
+//                .yUnit(lengthUnit)
+//                .coordinateMode(coordinateMode)
+//                .build().getStatement();
+//    }
 
-    protected String coordinates(double x, double y, LengthUnit lengthUnit) {
-        return coordinates(x, y, CoordinateMode.ABSOLUTE, lengthUnit);
-    }
 
-    protected String coordinates(double x, double y, CoordinateMode coordinateMode) {
-        return coordinates(x, y, coordinateMode, LengthUnit.DEFAULT);
-    }
-
-
-    protected String coordinates(double x, double y, CoordinateMode coordinateMode, LengthUnit lengthUnit) {
-        return new Point.Builder(x, y)
-                .xUnit(lengthUnit)
-                .yUnit(lengthUnit)
-                .coordinateMode(coordinateMode)
-                .build().getStatement();
-    }
-
-
-    public double getXOrigin() {
-        return xOrigin;
-    }
-
-    public double getYOrigin() {
-        return yOrigin;
-    }
 
     public List<String> getOptionalArguments() {
         return optionalArguments;
@@ -133,8 +125,7 @@ public abstract class Path {
     @Override
     public String toString() {
         return "Path{" +
-                "xOrigin=" + xOrigin +
-                ", yOrigin=" + yOrigin +
+                "position=" + position +
                 ", optionalArguments=" + optionalArguments +
                 ", name='" + name + '\'' +
                 ", drawColor=" + drawColor +

@@ -6,6 +6,7 @@ import de.flozo.latex.core.StatementTerminator;
 import de.flozo.latex.tikz.Alignment;
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
+import de.flozo.latex.tikz.Point;
 
 import java.util.List;
 
@@ -47,8 +48,9 @@ public class AddressField {
     }
 
     public String getAddressField() {
-        Node addressNode = new Node.Builder(x, y, assembleText())
+        Node addressNode = new Node.Builder(assembleText())
                 .name(FIELD_NAME)
+                .position(Point.fromNumbers(x,y))
                 .anchor(Anchor.NORTH_WEST)
                 .minimumWidth(width)
                 .minimumHeight(2.73)

@@ -13,17 +13,11 @@ public class Rectangle extends Path {
     public static final PathOperation OPERATION = PathOperation.RECTANGLE;
 
     // required
-    private final double xOppositeCorner;
-    private final double yOppositeCorner;
-
-    // optional
-//    private Color fillColor;
-//    private LineWidthStyle lineWidthStyle;
+    private final Point oppositeCorner;
 
 
     private Rectangle(Builder builder) {
-        super(builder.xOrigin,
-                builder.yOrigin,
+        super(builder.origin,
                 builder.optionalArguments,
                 builder.name,
                 builder.drawColor,
@@ -32,8 +26,7 @@ public class Rectangle extends Path {
                 builder.lineCap,
                 builder.lineJoin,
                 builder.dashPatternStyle);
-        this.xOppositeCorner = builder.xOppositeCorner;
-        this.yOppositeCorner = builder.yOppositeCorner;
+        this.oppositeCorner = builder.oppositeCorner;
     }
 
 
@@ -49,9 +42,9 @@ public class Rectangle extends Path {
             sb.append(" ").append(inlineOptions());
         }
         // Append required parts
-        sb.append(" ").append(coordinates(xOrigin, yOrigin));
+        sb.append(" ").append(position.getStatement());
         sb.append(" ").append(OPERATION.getString());
-        sb.append(" ").append(coordinates(xOppositeCorner, yOppositeCorner));
+        sb.append(" ").append(oppositeCorner.getStatement());
         sb.append(TERMINATOR.getString());
         return sb.toString();
     }
@@ -59,17 +52,24 @@ public class Rectangle extends Path {
     @Override
     public String toString() {
         return "Rectangle{" +
-                "xOppositeCorner=" + xOppositeCorner +
-                ", yOppositeCorner=" + yOppositeCorner +
+                "oppositeCorner=" + oppositeCorner +
+                ", position=" + position +
+                ", optionalArguments=" + optionalArguments +
+                ", name='" + name + '\'' +
+                ", drawColor=" + drawColor +
+                ", fillColor=" + fillColor +
+                ", lineWidthStyle=" + lineWidthStyle +
+                ", lineCap=" + lineCap +
+                ", lineJoin=" + lineJoin +
+                ", dashPatternStyle=" + dashPatternStyle +
                 '}';
     }
 
+
     public static class Builder {
         // required
-        private final double xOrigin;
-        private final double yOrigin;
-        private final double xOppositeCorner;
-        private final double yOppositeCorner;
+        private final Point origin;
+        private final Point oppositeCorner;
 
         // optional
         private String name;
@@ -82,19 +82,20 @@ public class Rectangle extends Path {
         private LineJoin lineJoin;
         private DashPatternStyle dashPatternStyle;
 
+        public Builder(Point origin, Point oppositeCorner) {
+            this.origin = origin;
+            this.oppositeCorner = oppositeCorner;
+        }
 
         public Builder(double xOrigin, double yOrigin, double xOppositeCorner, double yOppositeCorner) {
-            this.xOrigin = xOrigin;
-            this.yOrigin = yOrigin;
-            this.xOppositeCorner = xOppositeCorner;
-            this.yOppositeCorner = yOppositeCorner;
+            this(Point.fromNumbers(xOrigin, yOrigin), Point.fromNumbers(xOppositeCorner, yOppositeCorner));
         }
+
 
         public Builder name(String name) {
             this.name = name;
             return this;
         }
-
 
         public Builder drawColor(Color drawColor) {
             this.drawColor = drawColor;
@@ -140,18 +141,8 @@ public class Rectangle extends Path {
         }
 
 
-
         public Rectangle build() {
             return new Rectangle(this);
         }
-
-
-//        private void validate() throws IllegalStateException {
-//            if (lineWidth != 0) {
-//
-//            }
-//        }
-
-
     }
 }

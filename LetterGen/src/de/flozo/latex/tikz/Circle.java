@@ -8,26 +8,21 @@ import java.util.List;
 
 public class Circle extends Path {
 
-
     // constants
     public static final CommandName KEYWORD = CommandName.FILLDRAW;
     public static final PathOperation OPERATION = PathOperation.CIRCLE;
 
-
     // optional
-//    private final List<String> optionalArgumentsAfter;
     private final double radius;
     private final double xRadius;
     private final double yRadius;
 
     public Circle(CircleBuilder builder) {
-        super(builder.xOrigin, builder.yOrigin, builder.optionalArguments, builder.name, builder.drawColor, builder.fillColor, builder.lineWidthStyle, builder.lineCap, builder.lineJoin, builder.dashPatternStyle);
-//        this.optionalArgumentsAfter = new ArrayList<>();
+        super(builder.position, builder.optionalArguments, builder.name, builder.drawColor, builder.fillColor, builder.lineWidthStyle, builder.lineCap, builder.lineJoin, builder.dashPatternStyle);
         this.radius = builder.radius;
         this.xRadius = builder.xRadius;
         this.yRadius = builder.yRadius;
     }
-
 
     @Override
     public String getInline() {
@@ -41,13 +36,8 @@ public class Circle extends Path {
             sb.append(" ").append(inlineOptions());
         }
         // Append required parts
-        sb.append(" ").append(coordinates(xOrigin, yOrigin));
+        sb.append(" ").append(position.getStatement());
         sb.append(" ").append(OPERATION.getString());
-        // Append options if at least one option is present
-//        if (!optionalArgumentsAfter.isEmpty()) {
-//            sb.append(" ").append(inlineOptions());
-//        }
-//        sb.append(" ").append();
         sb.append(TERMINATOR.getString());
         return sb.toString();
     }
@@ -64,13 +54,11 @@ public class Circle extends Path {
 
     public static class CircleBuilder {
         // required
-        private final double xOrigin;
-        private final double yOrigin;
+        private final Point position;
 
         // optional
         private String name;
         private final List<String> optionalArguments = new ArrayList<>();
-//        private final List<String> optionalArgumentsAfter = new ArrayList<>();
         private double radius;
         private double xRadius;
         private double yRadius;
@@ -82,9 +70,12 @@ public class Circle extends Path {
         private LineJoin lineJoin;
         private DashPatternStyle dashPatternStyle;
 
+        public CircleBuilder(Point position) {
+            this.position = position;
+        }
+
         public CircleBuilder(double xOrigin, double yOrigin) {
-            this.xOrigin = xOrigin;
-            this.yOrigin = yOrigin;
+            this(Point.fromNumbers(xOrigin,yOrigin));
         }
 
         public CircleBuilder name(String name) {
@@ -94,21 +85,18 @@ public class Circle extends Path {
 
         public CircleBuilder radius(double radius) {
             this.radius = radius;
-//            this.optionalArgumentsAfter.add("radius=" + radius);
             this.optionalArguments.add("radius=" + radius);
             return this;
         }
 
         public CircleBuilder xRadius(double xRadius) {
             this.xRadius = xRadius;
-//            this.optionalArgumentsAfter.add("x radius=" + xRadius);
             this.optionalArguments.add("x radius=" + xRadius);
             return this;
         }
 
         public CircleBuilder yRadius(double yRadius) {
             this.yRadius = yRadius;
-//            this.optionalArgumentsAfter.add("y radius=" + yRadius);
             this.optionalArguments.add("y radius=" + yRadius);
             return this;
         }

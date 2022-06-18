@@ -6,12 +6,15 @@ import java.util.Locale;
 
 public class Length {
 
+
+    public static final LengthUnit DEFAULT_LENGTH_UNIT = LengthUnit.DEFAULT;
+
     private final double numericalValue;
     private final LengthUnit unit;
 
 
     public Length(double numericalValue) {
-        this(numericalValue, LengthUnit.DEFAULT);
+        this(numericalValue, DEFAULT_LENGTH_UNIT);
     }
 
     public Length(double numericalValue, LengthUnit unit) {
@@ -31,7 +34,7 @@ public class Length {
         return numericalValue;
     }
 
-    public String getString() {
+    public String getFormatted() {
         // Avoid trailing zeros; ensure point is used as decimal separator
         DecimalFormat df = new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.US));
         return (df.format(numericalValue) + unit.getString());

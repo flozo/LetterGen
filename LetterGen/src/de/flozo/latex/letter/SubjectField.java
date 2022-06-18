@@ -2,6 +2,7 @@ package de.flozo.latex.letter;
 
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
+import de.flozo.latex.tikz.Point;
 
 public class SubjectField {
 
@@ -16,8 +17,9 @@ public class SubjectField {
     }
 
     public String generate() {
-        Node subjectField = new Node.Builder(x, y, "\\bf " + subjectText)
+        Node subjectField = new Node.Builder("\\bf " + subjectText)
                 .name("subject field")
+                .position(Point.fromNumbers(x, y))
                 .anchor(Anchor.SOUTH_WEST)
                 .build();
         return subjectField.getInline();

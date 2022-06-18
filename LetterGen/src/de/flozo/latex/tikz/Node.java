@@ -10,7 +10,6 @@ public class Node extends Path {
 
     public static final CommandName KEYWORD = CommandName.NODE;
     public static final Bracket BODY_BRACKETS = Bracket.CURLY_BRACES;
-    public static final String INDENT_CHARACTER = "\t";
 
     // required
     private final List<String> body;
@@ -18,31 +17,12 @@ public class Node extends Path {
     // optional
     private final String name;
     private final StatementTerminator bodyTerminator;
-//    private final List<String> optionalArguments;
-//    private final Anchor anchor;
-//    private final FontSize fontSize;
-//    private final Color textColor;
-//    private final Color drawColor;
-//    private final Color fillColor;
-//    private final LineWidthStyle lineWidthStyle;
-//    private final LineCap lineCap;
-//    private final LineJoin lineJoin;
-//    private final DashPatternStyle dashPatternStyle;
-//    private final double xShift;
-//    private final double yShift;
-//    private final double textWidth;
-//    private double textDepth;
-//    private double minimumWidth;
-//    private double minimumHeight;
-//    private Alignment alignment;
-//    private double innerXSep;
-//    private double innerYSep;
 
     private Node(Builder builder) {
-        super(builder.xOrigin,
-                builder.yOrigin,
+        super(builder.position,
                 builder.optionalArguments,
-                builder.name, builder.drawColor,
+                builder.name,
+                builder.drawColor,
                 builder.fillColor,
                 builder.lineWidthStyle,
                 builder.lineCap,
@@ -51,18 +31,6 @@ public class Node extends Path {
         this.body = builder.body;
         this.name = builder.name;
         this.bodyTerminator = builder.bodyTerminator;
-//        this.anchor = builder.anchor;
-//        this.fontSize = builder.fontSize;
-//        this.textColor = builder.textColor;
-//        this.xShift = builder.xShift;
-//        this.yShift = builder.yShift;
-//        this.textWidth = builder.textWidth;
-//        this.textDepth = builder.textDepth;
-//        this.minimumWidth = builder.minimumWidth;
-//        this.minimumHeight = builder.minimumHeight;
-//        this.alignment = builder.alignment;
-//        this.innerXSep = builder.innerXSep;
-//        this.innerYSep = builder.innerYSep;
     }
 
     @Override
@@ -110,7 +78,7 @@ public class Node extends Path {
         }
         // Append required positioning statement
         sb.append(" at ");
-        sb.append(coordinates(xOrigin, yOrigin));
+        sb.append(position.getStatement());
         return sb.toString();
     }
 
@@ -126,12 +94,11 @@ public class Node extends Path {
     public static class Builder {
 
         // required
-        private final double xOrigin;
-        private final double yOrigin;
         private final List<String> body;
 
         // optional
         private String name;
+        private Point position;
         private final List<String> optionalArguments = new ArrayList<>();
         private StatementTerminator bodyTerminator = StatementTerminator.NONE;
         private Anchor anchor;
@@ -154,18 +121,21 @@ public class Node extends Path {
         private double innerXSep;
         private double innerYSep;
 
-        public Builder(double xOrigin, double yOrigin, String... body) {
-            this(xOrigin, yOrigin, new ArrayList<>(List.of(body)));
+        public Builder(String... body) {
+            this(new ArrayList<>(List.of(body)));
         }
 
-        public Builder(double xOrigin, double yOrigin, List<String> body) {
-            this.xOrigin = xOrigin;
-            this.yOrigin = yOrigin;
+        public Builder(List<String> body) {
             this.body = body;
         }
 
         public Builder name(String name) {
             this.name = name;
+            return this;
+        }
+
+        public Builder position(Point position) {
+            this.position = position;
             return this;
         }
 
@@ -235,7 +205,7 @@ public class Node extends Path {
         public Builder xShift(double xShift, LengthUnit lengthUnit) {
             Length length = new Length(xShift, lengthUnit);
             this.xShift = length.getNumericalValue();
-            this.optionalArguments.add("xshift=" + length.getString());
+            this.optionalArguments.add("xshift=" + length.getFormatted());
             return this;
         }
 
@@ -246,7 +216,7 @@ public class Node extends Path {
         public Builder yShift(double yShift, LengthUnit lengthUnit) {
             Length length = new Length(yShift, lengthUnit);
             this.yShift = length.getNumericalValue();
-            this.optionalArguments.add("yshift=" + length.getString());
+            this.optionalArguments.add("yshift=" + length.getFormatted());
             return this;
         }
 
@@ -257,7 +227,7 @@ public class Node extends Path {
         public Builder textWidth(double textWidth, LengthUnit lengthUnit) {
             Length length = new Length(textWidth, lengthUnit);
             this.textWidth = length.getNumericalValue();
-            this.optionalArguments.add("text width=" + length.getString());
+            this.optionalArguments.add("text width=" + length.getFormatted());
             return this;
         }
 
@@ -268,7 +238,7 @@ public class Node extends Path {
         public Builder textHeight(double textHeight, LengthUnit lengthUnit) {
             Length length = new Length(textHeight, lengthUnit);
             this.textHeight = length.getNumericalValue();
-            this.optionalArguments.add("text height=" + length.getString());
+            this.optionalArguments.add("text height=" + length.getFormatted());
             return this;
         }
 
@@ -279,7 +249,7 @@ public class Node extends Path {
         public Builder textDepth(double textDepth, LengthUnit lengthUnit) {
             Length length = new Length(textDepth, lengthUnit);
             this.textDepth = length.getNumericalValue();
-            this.optionalArguments.add("text depth=" + length.getString());
+            this.optionalArguments.add("text depth=" + length.getFormatted());
             return this;
         }
 
@@ -290,7 +260,7 @@ public class Node extends Path {
         public Builder minimumWidth(double minimumWidth, LengthUnit lengthUnit) {
             Length length = new Length(minimumWidth, lengthUnit);
             this.minimumWidth = length.getNumericalValue();
-            this.optionalArguments.add("minimum width=" + length.getString());
+            this.optionalArguments.add("minimum width=" + length.getFormatted());
             return this;
         }
 
@@ -301,7 +271,7 @@ public class Node extends Path {
         public Builder minimumHeight(double minimumHeight, LengthUnit lengthUnit) {
             Length length = new Length(minimumHeight, lengthUnit);
             this.minimumHeight = length.getNumericalValue();
-            this.optionalArguments.add("minimum height=" + length.getString());
+            this.optionalArguments.add("minimum height=" + length.getFormatted());
             return this;
         }
 
@@ -318,7 +288,7 @@ public class Node extends Path {
         public Builder innerXSep(double innerXSep, LengthUnit lengthUnit) {
             Length length = new Length(innerXSep, lengthUnit);
             this.innerXSep = length.getNumericalValue();
-            this.optionalArguments.add("inner xsep=" + length.getString());
+            this.optionalArguments.add("inner xsep=" + length.getFormatted());
             return this;
         }
 
@@ -329,7 +299,7 @@ public class Node extends Path {
         public Builder innerYSep(double innerYSep, LengthUnit lengthUnit) {
             Length length = new Length(innerYSep, lengthUnit);
             this.innerYSep = length.getNumericalValue();
-            this.optionalArguments.add("inner ysep=" + length.getString());
+            this.optionalArguments.add("inner ysep=" + length.getFormatted());
             return this;
         }
 
@@ -337,6 +307,5 @@ public class Node extends Path {
         public Node build() {
             return new Node(this);
         }
-
     }
 }

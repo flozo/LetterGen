@@ -1,17 +1,18 @@
 package de.flozo.latex.tikz;
 
-import de.flozo.latex.core.*;
+import de.flozo.latex.core.FontSize;
+import de.flozo.latex.core.StatementTerminator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MatrixOfNodes {
 
     private final String name;
-    private final List<List<String>> matrix;
+    private final List<List<Node>> matrix;
 
-    private final double x;
-    private final double y;
+    private final Point position;
 
     private final Anchor anchor;
     private final FontSize fontSize;
@@ -20,16 +21,16 @@ public class MatrixOfNodes {
     public MatrixOfNodes(Builder builder) {
         this.name = builder.name;
         this.matrix = builder.matrix;
-        this.x = builder.x;
-        this.y = builder.y;
+        this.position = builder.position;
         this.anchor = builder.anchor;
         this.fontSize = builder.fontSize;
     }
 
 
     public List<String> getBlock() {
-        return new Node.Builder(x, y, assembleTable())
+        return new Node.Builder(assembleTable())
                 .name(name)
+                .position(position)
                 .anchor(anchor)
                 .fontSize(fontSize)
                 .bodyTerminator(StatementTerminator.DOUBLE_BACKSLASH)
@@ -40,7 +41,9 @@ public class MatrixOfNodes {
     private List<String> assembleTable() {
         List<String> matrixLines = new ArrayList<>();
         for (int row = 0; row < getNumRows(); row++) {
-            matrixLines.add(String.join(" & ", matrix.get(row)));
+            List<Node> rowNodes = matrix.get(row);
+            List<String> rowStrings = rowNodes.stream().map(Node::getInline).collect(Collectors.toList());
+            matrixLines.add(String.join(" & ", rowStrings.get(row)));
         }
         return matrixLines;
     }
@@ -53,37 +56,32 @@ public class MatrixOfNodes {
         return matrix.size();
     }
 
-
     @Override
     public String toString() {
         return "MatrixOfNodes{" +
                 "name='" + name + '\'' +
                 ", matrix=" + matrix +
-                ", x=" + x +
-                ", y=" + y +
+                ", position=" + position +
                 ", anchor=" + anchor +
                 ", fontSize=" + fontSize +
                 '}';
     }
 
-
     public static class Builder {
 
         // required
         private final String name;
-        private final List<List<String>> matrix = new ArrayList<>();
-        private final double x;
-        private final double y;
+        private final List<List<Node>> matrix = new ArrayList<>();
+        private final Point position;
         private final Anchor anchor;
 
         // optional
         private FontSize fontSize = FontSize.NORMAL_SIZE;
 
 
-        public Builder(String name, double x, double y, Anchor anchor) {
+        public Builder(String name, Point position, Anchor anchor) {
             this.name = name;
-            this.x = x;
-            this.y = y;
+            this.position = position;
             this.anchor = anchor;
         }
 
@@ -92,6 +90,14 @@ public class MatrixOfNodes {
         }
 
         public Builder addRow(List<String> row) {
+            return addRowOfNodes(row.stream().map(e -> new Node.Builder(e).build()).collect(Collectors.toList()));
+        }
+
+        public Builder addRowOfNodes(Node... row) {
+            return addRowOfNodes(new ArrayList<>(List.of(row)));
+        }
+
+        public Builder addRowOfNodes(List<Node> row) {
             this.matrix.add(row);
             return this;
         }
