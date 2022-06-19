@@ -1,5 +1,7 @@
 package de.flozo.data;
 
+import de.flozo.latex.core.color.Color;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -18,7 +20,7 @@ public class PropertyMap {
 
     public void updateDefaults(Settings settings) {
         Map<String, String> updated = new HashMap<>(getDefaults());
-        for (Map.Entry<String,String> entry: getFromFile(settings).entrySet()) {
+        for (Map.Entry<String, String> entry : getFromFile(settings).entrySet()) {
             updated.replace(entry.getKey(), entry.getValue());
         }
         this.properties = updated;
@@ -34,13 +36,17 @@ public class PropertyMap {
             for (LetterGeometryProperty property : LetterGeometryProperty.values()) {
                 propertiesRawMap.put(property.getPropertyKey(), property.getGenericStringValue());
             }
+        } else if (configGroup == ConfigGroup.LETTER_COLOR) {
+            for (LetterColorProperty property : LetterColorProperty.values()) {
+                propertiesRawMap.put(property.getPropertyKey(), property.getGenericStringValue());
+            }
         } else if (configGroup == ConfigGroup.SENDER_DATA || configGroup == ConfigGroup.RECEIVER_DATA) {
             for (AddressProperty property : AddressProperty.values()) {
                 propertiesRawMap.put(property.getPropertyKey(), property.getStringValue());
             }
         } else if (configGroup == ConfigGroup.LETTER_GENERAL) {
             for (LetterGeneralProperty property : LetterGeneralProperty.values()) {
-                propertiesRawMap.put(property.getPropertyKey(),property.getGenericStringValue());
+                propertiesRawMap.put(property.getPropertyKey(), property.getGenericStringValue());
             }
         }
         return propertiesRawMap;
@@ -78,6 +84,19 @@ public class PropertyMap {
                 .collect(Collectors.toMap(Map.Entry::getKey, value -> Boolean.parseBoolean(value.getValue())));
     }
 
+    public Map<String, Color> colorSubMap(Map<String, String> rawMap) {
+        Map<String, Color> map = new HashMap<>();
+        for (Map.Entry<String, String> entry : rawMap.entrySet()) {
+            if (colorEntryCondition().test(entry.getKey())) {
+//                System.out.println(entry.getKey() + " : " + entry.getValue());
+                if (map.put(entry.getKey(), LetterColorProperty.fromString(entry.getKey()).orElseThrow(IllegalArgumentException::new).getColorValue()) != null) {
+                    throw new IllegalStateException("Duplicate key");
+                }
+            }
+        }
+        return map;
+    }
+
 
     private Predicate<String> numericEntryCondition() {
         Predicate<String> isWidth = key -> key.endsWith(".width");
@@ -95,6 +114,10 @@ public class PropertyMap {
 
     private Predicate<String> booleanEntryCondition() {
         return key -> key.endsWith(".on");
+    }
+
+    private Predicate<String> colorEntryCondition() {
+        return key -> key.endsWith(".color");
     }
 
 

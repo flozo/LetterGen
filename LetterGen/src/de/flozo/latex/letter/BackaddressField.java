@@ -1,6 +1,7 @@
 package de.flozo.latex.letter;
 
 import de.flozo.data.Address;
+import de.flozo.data.LetterColor;
 import de.flozo.data.LetterGeometry;
 import de.flozo.latex.core.*;
 import de.flozo.latex.tikz.*;
@@ -30,7 +31,7 @@ public class BackaddressField {
 
 
     // Constructor with dependency injection
-    public BackaddressField(LetterGeometry geometry, Address address) {
+    public BackaddressField(LetterGeometry geometry, LetterColor color, Address address) {
         this.x = geometry.getBackaddressX();
         this.y = geometry.getBackaddressY();
         this.width = geometry.getBackaddressWidth();

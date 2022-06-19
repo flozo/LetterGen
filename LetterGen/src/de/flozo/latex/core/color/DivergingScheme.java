@@ -23,4 +23,10 @@ public enum DivergingScheme implements Scheme {
         return scheme;
     }
 
+    @Override
+    public String toString() {
+        return "DivergingScheme{" +
+                "scheme='" + scheme + '\'' +
+                '}';
+    }
 }

@@ -29,4 +29,10 @@ public enum Letter15 implements Letter {
         return scheme;
     }
 
+    @Override
+    public String toString() {
+        return "Letter15{" +
+                "scheme='" + scheme + '\'' +
+                '}';
+    }
 }

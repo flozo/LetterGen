@@ -1,6 +1,7 @@
 package de.flozo.latex.letter;
 
 import de.flozo.data.Address;
+import de.flozo.data.LetterColor;
 import de.flozo.data.LetterGeometry;
 import de.flozo.latex.tikz.*;
 
@@ -31,7 +32,7 @@ public class SenderField {
 
 
     // Constructor with dependency injection
-    public SenderField(LetterGeometry geometry, Address address) {
+    public SenderField(LetterGeometry geometry, LetterColor color, Address address) {
         this.position = Point.fromNumbers(geometry.getSenderX(), geometry.getSenderY());
         this.width = geometry.getSenderWidth();
         this.height = geometry.getSenderHeight();

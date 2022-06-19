@@ -1,8 +1,10 @@
 package de.flozo.latex.letter;
 
 import de.flozo.data.Address;
+import de.flozo.data.LetterColor;
 import de.flozo.data.LetterGeometry;
 import de.flozo.latex.core.StatementTerminator;
+import de.flozo.latex.core.color.Color;
 import de.flozo.latex.tikz.Alignment;
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
@@ -19,6 +21,9 @@ public class AddressField {
     private final double y;
     private final double width;
     private final double height;
+    private final Color backgroundColor;
+    private final Color borderColor;
+    private final Color textColor;
 
     // content
     private final String receiverFirstName;
@@ -32,11 +37,14 @@ public class AddressField {
 
 
     // Constructor with dependency injection
-    public AddressField(LetterGeometry geometry, Address address) {
+    public AddressField(LetterGeometry geometry, LetterColor color, Address address) {
         this.x = geometry.getAddressX();
         this.y = geometry.getAddressY();
         this.width = geometry.getAddressWidth();
         this.height = geometry.getAddressHeight();
+        this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
+        this.borderColor = color.getDraftModeHighlightingBorderColor();
+        this.textColor = color.getAddressTextColor();
         this.receiverFirstName = address.getFirstName();
         this.receiverMiddleName = address.getMiddleName();
         this.receiverLastName = address.getLastName();
@@ -54,6 +62,9 @@ public class AddressField {
                 .anchor(Anchor.NORTH_WEST)
                 .minimumWidth(width)
                 .minimumHeight(2.73)
+                .fillColor(backgroundColor)
+                .drawColor(borderColor)
+                .textColor(textColor)
                 .textWidth(width)
                 .alignment(Alignment.LEFT)
                 .bodyTerminator(StatementTerminator.DOUBLE_BACKSLASH)

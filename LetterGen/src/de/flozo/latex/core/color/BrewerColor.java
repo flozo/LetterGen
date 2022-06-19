@@ -26,6 +26,14 @@ public class BrewerColor implements Color {
 
     @Override
     public String getString() {
-        return scheme + "-" + letter;
+        return scheme.getString() + "-" + letter.getString();
+    }
+
+    @Override
+    public String toString() {
+        return "BrewerColor{" +
+                "scheme=" + scheme +
+                ", letter=" + letter +
+                '}';
     }
 }

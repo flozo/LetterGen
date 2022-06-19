@@ -27,4 +27,10 @@ public enum Letter13 implements Letter {
         return scheme;
     }
 
+    @Override
+    public String toString() {
+        return "Letter13{" +
+                "scheme='" + scheme + '\'' +
+                '}';
+    }
 }

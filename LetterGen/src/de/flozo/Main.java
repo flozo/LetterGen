@@ -36,6 +36,10 @@ public class Main {
         letterGeometryMap.updateDefaults(settings);
         LetterGeometry geometry = new LetterGeometry(letterGeometryMap);
 
+        PropertyMap letterColor = new PropertyMap(ConfigGroup.LETTER_COLOR);
+        letterColor.updateDefaults(settings);
+        LetterColor color = new LetterColor(letterColor);
+
         PropertyMap senderMap = new PropertyMap(ConfigGroup.SENDER_DATA);
         senderMap.updateDefaults(settings);
         Address senderData = new Address(senderMap);
@@ -49,8 +53,8 @@ public class Main {
         LetterGeneral letterGeneral = new LetterGeneral(general);
 
 
-        System.out.println(letterGeneral.getDateFormat());
-        System.out.println(letterGeneral.isDraftModeOn());
+//        System.out.println(letterGeneral.getDateFormat());
+//        System.out.println(letterGeneral.isDraftModeOn());
 
 
         Command documentclass = Documentclass.createWithOptions(DocumentClassName.STANDALONE, "12pt", "tikz", "multi", "crop");
@@ -86,7 +90,7 @@ public class Main {
         Command hypersetup = new Command2.Builder(CommandName.HYPERSETUP.getString())
                 .body(
                         "colorlinks=true",
-                        String.format("urlcolor=%s", geometry.getUrlHyperlinkColor()),
+                        String.format("urlcolor=%s", color.getUrlHyperlinkColor()),
                         "pdftitle={Letter}",
                         String.format("pdfauthor={%s}", pdfauthor),
                         String.format("pdfdate={%s}", LocalDate.now()),
@@ -109,11 +113,12 @@ public class Main {
         Rectangle backgroundRectangle = new Rectangle.Builder(0, 0, geometry.getPaperWidth(), geometry.getPaperHeight())
                 .fillColor(StandardColor.NONE)
                 .drawColor(StandardColor.NONE)
+                .skipLastTerminator(true)
                 .build();
 
         LayerEnvironment onBackgroundLayer = new LayerEnvironment("background", backgroundRectangle.getInline());
 
-        SenderField senderField = new SenderField(geometry, senderData);
+        SenderField senderField = new SenderField(geometry, color, senderData);
 
         LayerEnvironment onForeBackgroundLayer = new LayerEnvironment("forebackground", senderField.getMatrix().getBlock());
 
@@ -122,8 +127,8 @@ public class Main {
 
 //        LayerEnvironment onForegroundLayer = new LayerEnvironment("foreground", perforationMark.getStatement());
 //
-        AddressField addressField = new AddressField(geometry, receiverData);
-        BackaddressField backaddressField = new BackaddressField(geometry, senderData);
+        AddressField addressField = new AddressField(geometry, color, receiverData);
+        BackaddressField backaddressField = new BackaddressField(geometry, color, senderData);
 
 //        Node cell11 = new Node.Builder(4.0, 24, new Command2.Builder(CommandName.FAICON.getString()).body("map-marker-alt").build().getInline()).build();
 //        Node cell12 = new Node.Builder(4.0, 24, "My street 25", "12345 City")
@@ -138,6 +143,7 @@ public class Main {
 //        }
 //
 
+//        System.out.println(LetterColorProperty.DRAFT_MODE_HIGHLIGHTING_BACKGROUND_COLOR.getColorValue().getString());
         ExpressionList tikzpictureBody = new FormattedExpressionList.Builder()
                 .append(onBackgroundLayer.getBlock())
                 .append(onForeBackgroundLayer.getBlock())

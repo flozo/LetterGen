@@ -2,6 +2,7 @@ package de.flozo.latex.tikz;
 
 import de.flozo.latex.core.*;
 import de.flozo.latex.core.color.Color;
+import de.flozo.latex.core.color.StandardColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,31 +161,39 @@ public class Node extends Path {
 
         public Builder anchor(Anchor anchor) {
             this.anchor = anchor;
-            this.optionalArguments.add("anchor=" + anchor.getString());
+            addOption("anchor", anchor.getString());
+//            this.optionalArguments.add("anchor=" + anchor.getString());
             return this;
         }
 
         public Builder fontSize(FontSize fontSize) {
             this.fontSize = fontSize;
-            this.optionalArguments.add("font=" + COMMAND_MARKER_CHAR + fontSize.getString());
+            addOption("font", COMMAND_MARKER_CHAR + fontSize.getString());
+//            this.optionalArguments.add("font=" + COMMAND_MARKER_CHAR + fontSize.getString());
             return this;
         }
 
         public Builder drawColor(Color drawColor) {
             this.drawColor = drawColor;
-            this.optionalArguments.add("draw=" + drawColor.getString());
+//            this.optionalArguments.add("draw=" + drawColor.getString());
+            addOption("draw", drawColor.getString());
+//            this.optionalArguments.add(createColorPropertyString(drawColor, "draw"));
             return this;
         }
 
         public Builder textColor(Color textColor) {
             this.textColor = textColor;
-            this.optionalArguments.add("color=" + textColor.getString());
+//            this.optionalArguments.add("color=" + textColor.getString());
+            addOption("color", textColor.getString());
+//            this.optionalArguments.add(createColorPropertyString(textColor, "color"));
             return this;
         }
 
         public Builder fillColor(Color fillColor) {
             this.fillColor = fillColor;
-            this.optionalArguments.add("fill=" + fillColor.getString());
+//            this.optionalArguments.add("fill=" + fillColor.getString());
+            addOption("fill", fillColor.getString());
+//            this.optionalArguments.add(createColorPropertyString(fillColor, "fill"));
             return this;
         }
 
@@ -196,13 +205,15 @@ public class Node extends Path {
 
         public Builder lineCap(LineCap lineCap) {
             this.lineCap = lineCap;
-            this.optionalArguments.add("line cap=" + lineCap.getString());
+            addOption("line cap", lineCap.getString());
+//            this.optionalArguments.add("line cap=" + lineCap.getString());
             return this;
         }
 
         public Builder lineJoin(LineJoin lineJoin) {
             this.lineJoin = lineJoin;
-            this.optionalArguments.add("line join=" + lineJoin.getString());
+            addOption("line join", lineJoin.getString());
+//            this.optionalArguments.add("line join=" + lineJoin.getString());
             return this;
         }
 
@@ -219,7 +230,8 @@ public class Node extends Path {
         public Builder xShift(double xShift, LengthUnit lengthUnit) {
             Length length = new Length(xShift, lengthUnit);
             this.xShift = length.getNumericalValue();
-            this.optionalArguments.add("xshift=" + length.getFormatted());
+            addOption("xshift", length.getFormatted());
+//            this.optionalArguments.add("xshift=" + length.getFormatted());
             return this;
         }
 
@@ -230,7 +242,8 @@ public class Node extends Path {
         public Builder yShift(double yShift, LengthUnit lengthUnit) {
             Length length = new Length(yShift, lengthUnit);
             this.yShift = length.getNumericalValue();
-            this.optionalArguments.add("yshift=" + length.getFormatted());
+            addOption("yshift", length.getFormatted());
+//            this.optionalArguments.add("yshift=" + length.getFormatted());
             return this;
         }
 
@@ -241,7 +254,8 @@ public class Node extends Path {
         public Builder textWidth(double textWidth, LengthUnit lengthUnit) {
             Length length = new Length(textWidth, lengthUnit);
             this.textWidth = length.getNumericalValue();
-            this.optionalArguments.add("text width=" + length.getFormatted());
+            addOption("text width", length.getFormatted());
+//            this.optionalArguments.add("text width=" + length.getFormatted());
             return this;
         }
 
@@ -252,7 +266,8 @@ public class Node extends Path {
         public Builder textHeight(double textHeight, LengthUnit lengthUnit) {
             Length length = new Length(textHeight, lengthUnit);
             this.textHeight = length.getNumericalValue();
-            this.optionalArguments.add("text height=" + length.getFormatted());
+            addOption("text height", length.getFormatted());
+//            this.optionalArguments.add("text height=" + length.getFormatted());
             return this;
         }
 
@@ -263,7 +278,8 @@ public class Node extends Path {
         public Builder textDepth(double textDepth, LengthUnit lengthUnit) {
             Length length = new Length(textDepth, lengthUnit);
             this.textDepth = length.getNumericalValue();
-            this.optionalArguments.add("text depth=" + length.getFormatted());
+            addOption("text depth", length.getFormatted());
+//            this.optionalArguments.add("text depth=" + length.getFormatted());
             return this;
         }
 
@@ -274,7 +290,8 @@ public class Node extends Path {
         public Builder minimumWidth(double minimumWidth, LengthUnit lengthUnit) {
             Length length = new Length(minimumWidth, lengthUnit);
             this.minimumWidth = length.getNumericalValue();
-            this.optionalArguments.add("minimum width=" + length.getFormatted());
+            addOption("minimum width", length.getFormatted());
+//            this.optionalArguments.add("minimum width=" + length.getFormatted());
             return this;
         }
 
@@ -285,13 +302,15 @@ public class Node extends Path {
         public Builder minimumHeight(double minimumHeight, LengthUnit lengthUnit) {
             Length length = new Length(minimumHeight, lengthUnit);
             this.minimumHeight = length.getNumericalValue();
-            this.optionalArguments.add("minimum height=" + length.getFormatted());
+            addOption("minimum height", length.getFormatted());
+//            this.optionalArguments.add("minimum height=" + length.getFormatted());
             return this;
         }
 
         public Builder alignment(Alignment alignment) {
             this.alignment = alignment;
-            this.optionalArguments.add("align=" + alignment.getString());
+            addOption("align", alignment.getString());
+//            this.optionalArguments.add("align=" + alignment.getString());
             return this;
         }
 
@@ -302,7 +321,8 @@ public class Node extends Path {
         public Builder innerXSep(double innerXSep, LengthUnit lengthUnit) {
             Length length = new Length(innerXSep, lengthUnit);
             this.innerXSep = length.getNumericalValue();
-            this.optionalArguments.add("inner xsep=" + length.getFormatted());
+            addOption("inner xsep", length.getFormatted());
+//            this.optionalArguments.add("inner xsep=" + length.getFormatted());
             return this;
         }
 
@@ -313,7 +333,8 @@ public class Node extends Path {
         public Builder innerYSep(double innerYSep, LengthUnit lengthUnit) {
             Length length = new Length(innerYSep, lengthUnit);
             this.innerYSep = length.getNumericalValue();
-            this.optionalArguments.add("inner ysep=" + length.getFormatted());
+            addOption("inner ysep", length.getFormatted());
+//            this.optionalArguments.add("inner ysep=" + length.getFormatted());
             return this;
         }
 
@@ -327,6 +348,18 @@ public class Node extends Path {
             this.optionalArguments.add(customOption);
             return this;
         }
+
+        private String createColorPropertyString(Color color, String property) {
+            return color != StandardColor.DEFAULT ? property + "=" + color.getString() : "";
+        }
+
+        private void addOption(String key, String value) {
+            // Skip empty keys or values
+            if (!key.isEmpty() && !value.isEmpty()) {
+                this.optionalArguments.add(key + "=" + value);
+            }
+        }
+
 
         public Node build() {
             return new Node(this);

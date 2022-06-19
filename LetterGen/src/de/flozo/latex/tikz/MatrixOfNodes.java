@@ -103,7 +103,7 @@ public class MatrixOfNodes {
         }
 
         public Builder addRowOfNodes(List<Node> row) {
-            System.out.println(row);
+//            System.out.println(row);
             this.matrix.add(row);
             return this;
         }

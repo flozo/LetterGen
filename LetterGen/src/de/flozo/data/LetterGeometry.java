@@ -4,9 +4,10 @@ import java.util.Map;
 
 public class LetterGeometry {
 
-    private final String backgroundColor;
-    private final String draftModeHighlightColor;
-    private final String urlHyperlinkColor;
+//    private final String backgroundColor;
+//    private final String draftModeHighlightingBackgroundColor;
+//    private final String draftModeHighlightingBorderColor;
+//    private final String urlHyperlinkColor;
 
     private final double paperWidth;
     private final double paperHeight;
@@ -62,9 +63,10 @@ public class LetterGeometry {
         Map<String, String> rawMap = propertyMap.getProperties();
         Map<String, String> stringSubMap = propertyMap.stringSubMap(rawMap);
         Map<String, Double> numericSubMap = propertyMap.numericSubMap(rawMap);
-        this.backgroundColor = stringSubMap.get(LetterGeometryProperty.BACKGROUND_COLOR.getPropertyKey());
-        this.draftModeHighlightColor = stringSubMap.get(LetterGeometryProperty.DRAFT_MODE_HIGHLIGHT_COLOR.getPropertyKey());
-        this.urlHyperlinkColor = stringSubMap.get(LetterGeometryProperty.URL_COLOR.getPropertyKey());
+//        this.backgroundColor = stringSubMap.get(LetterGeometryProperty.BACKGROUND_COLOR.getPropertyKey());
+//        this.draftModeHighlightingBackgroundColor = stringSubMap.get(LetterGeometryProperty.DRAFT_MODE_HIGHLIGHTING_BACKGROUND_COLOR.getPropertyKey());
+//        this.draftModeHighlightingBorderColor = stringSubMap.get(LetterGeometryProperty.DRAFT_MODE_HIGHLIGHTING_BORDER_COLOR.getPropertyKey());
+//        this.urlHyperlinkColor = stringSubMap.get(LetterGeometryProperty.URL_COLOR.getPropertyKey());
         this.paperWidth = numericSubMap.get(LetterGeometryProperty.PAPER_WIDTH.getPropertyKey());
         this.paperHeight = numericSubMap.get(LetterGeometryProperty.PAPER_HEIGHT.getPropertyKey());
         this.borderMarginTop = numericSubMap.get(LetterGeometryProperty.BORDER_MARGIN_TOP.getPropertyKey());
@@ -104,19 +106,6 @@ public class LetterGeometry {
         this.foldingMark2Y = numericSubMap.get(LetterGeometryProperty.FOLDING_MARK_2_Y.getPropertyKey());
         this.foldingMark2Length = numericSubMap.get(LetterGeometryProperty.FOLDING_MARK_2_LENGTH.getPropertyKey());
         this.foldingMark2LineWidth = numericSubMap.get(LetterGeometryProperty.FOLDING_MARK_2_LINE_WIDTH.getPropertyKey());
-    }
-
-
-    public String getBackgroundColor() {
-        return backgroundColor;
-    }
-
-    public String getDraftModeHighlightColor() {
-        return draftModeHighlightColor;
-    }
-
-    public String getUrlHyperlinkColor() {
-        return urlHyperlinkColor;
     }
 
     public double getPaperWidth() {
@@ -273,5 +262,50 @@ public class LetterGeometry {
 
     public double getFoldingMark2LineWidth() {
         return foldingMark2LineWidth;
+    }
+
+    @Override
+    public String toString() {
+        return "LetterGeometry{" +
+                "paperWidth=" + paperWidth +
+                ", paperHeight=" + paperHeight +
+                ", borderMarginTop=" + borderMarginTop +
+                ", borderMarginBottom=" + borderMarginBottom +
+                ", borderMarginLeft=" + borderMarginLeft +
+                ", borderMarginRight=" + borderMarginRight +
+                ", addressX=" + addressX +
+                ", addressY=" + addressY +
+                ", addressWidth=" + addressWidth +
+                ", addressHeight=" + addressHeight +
+                ", backaddressX=" + backaddressX +
+                ", backaddressY=" + backaddressY +
+                ", backaddressWidth=" + backaddressWidth +
+                ", backaddressHeight=" + backaddressHeight +
+                ", backaddressSeplineX=" + backaddressSeplineX +
+                ", backaddressSeplineLineWidth=" + backaddressSeplineLineWidth +
+                ", backaddressSepChar='" + backaddressSepChar + '\'' +
+                ", backaddressSepCharSpacing=" + backaddressSepCharSpacing +
+                ", backaddressFontSize='" + backaddressFontSize + '\'' +
+                ", senderX=" + senderX +
+                ", senderY=" + senderY +
+                ", senderWidth=" + senderWidth +
+                ", senderHeight=" + senderHeight +
+                ", subjectY=" + subjectY +
+                ", textY=" + textY +
+                ", closingYShift=" + closingYShift +
+                ", enclosuresYShift=" + enclosuresYShift +
+                ", perforationMarkX=" + perforationMarkX +
+                ", perforationMarkY=" + perforationMarkY +
+                ", perforationMarkLength=" + perforationMarkLength +
+                ", perforationMarkLineWidth=" + perforationMarkLineWidth +
+                ", foldingMark1X=" + foldingMark1X +
+                ", foldingMark1Y=" + foldingMark1Y +
+                ", foldingMark1Length=" + foldingMark1Length +
+                ", foldingMark1LineWidth=" + foldingMark1LineWidth +
+                ", foldingMark2X=" + foldingMark2X +
+                ", foldingMark2Y=" + foldingMark2Y +
+                ", foldingMark2Length=" + foldingMark2Length +
+                ", foldingMark2LineWidth=" + foldingMark2LineWidth +
+                '}';
     }
 }

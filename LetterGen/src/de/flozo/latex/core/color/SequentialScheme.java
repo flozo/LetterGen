@@ -31,4 +31,11 @@ public enum SequentialScheme implements Scheme {
     public String getString() {
         return scheme;
     }
+
+    @Override
+    public String toString() {
+        return "SequentialScheme{" +
+                "scheme='" + scheme + '\'' +
+                '}';
+    }
 }

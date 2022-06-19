@@ -2,6 +2,7 @@ package de.flozo.latex.core.color;
 
 public enum StandardColor implements Color {
 
+    DEFAULT,
     NONE,
     BLACK,
     BLUE,
@@ -25,6 +26,8 @@ public enum StandardColor implements Color {
 
     @Override
     public String getString() {
-        return name().toLowerCase();
+        return name() != "DEFAULT" ? name().toLowerCase() : "";
     }
+
+
 }
