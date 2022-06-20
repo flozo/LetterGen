@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class PropertyMap implements PropertyKeyTypeCheck {
+public class PropertyMap implements PropertyKeyTypeCheck, PropertyValueTypeCheck {
 
     private final ConfigGroup configGroup;
     private Map<String, String> properties;
@@ -89,19 +89,82 @@ public class PropertyMap implements PropertyKeyTypeCheck {
         Map<String, Color> map = new HashMap<>();
         for (Map.Entry<String, String> entry : rawMap.entrySet()) {
             if (PropertyKeyTypeCheck.colorEntryCondition().test(entry.getKey())) {
-                Color color = BrewerColor.parseColor(entry.getValue());
-                if (color == null) {
-                    color = StandardColor.fromString(entry.getValue()).get();
-                }
-                if (map.put(entry.getKey(), color) != null) {
-//              if (map.put(entry.getKey(), LetterColorProperty.fromString(entry.getKey()).orElseThrow(IllegalArgumentException::new).getColorValue()) != null) {
-                    throw new IllegalStateException("Duplicate key");
-                }
+                map.put(entry.getKey(), parseColor(entry.getValue()));
+//                    if (map.put(entry.getKey(), LetterColorProperty.fromString(entry.getKey()).orElseThrow(IllegalArgumentException::new).getColorValue()) != null) {
+//                    throw new IllegalStateException("Duplicate key");
+//                }
                 System.out.println(entry.getKey() + " : " + entry.getValue());
             }
         }
         return map;
     }
+
+    private Color parseColor(String colorString) {
+        System.out.println(colorString);
+        if (PropertyValueTypeCheck.validBrewerColorValue().test(colorString)) {
+            return BrewerColor.parseColor(colorString);
+        } else if (PropertyValueTypeCheck.validStandardColorValue().test(colorString)) {
+            System.out.println(PropertyValueTypeCheck.validStandardColorValue().test(colorString));
+            return StandardColor.fromString(colorString).orElse(StandardColor.DEFAULT);
+        }
+        return null;
+    }
+
+//    private Predicate<String> validStandardColorValue() {
+//        Predicate<String> isEmpty = String::isEmpty;
+//        Predicate<String> isStandardColor = key -> EnumSet.allOf(StandardColor.class)
+//                .stream()
+//                .map(StandardColor::getString)
+//                .collect(Collectors.toSet())
+//                .contains(key);
+//        return isEmpty.or(isStandardColor);
+//    }
+//
+//    private Predicate<String> validBrewerColorValue() {
+//        return isBrewerType().and(isSequentialScheme().or(isDivergingScheme()));
+//    }
+//
+//    private Predicate<String> isBrewerType() {
+//        return key -> key.contains("-");
+//    }
+//
+//    private Predicate<String> isSequentialScheme() {
+//        Predicate<String> hasBrewerSequentialScheme = key -> EnumSet.allOf(SequentialScheme.class)
+//                .stream()
+//                .map(SequentialScheme::getString)
+//                .anyMatch(key::startsWith);
+//        Predicate<String> hasBrewerSequentialLetter = key -> EnumSet.allOf(Letter13.class)
+//                .stream()
+//                .map(Letter13::getString)
+//                .anyMatch(key::endsWith);
+//        return hasBrewerSequentialScheme.and(hasBrewerSequentialLetter);
+//    }
+//
+//    private Predicate<String> isDivergingScheme() {
+//        Predicate<String> hasBrewerDivergingScheme = key -> EnumSet.allOf(DivergingScheme.class)
+//                .stream()
+//                .map(DivergingScheme::getString)
+//                .anyMatch(key::startsWith);
+//        Predicate<String> hasBrewerDivergingLetter = key -> EnumSet.allOf(Letter15.class)
+//                .stream()
+//                .map(Letter15::getString)
+//                .anyMatch(key::endsWith);
+//        return hasBrewerDivergingScheme.and(hasBrewerDivergingLetter);
+//    }
+//
+//    private Predicate<String> hasBrewerDivergingScheme() {
+//        return key -> EnumSet.allOf(DivergingScheme.class)
+//                .stream()
+//                .map(DivergingScheme::getString)
+//                .anyMatch(key::startsWith);
+//    }
+//
+//    private Predicate<String> hasBrewerDivergingLetter() {
+//        return key -> EnumSet.allOf(Letter15.class)
+//                .stream()
+//                .map(Letter15::getString)
+//                .anyMatch(key::endsWith);
+//    }
 
 
     public Map<String, String> getProperties() {

@@ -1,20 +1,16 @@
 package de.flozo.data;
 
-import de.flozo.latex.core.color.*;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.EnumSet;
 import java.util.Map;
 import java.util.Properties;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class ConfigFile implements PropertyKeyTypeCheck {
+public class ConfigFile implements PropertyKeyTypeCheck, PropertyValueTypeCheck {
 
     public static final String HOME_DIR_SYSTEM_PROPERTY_NAME = "user.home";
     public static final String CONFIG_DIR = ".config";
@@ -137,55 +133,55 @@ public class ConfigFile implements PropertyKeyTypeCheck {
         if (propertyValue == null) {
             return false;
         }
-        return validColorValue().test(propertyValue);
+        return PropertyValueTypeCheck.validColorValue().test(propertyValue);
     }
 
 
 
-    private Predicate<String> validColorValue() {
-        return validStandardColorValue().or(validBrewerColorValue());
-    }
-
-    private Predicate<String> validStandardColorValue() {
-        Predicate<String> isEmpty = String::isEmpty;
-        Predicate<String> isStandardColor = key -> EnumSet.allOf(StandardColor.class)
-                .stream()
-                .map(StandardColor::getString)
-                .collect(Collectors.toSet())
-                .contains(key);
-        return isEmpty.or(isStandardColor);
-    }
-
-    private Predicate<String> isBrewerType() {
-        return key -> key.contains("-");
-    }
-
-    private Predicate<String> isSequentialScheme() {
-        Predicate<String> hasBrewerSequentialScheme = key -> EnumSet.allOf(SequentialScheme.class)
-                .stream()
-                .map(SequentialScheme::getString)
-                .anyMatch(key::startsWith);
-        Predicate<String> hasBrewerSequentialLetter = key -> EnumSet.allOf(Letter13.class)
-                .stream()
-                .map(Letter13::getString)
-                .anyMatch(key::endsWith);
-        return hasBrewerSequentialScheme.and(hasBrewerSequentialLetter);
-    }
-
-    private Predicate<String> isDivergingScheme() {
-        Predicate<String> hasBrewerDivergingScheme = key -> EnumSet.allOf(DivergingScheme.class)
-                .stream()
-                .map(DivergingScheme::getString)
-                .anyMatch(key::startsWith);
-        Predicate<String> hasBrewerDivergingLetter = key -> EnumSet.allOf(Letter15.class)
-                .stream()
-                .map(Letter15::getString)
-                .anyMatch(key::endsWith);
-        return hasBrewerDivergingScheme.and(hasBrewerDivergingLetter);
-    }
-
-    private Predicate<String> validBrewerColorValue() {
-        return isBrewerType().and(isSequentialScheme().or(isDivergingScheme()));
-    }
+//    private Predicate<String> validColorValue() {
+//        return validStandardColorValue().or(validBrewerColorValue());
+//    }
+//
+//    private Predicate<String> validStandardColorValue() {
+//        Predicate<String> isEmpty = String::isEmpty;
+//        Predicate<String> isStandardColor = key -> EnumSet.allOf(StandardColor.class)
+//                .stream()
+//                .map(StandardColor::getString)
+//                .collect(Collectors.toSet())
+//                .contains(key);
+//        return isEmpty.or(isStandardColor);
+//    }
+//
+//    private Predicate<String> isBrewerType() {
+//        return key -> key.contains("-");
+//    }
+//
+//    private Predicate<String> isSequentialScheme() {
+//        Predicate<String> hasBrewerSequentialScheme = key -> EnumSet.allOf(SequentialScheme.class)
+//                .stream()
+//                .map(SequentialScheme::getString)
+//                .anyMatch(key::startsWith);
+//        Predicate<String> hasBrewerSequentialLetter = key -> EnumSet.allOf(Letter13.class)
+//                .stream()
+//                .map(Letter13::getString)
+//                .anyMatch(key::endsWith);
+//        return hasBrewerSequentialScheme.and(hasBrewerSequentialLetter);
+//    }
+//
+//    private Predicate<String> isDivergingScheme() {
+//        Predicate<String> hasBrewerDivergingScheme = key -> EnumSet.allOf(DivergingScheme.class)
+//                .stream()
+//                .map(DivergingScheme::getString)
+//                .anyMatch(key::startsWith);
+//        Predicate<String> hasBrewerDivergingLetter = key -> EnumSet.allOf(Letter15.class)
+//                .stream()
+//                .map(Letter15::getString)
+//                .anyMatch(key::endsWith);
+//        return hasBrewerDivergingScheme.and(hasBrewerDivergingLetter);
+//    }
+//
+//    private Predicate<String> validBrewerColorValue() {
+//        return isBrewerType().and(isSequentialScheme().or(isDivergingScheme()));
+//    }
 
 }
