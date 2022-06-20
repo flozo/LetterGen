@@ -1,11 +1,14 @@
 package de.flozo.data;
 
+import de.flozo.latex.core.color.*;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.EnumSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.function.Predicate;
@@ -29,14 +32,20 @@ public class ConfigFile {
         Path configDirectory = Paths.get(homeDirectory, CONFIG_DIR, SUB_DIR, fileName);
         System.out.println("[config] Read from config file \"" + configDirectory + "\" ...");
         Properties properties = new Properties();
+        System.out.println("******************");
+        System.out.println(fileName);
         try (InputStreamReader input = new InputStreamReader(new FileInputStream(configDirectory.toFile()), StandardCharsets.UTF_8)) {
             properties.load(input);
         } catch (IOException e) {
             System.out.println("[config] [IOException] Failed to open config file!");
         }
-        if (!checkNumericValues(properties) || !checkBooleanValues(properties)) {
-            System.out.println("Possible type error in settings file!");
+        System.out.println("[config] Checking property types ...");
+        if (!checkNumericValues(properties) || !checkBooleanValues(properties) || !checkColorValues(properties)) {
+            System.out.println("[config] [warning] Possible type error in settings file!");
+        } else {
+            System.out.println("[config] ... done! Property types are correct!");
         }
+        System.out.println("[config] Type checking complete.");
         return properties;
     }
 
@@ -61,6 +70,16 @@ public class ConfigFile {
         return true;
     }
 
+    private boolean checkColorValues(Properties properties) {
+        for (Map.Entry<String, String> entry : toCheckIfColor(properties).entrySet()) {
+            if (!isColor(entry.getValue())) {
+                System.out.println("[config] [error] Color value expected for property \"" + entry.getKey() + "\"; found non-color value \"" + entry.getValue() + "\"");
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     private Map<String, String> toCheckIfNumeric(Properties properties) {
         return properties.entrySet()
@@ -75,6 +94,15 @@ public class ConfigFile {
         return properties.entrySet()
                 .stream()
                 .filter(entry -> booleanEntryCondition().test(entry.getKey().toString()))
+                .collect(Collectors.toMap(
+                        entry -> String.valueOf(entry.getKey()),
+                        entry -> String.valueOf(entry.getValue())));
+    }
+
+    private Map<String, String> toCheckIfColor(Properties properties) {
+        return properties.entrySet()
+                .stream()
+                .filter(entry -> colorEntryCondition().test(entry.getKey().toString()))
                 .collect(Collectors.toMap(
                         entry -> String.valueOf(entry.getKey()),
                         entry -> String.valueOf(entry.getValue())));
@@ -105,6 +133,12 @@ public class ConfigFile {
         return true;
     }
 
+    private boolean isColor(String propertyValue) {
+        if (propertyValue == null) {
+            return false;
+        }
+        return validColorValue().test(propertyValue);
+    }
 
     private Predicate<String> numericEntryCondition() {
         Predicate<String> isWidth = key -> key.endsWith(".width");
@@ -122,6 +156,57 @@ public class ConfigFile {
 
     private Predicate<String> booleanEntryCondition() {
         return key -> key.endsWith(".on");
+    }
+
+    private Predicate<String> colorEntryCondition() {
+        return key -> key.endsWith(".color");
+    }
+
+
+    private Predicate<String> validColorValue() {
+        return validStandardColorValue().or(validBrewerColorValue());
+    }
+
+    private Predicate<String> validStandardColorValue() {
+        Predicate<String> isEmpty = String::isEmpty;
+        Predicate<String> isStandardColor = key -> EnumSet.allOf(StandardColor.class)
+                .stream()
+                .map(StandardColor::getString)
+                .collect(Collectors.toSet())
+                .contains(key);
+        return isEmpty.or(isStandardColor);
+    }
+
+    private Predicate<String> isBrewerType() {
+        return key -> key.contains("-");
+    }
+
+    private Predicate<String> isSequentialScheme() {
+        Predicate<String> hasBrewerSequentialScheme = key -> EnumSet.allOf(SequentialScheme.class)
+                .stream()
+                .map(SequentialScheme::getString)
+                .anyMatch(key::startsWith);
+        Predicate<String> hasBrewerSequentialLetter = key -> EnumSet.allOf(Letter13.class)
+                .stream()
+                .map(Letter13::getString)
+                .anyMatch(key::endsWith);
+        return hasBrewerSequentialScheme.and(hasBrewerSequentialLetter);
+    }
+
+    private Predicate<String> isDivergingScheme() {
+        Predicate<String> hasBrewerDivergingScheme = key -> EnumSet.allOf(DivergingScheme.class)
+                .stream()
+                .map(DivergingScheme::getString)
+                .anyMatch(key::startsWith);
+        Predicate<String> hasBrewerDivergingLetter = key -> EnumSet.allOf(Letter15.class)
+                .stream()
+                .map(Letter15::getString)
+                .anyMatch(key::endsWith);
+        return hasBrewerDivergingScheme.and(hasBrewerDivergingLetter);
+    }
+
+    private Predicate<String> validBrewerColorValue() {
+        return isBrewerType().and(isSequentialScheme().or(isDivergingScheme()));
     }
 
 }
