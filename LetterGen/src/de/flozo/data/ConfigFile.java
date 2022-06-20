@@ -14,7 +14,7 @@ import java.util.Properties;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class ConfigFile {
+public class ConfigFile implements PropertyKeyTypeCheck {
 
     public static final String HOME_DIR_SYSTEM_PROPERTY_NAME = "user.home";
     public static final String CONFIG_DIR = ".config";
@@ -84,7 +84,7 @@ public class ConfigFile {
     private Map<String, String> toCheckIfNumeric(Properties properties) {
         return properties.entrySet()
                 .stream()
-                .filter(entry -> numericEntryCondition().test(entry.getKey().toString()))
+                .filter(entry -> PropertyKeyTypeCheck.numericEntryCondition().test(entry.getKey().toString()))
                 .collect(Collectors.toMap(
                         entry -> String.valueOf(entry.getKey()),
                         entry -> String.valueOf(entry.getValue())));
@@ -93,7 +93,7 @@ public class ConfigFile {
     private Map<String, String> toCheckIfBoolean(Properties properties) {
         return properties.entrySet()
                 .stream()
-                .filter(entry -> booleanEntryCondition().test(entry.getKey().toString()))
+                .filter(entry -> PropertyKeyTypeCheck.booleanEntryCondition().test(entry.getKey().toString()))
                 .collect(Collectors.toMap(
                         entry -> String.valueOf(entry.getKey()),
                         entry -> String.valueOf(entry.getValue())));
@@ -102,7 +102,7 @@ public class ConfigFile {
     private Map<String, String> toCheckIfColor(Properties properties) {
         return properties.entrySet()
                 .stream()
-                .filter(entry -> colorEntryCondition().test(entry.getKey().toString()))
+                .filter(entry -> PropertyKeyTypeCheck.colorEntryCondition().test(entry.getKey().toString()))
                 .collect(Collectors.toMap(
                         entry -> String.valueOf(entry.getKey()),
                         entry -> String.valueOf(entry.getValue())));
@@ -140,27 +140,6 @@ public class ConfigFile {
         return validColorValue().test(propertyValue);
     }
 
-    private Predicate<String> numericEntryCondition() {
-        Predicate<String> isWidth = key -> key.endsWith(".width");
-        Predicate<String> isHeight = key -> key.endsWith(".height");
-        Predicate<String> isLength = key -> key.endsWith(".length");
-        Predicate<String> isLineWidth = key -> key.endsWith(".line_width");
-        Predicate<String> isSpacing = key -> key.endsWith(".spacing");
-        Predicate<String> isX = key -> key.endsWith(".x");
-        Predicate<String> isY = key -> key.endsWith(".y");
-        Predicate<String> isXShift = key -> key.endsWith(".x_shift");
-        Predicate<String> isYShift = key -> key.endsWith(".y_shift");
-        Predicate<String> isBorderMargin = key -> key.startsWith("border_margin");
-        return isWidth.or(isHeight).or(isLength).or(isLineWidth).or(isSpacing).or(isX).or(isY).or(isXShift).or(isYShift).or(isBorderMargin);
-    }
-
-    private Predicate<String> booleanEntryCondition() {
-        return key -> key.endsWith(".on");
-    }
-
-    private Predicate<String> colorEntryCondition() {
-        return key -> key.endsWith(".color");
-    }
 
 
     private Predicate<String> validColorValue() {

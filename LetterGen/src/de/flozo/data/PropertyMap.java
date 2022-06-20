@@ -1,13 +1,14 @@
 package de.flozo.data;
 
+import de.flozo.latex.core.color.BrewerColor;
 import de.flozo.latex.core.color.Color;
+import de.flozo.latex.core.color.StandardColor;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class PropertyMap {
+public class PropertyMap implements PropertyKeyTypeCheck {
 
     private final ConfigGroup configGroup;
     private Map<String, String> properties;
@@ -36,7 +37,7 @@ public class PropertyMap {
             for (LetterGeometryProperty property : LetterGeometryProperty.values()) {
                 propertiesRawMap.put(property.getPropertyKey(), property.getGenericStringValue());
             }
-        } else if (configGroup == ConfigGroup.LETTER_COLOR) {
+        } else if (configGroup == ConfigGroup.LETTER_COLORS) {
             for (LetterColorProperty property : LetterColorProperty.values()) {
                 propertiesRawMap.put(property.getPropertyKey(), property.getGenericStringValue());
             }
@@ -66,62 +67,52 @@ public class PropertyMap {
     public Map<String, String> stringSubMap(Map<String, String> rawMap) {
         return rawMap.entrySet()
                 .stream()
-                .filter(entry -> numericEntryCondition().negate().test(entry.getKey()))
+                .filter(entry -> PropertyKeyTypeCheck.numericEntryCondition().negate().test(entry.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     public Map<String, Double> numericSubMap(Map<String, String> rawMap) {
         return rawMap.entrySet()
                 .stream()
-                .filter(entry -> numericEntryCondition().test(entry.getKey()))
+                .filter(entry -> PropertyKeyTypeCheck.numericEntryCondition().test(entry.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, value -> Double.parseDouble(value.getValue())));
     }
 
     public Map<String, Boolean> booleanSubMap(Map<String, String> rawMap) {
         return rawMap.entrySet()
                 .stream()
-                .filter(entry -> booleanEntryCondition().test(entry.getKey()))
+                .filter(entry -> PropertyKeyTypeCheck.booleanEntryCondition().test(entry.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, value -> Boolean.parseBoolean(value.getValue())));
     }
 
     public Map<String, Color> colorSubMap(Map<String, String> rawMap) {
         Map<String, Color> map = new HashMap<>();
         for (Map.Entry<String, String> entry : rawMap.entrySet()) {
-            if (colorEntryCondition().test(entry.getKey())) {
-//                System.out.println(entry.getKey() + " : " + entry.getValue());
-                if (map.put(entry.getKey(), LetterColorProperty.fromString(entry.getKey()).orElseThrow(IllegalArgumentException::new).getColorValue()) != null) {
+            if (PropertyKeyTypeCheck.colorEntryCondition().test(entry.getKey())) {
+                Color color = BrewerColor.parseColor(entry.getValue());
+                if (color == null) {
+                    color = StandardColor.fromString(entry.getValue()).get();
+                }
+                if (map.put(entry.getKey(), color) != null) {
+//              if (map.put(entry.getKey(), LetterColorProperty.fromString(entry.getKey()).orElseThrow(IllegalArgumentException::new).getColorValue()) != null) {
                     throw new IllegalStateException("Duplicate key");
                 }
+                System.out.println(entry.getKey() + " : " + entry.getValue());
             }
         }
         return map;
     }
 
 
-    private Predicate<String> numericEntryCondition() {
-        Predicate<String> isWidth = key -> key.endsWith(".width");
-        Predicate<String> isHeight = key -> key.endsWith(".height");
-        Predicate<String> isLength = key -> key.endsWith(".length");
-        Predicate<String> isLineWidth = key -> key.endsWith(".line_width");
-        Predicate<String> isSpacing = key -> key.endsWith(".spacing");
-        Predicate<String> isX = key -> key.endsWith(".x");
-        Predicate<String> isY = key -> key.endsWith(".y");
-        Predicate<String> isXShift = key -> key.endsWith(".x_shift");
-        Predicate<String> isYShift = key -> key.endsWith(".y_shift");
-        Predicate<String> isBorderMargin = key -> key.startsWith("border_margin");
-        return isWidth.or(isHeight).or(isLength).or(isLineWidth).or(isSpacing).or(isX).or(isY).or(isXShift).or(isYShift).or(isBorderMargin);
-    }
-
-    private Predicate<String> booleanEntryCondition() {
-        return key -> key.endsWith(".on");
-    }
-
-    private Predicate<String> colorEntryCondition() {
-        return key -> key.endsWith(".color");
-    }
-
-
     public Map<String, String> getProperties() {
         return properties;
+    }
+
+    @Override
+    public String toString() {
+        return "PropertyMap{" +
+                "configGroup=" + configGroup +
+                ", properties=" + properties +
+                '}';
     }
 }
