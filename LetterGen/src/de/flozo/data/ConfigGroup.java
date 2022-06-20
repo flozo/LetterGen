@@ -4,7 +4,7 @@ public enum ConfigGroup {
 
     LETTER_GENERAL("letter.general"),
     LETTER_GEOMETRY("letter.geometry"),
-    LETTER_COLOR("letter.color"),
+    LETTER_COLORS("letter.colors"),
     LETTER_ENCLOSURES("letter.enclosures"),
     LETTER_ICONS("letter.icons"),
     SENDER_DATA("letter.sender"),
