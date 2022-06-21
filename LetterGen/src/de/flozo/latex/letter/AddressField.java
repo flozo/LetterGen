@@ -56,7 +56,7 @@ public class AddressField {
     }
 
     public String getAddressField() {
-        Node addressNode = new Node.Builder(assembleText())
+        return new Node.Builder(assembleText())
                 .name(FIELD_NAME)
                 .position(Point.fromNumbers(x,y))
                 .anchor(Anchor.NORTH_WEST)
@@ -68,8 +68,7 @@ public class AddressField {
                 .textWidth(width)
                 .alignment(Alignment.LEFT)
                 .bodyTerminator(StatementTerminator.DOUBLE_BACKSLASH)
-                .build();
-        return addressNode.getInline();
+                .build().getInline();
     }
 
     private List<String> assembleText() {

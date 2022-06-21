@@ -2,6 +2,7 @@ package de.flozo.latex.core.color;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
@@ -24,7 +25,7 @@ public enum DivergingScheme implements Scheme {
         this.scheme = scheme;
     }
 
-    private static final Map<String, DivergingScheme> stringToEnum = Stream.of(values()).collect(toMap(Object::toString, e -> e));
+    private static final Map<String, DivergingScheme> stringToEnum = Stream.of(values()).collect(toMap(DivergingScheme::getString, Function.identity()));
 
     public static Optional<DivergingScheme> fromString(String stringValue) {
         return Optional.ofNullable(stringToEnum.get(stringValue));

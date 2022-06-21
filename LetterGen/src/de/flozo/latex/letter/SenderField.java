@@ -3,6 +3,7 @@ package de.flozo.latex.letter;
 import de.flozo.data.Address;
 import de.flozo.data.LetterColor;
 import de.flozo.data.LetterGeometry;
+import de.flozo.latex.core.color.Color;
 import de.flozo.latex.tikz.*;
 
 public class SenderField {
@@ -14,6 +15,10 @@ public class SenderField {
     private final Point position;
     private final double width;
     private final double height;
+    private final Color backgroundColor;
+    private final Color borderColor;
+    private final Color textColor;
+
 
     // content
     private final String senderFirstName;
@@ -36,6 +41,9 @@ public class SenderField {
         this.position = Point.fromNumbers(geometry.getSenderX(), geometry.getSenderY());
         this.width = geometry.getSenderWidth();
         this.height = geometry.getSenderHeight();
+        this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
+        this.borderColor = color.getDraftModeHighlightingBorderColor();
+        this.textColor = color.getSenderTextColor();
         this.senderFirstName = address.getFirstName();
         this.senderMiddleName = address.getMiddleName();
         this.senderLastName = address.getLastName();
@@ -52,16 +60,18 @@ public class SenderField {
     }
 
     public String getAddressField() {
-        Node addressNode = new Node.Builder(assembleText())
+        return new Node.Builder(assembleText())
                 .name(FIELD_NAME)
                 .position(position)
                 .anchor(Anchor.NORTH_WEST)
                 .minimumWidth(width)
                 .minimumHeight(2.73)
+                .fillColor(backgroundColor)
+                .drawColor(borderColor)
+                .textColor(textColor)
                 .textWidth(width)
                 .alignment(Alignment.LEFT)
-                .build();
-        return addressNode.getInline();
+                .build().getInline();
     }
 
     public MatrixOfNodes getMatrix() {

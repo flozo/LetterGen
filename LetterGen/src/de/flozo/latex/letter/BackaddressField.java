@@ -37,13 +37,15 @@ public class BackaddressField {
 
     // Constructor with dependency injection
     public BackaddressField(LetterGeometry geometry, LetterColor color, Address address) {
+        System.out.println("&&&&&&&&&&&&&");
+        System.out.println(color.getBackaddressTextColor().getString());
         this.x = geometry.getBackaddressX();
         this.y = geometry.getBackaddressY();
         this.width = geometry.getBackaddressWidth();
         this.height = geometry.getBackaddressHeight();
         this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
         this.borderColor = color.getDraftModeHighlightingBorderColor();
-        this.textColor = color.getAddressTextColor();
+        this.textColor = color.getBackaddressTextColor();
         this.firstName = address.getFirstName();
         this.middleName = address.getMiddleName();
         this.lastName = address.getLastName();

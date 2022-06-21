@@ -2,6 +2,7 @@ package de.flozo.latex.core.color;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
@@ -28,7 +29,7 @@ public enum Letter13 implements Letter {
         this.scheme = scheme;
     }
 
-    private static final Map<String, Letter13> stringToEnum = Stream.of(values()).collect(toMap(Object::toString, e -> e));
+    private static final Map<String, Letter13> stringToEnum = Stream.of(values()).collect(toMap(Letter13::getString, Function.identity()));
 
     public static Optional<Letter13> fromString(String stringValue) {
         return Optional.ofNullable(stringToEnum.get(stringValue));

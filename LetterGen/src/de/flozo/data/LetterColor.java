@@ -32,8 +32,9 @@ public class LetterColor {
 
     public LetterColor(PropertyMap propertyMap) {
         Map<String, String> rawMap = propertyMap.getProperties();
-        System.out.println(rawMap);
         Map<String, Color> colorMap = propertyMap.colorSubMap(rawMap);
+        System.out.println("WWWWWWWWWWWWWWWWWWWW");
+        System.out.println(colorMap.get(LetterColorProperty.BACKADDRESS_TEXT_COLOR.getPropertyKey()));
         this.backgroundColor = colorMap.get(LetterColorProperty.BACKGROUND_COLOR.getPropertyKey());
         this.draftModeHighlightingBackgroundColor = colorMap.get(LetterColorProperty.DRAFT_MODE_HIGHLIGHTING_BACKGROUND_COLOR.getPropertyKey());
         this.draftModeHighlightingBorderColor = colorMap.get(LetterColorProperty.DRAFT_MODE_HIGHLIGHTING_BORDER_COLOR.getPropertyKey());
