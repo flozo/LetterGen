@@ -9,15 +9,15 @@ import java.util.stream.Collectors;
 public interface PropertyValueTypeCheck {
 
 
-    static Predicate<String> validColorValue() {
-        return validStandardColorValue().or(validBrewerColorValue());
+    static Predicate<String> isValidColorValue() {
+        return isValidStandardColorValue().or(isValidBrewerColorValue());
     }
 
-    static Predicate<String> validBrewerColorValue() {
+    static Predicate<String> isValidBrewerColorValue() {
         return isBrewerType().and(isSequentialScheme().or(isDivergingScheme()));
     }
 
-    static Predicate<String> validStandardColorValue() {
+    static Predicate<String> isValidStandardColorValue() {
         Predicate<String> isEmpty = String::isEmpty;
         Predicate<String> isStandardColor = key -> EnumSet.allOf(StandardColor.class)
                 .stream()
@@ -32,7 +32,7 @@ public interface PropertyValueTypeCheck {
         return key -> key.contains("-");
     }
 
-    private static Predicate<String> isSequentialScheme() {
+    static Predicate<String> isSequentialScheme() {
         Predicate<String> hasBrewerSequentialScheme = key -> EnumSet.allOf(SequentialScheme.class)
                 .stream()
                 .map(SequentialScheme::getString)
@@ -44,7 +44,7 @@ public interface PropertyValueTypeCheck {
         return hasBrewerSequentialScheme.and(hasBrewerSequentialLetter);
     }
 
-    private static Predicate<String> isDivergingScheme() {
+    static Predicate<String> isDivergingScheme() {
         Predicate<String> hasBrewerDivergingScheme = key -> EnumSet.allOf(DivergingScheme.class)
                 .stream()
                 .map(DivergingScheme::getString)

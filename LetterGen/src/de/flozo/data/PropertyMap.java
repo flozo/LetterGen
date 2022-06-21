@@ -90,10 +90,6 @@ public class PropertyMap implements PropertyKeyTypeCheck, PropertyValueTypeCheck
         for (Map.Entry<String, String> entry : rawMap.entrySet()) {
             if (PropertyKeyTypeCheck.colorEntryCondition().test(entry.getKey())) {
                 map.put(entry.getKey(), parseColor(entry.getValue()));
-//                    if (map.put(entry.getKey(), LetterColorProperty.fromString(entry.getKey()).orElseThrow(IllegalArgumentException::new).getColorValue()) != null) {
-//                    throw new IllegalStateException("Duplicate key");
-//                }
-                System.out.println(entry.getKey() + " : " + entry.getValue());
             }
         }
         return map;
@@ -101,10 +97,9 @@ public class PropertyMap implements PropertyKeyTypeCheck, PropertyValueTypeCheck
 
     private Color parseColor(String colorString) {
         System.out.println(colorString);
-        if (PropertyValueTypeCheck.validBrewerColorValue().test(colorString)) {
+        if (PropertyValueTypeCheck.isValidBrewerColorValue().test(colorString)) {
             return BrewerColor.parseColor(colorString);
-        } else if (PropertyValueTypeCheck.validStandardColorValue().test(colorString)) {
-            System.out.println(PropertyValueTypeCheck.validStandardColorValue().test(colorString));
+        } else if (PropertyValueTypeCheck.isValidStandardColorValue().test(colorString)) {
             return StandardColor.fromString(colorString).orElse(StandardColor.DEFAULT);
         }
         return null;

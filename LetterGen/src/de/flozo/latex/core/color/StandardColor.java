@@ -37,16 +37,8 @@ public enum StandardColor implements Color {
         return Optional.ofNullable(stringToEnum.get(stringValue));
     }
 
-
     @Override
     public String getString() {
         return !name().equals("DEFAULT") ? name().toLowerCase() : "";
     }
-
-//    @Override
-//    public Color parseColor(String colorString) {
-//        return null;
-//    }
-
-
 }

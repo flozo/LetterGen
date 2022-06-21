@@ -4,6 +4,7 @@ import de.flozo.data.Address;
 import de.flozo.data.LetterColor;
 import de.flozo.data.LetterGeometry;
 import de.flozo.latex.core.*;
+import de.flozo.latex.core.color.Color;
 import de.flozo.latex.tikz.*;
 
 public class BackaddressField {
@@ -19,6 +20,10 @@ public class BackaddressField {
     private final String separationCharacter;
     private final double separationCharacterSpacing;
     private final FontSize fontSize;
+    private final Color backgroundColor;
+    private final Color borderColor;
+    private final Color textColor;
+
 
     // content
     private final String firstName;
@@ -36,6 +41,9 @@ public class BackaddressField {
         this.y = geometry.getBackaddressY();
         this.width = geometry.getBackaddressWidth();
         this.height = geometry.getBackaddressHeight();
+        this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
+        this.borderColor = color.getDraftModeHighlightingBorderColor();
+        this.textColor = color.getAddressTextColor();
         this.firstName = address.getFirstName();
         this.middleName = address.getMiddleName();
         this.lastName = address.getLastName();
@@ -55,6 +63,9 @@ public class BackaddressField {
                 .name("backaddress")
                 .position(Point.fromNumbers(x, y))
                 .anchor(Anchor.SOUTH_WEST)
+                .fillColor(backgroundColor)
+                .drawColor(borderColor)
+                .textColor(textColor)
                 .textWidth(width)
                 .fontSize(fontSize)
                 .alignment(Alignment.CENTER)

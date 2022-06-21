@@ -133,7 +133,7 @@ public class ConfigFile implements PropertyKeyTypeCheck, PropertyValueTypeCheck 
         if (propertyValue == null) {
             return false;
         }
-        return PropertyValueTypeCheck.validColorValue().test(propertyValue);
+        return PropertyValueTypeCheck.isValidColorValue().test(propertyValue);
     }
 
 

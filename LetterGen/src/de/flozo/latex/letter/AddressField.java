@@ -56,8 +56,6 @@ public class AddressField {
     }
 
     public String getAddressField() {
-        System.out.println("QQQQQQQQQQQQQ");
-        System.out.println(backgroundColor);
         Node addressNode = new Node.Builder(assembleText())
                 .name(FIELD_NAME)
                 .position(Point.fromNumbers(x,y))
