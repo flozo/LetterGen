@@ -3,6 +3,8 @@ package de.flozo.latex.letter;
 import de.flozo.data.Address;
 import de.flozo.data.LetterColor;
 import de.flozo.data.LetterGeometry;
+import de.flozo.latex.core.Length;
+import de.flozo.latex.core.LengthUnit;
 import de.flozo.latex.core.color.Color;
 import de.flozo.latex.tikz.*;
 
@@ -79,6 +81,40 @@ public class SenderField {
                 .addRow(senderStreet + " " + senderHouseNumber + "\\\\" + senderPostalCode + " " + senderCity, ContactIcon.MAP_MARKER_ALT.getIconDefault())
                 .addRow(phoneNumber, ContactIcon.PHONE_ALT.getIconDefault())
                 .addRow(emailAddress, ContactIcon.ENVELOPE.getIconDefault())
+                .addColumnStyle(assembleNodeStyle1())
+                .addColumnStyle(assembleNodeStyle2())
+                .build();
+    }
+
+    // preliminary
+    private NodeStyle assembleNodeStyle1() {
+        return new NodeStyle.Builder()
+                .addCustomOption(PathOperation.RECTANGLE.getString())
+                .addNodeOption(NodeOption.DRAW, textColor.getString())
+                .addNodeOption(NodeOption.FILL, backgroundColor.getString())
+                .addNodeOption(NodeOption.ALIGN, Alignment.RIGHT.getString())
+                .addNodeOption(NodeOption.INNER_X_SEP, Length.createFromNumberAndUnit(8, LengthUnit.POINT).getFormatted())
+                .addNodeOption(NodeOption.INNER_Y_SEP, Length.createFromNumberAndUnit(6, LengthUnit.POINT).getFormatted())
+                .addNodeOption(NodeOption.MINIMUM_WIDTH, Length.createFromNumberAndUnit(0.6, LengthUnit.CENTIMETER).getFormatted())
+                .addNodeOption(NodeOption.MINIMUM_HEIGHT, Length.createFromNumberAndUnit(0.5, LengthUnit.CENTIMETER).getFormatted())
+                .addNodeOption(NodeOption.TEXT_WIDTH, Length.createFromNumberAndUnit(7.8, LengthUnit.CENTIMETER).getFormatted())
+                .addNodeOption(NodeOption.TEXT_HEIGHT, Length.createFromNumberAndUnit(0.25, LengthUnit.CENTIMETER).getFormatted())
+                .build();
+    }
+
+    // preliminary
+    private NodeStyle assembleNodeStyle2() {
+        return new NodeStyle.Builder()
+                .addCustomOption(PathOperation.RECTANGLE.getString())
+                .addNodeOption(NodeOption.DRAW, textColor.getString())
+                .addNodeOption(NodeOption.FILL, backgroundColor.getString())
+                .addNodeOption(NodeOption.ALIGN, Alignment.CENTER.getString())
+                .addNodeOption(NodeOption.INNER_X_SEP, Length.createFromNumberAndUnit(0, LengthUnit.POINT).getFormatted())
+                .addNodeOption(NodeOption.INNER_Y_SEP, Length.createFromNumberAndUnit(6, LengthUnit.POINT).getFormatted())
+                .addNodeOption(NodeOption.MINIMUM_WIDTH, Length.createFromNumberAndUnit(0.4, LengthUnit.CENTIMETER).getFormatted())
+                .addNodeOption(NodeOption.MINIMUM_HEIGHT, Length.createFromNumberAndUnit(0.5, LengthUnit.CENTIMETER).getFormatted())
+                .addNodeOption(NodeOption.TEXT_WIDTH, Length.createFromNumberAndUnit(0.4, LengthUnit.CENTIMETER).getFormatted())
+                .addNodeOption(NodeOption.TEXT_HEIGHT, Length.createFromNumberAndUnit(0.25, LengthUnit.CENTIMETER).getFormatted())
                 .build();
     }
 

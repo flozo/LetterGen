@@ -11,6 +11,8 @@ public class MatrixOfNodes {
 
     private final String name;
     private final List<List<Node>> matrix;
+    private final List<String> columnStyles;
+
 
     private final Point position;
 
@@ -21,6 +23,7 @@ public class MatrixOfNodes {
     public MatrixOfNodes(Builder builder) {
         this.name = builder.name;
         this.matrix = builder.matrix;
+        this.columnStyles = builder.columnStyles;
         this.position = builder.position;
         this.anchor = builder.anchor;
         this.fontSize = builder.fontSize;
@@ -28,18 +31,22 @@ public class MatrixOfNodes {
 
 
     public List<String> getBlock() {
-        return new Node.Builder(assembleTable())
+        return buildNode().getBlock();
+    }
+
+    private Node buildNode() {
+        Node.Builder node = new Node.Builder(assembleTable())
                 .name(name)
                 .position(position)
                 .isMatrix(true)
                 .anchor(anchor)
                 .fontSize(fontSize)
-                // preliminary
-                .addCustomOption("column 1/.style={nodes={rectangle, draw=none, inner xsep=8pt, inner ysep=6pt, align=right, minimum width=0.6cm, minimum height=0.5cm, text width=7.8cm, text height=0.25cm}}")
-                .addCustomOption("column 2/.style={nodes={rectangle, draw=none, inner xsep=0pt, inner ysep=6pt, align=center, minimum width=0.4cm, minimum height=0.5cm, text width=0.4cm, text height=0.25cm}}")
                 .bodyTerminator(StatementTerminator.DOUBLE_BACKSLASH)
-                .skipLastTerminator(false)
-                .build().getBlock();
+                .skipLastTerminator(false);
+        for (String columnStyle : columnStyles) {
+            node.addCustomOption(columnStyle);
+        }
+        return node.build();
     }
 
 
@@ -77,6 +84,7 @@ public class MatrixOfNodes {
         // required
         private final String name;
         private final List<List<Node>> matrix = new ArrayList<>();
+        private final List<String> columnStyles = new ArrayList<>();
         private final Point position;
         private final Anchor anchor;
 
@@ -103,8 +111,13 @@ public class MatrixOfNodes {
         }
 
         public Builder addRowOfNodes(List<Node> row) {
-//            System.out.println(row);
             this.matrix.add(row);
+            return this;
+        }
+
+        public Builder addColumnStyle(NodeStyle nodeStyle) {
+            int columnStyleNumber = columnStyles.size() + 1;
+            this.columnStyles.add("column " + columnStyleNumber + "/.style={nodes={" + nodeStyle.getOptionList().getInline() + "}}");
             return this;
         }
 
