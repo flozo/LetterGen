@@ -1,5 +1,11 @@
 package de.flozo.latex.core.color;
 
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toMap;
+
 public enum DivergingScheme implements Scheme {
 
     BR_B_G("BrBG"),
@@ -17,6 +23,13 @@ public enum DivergingScheme implements Scheme {
     DivergingScheme(String scheme) {
         this.scheme = scheme;
     }
+
+    private static final Map<String, DivergingScheme> stringToEnum = Stream.of(values()).collect(toMap(Object::toString, e -> e));
+
+    public static Optional<DivergingScheme> fromString(String stringValue) {
+        return Optional.ofNullable(stringToEnum.get(stringValue));
+    }
+
 
     @Override
     public String getString() {

@@ -4,11 +4,6 @@ import java.util.Map;
 
 public class LetterGeometry {
 
-//    private final String backgroundColor;
-//    private final String draftModeHighlightingBackgroundColor;
-//    private final String draftModeHighlightingBorderColor;
-//    private final String urlHyperlinkColor;
-
     private final double paperWidth;
     private final double paperHeight;
 
@@ -63,10 +58,6 @@ public class LetterGeometry {
         Map<String, String> rawMap = propertyMap.getProperties();
         Map<String, String> stringSubMap = propertyMap.stringSubMap(rawMap);
         Map<String, Double> numericSubMap = propertyMap.numericSubMap(rawMap);
-//        this.backgroundColor = stringSubMap.get(LetterGeometryProperty.BACKGROUND_COLOR.getPropertyKey());
-//        this.draftModeHighlightingBackgroundColor = stringSubMap.get(LetterGeometryProperty.DRAFT_MODE_HIGHLIGHTING_BACKGROUND_COLOR.getPropertyKey());
-//        this.draftModeHighlightingBorderColor = stringSubMap.get(LetterGeometryProperty.DRAFT_MODE_HIGHLIGHTING_BORDER_COLOR.getPropertyKey());
-//        this.urlHyperlinkColor = stringSubMap.get(LetterGeometryProperty.URL_COLOR.getPropertyKey());
         this.paperWidth = numericSubMap.get(LetterGeometryProperty.PAPER_WIDTH.getPropertyKey());
         this.paperHeight = numericSubMap.get(LetterGeometryProperty.PAPER_HEIGHT.getPropertyKey());
         this.borderMarginTop = numericSubMap.get(LetterGeometryProperty.BORDER_MARGIN_TOP.getPropertyKey());

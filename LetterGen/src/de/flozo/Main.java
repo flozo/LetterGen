@@ -36,8 +36,10 @@ public class Main {
         letterGeometryMap.updateDefaults(settings);
         LetterGeometry geometry = new LetterGeometry(letterGeometryMap);
 
-        PropertyMap letterColor = new PropertyMap(ConfigGroup.LETTER_COLOR);
+        PropertyMap letterColor = new PropertyMap(ConfigGroup.LETTER_COLORS);
         letterColor.updateDefaults(settings);
+        System.out.println("XXXXXXXXXXXX");
+        System.out.println(letterColor);
         LetterColor color = new LetterColor(letterColor);
 
         PropertyMap senderMap = new PropertyMap(ConfigGroup.SENDER_DATA);

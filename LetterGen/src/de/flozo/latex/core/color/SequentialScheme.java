@@ -1,5 +1,11 @@
 package de.flozo.latex.core.color;
 
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toMap;
+
 public enum SequentialScheme implements Scheme {
 
     BU_GN("BuGn"),
@@ -25,6 +31,12 @@ public enum SequentialScheme implements Scheme {
 
     SequentialScheme(String scheme) {
         this.scheme = scheme;
+    }
+
+    private static final Map<String, SequentialScheme> stringToEnum = Stream.of(values()).collect(toMap(Object::toString, e -> e));
+
+    public static Optional<SequentialScheme> fromString(String stringValue) {
+        return Optional.ofNullable(stringToEnum.get(stringValue));
     }
 
     @Override

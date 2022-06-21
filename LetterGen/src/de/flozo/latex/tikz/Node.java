@@ -335,8 +335,10 @@ public class Node extends Path {
 
         private void addOption(String key, String value) {
             // Skip empty keys or values
-            if (!key.isEmpty() && !value.isEmpty()) {
-                this.optionalArguments.add(key + "=" + value);
+            if (key != null && value!= null) {
+                if (!key.isEmpty() && !value.isEmpty()) {
+                    this.optionalArguments.add(key + "=" + value);
+                }
             }
         }
 
