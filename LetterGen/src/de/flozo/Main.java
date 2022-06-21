@@ -5,6 +5,7 @@ import de.flozo.latex.core.*;
 import de.flozo.latex.core.color.StandardColor;
 import de.flozo.latex.letter.AddressField;
 import de.flozo.latex.letter.BackaddressField;
+import de.flozo.latex.letter.Page;
 import de.flozo.latex.letter.SenderField;
 import de.flozo.latex.tikz.Rectangle;
 import de.flozo.latex.tikz.*;
@@ -118,7 +119,9 @@ public class Main {
                 .skipLastTerminator(true)
                 .build();
 
-        LayerEnvironment onBackgroundLayer = new LayerEnvironment("background", backgroundRectangle.getInline());
+
+        Page pageOne = new Page(geometry, color);
+
 
         SenderField senderField = new SenderField(geometry, color, senderData);
 
@@ -147,7 +150,7 @@ public class Main {
 
 //        System.out.println(LetterColorProperty.DRAFT_MODE_HIGHLIGHTING_BACKGROUND_COLOR.getColorValue().getString());
         ExpressionList tikzpictureBody = new FormattedExpressionList.Builder()
-                .append(onBackgroundLayer.getBlock())
+                .append(pageOne.getPage())
                 .append(onForeBackgroundLayer.getBlock())
                 .append(addressField.getAddressField())
                 .append(backaddressField.getBackaddressText())

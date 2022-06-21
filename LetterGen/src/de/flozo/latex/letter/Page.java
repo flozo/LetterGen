@@ -3,6 +3,14 @@ package de.flozo.latex.letter;
 import de.flozo.data.LetterColor;
 import de.flozo.data.LetterGeometry;
 import de.flozo.latex.core.color.Color;
+import de.flozo.latex.core.color.StandardColor;
+import de.flozo.latex.tikz.LayerEnvironment;
+import de.flozo.latex.tikz.Line;
+import de.flozo.latex.tikz.Point;
+import de.flozo.latex.tikz.Rectangle;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Page {
 
@@ -28,6 +36,32 @@ public class Page {
         this.backgroundColor = color.getBackgroundColor();
         this.draftHighlightColor = color.getDraftModeHighlightingBackgroundColor();
         this.urlHyperlinkColor = color.getUrlHyperlinkColor();
+    }
+
+    public List<String> getPage() {
+        List<String> page = new ArrayList<>();
+        page.add(getBackgroundRectangle().getInline());
+        page.addAll(getBorderMargins());
+        LayerEnvironment onBackgroundLayer = new LayerEnvironment("background",  page);
+        return onBackgroundLayer.getBlock();
+    }
+
+
+    private List<String> getBorderMargins() {
+        Line top = new Line.Builder(Point.fromNumbers(0.0, height - marginTop), Point.fromNumbers(width, height - marginTop))
+                .build();
+        Line bottom = new Line.Builder(Point.fromNumbers(0.0, marginBottom), Point.fromNumbers(width, marginBottom)).build();
+        Line left = new Line.Builder(Point.fromNumbers(marginLeft, 0), Point.fromNumbers(marginLeft, height)).build();
+        Line right = new Line.Builder(Point.fromNumbers(width - marginRight, 0), Point.fromNumbers(width - marginRight, height)).build();
+        return new ArrayList<>(List.of(top.getInline(), bottom.getInline(), left.getInline(), right.getInline()));
+    }
+
+    private Rectangle getBackgroundRectangle() {
+        return new Rectangle.Builder(0, 0, width, height)
+                .fillColor(backgroundColor)
+                .drawColor(StandardColor.NONE)
+                .skipLastTerminator(true)
+                .build();
     }
 
     public double getWidth() {
