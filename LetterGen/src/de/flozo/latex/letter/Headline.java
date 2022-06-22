@@ -23,6 +23,7 @@ public class Headline {
     private final Anchor anchor;
     private final Alignment alignment;
     private final FontSize fontSize;
+    private final Length textWidth;
     private final Color backgroundColor;
     private final Color borderColor;
     private final Color textColor;
@@ -38,11 +39,13 @@ public class Headline {
         this.anchor = Anchor.SOUTH_EAST;
         this.alignment = Alignment.RIGHT;
         this.fontSize = FontSize.LARGE3;
+        this.textWidth = Length.inCentimeter(geometry.getPaperWidth() - geometry.getBorderMarginLeft() - geometry.getBorderMarginRight());
         this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
         this.borderColor = color.getDraftModeHighlightingBorderColor();
         this.textColor = color.getHeadlineTextColor();
         this.headlineSeparationLine = new Line.Builder(0.0, geometry.getPaperHeight() - geometry.getBorderMarginTop(), geometry.getPaperWidth(), 0, CoordinateMode.RELATIVE)
                 .drawColor(color.getHeadlineSeplineColor())
+                .lineWidth(Length.inPoint(geometry.getHeadlineSeplineLineWidth()))
                 .build();
     }
 
@@ -64,6 +67,7 @@ public class Headline {
                 .textColor(textColor)
                 .alignment(alignment)
                 .fontSize(fontSize)
+                .textWidth(textWidth)
                 .xShift(xShift)
                 .yShift(yShift)
                 .build();

@@ -38,6 +38,7 @@ public class LetterGeometry {
     private final double enclosuresYShift;
     private final double headlineXShift;
     private final double headlineYShift;
+    private final double headlineSeplineLineWidth;
 
     private final double perforationMarkX;
     private final double perforationMarkY;
@@ -89,6 +90,7 @@ public class LetterGeometry {
         this.enclosuresYShift = numericSubMap.get(LetterGeometryProperty.ENCLOSURES_Y_SHIFT.getPropertyKey());
         this.headlineXShift = numericSubMap.get(LetterGeometryProperty.HEADLINE_X_SHIFT.getPropertyKey());
         this.headlineYShift = numericSubMap.get(LetterGeometryProperty.HEADLINE_Y_SHIFT.getPropertyKey());
+        this.headlineSeplineLineWidth = numericSubMap.get(LetterGeometryProperty.HEADLINE_SEPLINE_LINE_WIDTH.getPropertyKey());
         this.perforationMarkX = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_X.getPropertyKey());
         this.perforationMarkY = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_Y.getPropertyKey());
         this.perforationMarkLength = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_LENGTH.getPropertyKey());
@@ -219,6 +221,10 @@ public class LetterGeometry {
         return headlineYShift;
     }
 
+    public double getHeadlineSeplineLineWidth() {
+        return headlineSeplineLineWidth;
+    }
+
     public double getPerforationMarkX() {
         return perforationMarkX;
     }
@@ -299,6 +305,7 @@ public class LetterGeometry {
                 ", enclosuresYShift=" + enclosuresYShift +
                 ", headlineXShift=" + headlineXShift +
                 ", headlineYShift=" + headlineYShift +
+                ", headlineSeplineLineWidth=" + headlineSeplineLineWidth +
                 ", perforationMarkX=" + perforationMarkX +
                 ", perforationMarkY=" + perforationMarkY +
                 ", perforationMarkLength=" + perforationMarkLength +

@@ -40,6 +40,7 @@ public enum LetterGeometryProperty implements Property {
     ENCLOSURES_Y_SHIFT("enclosures.y_shift", -0.7),
     HEADLINE_X_SHIFT("headline.x_shift", 0.0),
     HEADLINE_Y_SHIFT("headline.y_shift", 0.5),
+    HEADLINE_SEPLINE_LINE_WIDTH("headline.sepline.line_width", 3),
 
     PERFORATION_MARK_X("perforation_mark.x", 0.1),
     PERFORATION_MARK_Y("perforation_mark.y", 14.85),

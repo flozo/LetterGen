@@ -2,10 +2,9 @@ package de.flozo;
 
 import de.flozo.data.*;
 import de.flozo.latex.core.*;
-import de.flozo.latex.core.color.StandardColor;
 import de.flozo.latex.letter.*;
-import de.flozo.latex.tikz.Rectangle;
-import de.flozo.latex.tikz.*;
+import de.flozo.latex.tikz.Layer;
+import de.flozo.latex.tikz.LayerEnvironment;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -36,8 +35,6 @@ public class Main {
 
         PropertyMap letterColor = new PropertyMap(ConfigGroup.LETTER_COLORS);
         letterColor.updateDefaults(settings);
-        System.out.println("XXXXXXXXXXXX");
-        System.out.println(letterColor);
         LetterColor color = new LetterColor(letterColor);
 
         PropertyMap senderMap = new PropertyMap(ConfigGroup.SENDER_DATA);
@@ -53,8 +50,6 @@ public class Main {
         LetterGeneral letterGeneral = new LetterGeneral(general);
 
 
-//        System.out.println(letterGeneral.getDateFormat());
-//        System.out.println(letterGeneral.isDraftModeOn());
 
 
         Command documentclass = Documentclass.createWithOptions(DocumentClassName.STANDALONE, "12pt", "tikz", "multi", "crop");
@@ -110,12 +105,6 @@ public class Main {
         Layer pgflayers = new Layer.LayerBuilder("background", "forebackground", "main", "foreground")
                 .build();
 
-        Rectangle backgroundRectangle = new Rectangle.Builder(0, 0, geometry.getPaperWidth(), geometry.getPaperHeight())
-                .fillColor(StandardColor.NONE)
-                .drawColor(StandardColor.NONE)
-                .skipLastTerminator(true)
-                .build();
-
 
         Page pageOne = new Page(geometry, color);
 
@@ -125,10 +114,6 @@ public class Main {
         LayerEnvironment onForeBackgroundLayer = new LayerEnvironment("forebackground", senderField.getMatrix().getBlock());
 
 
-//        PerforationMark perforationMark = new PerforationMark(geometryProperties);
-
-//        LayerEnvironment onForegroundLayer = new LayerEnvironment("foreground", perforationMark.getStatement());
-//
         AddressField addressField = new AddressField(geometry, color, receiverData);
         BackaddressField backaddressField = new BackaddressField(geometry, color, senderData);
         Headline headline = new Headline(geometry, color, senderData);
@@ -144,7 +129,7 @@ public class Main {
                 .build();
 
         Environment tikzpicture = new Environment.Builder(EnvironmentName.TIKZPICTURE)
-                .optionalArguments("inner xsep=0pt", "inner ysep=0pt", "trim left=0pt", "trim right=" + geometry.getPaperWidth() + "cm")
+                .optionalArguments("inner xsep=0pt", "inner ysep=0pt", "trim left=0pt", "trim right=" + Length.inCentimeter(geometry.getPaperWidth()).getFormatted())
                 .body(tikzpictureBody.getBlock())
                 .build();
 
