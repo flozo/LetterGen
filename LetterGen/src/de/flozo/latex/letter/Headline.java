@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Headline {
 
-    public static final String FIELD_NAME = "headline";
+    public static final String FIELD_NAME = "headline_text_field";
 
     private final String headlineText;
 
@@ -59,7 +59,7 @@ public class Headline {
 
     private Node getTextField() {
         return new Node.Builder(headlineText)
-                .name(FIELD_NAME + "_text_field")
+                .name(FIELD_NAME)
                 .position(position)
                 .anchor(anchor)
                 .fillColor(backgroundColor)
@@ -77,9 +77,13 @@ public class Headline {
     public String toString() {
         return "Headline{" +
                 "headlineText='" + headlineText + '\'' +
+                ", position=" + position +
+                ", xShift=" + xShift +
+                ", yShift=" + yShift +
                 ", anchor=" + anchor +
                 ", alignment=" + alignment +
                 ", fontSize=" + fontSize +
+                ", textWidth=" + textWidth +
                 ", backgroundColor=" + backgroundColor +
                 ", borderColor=" + borderColor +
                 ", textColor=" + textColor +

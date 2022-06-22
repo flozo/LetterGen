@@ -18,8 +18,7 @@ public class AddressField {
     public static final String FIELD_NAME = "receiver_address";
 
     // appearance
-    private final double x;
-    private final double y;
+    private final Point position;
     private final double width;
     private final double height;
     private final Color backgroundColor;
@@ -39,8 +38,7 @@ public class AddressField {
 
     // Constructor with dependency injection
     public AddressField(LetterGeometry geometry, LetterColor color, Address address) {
-        this.x = geometry.getAddressX();
-        this.y = geometry.getAddressY();
+        this.position = Point.fromNumbers(geometry.getAddressX(), geometry.getAddressY());
         this.width = geometry.getAddressWidth();
         this.height = geometry.getAddressHeight();
         this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
@@ -59,7 +57,7 @@ public class AddressField {
     public String getAddressField() {
         return new Node.Builder(assembleText())
                 .name(FIELD_NAME)
-                .position(Point.fromNumbers(x, y))
+                .position(position)
                 .anchor(Anchor.NORTH_WEST)
                 .minimumWidth(Length.inCentimeter(width))
                 .minimumHeight(Length.inCentimeter(2.73))
@@ -76,22 +74,13 @@ public class AddressField {
         return List.of(assembleName(), receiverStreet + " " + receiverHouseNumber, receiverPostalCode + " " + receiverCity);
     }
 
-//    private String assembleText() {
-//        return assembleName() + "\\\\" +
-//                receiverStreet + " " + receiverHouseNumber + "\\\\" +
-//                receiverPostalCode + " " + receiverCity;
-//    }
 
     private String assembleName() {
         return receiverLastName.isEmpty() ? receiverCompany : receiverFirstName + " " + receiverLastName;
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
+    public Point getPosition() {
+        return position;
     }
 
     public double getWidth() {
@@ -102,45 +91,16 @@ public class AddressField {
         return height;
     }
 
-    public String getReceiverFirstName() {
-        return receiverFirstName;
-    }
-
-    public String getReceiverMiddleName() {
-        return receiverMiddleName;
-    }
-
-    public String getReceiverLastName() {
-        return receiverLastName;
-    }
-
-    public String getReceiverCompany() {
-        return receiverCompany;
-    }
-
-    public String getReceiverStreet() {
-        return receiverStreet;
-    }
-
-    public String getReceiverHouseNumber() {
-        return receiverHouseNumber;
-    }
-
-    public String getReceiverPostalCode() {
-        return receiverPostalCode;
-    }
-
-    public String getReceiverCity() {
-        return receiverCity;
-    }
 
     @Override
     public String toString() {
         return "AddressField{" +
-                "x=" + x +
-                ", y=" + y +
+                "position=" + position +
                 ", width=" + width +
                 ", height=" + height +
+                ", backgroundColor=" + backgroundColor +
+                ", borderColor=" + borderColor +
+                ", textColor=" + textColor +
                 ", receiverFirstName='" + receiverFirstName + '\'' +
                 ", receiverMiddleName='" + receiverMiddleName + '\'' +
                 ", receiverLastName='" + receiverLastName + '\'' +
