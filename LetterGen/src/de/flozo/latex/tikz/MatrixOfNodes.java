@@ -2,6 +2,7 @@ package de.flozo.latex.tikz;
 
 import de.flozo.latex.core.FontSize;
 import de.flozo.latex.core.StatementTerminator;
+import de.flozo.latex.core.color.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,10 @@ public class MatrixOfNodes {
 
     private final Anchor anchor;
     private final FontSize fontSize;
+    private final Color backgroundColor;
+    private final Color borderColor;
+    private final Color textColor;
+
 
 
     public MatrixOfNodes(Builder builder) {
@@ -27,6 +32,9 @@ public class MatrixOfNodes {
         this.position = builder.position;
         this.anchor = builder.anchor;
         this.fontSize = builder.fontSize;
+        this.backgroundColor = builder.backgroundColor;
+        this.borderColor = builder.borderColor;
+        this.textColor = builder.textColor;
     }
 
 
@@ -41,6 +49,9 @@ public class MatrixOfNodes {
                 .isMatrix(true)
                 .anchor(anchor)
                 .fontSize(fontSize)
+                .fillColor(backgroundColor)
+                .drawColor(borderColor)
+                .textColor(textColor)
                 .bodyTerminator(StatementTerminator.DOUBLE_BACKSLASH)
                 .skipLastTerminator(false);
         for (String columnStyle : columnStyles) {
@@ -73,9 +84,13 @@ public class MatrixOfNodes {
         return "MatrixOfNodes{" +
                 "name='" + name + '\'' +
                 ", matrix=" + matrix +
+                ", columnStyles=" + columnStyles +
                 ", position=" + position +
                 ", anchor=" + anchor +
                 ", fontSize=" + fontSize +
+                ", backgroundColor=" + backgroundColor +
+                ", borderColor=" + borderColor +
+                ", textColor=" + textColor +
                 '}';
     }
 
@@ -90,6 +105,9 @@ public class MatrixOfNodes {
 
         // optional
         private FontSize fontSize = FontSize.NORMAL_SIZE;
+        private Color backgroundColor;
+        private Color borderColor;
+        private Color textColor;
 
 
         public Builder(String name, Point position, Anchor anchor) {
@@ -125,6 +143,22 @@ public class MatrixOfNodes {
             this.fontSize = fontSize;
             return this;
         }
+
+        public Builder backgroundColor(Color backgroundColor) {
+            this.backgroundColor = backgroundColor;
+            return this;
+        }
+
+        public Builder borderColor(Color borderColor) {
+            this.borderColor = borderColor;
+            return this;
+        }
+
+        public Builder textColor(Color textColor) {
+            this.textColor = textColor;
+            return this;
+        }
+
 
         public MatrixOfNodes build() {
             return new MatrixOfNodes(this);
