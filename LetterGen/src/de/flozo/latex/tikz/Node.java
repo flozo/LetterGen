@@ -161,31 +161,31 @@ public class Node extends Path {
 
         public Builder anchor(Anchor anchor) {
             this.anchor = anchor;
-            addOption("anchor", anchor.getString());
+            addOption(NodeOption.ANCHOR, anchor.getString());
             return this;
         }
 
         public Builder fontSize(FontSize fontSize) {
             this.fontSize = fontSize;
-            addOption("font", COMMAND_MARKER_CHAR + fontSize.getString());
+            addOption(NodeOption.FONT, COMMAND_MARKER_CHAR + fontSize.getString());
             return this;
         }
 
         public Builder drawColor(Color drawColor) {
             this.drawColor = drawColor;
-            addOption("draw", drawColor.getString());
+            addOption(NodeOption.DRAW, drawColor.getString());
             return this;
         }
 
         public Builder textColor(Color textColor) {
             this.textColor = textColor;
-            addOption("text", textColor.getString());
+            addOption(NodeOption.TEXT, textColor.getString());
             return this;
         }
 
         public Builder fillColor(Color fillColor) {
             this.fillColor = fillColor;
-            addOption("fill", fillColor.getString());
+            addOption(NodeOption.FILL, fillColor.getString());
             return this;
         }
 
@@ -197,13 +197,13 @@ public class Node extends Path {
 
         public Builder lineCap(LineCap lineCap) {
             this.lineCap = lineCap;
-            addOption("line cap", lineCap.getString());
+            addOption(NodeOption.LINE_CAP, lineCap.getString());
             return this;
         }
 
         public Builder lineJoin(LineJoin lineJoin) {
             this.lineJoin = lineJoin;
-            addOption("line join", lineJoin.getString());
+            addOption(NodeOption.LINE_JOIN, lineJoin.getString());
             return this;
         }
 
@@ -213,80 +213,64 @@ public class Node extends Path {
             return this;
         }
 
-        public Builder xShift(double xShift) {
-            return xShift(xShift, LengthUnit.CENTIMETER);
-        }
-
-        public Builder xShift(double xShift, LengthUnit lengthUnit) {
-            return xShift(Length.createFromNumberAndUnit(xShift, lengthUnit));
-        }
-
         public Builder xShift(Length xShift) {
             this.xShift = xShift;
-            addOption("xshift", xShift.getFormatted());
+            addOption(NodeOption.X_SHIFT, xShift.getFormatted());
             return this;
-        }
-
-        public Builder yShift(double yShift) {
-            return yShift(yShift, LengthUnit.CENTIMETER);
-        }
-
-        public Builder yShift(double yShift, LengthUnit lengthUnit) {
-            return yShift(Length.createFromNumberAndUnit(yShift, lengthUnit));
         }
 
         public Builder yShift(Length yShift) {
             this.yShift = yShift;
-            addOption("yshift", yShift.getFormatted());
+            addOption(NodeOption.Y_SHIFT, yShift.getFormatted());
             return this;
         }
 
         public Builder textWidth(Length textWidth) {
             this.textWidth = textWidth;
-            addOption("text width", textWidth.getFormatted());
+            addOption(NodeOption.TEXT_WIDTH, textWidth.getFormatted());
             return this;
         }
 
         public Builder textHeight(Length textHeight) {
             this.textHeight = textHeight;
-            addOption("text height", textHeight.getFormatted());
+            addOption(NodeOption.TEXT_HEIGHT, textHeight.getFormatted());
             return this;
         }
 
         public Builder textDepth(Length textDepth) {
             this.textDepth = textDepth;
-            addOption("text depth", textDepth.getFormatted());
+            addOption(NodeOption.TEXT_DEPTH, textDepth.getFormatted());
             return this;
         }
 
 
         public Builder minimumWidth(Length minimumWidth) {
             this.minimumWidth = minimumWidth;
-            addOption("minimum width", minimumWidth.getFormatted());
+            addOption(NodeOption.MINIMUM_WIDTH, minimumWidth.getFormatted());
             return this;
         }
 
         public Builder minimumHeight(Length minimumHeight) {
             this.minimumHeight = minimumHeight;
-            addOption("minimum height", minimumHeight.getFormatted());
+            addOption(NodeOption.MINIMUM_HEIGHT, minimumHeight.getFormatted());
             return this;
         }
 
         public Builder alignment(Alignment alignment) {
             this.alignment = alignment;
-            addOption("align", alignment.getString());
+            addOption(NodeOption.ALIGN, alignment.getString());
             return this;
         }
 
         public Builder innerXSep(Length innerXSep) {
             this.innerXSep = innerXSep;
-            addOption("minimum xsep", innerXSep.getFormatted());
+            addOption(NodeOption.INNER_X_SEP, innerXSep.getFormatted());
             return this;
         }
 
         public Builder innerYSep(Length innerYSep) {
             this.innerYSep = innerYSep;
-            addOption("minimum ysep", innerYSep.getFormatted());
+            addOption(NodeOption.INNER_Y_SEP, innerYSep.getFormatted());
             return this;
         }
 
@@ -305,11 +289,11 @@ public class Node extends Path {
             return color != StandardColor.DEFAULT ? property + "=" + color.getString() : "";
         }
 
-        private void addOption(String key, String value) {
+        private void addOption(NodeOption key, String value) {
             // Skip empty keys or values
             if (key != null && value != null) {
-                if (!key.isEmpty() && !value.isEmpty()) {
-                    this.optionalArguments.add(key + "=" + value);
+                if (!key.getString().isEmpty() && !value.isEmpty()) {
+                    this.optionalArguments.add(key.getString() + "=" + value);
                 }
             }
         }

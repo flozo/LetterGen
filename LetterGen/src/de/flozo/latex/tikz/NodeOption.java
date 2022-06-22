@@ -18,7 +18,9 @@ public enum NodeOption {
     FONT("font"),
     X_SHIFT("xshift"),
     Y_SHIFT("yshift"),
-    LINE_WIDTH("line width");
+    LINE_WIDTH("line width"),
+    LINE_CAP("line cap"),
+    LINE_JOIN("line join");
 
     private final String nodeOption;
 
