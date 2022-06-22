@@ -36,6 +36,8 @@ public class LetterGeometry {
     private final double textY;
     private final double closingYShift;
     private final double enclosuresYShift;
+    private final double headlineXShift;
+    private final double headlineYShift;
 
     private final double perforationMarkX;
     private final double perforationMarkY;
@@ -85,6 +87,8 @@ public class LetterGeometry {
         this.textY = numericSubMap.get(LetterGeometryProperty.TEXT_Y.getPropertyKey());
         this.closingYShift = numericSubMap.get(LetterGeometryProperty.CLOSING_Y_SHIFT.getPropertyKey());
         this.enclosuresYShift = numericSubMap.get(LetterGeometryProperty.ENCLOSURES_Y_SHIFT.getPropertyKey());
+        this.headlineXShift = numericSubMap.get(LetterGeometryProperty.HEADLINE_X_SHIFT.getPropertyKey());
+        this.headlineYShift = numericSubMap.get(LetterGeometryProperty.HEADLINE_Y_SHIFT.getPropertyKey());
         this.perforationMarkX = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_X.getPropertyKey());
         this.perforationMarkY = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_Y.getPropertyKey());
         this.perforationMarkLength = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_LENGTH.getPropertyKey());
@@ -207,6 +211,14 @@ public class LetterGeometry {
         return enclosuresYShift;
     }
 
+    public double getHeadlineXShift() {
+        return headlineXShift;
+    }
+
+    public double getHeadlineYShift() {
+        return headlineYShift;
+    }
+
     public double getPerforationMarkX() {
         return perforationMarkX;
     }
@@ -285,6 +297,8 @@ public class LetterGeometry {
                 ", textY=" + textY +
                 ", closingYShift=" + closingYShift +
                 ", enclosuresYShift=" + enclosuresYShift +
+                ", headlineXShift=" + headlineXShift +
+                ", headlineYShift=" + headlineYShift +
                 ", perforationMarkX=" + perforationMarkX +
                 ", perforationMarkY=" + perforationMarkY +
                 ", perforationMarkLength=" + perforationMarkLength +
