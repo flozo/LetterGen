@@ -68,7 +68,7 @@ public class BackaddressField {
                 .fillColor(backgroundColor)
                 .drawColor(borderColor)
                 .textColor(textColor)
-                .textWidth(width)
+                .textWidth(Length.createFromNumberAndUnit(width, LengthUnit.CENTIMETER))
                 .fontSize(fontSize)
                 .alignment(Alignment.CENTER)
                 .build().getInline();

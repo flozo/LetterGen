@@ -3,10 +3,7 @@ package de.flozo;
 import de.flozo.data.*;
 import de.flozo.latex.core.*;
 import de.flozo.latex.core.color.StandardColor;
-import de.flozo.latex.letter.AddressField;
-import de.flozo.latex.letter.BackaddressField;
-import de.flozo.latex.letter.Page;
-import de.flozo.latex.letter.SenderField;
+import de.flozo.latex.letter.*;
 import de.flozo.latex.tikz.Rectangle;
 import de.flozo.latex.tikz.*;
 
@@ -134,28 +131,16 @@ public class Main {
 //
         AddressField addressField = new AddressField(geometry, color, receiverData);
         BackaddressField backaddressField = new BackaddressField(geometry, color, senderData);
+        Headline headline = new Headline(geometry, color, senderData);
 
-//        Node cell11 = new Node.Builder(4.0, 24, new Command2.Builder(CommandName.FAICON.getString()).body("map-marker-alt").build().getInline()).build();
-//        Node cell12 = new Node.Builder(4.0, 24, "My street 25", "12345 City")
-//                .bodyTerminator(StatementTerminator.DOUBLE_BACKSLASH).build();
-//        MatrixOfNodes matrix = new MatrixOfNodes.Builder("contact", 4.0, 24, Anchor.NORTH_WEST)
-//                .addRow(cell11.getInline(), cell12.getInline(), cell11.getInline())
-//                .addRow(cell12.getInline(), cell11.getInline(), cell12.getInline())
-//                .build();
 
-//        for (String line : matrix.getBlock()) {
-//            System.out.println(line);
-//        }
-//
-
-//        System.out.println(LetterColorProperty.DRAFT_MODE_HIGHLIGHTING_BACKGROUND_COLOR.getColorValue().getString());
         ExpressionList tikzpictureBody = new FormattedExpressionList.Builder()
                 .append(pageOne.getPage())
                 .append(onForeBackgroundLayer.getBlock())
                 .append(addressField.getAddressField())
                 .append(backaddressField.getBackaddressText())
                 .append(backaddressField.getSeparationLine())
-//                .append(onForegroundLayer.getBlock())
+                .append(headline.getBlock())
                 .build();
 
         Environment tikzpicture = new Environment.Builder(EnvironmentName.TIKZPICTURE)

@@ -121,8 +121,8 @@ public class Node extends Path {
         private DashPatternStyle dashPatternStyle;
         private Length xShift;
         private Length yShift;
-        private double textWidth;
-        private double textHeight;
+        private Length textWidth;
+        private Length textHeight;
         private double textDepth;
         private double minimumWidth;
         private double minimumHeight;
@@ -242,25 +242,37 @@ public class Node extends Path {
         }
 
 
-        public Builder textWidth(double textWidth) {
-            return textWidth(textWidth, LengthUnit.CENTIMETER);
-        }
+//        public Builder textWidth(double textWidth) {
+//            return textWidth(textWidth, LengthUnit.CENTIMETER);
+//        }
+//
+//        public Builder textWidth(double textWidth, LengthUnit lengthUnit) {
+//            Length length = new Length(textWidth, lengthUnit);
+//            this.textWidth = length.getNumericalValue();
+//            addOption("text width", length.getFormatted());
+//            return this;
+//        }
 
-        public Builder textWidth(double textWidth, LengthUnit lengthUnit) {
-            Length length = new Length(textWidth, lengthUnit);
-            this.textWidth = length.getNumericalValue();
-            addOption("text width", length.getFormatted());
+        public Builder textWidth(Length textWidth) {
+            this.textWidth = textWidth;
+            addOption("text width", textWidth.getFormatted());
             return this;
         }
 
-        public Builder textHeight(double textHeight) {
-            return textHeight(textHeight, LengthUnit.CENTIMETER);
-        }
+//        public Builder textHeight(double textHeight) {
+//            return textHeight(textHeight, LengthUnit.CENTIMETER);
+//        }
+//
+//        public Builder textHeight(double textHeight, LengthUnit lengthUnit) {
+//            Length length = new Length(textHeight, lengthUnit);
+//            this.textHeight = length.getNumericalValue();
+//            addOption("text height", length.getFormatted());
+//            return this;
+//        }
 
-        public Builder textHeight(double textHeight, LengthUnit lengthUnit) {
-            Length length = new Length(textHeight, lengthUnit);
-            this.textHeight = length.getNumericalValue();
-            addOption("text height", length.getFormatted());
+        public Builder textHeight(Length textHeight) {
+            this.textHeight = textHeight;
+            addOption("text height", textHeight.getFormatted());
             return this;
         }
 

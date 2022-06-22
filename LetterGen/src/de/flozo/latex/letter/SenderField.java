@@ -20,6 +20,7 @@ public class SenderField {
     private final Color backgroundColor;
     private final Color borderColor;
     private final Color textColor;
+    private final Color iconColor;
 
 
     // content
@@ -46,6 +47,7 @@ public class SenderField {
         this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
         this.borderColor = color.getDraftModeHighlightingBorderColor();
         this.textColor = color.getSenderTextColor();
+        this.iconColor = color.getSenderIconColor();
         this.senderFirstName = address.getFirstName();
         this.senderMiddleName = address.getMiddleName();
         this.senderLastName = address.getLastName();
@@ -71,13 +73,16 @@ public class SenderField {
                 .fillColor(backgroundColor)
                 .drawColor(borderColor)
                 .textColor(textColor)
-                .textWidth(width)
+                .textWidth(Length.createWithDefaultUnit(width))
                 .alignment(Alignment.LEFT)
                 .build().getInline();
     }
 
     public MatrixOfNodes getMatrix() {
         return new MatrixOfNodes.Builder(FIELD_NAME, position, Anchor.NORTH_EAST)
+                .backgroundColor(backgroundColor)
+                .borderColor(borderColor)
+                .textColor(textColor)
                 .addRow(senderStreet + " " + senderHouseNumber + "\\\\" + senderPostalCode + " " + senderCity, ContactIcon.MAP_MARKER_ALT.getIconDefault())
                 .addRow(phoneNumber, ContactIcon.PHONE_ALT.getIconDefault())
                 .addRow(emailAddress, ContactIcon.ENVELOPE.getIconDefault())
@@ -90,8 +95,9 @@ public class SenderField {
     private NodeStyle assembleNodeStyle1() {
         return new NodeStyle.Builder()
                 .addCustomOption(PathOperation.RECTANGLE.getString())
-                .addNodeOption(NodeOption.DRAW, textColor.getString())
+//                .addNodeOption(NodeOption.DRAW, textColor.getString())
                 .addNodeOption(NodeOption.FILL, backgroundColor.getString())
+                .addNodeOption(NodeOption.TEXT, textColor.getString())
                 .addNodeOption(NodeOption.ALIGN, Alignment.RIGHT.getString())
                 .addNodeOption(NodeOption.INNER_X_SEP, Length.createFromNumberAndUnit(8, LengthUnit.POINT).getFormatted())
                 .addNodeOption(NodeOption.INNER_Y_SEP, Length.createFromNumberAndUnit(6, LengthUnit.POINT).getFormatted())
@@ -106,8 +112,9 @@ public class SenderField {
     private NodeStyle assembleNodeStyle2() {
         return new NodeStyle.Builder()
                 .addCustomOption(PathOperation.RECTANGLE.getString())
-                .addNodeOption(NodeOption.DRAW, textColor.getString())
+//                .addNodeOption(NodeOption.DRAW, textColor.getString())
                 .addNodeOption(NodeOption.FILL, backgroundColor.getString())
+                .addNodeOption(NodeOption.TEXT, iconColor.getString())
                 .addNodeOption(NodeOption.ALIGN, Alignment.CENTER.getString())
                 .addNodeOption(NodeOption.INNER_X_SEP, Length.createFromNumberAndUnit(0, LengthUnit.POINT).getFormatted())
                 .addNodeOption(NodeOption.INNER_Y_SEP, Length.createFromNumberAndUnit(6, LengthUnit.POINT).getFormatted())
@@ -136,6 +143,10 @@ public class SenderField {
                 "position=" + position +
                 ", width=" + width +
                 ", height=" + height +
+                ", backgroundColor=" + backgroundColor +
+                ", borderColor=" + borderColor +
+                ", textColor=" + textColor +
+                ", iconColor=" + iconColor +
                 ", senderFirstName='" + senderFirstName + '\'' +
                 ", senderMiddleName='" + senderMiddleName + '\'' +
                 ", senderLastName='" + senderLastName + '\'' +

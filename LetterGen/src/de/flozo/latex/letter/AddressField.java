@@ -3,6 +3,7 @@ package de.flozo.latex.letter;
 import de.flozo.data.Address;
 import de.flozo.data.LetterColor;
 import de.flozo.data.LetterGeometry;
+import de.flozo.latex.core.Length;
 import de.flozo.latex.core.StatementTerminator;
 import de.flozo.latex.core.color.Color;
 import de.flozo.latex.tikz.Alignment;
@@ -65,7 +66,7 @@ public class AddressField {
                 .fillColor(backgroundColor)
                 .drawColor(borderColor)
                 .textColor(textColor)
-                .textWidth(width)
+                .textWidth(Length.createWithDefaultUnit(width))
                 .alignment(Alignment.LEFT)
                 .bodyTerminator(StatementTerminator.DOUBLE_BACKSLASH)
                 .build().getInline();
