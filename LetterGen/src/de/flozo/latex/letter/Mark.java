@@ -1,5 +1,6 @@
 package de.flozo.latex.letter;
 
+import de.flozo.latex.core.Length;
 import de.flozo.latex.tikz.CoordinateMode;
 import de.flozo.latex.tikz.Line;
 
@@ -34,7 +35,7 @@ public class Mark {
     }
 
     public Line getLine() {
-        return new Line.Builder(x, y, width, 0, CoordinateMode.RELATIVE).lineWidth(thickness).build();
+        return new Line.Builder(x, y, width, 0, CoordinateMode.RELATIVE).lineWidth(Length.inDefaultUnit(thickness)).build();
     }
 
 

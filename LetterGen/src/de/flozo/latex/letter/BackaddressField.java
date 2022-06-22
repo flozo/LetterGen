@@ -76,7 +76,7 @@ public class BackaddressField {
 
     public String getSeparationLine() {
         return new Line.Builder(separationLineX, y, width, 0, CoordinateMode.RELATIVE)
-                .lineWidth(separationLineWidth)
+                .lineWidth(Length.inDefaultUnit(separationLineWidth))
                 .build().getInline();
     }
 

@@ -106,7 +106,7 @@ public class Line extends Path {
         private Color drawColor;
         private Color fillColor;
         private LineWidthStyle lineWidthStyle;
-        private double lineWidth;
+        private Length lineWidth;
         private LineCap lineCap;
         private LineJoin lineJoin;
         private DashPatternStyle dashPatternStyle;
@@ -151,25 +151,22 @@ public class Line extends Path {
             return this;
         }
 
-
         public Builder cycle(boolean cycle) {
             this.cycle = cycle;
             return this;
         }
 
-
         public Builder drawColor(Color drawColor) {
             this.drawColor = drawColor;
-            this.optionalArguments.add("draw=" + drawColor.getString());
+            addOption(NodeOption.DRAW, drawColor.getString());
             return this;
         }
 
         public Builder fillColor(Color fillColor) {
             this.fillColor = fillColor;
-            this.optionalArguments.add("fill=" + fillColor.getString());
+            addOption(NodeOption.FILL, fillColor.getString());
             return this;
         }
-
 
         public Builder lineWidthStyle(LineWidthStyle lineWidthStyle) {
             this.lineWidthStyle = lineWidthStyle;
@@ -177,21 +174,21 @@ public class Line extends Path {
             return this;
         }
 
-        public Builder lineWidth(double lineWidth) {
+        public Builder lineWidth(Length lineWidth) {
             this.lineWidth = lineWidth;
-            this.optionalArguments.add("line width=" + lineWidth);
+            addOption(NodeOption.LINE_WIDTH, lineWidth.getFormatted());
             return this;
         }
 
         public Builder lineCap(LineCap lineCap) {
             this.lineCap = lineCap;
-            this.optionalArguments.add("line cap=" + lineCap.getString());
+            addOption(NodeOption.LINE_CAP, lineCap.getString());
             return this;
         }
 
         public Builder lineJoin(LineJoin lineJoin) {
             this.lineJoin = lineJoin;
-            this.optionalArguments.add("line join=" + lineJoin.getString());
+            addOption(NodeOption.LINE_JOIN, lineJoin.getString());
             return this;
         }
 
@@ -206,6 +203,14 @@ public class Line extends Path {
             return this;
         }
 
+        private void addOption(NodeOption key, String value) {
+            // Skip empty keys or values
+            if (key != null && value != null) {
+                if (!key.getString().isEmpty() && !value.isEmpty()) {
+                    this.optionalArguments.add(key.getString() + "=" + value);
+                }
+            }
+        }
 
         public Line build() {
             return new Line(this);
