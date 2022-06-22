@@ -11,9 +11,9 @@ import static java.util.stream.Collectors.toMap;
 public enum LetterColorProperty implements Property {
 
     BACKGROUND_COLOR("background.color", StandardColor.DEFAULT),
-    DRAFT_MODE_HIGHLIGHTING_BACKGROUND_COLOR("draft_mode_highlighting.background.color", BrewerColor.compose(SequentialScheme.ORANGES, Letter13.D)),
-    DRAFT_MODE_HIGHLIGHTING_BORDER_COLOR("draft_mode_highlighting.border.color", BrewerColor.compose(SequentialScheme.GREYS, Letter13.G)),
-    URL_COLOR("url_hyperlink.color", BrewerColor.compose(SequentialScheme.BLUES, Letter13.K)),
+    DRAFT_MODE_HIGHLIGHTING_BACKGROUND_COLOR("draft_mode_highlighting.background.color", BrewerColor.compose(SequentialScheme.ORANGES, SequentialLetter.D)),
+    DRAFT_MODE_HIGHLIGHTING_BORDER_COLOR("draft_mode_highlighting.border.color", BrewerColor.compose(SequentialScheme.GREYS, SequentialLetter.G)),
+    URL_COLOR("url_hyperlink.color", BrewerColor.compose(SequentialScheme.BLUES, SequentialLetter.K)),
 
     HEADLINE_TEXT_COLOR("headline.text.color", StandardColor.DEFAULT),
     HEADLINE_SEPLINE_COLOR("headline.sepline.color", StandardColor.DEFAULT),

@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
 
-public enum Letter15 implements Letter {
+public enum DivergingLetter implements Letter {
 
     A("A"),
     B("B"),
@@ -27,13 +27,13 @@ public enum Letter15 implements Letter {
 
     private final String scheme;
 
-    Letter15(String scheme) {
+    DivergingLetter(String scheme) {
         this.scheme = scheme;
     }
 
-    private static final Map<String, Letter15> stringToEnum = Stream.of(values()).collect(toMap(Letter15::getString, Function.identity()));
+    private static final Map<String, DivergingLetter> stringToEnum = Stream.of(values()).collect(toMap(DivergingLetter::getString, Function.identity()));
 
-    public static Optional<Letter15> fromString(String stringValue) {
+    public static Optional<DivergingLetter> fromString(String stringValue) {
         return Optional.ofNullable(stringToEnum.get(stringValue));
     }
 

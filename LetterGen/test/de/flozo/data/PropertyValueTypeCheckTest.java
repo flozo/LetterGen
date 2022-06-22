@@ -14,7 +14,7 @@ class PropertyValueTypeCheckTest {
     @ParameterizedTest
     @EnumSource(SequentialScheme.class)
     void isValidBrewerColorValue(SequentialScheme sequentialScheme) {
-        assertTrue(PropertyValueTypeCheck.isValidBrewerColorValue().test(BrewerColor.compose(sequentialScheme, Letter13.A).getString()));
+        assertTrue(PropertyValueTypeCheck.isValidBrewerColorValue().test(BrewerColor.compose(sequentialScheme, SequentialLetter.A).getString()));
     }
 
     @ParameterizedTest
@@ -32,7 +32,7 @@ class PropertyValueTypeCheckTest {
     @ParameterizedTest
     @EnumSource(SequentialScheme.class)
     void isSequentialScheme_true(SequentialScheme sequentialScheme) {
-        assertTrue(PropertyValueTypeCheck.isSequentialScheme().test(BrewerColor.compose(sequentialScheme, Letter13.A).getString()));
+        assertTrue(PropertyValueTypeCheck.isSequentialScheme().test(BrewerColor.compose(sequentialScheme, SequentialLetter.A).getString()));
     }
 
     @ParameterizedTest
@@ -44,7 +44,7 @@ class PropertyValueTypeCheckTest {
     @ParameterizedTest
     @EnumSource(DivergingScheme.class)
     void isDivergingScheme_true(DivergingScheme divergingScheme) {
-        assertTrue(PropertyValueTypeCheck.isDivergingScheme().test(BrewerColor.compose(divergingScheme, Letter15.O).getString()));
+        assertTrue(PropertyValueTypeCheck.isDivergingScheme().test(BrewerColor.compose(divergingScheme, DivergingLetter.O).getString()));
     }
 
     @ParameterizedTest

@@ -37,9 +37,9 @@ public interface PropertyValueTypeCheck {
                 .stream()
                 .map(SequentialScheme::getString)
                 .anyMatch(key::startsWith);
-        Predicate<String> hasBrewerSequentialLetter = key -> EnumSet.allOf(Letter13.class)
+        Predicate<String> hasBrewerSequentialLetter = key -> EnumSet.allOf(SequentialLetter.class)
                 .stream()
-                .map(Letter13::getString)
+                .map(SequentialLetter::getString)
                 .anyMatch(key::endsWith);
         return hasBrewerSequentialScheme.and(hasBrewerSequentialLetter);
     }
@@ -49,9 +49,9 @@ public interface PropertyValueTypeCheck {
                 .stream()
                 .map(DivergingScheme::getString)
                 .anyMatch(key::startsWith);
-        Predicate<String> hasBrewerDivergingLetter = key -> EnumSet.allOf(Letter15.class)
+        Predicate<String> hasBrewerDivergingLetter = key -> EnumSet.allOf(DivergingLetter.class)
                 .stream()
-                .map(Letter15::getString)
+                .map(DivergingLetter::getString)
                 .anyMatch(key::endsWith);
         return hasBrewerDivergingScheme.and(hasBrewerDivergingLetter);
     }

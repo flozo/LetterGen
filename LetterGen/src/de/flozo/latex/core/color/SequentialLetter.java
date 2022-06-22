@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
 
-public enum Letter13 implements Letter {
+public enum SequentialLetter implements Letter {
 
     A("A"),
     B("B"),
@@ -25,13 +25,13 @@ public enum Letter13 implements Letter {
 
     private final String scheme;
 
-    Letter13(String scheme) {
+    SequentialLetter(String scheme) {
         this.scheme = scheme;
     }
 
-    private static final Map<String, Letter13> stringToEnum = Stream.of(values()).collect(toMap(Letter13::getString, Function.identity()));
+    private static final Map<String, SequentialLetter> stringToEnum = Stream.of(values()).collect(toMap(SequentialLetter::getString, Function.identity()));
 
-    public static Optional<Letter13> fromString(String stringValue) {
+    public static Optional<SequentialLetter> fromString(String stringValue) {
         return Optional.ofNullable(stringToEnum.get(stringValue));
     }
 

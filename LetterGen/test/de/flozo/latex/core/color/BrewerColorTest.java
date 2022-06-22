@@ -8,8 +8,8 @@ class BrewerColorTest {
 
     @Test
     void parseColor() {
-        assertEquals(BrewerColor.compose(SequentialScheme.ORANGES, Letter13.A).getString(), "Oranges-A");
-        assertEquals(BrewerColor.compose(SequentialScheme.RD_PU, Letter13.M).getString(), "RdPu-M");
-        assertEquals(BrewerColor.compose(DivergingScheme.P_R_GN, Letter15.O).getString(), "PRGn-O");
+        assertEquals(BrewerColor.compose(SequentialScheme.ORANGES, SequentialLetter.A).getString(), "Oranges-A");
+        assertEquals(BrewerColor.compose(SequentialScheme.RD_PU, SequentialLetter.M).getString(), "RdPu-M");
+        assertEquals(BrewerColor.compose(DivergingScheme.P_R_GN, DivergingLetter.O).getString(), "PRGn-O");
     }
 }

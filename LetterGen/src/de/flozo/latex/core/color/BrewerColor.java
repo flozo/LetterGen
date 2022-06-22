@@ -12,21 +12,21 @@ public class BrewerColor implements Color, PropertyValueTypeCheck {
         this.letter = letter;
     }
 
-    private BrewerColor(SequentialScheme scheme, Letter13 letter) {
+    private BrewerColor(SequentialScheme scheme, SequentialLetter letter) {
         this.scheme = scheme;
         this.letter = letter;
     }
 
-    private BrewerColor(DivergingScheme scheme, Letter15 letter) {
+    private BrewerColor(DivergingScheme scheme, DivergingLetter letter) {
         this.scheme = scheme;
         this.letter = letter;
     }
 
-    public static BrewerColor compose(SequentialScheme scheme, Letter13 letter) {
+    public static BrewerColor compose(SequentialScheme scheme, SequentialLetter letter) {
         return new BrewerColor(scheme, letter);
     }
 
-    public static BrewerColor compose(DivergingScheme scheme, Letter15 letter) {
+    public static BrewerColor compose(DivergingScheme scheme, DivergingLetter letter) {
         return new BrewerColor(scheme, letter);
     }
 
@@ -41,9 +41,9 @@ public class BrewerColor implements Color, PropertyValueTypeCheck {
 
     public static BrewerColor parseColor(String colorString) {
         if (PropertyValueTypeCheck.isSequentialScheme().test(colorString)) {
-            return BrewerColor.compose(SequentialScheme.fromString(schemeString(colorString)).orElse(null), Letter13.fromString(letterString(colorString)).orElse(null));
+            return BrewerColor.compose(SequentialScheme.fromString(schemeString(colorString)).orElse(null), SequentialLetter.fromString(letterString(colorString)).orElse(null));
         } else if (PropertyValueTypeCheck.isDivergingScheme().test(colorString)) {
-            return BrewerColor.compose(DivergingScheme.fromString(schemeString(colorString)).orElse(null), Letter15.fromString(letterString(colorString)).orElse(null));
+            return BrewerColor.compose(DivergingScheme.fromString(schemeString(colorString)).orElse(null), DivergingLetter.fromString(letterString(colorString)).orElse(null));
         }
         return null;
     }
