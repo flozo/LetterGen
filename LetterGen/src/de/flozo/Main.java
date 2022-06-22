@@ -50,8 +50,6 @@ public class Main {
         LetterGeneral letterGeneral = new LetterGeneral(general);
 
 
-
-
         Command documentclass = Documentclass.createWithOptions(DocumentClassName.STANDALONE, "12pt", "tikz", "multi", "crop");
 
         PackageList packageList = new PackageList(documentclass);
@@ -118,6 +116,7 @@ public class Main {
         BackaddressField backaddressField = new BackaddressField(geometry, color, senderData);
         Headline headline = new Headline(geometry, color, senderData);
 
+        SubjectField subjectField = new SubjectField(geometry, color, "My subject");
 
         ExpressionList tikzpictureBody = new FormattedExpressionList.Builder()
                 .append(pageOne.getPage())
@@ -126,6 +125,7 @@ public class Main {
                 .append(backaddressField.getBackaddressText())
                 .append(backaddressField.getSeparationLine())
                 .append(headline.getBlock())
+                .append(subjectField.generate())
                 .build();
 
         Environment tikzpicture = new Environment.Builder(EnvironmentName.TIKZPICTURE)

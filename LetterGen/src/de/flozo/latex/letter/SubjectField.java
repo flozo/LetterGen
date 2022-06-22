@@ -1,27 +1,52 @@
 package de.flozo.latex.letter;
 
+import de.flozo.data.LetterColor;
+import de.flozo.data.LetterGeometry;
+import de.flozo.latex.core.color.Color;
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
 import de.flozo.latex.tikz.Point;
 
 public class SubjectField {
 
-    private double x;
-    private double y;
-    private String subjectText;
+    public static final String FIELD_NAME = "subject_field";
 
-    public SubjectField(double x, double y, String subjectText) {
-        this.x = x;
-        this.y = y;
+
+    private final Point position;
+    private final String subjectText;
+
+    private final Color backgroundColor;
+    private final Color borderColor;
+    private final Color textColor;
+
+
+    public SubjectField(LetterGeometry geometry, LetterColor color, String subjectText) {
+        this.position = Point.fromNumbers(geometry.getBorderMarginLeft(), geometry.getSubjectY());
         this.subjectText = subjectText;
+        this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
+        this.borderColor = color.getDraftModeHighlightingBorderColor();
+        this.textColor = color.getSubjectTextColor();
     }
 
     public String generate() {
-        Node subjectField = new Node.Builder("\\bf " + subjectText)
-                .name("subject field")
-                .position(Point.fromNumbers(x, y))
+        return new Node.Builder("\\bf " + subjectText)
+                .name(FIELD_NAME)
+                .position(position)
                 .anchor(Anchor.SOUTH_WEST)
-                .build();
-        return subjectField.getInline();
+                .fillColor(backgroundColor)
+                .drawColor(borderColor)
+                .textColor(textColor)
+                .build().getInline();
+    }
+
+    @Override
+    public String toString() {
+        return "SubjectField{" +
+                "position=" + position +
+                ", subjectText='" + subjectText + '\'' +
+                ", backgroundColor=" + backgroundColor +
+                ", borderColor=" + borderColor +
+                ", textColor=" + textColor +
+                '}';
     }
 }
