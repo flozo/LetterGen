@@ -9,9 +9,10 @@ import de.flozo.latex.tikz.*;
 
 public class BackaddressField {
 
+    public static final String FIELD_NAME = "backaddress";
+
     // appearance
-    private final double x;
-    private final double y;
+    private final Point position;
     private final double width;
     private final double height;
 
@@ -37,10 +38,7 @@ public class BackaddressField {
 
     // Constructor with dependency injection
     public BackaddressField(LetterGeometry geometry, LetterColor color, Address address) {
-        System.out.println("&&&&&&&&&&&&&");
-        System.out.println(color.getBackaddressTextColor().getString());
-        this.x = geometry.getBackaddressX();
-        this.y = geometry.getBackaddressY();
+        this.position = Point.fromNumbers(geometry.getBackaddressX(), geometry.getBackaddressY());
         this.width = geometry.getBackaddressWidth();
         this.height = geometry.getBackaddressHeight();
         this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
@@ -62,8 +60,8 @@ public class BackaddressField {
 
     public String getBackaddressText() {
         return new Node.Builder(assembleText())
-                .name("backaddress")
-                .position(Point.fromNumbers(x, y))
+                .name(FIELD_NAME)
+                .position(position)
                 .anchor(Anchor.SOUTH_WEST)
                 .fillColor(backgroundColor)
                 .drawColor(borderColor)
@@ -75,7 +73,7 @@ public class BackaddressField {
     }
 
     public String getSeparationLine() {
-        return new Line.Builder(separationLineX, y, width, 0, CoordinateMode.RELATIVE)
+        return new Line.Builder(separationLineX, position.getYValue(), width, 0, CoordinateMode.RELATIVE)
                 .lineWidth(Length.inDefaultUnit(separationLineWidth))
                 .build().getInline();
     }
@@ -100,12 +98,8 @@ public class BackaddressField {
                 .getInline();
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
+    public Point getPosition() {
+        return position;
     }
 
     public double getWidth() {
@@ -116,51 +110,11 @@ public class BackaddressField {
         return height;
     }
 
-    public double getSeparationLineWidth() {
-        return separationLineWidth;
-    }
-
-    public String getSeparationCharacter() {
-        return separationCharacter;
-    }
-
-    public FontSize getFontSize() {
-        return fontSize;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public String getHouseNumber() {
-        return houseNumber;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public String getCity() {
-        return city;
-    }
 
     @Override
     public String toString() {
         return "BackaddressField{" +
-                "x=" + x +
-                ", y=" + y +
+                "position=" + position +
                 ", width=" + width +
                 ", height=" + height +
                 ", separationLineX=" + separationLineX +
@@ -168,6 +122,9 @@ public class BackaddressField {
                 ", separationCharacter='" + separationCharacter + '\'' +
                 ", separationCharacterSpacing=" + separationCharacterSpacing +
                 ", fontSize=" + fontSize +
+                ", backgroundColor=" + backgroundColor +
+                ", borderColor=" + borderColor +
+                ", textColor=" + textColor +
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", lastName='" + lastName + '\'' +
