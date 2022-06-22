@@ -123,12 +123,12 @@ public class Node extends Path {
         private Length yShift;
         private Length textWidth;
         private Length textHeight;
-        private double textDepth;
+        private Length textDepth;
         private Length minimumWidth;
         private Length minimumHeight;
         private Alignment alignment;
-        private double innerXSep;
-        private double innerYSep;
+        private Length innerXSep;
+        private Length innerYSep;
         private boolean isMatrix = DEFAULT_IS_MATRIX;
 
         public Builder(String... body) {
@@ -253,16 +253,12 @@ public class Node extends Path {
             return this;
         }
 
-        public Builder textDepth(double textDepth) {
-            return textDepth(textDepth, LengthUnit.CENTIMETER);
-        }
-
-        public Builder textDepth(double textDepth, LengthUnit lengthUnit) {
-            Length length = new Length(textDepth, lengthUnit);
-            this.textDepth = length.getNumericalValue();
-            addOption("text depth", length.getFormatted());
+        public Builder textDepth(Length textDepth) {
+            this.textDepth = textDepth;
+            addOption("text depth", textDepth.getFormatted());
             return this;
         }
+
 
         public Builder minimumWidth(Length minimumWidth) {
             this.minimumWidth = minimumWidth;
@@ -282,25 +278,15 @@ public class Node extends Path {
             return this;
         }
 
-        public Builder innerXSep(double innerXSep) {
-            return innerXSep(innerXSep, LengthUnit.CENTIMETER);
-        }
-
-        public Builder innerXSep(double innerXSep, LengthUnit lengthUnit) {
-            Length length = new Length(innerXSep, lengthUnit);
-            this.innerXSep = length.getNumericalValue();
-            addOption("inner xsep", length.getFormatted());
+        public Builder innerXSep(Length innerXSep) {
+            this.innerXSep = innerXSep;
+            addOption("minimum xsep", innerXSep.getFormatted());
             return this;
         }
 
-        public Builder innerYSep(double innerYSep) {
-            return innerYSep(innerYSep, LengthUnit.CENTIMETER);
-        }
-
-        public Builder innerYSep(double innerYSep, LengthUnit lengthUnit) {
-            Length length = new Length(innerYSep, lengthUnit);
-            this.innerYSep = length.getNumericalValue();
-            addOption("inner ysep", length.getFormatted());
+        public Builder innerYSep(Length innerYSep) {
+            this.innerYSep = innerYSep;
+            addOption("minimum ysep", innerYSep.getFormatted());
             return this;
         }
 
