@@ -119,8 +119,8 @@ public class Node extends Path {
         private LineCap lineCap;
         private LineJoin lineJoin;
         private DashPatternStyle dashPatternStyle;
-        private double xShift;
-        private double yShift;
+        private Length xShift;
+        private Length yShift;
         private double textWidth;
         private double textHeight;
         private double textDepth;
@@ -218,9 +218,12 @@ public class Node extends Path {
         }
 
         public Builder xShift(double xShift, LengthUnit lengthUnit) {
-            Length length = new Length(xShift, lengthUnit);
-            this.xShift = length.getNumericalValue();
-            addOption("xshift", length.getFormatted());
+            return xShift(Length.createFromNumberAndUnit(xShift, lengthUnit));
+        }
+
+        public Builder xShift(Length xShift) {
+            this.xShift = xShift;
+            addOption("xshift", xShift.getFormatted());
             return this;
         }
 
@@ -229,11 +232,15 @@ public class Node extends Path {
         }
 
         public Builder yShift(double yShift, LengthUnit lengthUnit) {
-            Length length = new Length(yShift, lengthUnit);
-            this.yShift = length.getNumericalValue();
-            addOption("yshift", length.getFormatted());
+            return yShift(Length.createFromNumberAndUnit(yShift, lengthUnit));
+        }
+
+        public Builder yShift(Length yShift) {
+            this.yShift = yShift;
+            addOption("yshift", yShift.getFormatted());
             return this;
         }
+
 
         public Builder textWidth(double textWidth) {
             return textWidth(textWidth, LengthUnit.CENTIMETER);
@@ -335,7 +342,7 @@ public class Node extends Path {
 
         private void addOption(String key, String value) {
             // Skip empty keys or values
-            if (key != null && value!= null) {
+            if (key != null && value != null) {
                 if (!key.isEmpty() && !value.isEmpty()) {
                     this.optionalArguments.add(key + "=" + value);
                 }
