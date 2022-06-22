@@ -147,7 +147,7 @@ public class Line extends Path {
         }
 
         public Builder nextPoint(double x, double y, CoordinateMode coordinateMode, LengthUnit lengthUnit) {
-            this.coordinateList.add(Point.fromLengthsInMode(Length.createFromNumberAndUnit(x, lengthUnit), Length.createFromNumberAndUnit(y, lengthUnit), coordinateMode));
+            this.coordinateList.add(Point.fromLengthsInMode(Length.fromNumberAndUnit(x, lengthUnit), Length.fromNumberAndUnit(y, lengthUnit), coordinateMode));
             return this;
         }
 

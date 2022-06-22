@@ -68,7 +68,7 @@ public class BackaddressField {
                 .fillColor(backgroundColor)
                 .drawColor(borderColor)
                 .textColor(textColor)
-                .textWidth(Length.createFromNumberAndUnit(width, LengthUnit.CENTIMETER))
+                .textWidth(Length.inCentimeter(width))
                 .fontSize(fontSize)
                 .alignment(Alignment.CENTER)
                 .build().getInline();
@@ -95,7 +95,7 @@ public class BackaddressField {
 
     private String hSpace(double width) {
         return new Command2.Builder(CommandName.HSPACE.getString())
-                .body(Length.createFromNumberAndUnit(width, LengthUnit.POINT).getFormatted())
+                .body(Length.inPoint(width).getFormatted())
                 .build()
                 .getInline();
     }

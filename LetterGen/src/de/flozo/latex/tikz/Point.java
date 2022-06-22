@@ -36,7 +36,7 @@ public class Point {
     }
 
     public static Point fromNumbersInMode(double x, double y, CoordinateMode coordinateMode) {
-        return fromLengthsInMode(Length.createWithDefaultUnit(x), Length.createWithDefaultUnit(y), coordinateMode);
+        return fromLengthsInMode(Length.inDefaultUnit(x), Length.inDefaultUnit(y), coordinateMode);
     }
 
     public static Point fromNumbers(double x, double y) {

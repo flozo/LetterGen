@@ -22,11 +22,18 @@ public class Length {
         this.unit = unit;
     }
 
-    public static Length createWithDefaultUnit(double numericalValue) {
+    public static Length inDefaultUnit(double numericalValue) {
         return new Length(numericalValue);
     }
 
-    public static Length createFromNumberAndUnit(double numericalValue, LengthUnit unit) {
+    public static Length inCentimeter(double numericalValue) {
+        return new Length(numericalValue, LengthUnit.CENTIMETER);
+    }
+    public static Length inPoint(double numericalValue) {
+        return new Length(numericalValue, LengthUnit.POINT);
+    }
+
+    public static Length fromNumberAndUnit(double numericalValue, LengthUnit unit) {
         return new Length(numericalValue, unit);
     }
 

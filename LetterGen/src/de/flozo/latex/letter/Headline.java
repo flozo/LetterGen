@@ -33,8 +33,8 @@ public class Headline {
     public Headline(LetterGeometry geometry, LetterColor color, Address address) {
         this.headlineText = address.getTitle() + " " + address.getFirstName() + " " + address.getLastName();
         this.position = Point.fromNumbers(geometry.getSenderX(), geometry.getSenderY());
-        this.xShift = Length.createWithDefaultUnit(geometry.getHeadlineXShift());
-        this.yShift = Length.createWithDefaultUnit(geometry.getHeadlineYShift());
+        this.xShift = Length.inCentimeter(geometry.getHeadlineXShift());
+        this.yShift = Length.inCentimeter(geometry.getHeadlineYShift());
         this.anchor = Anchor.SOUTH_EAST;
         this.alignment = Alignment.RIGHT;
         this.fontSize = FontSize.LARGE3;

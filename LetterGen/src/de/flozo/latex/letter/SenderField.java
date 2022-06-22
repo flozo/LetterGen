@@ -4,7 +4,6 @@ import de.flozo.data.Address;
 import de.flozo.data.LetterColor;
 import de.flozo.data.LetterGeometry;
 import de.flozo.latex.core.Length;
-import de.flozo.latex.core.LengthUnit;
 import de.flozo.latex.core.color.Color;
 import de.flozo.latex.tikz.*;
 
@@ -68,12 +67,12 @@ public class SenderField {
                 .name(FIELD_NAME)
                 .position(position)
                 .anchor(Anchor.NORTH_WEST)
-                .minimumWidth(Length.createFromNumberAndUnit(width, LengthUnit.CENTIMETER))
-                .minimumHeight(Length.createFromNumberAndUnit(2.73, LengthUnit.CENTIMETER))
+                .minimumWidth(Length.inCentimeter(width))
+                .minimumHeight(Length.inCentimeter(2.73))
                 .fillColor(backgroundColor)
                 .drawColor(borderColor)
                 .textColor(textColor)
-                .textWidth(Length.createFromNumberAndUnit(width, LengthUnit.CENTIMETER))
+                .textWidth(Length.inCentimeter(width))
                 .alignment(Alignment.LEFT)
                 .build().getInline();
     }
@@ -99,12 +98,12 @@ public class SenderField {
                 .addNodeOption(NodeOption.FILL, backgroundColor.getString())
                 .addNodeOption(NodeOption.TEXT, textColor.getString())
                 .addNodeOption(NodeOption.ALIGN, Alignment.RIGHT.getString())
-                .addNodeOption(NodeOption.INNER_X_SEP, Length.createFromNumberAndUnit(8, LengthUnit.POINT).getFormatted())
-                .addNodeOption(NodeOption.INNER_Y_SEP, Length.createFromNumberAndUnit(6, LengthUnit.POINT).getFormatted())
-                .addNodeOption(NodeOption.MINIMUM_WIDTH, Length.createFromNumberAndUnit(0.6, LengthUnit.CENTIMETER).getFormatted())
-                .addNodeOption(NodeOption.MINIMUM_HEIGHT, Length.createFromNumberAndUnit(0.5, LengthUnit.CENTIMETER).getFormatted())
-                .addNodeOption(NodeOption.TEXT_WIDTH, Length.createFromNumberAndUnit(7.8, LengthUnit.CENTIMETER).getFormatted())
-                .addNodeOption(NodeOption.TEXT_HEIGHT, Length.createFromNumberAndUnit(0.25, LengthUnit.CENTIMETER).getFormatted())
+                .addNodeOption(NodeOption.INNER_X_SEP, Length.inPoint(8).getFormatted())
+                .addNodeOption(NodeOption.INNER_Y_SEP, Length.inPoint(6).getFormatted())
+                .addNodeOption(NodeOption.MINIMUM_WIDTH, Length.inCentimeter(0.6).getFormatted())
+                .addNodeOption(NodeOption.MINIMUM_HEIGHT, Length.inCentimeter(0.5).getFormatted())
+                .addNodeOption(NodeOption.TEXT_WIDTH, Length.inCentimeter(7.8).getFormatted())
+                .addNodeOption(NodeOption.TEXT_HEIGHT, Length.inCentimeter(0.25).getFormatted())
                 .build();
     }
 
@@ -116,12 +115,12 @@ public class SenderField {
                 .addNodeOption(NodeOption.FILL, backgroundColor.getString())
                 .addNodeOption(NodeOption.TEXT, iconColor.getString())
                 .addNodeOption(NodeOption.ALIGN, Alignment.CENTER.getString())
-                .addNodeOption(NodeOption.INNER_X_SEP, Length.createFromNumberAndUnit(0, LengthUnit.POINT).getFormatted())
-                .addNodeOption(NodeOption.INNER_Y_SEP, Length.createFromNumberAndUnit(6, LengthUnit.POINT).getFormatted())
-                .addNodeOption(NodeOption.MINIMUM_WIDTH, Length.createFromNumberAndUnit(0.4, LengthUnit.CENTIMETER).getFormatted())
-                .addNodeOption(NodeOption.MINIMUM_HEIGHT, Length.createFromNumberAndUnit(0.5, LengthUnit.CENTIMETER).getFormatted())
-                .addNodeOption(NodeOption.TEXT_WIDTH, Length.createFromNumberAndUnit(0.4, LengthUnit.CENTIMETER).getFormatted())
-                .addNodeOption(NodeOption.TEXT_HEIGHT, Length.createFromNumberAndUnit(0.25, LengthUnit.CENTIMETER).getFormatted())
+                .addNodeOption(NodeOption.INNER_X_SEP, Length.inPoint(0).getFormatted())
+                .addNodeOption(NodeOption.INNER_Y_SEP, Length.inPoint(6).getFormatted())
+                .addNodeOption(NodeOption.MINIMUM_WIDTH, Length.inCentimeter(0.4).getFormatted())
+                .addNodeOption(NodeOption.MINIMUM_HEIGHT, Length.inCentimeter(0.5).getFormatted())
+                .addNodeOption(NodeOption.TEXT_WIDTH, Length.inCentimeter(0.4).getFormatted())
+                .addNodeOption(NodeOption.TEXT_HEIGHT, Length.inCentimeter(0.25).getFormatted())
                 .build();
     }
 
