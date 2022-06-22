@@ -22,6 +22,7 @@ public class LetterColor {
 
     private final Color bodyTextColor;
     private final Color subjectTextColor;
+    private final Color dateTextColor;
     private final Color closingTextColor;
     private final Color enclosuresTextColor;
 
@@ -48,6 +49,7 @@ public class LetterColor {
         this.senderIconColor = colorMap.get(LetterColorProperty.SENDER_ICON_COLOR.getPropertyKey());
         this.bodyTextColor = colorMap.get(LetterColorProperty.BODY_TEXT_COLOR.getPropertyKey());
         this.subjectTextColor = colorMap.get(LetterColorProperty.SUBJECT_TEXT_COLOR.getPropertyKey());
+        this.dateTextColor = colorMap.get(LetterColorProperty.DATE_TEXT_COLOR.getPropertyKey());
         this.closingTextColor = colorMap.get(LetterColorProperty.CLOSING_TEXT_COLOR.getPropertyKey());
         this.enclosuresTextColor = colorMap.get(LetterColorProperty.ENCLOSURES_TEXT_COLOR.getPropertyKey());
         this.perforationMarkColor = colorMap.get(LetterColorProperty.PERFORATION_MARK_COLOR.getPropertyKey());
@@ -107,6 +109,10 @@ public class LetterColor {
         return subjectTextColor;
     }
 
+    public Color getDateTextColor() {
+        return dateTextColor;
+    }
+
     public Color getClosingTextColor() {
         return closingTextColor;
     }
@@ -143,6 +149,7 @@ public class LetterColor {
                 ", senderIconColor=" + senderIconColor +
                 ", bodyTextColor=" + bodyTextColor +
                 ", subjectTextColor=" + subjectTextColor +
+                ", dateTextColor=" + dateTextColor +
                 ", closingTextColor=" + closingTextColor +
                 ", enclosuresTextColor=" + enclosuresTextColor +
                 ", perforationMarkColor=" + perforationMarkColor +

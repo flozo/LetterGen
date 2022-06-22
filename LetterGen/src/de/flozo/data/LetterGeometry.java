@@ -33,6 +33,7 @@ public class LetterGeometry {
     private final double senderHeight;
 
     private final double subjectY;
+    private final double dateY;
     private final double textY;
     private final double closingYShift;
     private final double enclosuresYShift;
@@ -85,6 +86,7 @@ public class LetterGeometry {
         this.senderWidth = numericSubMap.get(LetterGeometryProperty.SENDER_WIDTH.getPropertyKey());
         this.senderHeight = numericSubMap.get(LetterGeometryProperty.SENDER_HEIGHT.getPropertyKey());
         this.subjectY = numericSubMap.get(LetterGeometryProperty.SUBJECT_Y.getPropertyKey());
+        this.dateY = numericSubMap.get(LetterGeometryProperty.DATE_Y.getPropertyKey());
         this.textY = numericSubMap.get(LetterGeometryProperty.TEXT_Y.getPropertyKey());
         this.closingYShift = numericSubMap.get(LetterGeometryProperty.CLOSING_Y_SHIFT.getPropertyKey());
         this.enclosuresYShift = numericSubMap.get(LetterGeometryProperty.ENCLOSURES_Y_SHIFT.getPropertyKey());
@@ -201,6 +203,10 @@ public class LetterGeometry {
         return subjectY;
     }
 
+    public double getDateY() {
+        return dateY;
+    }
+
     public double getTextY() {
         return textY;
     }
@@ -300,6 +306,7 @@ public class LetterGeometry {
                 ", senderWidth=" + senderWidth +
                 ", senderHeight=" + senderHeight +
                 ", subjectY=" + subjectY +
+                ", dateY=" + dateY +
                 ", textY=" + textY +
                 ", closingYShift=" + closingYShift +
                 ", enclosuresYShift=" + enclosuresYShift +

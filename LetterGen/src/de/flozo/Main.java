@@ -115,8 +115,9 @@ public class Main {
         AddressField addressField = new AddressField(geometry, color, receiverData);
         BackaddressField backaddressField = new BackaddressField(geometry, color, senderData);
         Headline headline = new Headline(geometry, color, senderData);
-
         SubjectField subjectField = new SubjectField(geometry, color, "My subject");
+
+        DateField dateField = new DateField(geometry,color,"City","2022-06-22");
 
         ExpressionList tikzpictureBody = new FormattedExpressionList.Builder()
                 .append(pageOne.getPage())
@@ -126,6 +127,7 @@ public class Main {
                 .append(backaddressField.getSeparationLine())
                 .append(headline.getBlock())
                 .append(subjectField.generate())
+                .append(dateField.generate())
                 .build();
 
         Environment tikzpicture = new Environment.Builder(EnvironmentName.TIKZPICTURE)
