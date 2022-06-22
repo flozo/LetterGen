@@ -4,6 +4,7 @@ import de.flozo.data.Address;
 import de.flozo.data.LetterColor;
 import de.flozo.data.LetterGeometry;
 import de.flozo.latex.core.Length;
+import de.flozo.latex.core.LengthUnit;
 import de.flozo.latex.core.StatementTerminator;
 import de.flozo.latex.core.color.Color;
 import de.flozo.latex.tikz.Alignment;
@@ -59,14 +60,14 @@ public class AddressField {
     public String getAddressField() {
         return new Node.Builder(assembleText())
                 .name(FIELD_NAME)
-                .position(Point.fromNumbers(x,y))
+                .position(Point.fromNumbers(x, y))
                 .anchor(Anchor.NORTH_WEST)
-                .minimumWidth(width)
-                .minimumHeight(2.73)
+                .minimumWidth(Length.createFromNumberAndUnit(width, LengthUnit.CENTIMETER))
+                .minimumHeight(Length.createFromNumberAndUnit(2.73, LengthUnit.CENTIMETER))
                 .fillColor(backgroundColor)
                 .drawColor(borderColor)
                 .textColor(textColor)
-                .textWidth(Length.createWithDefaultUnit(width))
+                .textWidth(Length.createFromNumberAndUnit(width, LengthUnit.CENTIMETER))
                 .alignment(Alignment.LEFT)
                 .bodyTerminator(StatementTerminator.DOUBLE_BACKSLASH)
                 .build().getInline();

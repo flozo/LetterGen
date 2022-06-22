@@ -124,8 +124,8 @@ public class Node extends Path {
         private Length textWidth;
         private Length textHeight;
         private double textDepth;
-        private double minimumWidth;
-        private double minimumHeight;
+        private Length minimumWidth;
+        private Length minimumHeight;
         private Alignment alignment;
         private double innerXSep;
         private double innerYSep;
@@ -241,34 +241,11 @@ public class Node extends Path {
             return this;
         }
 
-
-//        public Builder textWidth(double textWidth) {
-//            return textWidth(textWidth, LengthUnit.CENTIMETER);
-//        }
-//
-//        public Builder textWidth(double textWidth, LengthUnit lengthUnit) {
-//            Length length = new Length(textWidth, lengthUnit);
-//            this.textWidth = length.getNumericalValue();
-//            addOption("text width", length.getFormatted());
-//            return this;
-//        }
-
         public Builder textWidth(Length textWidth) {
             this.textWidth = textWidth;
             addOption("text width", textWidth.getFormatted());
             return this;
         }
-
-//        public Builder textHeight(double textHeight) {
-//            return textHeight(textHeight, LengthUnit.CENTIMETER);
-//        }
-//
-//        public Builder textHeight(double textHeight, LengthUnit lengthUnit) {
-//            Length length = new Length(textHeight, lengthUnit);
-//            this.textHeight = length.getNumericalValue();
-//            addOption("text height", length.getFormatted());
-//            return this;
-//        }
 
         public Builder textHeight(Length textHeight) {
             this.textHeight = textHeight;
@@ -287,25 +264,15 @@ public class Node extends Path {
             return this;
         }
 
-        public Builder minimumWidth(double minimumWidth) {
-            return minimumWidth(minimumWidth, LengthUnit.CENTIMETER);
-        }
-
-        public Builder minimumWidth(double minimumWidth, LengthUnit lengthUnit) {
-            Length length = new Length(minimumWidth, lengthUnit);
-            this.minimumWidth = length.getNumericalValue();
-            addOption("minimum width", length.getFormatted());
+        public Builder minimumWidth(Length minimumWidth) {
+            this.minimumWidth = minimumWidth;
+            addOption("minimum width", minimumWidth.getFormatted());
             return this;
         }
 
-        public Builder minimumHeight(double minimumHeight) {
-            return minimumHeight(minimumHeight, LengthUnit.CENTIMETER);
-        }
-
-        public Builder minimumHeight(double minimumHeight, LengthUnit lengthUnit) {
-            Length length = new Length(minimumHeight, lengthUnit);
-            this.minimumHeight = length.getNumericalValue();
-            addOption("minimum height", length.getFormatted());
+        public Builder minimumHeight(Length minimumHeight) {
+            this.minimumHeight = minimumHeight;
+            addOption("minimum height", minimumHeight.getFormatted());
             return this;
         }
 

@@ -68,12 +68,12 @@ public class SenderField {
                 .name(FIELD_NAME)
                 .position(position)
                 .anchor(Anchor.NORTH_WEST)
-                .minimumWidth(width)
-                .minimumHeight(2.73)
+                .minimumWidth(Length.createFromNumberAndUnit(width, LengthUnit.CENTIMETER))
+                .minimumHeight(Length.createFromNumberAndUnit(2.73, LengthUnit.CENTIMETER))
                 .fillColor(backgroundColor)
                 .drawColor(borderColor)
                 .textColor(textColor)
-                .textWidth(Length.createWithDefaultUnit(width))
+                .textWidth(Length.createFromNumberAndUnit(width, LengthUnit.CENTIMETER))
                 .alignment(Alignment.LEFT)
                 .build().getInline();
     }
