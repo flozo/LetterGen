@@ -16,11 +16,6 @@ public abstract class Path {
     public static final Bracket OPTIONS_BRACKETS = Bracket.SQUARE_BRACKETS;
     public static final StatementTerminator TERMINATOR = StatementTerminator.SEMICOLON;
 
-
-    // required; visible for subclasses
-//    protected double xOrigin;
-//    protected double yOrigin;
-
     // optional; visible for subclasses
     protected Point position;
     protected List<String> optionalArguments;
@@ -52,21 +47,20 @@ public abstract class Path {
 
     public abstract String getInline();
 
-    private FormattedExpressionList buildOptionList() {
+    private FormattedExpressionList.Builder buildOptionList() {
         return new FormattedExpressionList.Builder(optionalArguments)
                 .brackets(OPTIONS_BRACKETS)
                 .terminator(StatementTerminator.COMMA)
                 .skipLastTerminator(skipLastTerminator)
-                .inlineSpacing(true)
-                .build();
+                .inlineSpacing(true);
     }
 
     protected String inlineOptions() {
-        return buildOptionList().getInline();
+        return buildOptionList().build().getInline();
     }
 
     protected List<String> blockOptions() {
-        return buildOptionList().getBlock();
+        return buildOptionList().indentBlock(true).build().getBlock();
     }
 
 

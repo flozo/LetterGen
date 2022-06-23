@@ -133,7 +133,7 @@ public class Main {
                 .append(headline.getBlock())
                 .append(subjectField.generate())
                 .append(dateField.generate())
-                .append(letterBody.generate())
+                .append(letterBody.getBlock())
                 .build();
 
         Environment tikzpicture = new Environment.Builder(EnvironmentName.TIKZPICTURE)

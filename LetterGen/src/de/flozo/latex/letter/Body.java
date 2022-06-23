@@ -9,15 +9,20 @@ import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
 import de.flozo.latex.tikz.Point;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Body {
 
     public static final String FIELD_NAME = "body";
-    public static final String LINEBREAK = "\\\\";
+    public static final String LATEX_LINEBREAK = "\\\\";
+    public static final String NEWLINE = "";
+    public static final String LINEBREAK = LATEX_LINEBREAK + NEWLINE;
 
 
     private final Point position;
 
-    private final String text;
+    private final List<String> textLines;
     private final String salutation;
     private final String valediction;
 
@@ -28,9 +33,10 @@ public class Body {
     private final Color borderColor;
     private final Color textColor;
 
-    public Body(LetterGeometry geometry, LetterColor color, String text) {
+
+    public Body(LetterGeometry geometry, LetterColor color, List<String> textLines) {
         this.position = Point.fromNumbers(geometry.getBorderMarginLeft(), geometry.getBodyY());
-        this.text = text;
+        this.textLines = textLines;
         this.salutation = "Dear Sir or Madam,";
         this.valediction = "Best regards,";
         this.textWidth = Length.inCentimeter(geometry.getPaperWidth() - geometry.getBorderMarginLeft() - geometry.getBorderMarginRight());
@@ -40,8 +46,12 @@ public class Body {
         this.textColor = color.getBodyTextColor();
     }
 
+    public Body(LetterGeometry geometry, LetterColor color, String... textLines) {
+        this(geometry, color, new ArrayList<>(List.of(textLines)));
+    }
 
-    public String generate() {
+
+    public List<String> getBlock() {
         return new Node.Builder(assembleText())
                 .name(FIELD_NAME)
                 .position(position)
@@ -51,12 +61,24 @@ public class Body {
                 .fillColor(backgroundColor)
                 .drawColor(borderColor)
                 .textColor(textColor)
-                .build().getInline();
+                .build().getBlock();
     }
 
-    private String assembleText() {
-        return salutation + LINEBREAK + spacing() + LINEBREAK + text +
-                LINEBREAK + spacing() + LINEBREAK + valediction;
+    private List<String> assembleText() {
+        appendToLastLine();
+        List<String> lines = new ArrayList<>();
+        lines.add(salutation + LINEBREAK);
+        lines.add(spacing() + LINEBREAK);
+        lines.addAll(textLines);
+        lines.add(spacing() + LINEBREAK);
+        lines.add(valediction);
+        return lines;
+    }
+
+    private void appendToLastLine() {
+        int index = textLines.size() - 1;
+        String lastLine = String.join("", textLines.get(index), LINEBREAK);
+        textLines.set(index, lastLine);
     }
 
     private String spacing() {
@@ -67,10 +89,11 @@ public class Body {
     public String toString() {
         return "Body{" +
                 "position=" + position +
-                ", text='" + text + '\'' +
+                ", textLines=" + textLines +
                 ", salutation='" + salutation + '\'' +
                 ", valediction='" + valediction + '\'' +
                 ", textWidth=" + textWidth +
+                ", paragraphSpacing=" + paragraphSpacing +
                 ", backgroundColor=" + backgroundColor +
                 ", borderColor=" + borderColor +
                 ", textColor=" + textColor +
