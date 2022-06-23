@@ -124,6 +124,10 @@ public class Main {
                 "this is a text this is a text this is a text this is a text\\\\this is a text this is a text " +
                 "this is a text this is a text this is a text this is a text");
 
+        PerforationMark perforationMark = new PerforationMark(geometry,color);
+        FoldingMark1 foldingMark1 = new FoldingMark1(geometry, color);
+        FoldingMark2 foldingMark2 = new FoldingMark2(geometry, color);
+
         ExpressionList tikzpictureBody = new FormattedExpressionList.Builder()
                 .append(pageOne.getPage())
                 .append(onForeBackgroundLayer.getBlock())
@@ -134,6 +138,9 @@ public class Main {
                 .append(subjectField.generate())
                 .append(dateField.generate())
                 .append(letterBody.getBlock())
+                .append(perforationMark.getLine())
+                .append(foldingMark1.getLine())
+                .append(foldingMark2.getLine())
                 .build();
 
         Environment tikzpicture = new Environment.Builder(EnvironmentName.TIKZPICTURE)

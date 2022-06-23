@@ -67,7 +67,7 @@ public class Node extends Path {
         return lines;
     }
 
-    private FormattedExpressionList buildBody() {
+    private ExpressionList buildBody() {
         return new FormattedExpressionList.Builder(body)
                 .brackets(Bracket.CURLY_BRACES)
                 .terminator(bodyTerminator)

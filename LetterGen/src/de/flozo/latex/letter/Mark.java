@@ -1,41 +1,31 @@
 package de.flozo.latex.letter;
 
 import de.flozo.latex.core.Length;
+import de.flozo.latex.core.color.Color;
 import de.flozo.latex.tikz.CoordinateMode;
 import de.flozo.latex.tikz.Line;
+import de.flozo.latex.tikz.Point;
 
 public class Mark {
 
-    private final double x;
-    private final double y;
-    private final double width;
-    private final double thickness;
 
-    public Mark(String x, String y, String width, String thickness) {
-        this.x = Double.parseDouble(x);
-        this.y = Double.parseDouble(y);
-        this.width = Double.parseDouble(width);
-        this.thickness = Double.parseDouble(thickness);
+    private final Point position;
+    private final Length width;
+    private final Length lineWidth;
+    private final Color color;
+
+    public Mark(Point position, Length width, Length lineWidth, Color color) {
+        this.position = position;
+        this.width = width;
+        this.lineWidth = lineWidth;
+        this.color = color;
     }
 
-//    public Mark(Properties properties) {
-//        this.x = Double.parseDouble(properties.getProperty(LetterGeometryProperty.PERFORATION_MARK_X.getString()));
-//        this.y = Double.parseDouble(properties.getProperty(LetterGeometryProperty.PERFORATION_MARK_Y.getString()));
-//        this.width = Double.parseDouble(properties.getProperty(LetterGeometryProperty.PERFORATION_MARK_WIDTH.getString()));
-//        this.thickness = Double.parseDouble(properties.getProperty(LetterGeometryProperty.PERFORATION_MARK_THICKNESS.getString()));
-//    }
-
-    public String getStatement() {
-//        EnumSet<LetterGeometryProperty> perforationMarkSettings;
-//        perforationMarkSettings = EnumSet.of(LetterGeometryProperty.PERFORATION_MARK_X,
-//                LetterGeometryProperty.PERFORATION_MARK_Y,
-//                LetterGeometryProperty.PERFORATION_MARK_WIDTH,
-//                LetterGeometryProperty.PERFORATION_MARK_THICKNESS);
-        return getLine().getInline();
-    }
-
-    public Line getLine() {
-        return new Line.Builder(x, y, width, 0, CoordinateMode.RELATIVE).lineWidth(Length.inDefaultUnit(thickness)).build();
+    public String getLine() {
+        return new Line.Builder(position, Point.fromLengthsInMode(width, Length.inDefaultUnit(0), CoordinateMode.RELATIVE))
+                .lineWidth(lineWidth)
+                .drawColor(color)
+                .build().getInline();
     }
 
 
