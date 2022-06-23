@@ -36,7 +36,8 @@ public enum LetterGeometryProperty implements Property {
 
     SUBJECT_Y("subject.y", 18.5),
     DATE_Y("date.y", 19.2),
-    TEXT_Y("text.y", 17.8),
+    BODY_Y("body.y", 17.8),
+    BODY_TEXT_PARAGRAPH_SPACING("body.text.paragraph_spacing", -0.2),
     CLOSING_Y_SHIFT("closing.y_shift", 3.7),
     ENCLOSURES_Y_SHIFT("enclosures.y_shift", -0.7),
     HEADLINE_X_SHIFT("headline.x_shift", 0.0),

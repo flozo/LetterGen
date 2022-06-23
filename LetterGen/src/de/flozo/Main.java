@@ -118,6 +118,11 @@ public class Main {
         SubjectField subjectField = new SubjectField(geometry, color, "My subject");
 
         DateField dateField = new DateField(geometry,color,"City","2022-06-22");
+        Body letterBody = new Body(geometry,color,"this is a text this is a text this is a text " +
+                "this is a text this is a text this is a text this is a text this is a text " +
+                "this is a text this is a text this is a text this is a text this is a text " +
+                "this is a text this is a text this is a text this is a text\\\\this is a text this is a text " +
+                "this is a text this is a text this is a text this is a text");
 
         ExpressionList tikzpictureBody = new FormattedExpressionList.Builder()
                 .append(pageOne.getPage())
@@ -128,6 +133,7 @@ public class Main {
                 .append(headline.getBlock())
                 .append(subjectField.generate())
                 .append(dateField.generate())
+                .append(letterBody.generate())
                 .build();
 
         Environment tikzpicture = new Environment.Builder(EnvironmentName.TIKZPICTURE)

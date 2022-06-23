@@ -9,7 +9,7 @@ public interface PropertyKeyTypeCheck {
         Predicate<String> isHeight = key -> key.endsWith(".height");
         Predicate<String> isLength = key -> key.endsWith(".length");
         Predicate<String> isLineWidth = key -> key.endsWith(".line_width");
-        Predicate<String> isSpacing = key -> key.endsWith(".spacing");
+        Predicate<String> isSpacing = key -> key.endsWith("spacing");
         Predicate<String> isX = key -> key.endsWith(".x");
         Predicate<String> isY = key -> key.endsWith(".y");
         Predicate<String> isXShift = key -> key.endsWith(".x_shift");

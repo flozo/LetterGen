@@ -34,7 +34,8 @@ public class LetterGeometry {
 
     private final double subjectY;
     private final double dateY;
-    private final double textY;
+    private final double bodyY;
+    private final double bodyTextParagraphSpacing;
     private final double closingYShift;
     private final double enclosuresYShift;
     private final double headlineXShift;
@@ -87,7 +88,8 @@ public class LetterGeometry {
         this.senderHeight = numericSubMap.get(LetterGeometryProperty.SENDER_HEIGHT.getPropertyKey());
         this.subjectY = numericSubMap.get(LetterGeometryProperty.SUBJECT_Y.getPropertyKey());
         this.dateY = numericSubMap.get(LetterGeometryProperty.DATE_Y.getPropertyKey());
-        this.textY = numericSubMap.get(LetterGeometryProperty.TEXT_Y.getPropertyKey());
+        this.bodyY = numericSubMap.get(LetterGeometryProperty.BODY_Y.getPropertyKey());
+        this.bodyTextParagraphSpacing = numericSubMap.get(LetterGeometryProperty.BODY_TEXT_PARAGRAPH_SPACING.getPropertyKey());
         this.closingYShift = numericSubMap.get(LetterGeometryProperty.CLOSING_Y_SHIFT.getPropertyKey());
         this.enclosuresYShift = numericSubMap.get(LetterGeometryProperty.ENCLOSURES_Y_SHIFT.getPropertyKey());
         this.headlineXShift = numericSubMap.get(LetterGeometryProperty.HEADLINE_X_SHIFT.getPropertyKey());
@@ -207,8 +209,12 @@ public class LetterGeometry {
         return dateY;
     }
 
-    public double getTextY() {
-        return textY;
+    public double getBodyY() {
+        return bodyY;
+    }
+
+    public double getBodyTextParagraphSpacing() {
+        return bodyTextParagraphSpacing;
     }
 
     public double getClosingYShift() {
@@ -307,7 +313,8 @@ public class LetterGeometry {
                 ", senderHeight=" + senderHeight +
                 ", subjectY=" + subjectY +
                 ", dateY=" + dateY +
-                ", textY=" + textY +
+                ", bodyY=" + bodyY +
+                ", bodyTextParagraphSpacing=" + bodyTextParagraphSpacing +
                 ", closingYShift=" + closingYShift +
                 ", enclosuresYShift=" + enclosuresYShift +
                 ", headlineXShift=" + headlineXShift +
