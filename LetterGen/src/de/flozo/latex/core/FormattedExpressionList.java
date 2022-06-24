@@ -88,10 +88,6 @@ public class FormattedExpressionList implements ExpressionList {
         }
         if (skipLastTerminator) {
             // Append terminator to each code line, except the last one
-//            System.out.println("*****");
-//            for (String line : codeLines) {
-//                System.out.println(line);
-//            }
             codeLines.subList(0, codeLines.size() - 1).replaceAll(s -> s + terminator.getString());
         } else {
             // Append terminator to each code line

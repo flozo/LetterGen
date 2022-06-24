@@ -21,6 +21,7 @@ public class PropertyMap implements PropertyKeyTypeCheck, PropertyValueTypeCheck
 
     public void updateDefaults(Settings settings) {
         Map<String, String> updated = new HashMap<>(getDefaults());
+        System.out.println("[config] Updating default settings in " + configGroup.getPropertyKey());
         for (Map.Entry<String, String> entry : getFromFile(settings).entrySet()) {
             updated.replace(entry.getKey(), entry.getValue());
         }
@@ -96,7 +97,6 @@ public class PropertyMap implements PropertyKeyTypeCheck, PropertyValueTypeCheck
     }
 
     private Color parseColor(String colorString) {
-        System.out.println(colorString);
         if (PropertyValueTypeCheck.isValidBrewerColorValue().test(colorString)) {
             return BrewerColor.parseColor(colorString);
         } else if (PropertyValueTypeCheck.isValidStandardColorValue().test(colorString)) {

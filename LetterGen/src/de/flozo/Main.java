@@ -28,13 +28,19 @@ public class Main {
 
 
         Settings settings = new Settings(MASTER_CONFIG_FILE_NAME);
+        System.out.println("1111111111111111");
 
         PropertyMap letterGeometryMap = new PropertyMap(ConfigGroup.LETTER_GEOMETRY);
+        System.out.println("22222222222222222");
         letterGeometryMap.updateDefaults(settings);
+        System.out.println("3333333333333333333");
         LetterGeometry geometry = new LetterGeometry(letterGeometryMap);
+        System.out.println("4444444444444444444");
 
         PropertyMap letterColor = new PropertyMap(ConfigGroup.LETTER_COLORS);
+        System.out.println("5555555555555555");
         letterColor.updateDefaults(settings);
+        System.out.println("6666666666666666666");
         LetterColor color = new LetterColor(letterColor);
 
         PropertyMap senderMap = new PropertyMap(ConfigGroup.SENDER_DATA);
@@ -65,6 +71,7 @@ public class Main {
                 .add(PackageName.MICROTYPE, "activate={true, nocompatibility}", "final", "tracking=true", "kerning=true", "spacing=true", "factor=1100", "stretch=8", "shrink=8")
                 .add(PackageName.TIKZ)
                 .add(PackageName.HYPERREF, "unicode");
+
 
         Command usetikzlibrary = new Command2.Builder(CommandName.USETIKZLIBRARY.getString())
                 .body(

@@ -28,8 +28,8 @@ public class ConfigFile implements PropertyKeyTypeCheck, PropertyValueTypeCheck 
         Path configDirectory = Paths.get(homeDirectory, CONFIG_DIR, SUB_DIR, fileName);
         System.out.println("[config] Read from config file \"" + configDirectory + "\" ...");
         Properties properties = new Properties();
-        System.out.println("******************");
-        System.out.println(fileName);
+//        System.out.println("******************");
+//        System.out.println(fileName);
         try (InputStreamReader input = new InputStreamReader(new FileInputStream(configDirectory.toFile()), StandardCharsets.UTF_8)) {
             properties.load(input);
         } catch (IOException e) {
