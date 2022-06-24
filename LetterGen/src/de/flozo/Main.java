@@ -83,7 +83,7 @@ public class Main {
         Command hypersetup = new Command2.Builder(CommandName.HYPERSETUP.getString())
                 .body(
                         "colorlinks=true",
-                        String.format("urlcolor=%s", color.getUrlHyperlinkColor()),
+                        String.format("urlcolor=%s", color.getUrlHyperlinkColor().getString()),
                         "pdftitle={Letter}",
                         String.format("pdfauthor={%s}", pdfauthor),
                         String.format("pdfdate={%s}", LocalDate.now()),
