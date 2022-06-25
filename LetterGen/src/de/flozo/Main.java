@@ -167,6 +167,14 @@ public class Main {
                 .build();
 
 
+        System.out.println("***************");
+        ConfigFile2 configFile2 = ConfigFile2.inDefaultDirectory("master.config");
+        System.out.println(configFile2.getParentDirectory());
+        System.out.println(configFile2.getProperties());
+        configFile2.readPropertiesFromFile();
+        System.out.println(configFile2.getProperties());
+        System.out.println("***************");
+
         // Assemble final code
         List<String> finalCode = new ArrayList<>(preamble);
         finalCode.addAll(document.getBlock());
