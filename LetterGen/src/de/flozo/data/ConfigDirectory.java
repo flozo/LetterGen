@@ -34,14 +34,14 @@ public class ConfigDirectory {
 
 
     public boolean exists() {
-        return Files.exists(configDirectory);
+        return Files.isDirectory(configDirectory);
     }
 
     public boolean containsMasterConfigFile() {
-        return Files.exists(masterConfigFile);
+        return Files.isRegularFile(masterConfigFile);
     }
 
-    
+
     public Path getConfigDirectory() {
         return configDirectory;
     }
