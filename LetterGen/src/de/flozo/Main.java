@@ -21,11 +21,18 @@ public class Main {
     public static final String VERSION_INFO_PDF_META_DATA = String.format("LetterGen v%1$s (%2$s); visit %3$s",
             VERSION_NUMBER, VERSION_DATE, REPO_URL);
 
+//    public static final String MASTER_CONFIG_FILE_NAME = ConfigGroup.MASTER.getPropertyKey();
     public static final String MASTER_CONFIG_FILE_NAME = "master.config";
 
 
     public static void main(String[] args) {
 
+
+        ConfigDirectory configDirectory = ConfigDirectory.useDefaultDirectory();
+        System.out.println(configDirectory.getConfigDirectory());
+        System.out.println(configDirectory.getMasterConfigFile());
+        System.out.println(configDirectory.exists());
+        System.out.println(configDirectory.containsMasterConfigFile());
 
         Settings settings = new Settings(MASTER_CONFIG_FILE_NAME);
         System.out.println("1111111111111111");
@@ -168,11 +175,11 @@ public class Main {
 
 
         System.out.println("***************");
-        ConfigFile2 configFile2 = ConfigFile2.inDefaultDirectory("master.config");
-        System.out.println(configFile2.getParentDirectory());
-        System.out.println(configFile2.getProperties());
-        configFile2.readPropertiesFromFile();
-        System.out.println(configFile2.getProperties());
+//        ConfigFile2 configFile2 = ConfigFile2.inDefaultDirectory(ConfigGroup.MASTER.getPropertyKey());
+//        System.out.println(configFile2.getParentDirectory());
+//        System.out.println(configFile2.getProperties());
+//        configFile2.readPropertiesFromFile();
+//        System.out.println(configFile2.getProperties());
         System.out.println("***************");
 
         // Assemble final code
