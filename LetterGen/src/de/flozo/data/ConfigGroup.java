@@ -2,6 +2,7 @@ package de.flozo.data;
 
 public enum ConfigGroup {
 
+//    MASTER("master"),
     LETTER_GENERAL("letter.general"),
     LETTER_GEOMETRY("letter.geometry"),
     LETTER_COLORS("letter.colors"),

@@ -1,4 +1,7 @@
-package de.flozo.data;
+package de.flozo.io;
+
+import de.flozo.data.PropertyKeyTypeCheck;
+import de.flozo.data.PropertyValueTypeCheck;
 
 import java.io.FileInputStream;
 import java.io.IOException;

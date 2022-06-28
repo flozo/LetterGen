@@ -1,6 +1,9 @@
 package de.flozo;
 
 import de.flozo.data.*;
+import de.flozo.io.ConfigDirectory;
+import de.flozo.io.MasterConfig;
+import de.flozo.io.Settings2;
 import de.flozo.latex.core.*;
 import de.flozo.latex.letter.*;
 import de.flozo.latex.tikz.Layer;
@@ -28,11 +31,14 @@ public class Main {
     public static void main(String[] args) {
 
 
-        ConfigDirectory configDirectory = ConfigDirectory.useDefaultDirectory();
-        System.out.println(configDirectory.getConfigDirectory());
-        System.out.println(configDirectory.getMasterConfigFile());
-        System.out.println(configDirectory.exists());
-        System.out.println(configDirectory.containsMasterConfigFile());
+        ConfigDirectory configDirectory = ConfigDirectory.fromDefaultDirectory();
+        Settings2 settings2 = Settings2.fromMasterConfigFile(MasterConfig.withDefaultFileName(ConfigDirectory.fromDefaultDirectory()));
+        settings2.readConfigFiles();
+        System.out.println(settings2);
+//        System.out.println(configDirectory.getConfigDirectory());
+//        System.out.println(configDirectory.getMasterConfigFile());
+//        System.out.println(configDirectory.exists());
+//        System.out.println(configDirectory.containsMasterConfigFile());
 
         Settings settings = new Settings(MASTER_CONFIG_FILE_NAME);
         System.out.println("1111111111111111");

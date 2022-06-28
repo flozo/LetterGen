@@ -1,5 +1,7 @@
 package de.flozo.data;
 
+import de.flozo.io.ConfigFile;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
