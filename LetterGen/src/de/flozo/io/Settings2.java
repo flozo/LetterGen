@@ -6,34 +6,32 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
 public class Settings2 {
 
-    private final MasterConfig masterConfig;
+    private final MasterConfigFile masterConfigFile;
     private final Map<ConfigGroup, File> configFiles;
     private final Map<ConfigGroup, Properties> properties;
 
-    private Settings2(MasterConfig masterConfig, Map<ConfigGroup, File> configFiles) {
-        this.masterConfig = masterConfig;
+    private Settings2(MasterConfigFile masterConfigFile, Map<ConfigGroup, File> configFiles) {
+        this.masterConfigFile = masterConfigFile;
         this.configFiles = configFiles;
         this.properties = new HashMap<>();
     }
 
-    public static Settings2 fromMasterConfigFile(MasterConfig masterConfig) {
-        Properties masterProperties = masterConfig.readProperties();
-        Map<ConfigGroup, File> configFiles = new HashMap<>();
-        for (ConfigGroup configGroup : ConfigGroup.values()) {
-            Path path = Paths.get(masterConfig.getParentDirectory().toString(), masterProperties.getProperty(configGroup.getPropertyKey()));
-            File file = File.fromPath(path);
-            configFiles.put(configGroup, file);
-        }
-        return new Settings2(masterConfig, configFiles);
-    }
+//    public static Settings2 fromMasterConfigFile(MasterConfigFile masterConfigFile) {
+////        Properties masterProperties = masterConfigFile.readProperties();
+////        Map<ConfigGroup, File> configFiles = new HashMap<>();
+////        for (ConfigGroup configGroup : ConfigGroup.values()) {
+////            Path path = Paths.get(masterConfigFile.getParentDirectory().toString(), masterProperties.getProperty(configGroup.getPropertyKey()));
+////            File file = File.fromPath(path);
+////            configFiles.put(configGroup, file);
+////        }
+////        return new Settings2(masterConfigFile, configFiles);
+//    }
 
     public void readConfigFiles() {
         for (ConfigGroup configGroup : ConfigGroup.values()) {
@@ -58,10 +56,12 @@ public class Settings2 {
         return properties;
     }
 
+
+
     @Override
     public String toString() {
         return "Settings2{" +
-                "masterConfig=" + masterConfig +
+                "masterConfig=" + masterConfigFile +
                 ", configFiles=" + configFiles +
                 ", properties=" + properties +
                 '}';

@@ -22,7 +22,7 @@ public class Address {
     private final String webpage;
 
 
-    public Address(PropertyMap propertyMap) {
+    public Address(PropertyMap2 propertyMap) {
         Map<String, String> map = propertyMap.getProperties();
         this.firstName = map.get(AddressProperty.NAME_FIRST.getPropertyKey());
         this.middleName = map.get(AddressProperty.NAME_MIDDLE.getPropertyKey());

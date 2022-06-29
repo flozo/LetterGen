@@ -34,9 +34,16 @@ public enum AddressProperty implements Property {
         return stringValue;
     }
 
+
+
     @Override
     public String getEntry() {
         return property + " = " + stringValue;
+    }
+
+    @Override
+    public String getGenericStringValue() {
+        return stringValue;
     }
 
 

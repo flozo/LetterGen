@@ -1,9 +1,6 @@
 package de.flozo;
 
 import de.flozo.data.*;
-import de.flozo.io.ConfigDirectory;
-import de.flozo.io.MasterConfig;
-import de.flozo.io.Settings2;
 import de.flozo.latex.core.*;
 import de.flozo.latex.letter.*;
 import de.flozo.latex.tikz.Layer;
@@ -24,49 +21,56 @@ public class Main {
     public static final String VERSION_INFO_PDF_META_DATA = String.format("LetterGen v%1$s (%2$s); visit %3$s",
             VERSION_NUMBER, VERSION_DATE, REPO_URL);
 
-//    public static final String MASTER_CONFIG_FILE_NAME = ConfigGroup.MASTER.getPropertyKey();
+    //    public static final String MASTER_CONFIG_FILE_NAME = ConfigGroup.MASTER.getPropertyKey();
     public static final String MASTER_CONFIG_FILE_NAME = "master.config";
 
 
     public static void main(String[] args) {
 
 
-        ConfigDirectory configDirectory = ConfigDirectory.fromDefaultDirectory();
-        Settings2 settings2 = Settings2.fromMasterConfigFile(MasterConfig.withDefaultFileName(ConfigDirectory.fromDefaultDirectory()));
-        settings2.readConfigFiles();
-        System.out.println(settings2);
-//        System.out.println(configDirectory.getConfigDirectory());
-//        System.out.println(configDirectory.getMasterConfigFile());
-//        System.out.println(configDirectory.exists());
-//        System.out.println(configDirectory.containsMasterConfigFile());
+        PropertyMap2 letterGeometry = PropertyMap2.createWithDefaults(ConfigGroup.LETTER_GEOMETRY);
+        letterGeometry.updateWithConfigFileSettings();
 
-        Settings settings = new Settings(MASTER_CONFIG_FILE_NAME);
+        PropertyMap2 letterGeneral = PropertyMap2.createWithDefaults(ConfigGroup.LETTER_GENERAL);
+        letterGeneral.updateWithConfigFileSettings();
+
+
+        PropertyMap2 letterColors = PropertyMap2.createWithDefaults(ConfigGroup.LETTER_COLORS);
+        letterColors.updateWithConfigFileSettings();
+
+        PropertyMap2 senderMap = PropertyMap2.createWithDefaults(ConfigGroup.SENDER_DATA);
+        senderMap.updateWithConfigFileSettings();
+
+        PropertyMap2 receiverMap = PropertyMap2.createWithDefaults(ConfigGroup.RECEIVER_DATA);
+        receiverMap.updateWithConfigFileSettings();
+
+//        Settings settings = new Settings(MASTER_CONFIG_FILE_NAME);
         System.out.println("1111111111111111");
 
-        PropertyMap letterGeometryMap = new PropertyMap(ConfigGroup.LETTER_GEOMETRY);
+//        PropertyMap letterGeometryMap = new PropertyMap(ConfigGroup.LETTER_GEOMETRY);
         System.out.println("22222222222222222");
-        letterGeometryMap.updateDefaults(settings);
+//        letterGeometryMap.updateDefaults(settings);
         System.out.println("3333333333333333333");
-        LetterGeometry geometry = new LetterGeometry(letterGeometryMap);
+        LetterGeometry geometry = new LetterGeometry(letterGeometry);
         System.out.println("4444444444444444444");
 
-        PropertyMap letterColor = new PropertyMap(ConfigGroup.LETTER_COLORS);
+//        PropertyMap letterColor = new PropertyMap(ConfigGroup.LETTER_COLORS);
         System.out.println("5555555555555555");
-        letterColor.updateDefaults(settings);
+//        letterColor.updateDefaults(settings);
         System.out.println("6666666666666666666");
-        LetterColor color = new LetterColor(letterColor);
+        LetterColor color = new LetterColor(letterColors);
 
-        PropertyMap senderMap = new PropertyMap(ConfigGroup.SENDER_DATA);
-        senderMap.updateDefaults(settings);
+//        PropertyMap senderMap = new PropertyMap(ConfigGroup.SENDER_DATA);
+//        senderMap.updateDefaults(settings);
         Address senderData = new Address(senderMap);
 
-        PropertyMap receiverMap = new PropertyMap(ConfigGroup.RECEIVER_DATA);
-        receiverMap.updateDefaults(settings);
+//        PropertyMap receiverMap = new PropertyMap(ConfigGroup.RECEIVER_DATA);
+//        receiverMap.updateDefaults(settings);
         Address receiverData = new Address(receiverMap);
 
-        PropertyMap general = new PropertyMap(ConfigGroup.LETTER_GENERAL);
-        general.updateDefaults(settings);
-        LetterGeneral letterGeneral = new LetterGeneral(general);
+//        PropertyMap general = new PropertyMap(ConfigGroup.LETTER_GENERAL);
+//        general.updateDefaults(settings);
+        LetterGeneral general = new LetterGeneral(letterGeneral);
 
 
         Command documentclass = Documentclass.createWithOptions(DocumentClassName.STANDALONE, "12pt", "tikz", "multi", "crop");
@@ -137,14 +141,14 @@ public class Main {
         Headline headline = new Headline(geometry, color, senderData);
         SubjectField subjectField = new SubjectField(geometry, color, "My subject");
 
-        DateField dateField = new DateField(geometry,color,"City","2022-06-22");
-        Body letterBody = new Body(geometry,color,"this is a text this is a text this is a text " +
+        DateField dateField = new DateField(geometry, color, "City", "2022-06-22");
+        Body letterBody = new Body(geometry, color, "this is a text this is a text this is a text " +
                 "this is a text this is a text this is a text this is a text this is a text " +
                 "this is a text this is a text this is a text this is a text this is a text " +
                 "this is a text this is a text this is a text this is a text\\\\this is a text this is a text " +
                 "this is a text this is a text this is a text this is a text");
 
-        PerforationMark perforationMark = new PerforationMark(geometry,color);
+        PerforationMark perforationMark = new PerforationMark(geometry, color);
         FoldingMark1 foldingMark1 = new FoldingMark1(geometry, color);
         FoldingMark2 foldingMark2 = new FoldingMark2(geometry, color);
 

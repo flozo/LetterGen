@@ -38,6 +38,7 @@ public enum LetterGeneralProperty implements Property {
         return booleanValue;
     }
 
+    @Override
     public String getGenericStringValue() {
         return (Objects.equals(stringValue, "") ? String.valueOf(booleanValue) : stringValue);
     }

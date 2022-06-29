@@ -8,31 +8,37 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
-public class MasterConfig extends File {
+public class MasterConfigFile extends File {
 
-    //    public static final ConfigGroup MASTER_CONFIG_FILE_NAME = ConfigGroup.MASTER;
     public static final String MASTER_CONFIG_FILE_NAME = "master.config";
 
+    private final Map<ConfigGroup, File> configGroupFiles;
 
-    public MasterConfig(Path path) {
+
+    public MasterConfigFile(Path path) {
         super(path);
+        this.configGroupFiles = new HashMap<>();
     }
 
-    public static MasterConfig withDefaultFileName(ConfigDirectory configDirectory) {
+
+    public static MasterConfigFile withDefaultFileName(ConfigDirectory configDirectory) {
         return withCustomFileName(configDirectory, MASTER_CONFIG_FILE_NAME);
     }
 
-    public static MasterConfig withCustomFileName(ConfigDirectory configDirectory, String customFileName) {
+    public static MasterConfigFile withCustomFileName(ConfigDirectory configDirectory, String customFileName) {
         Path path = Paths.get(configDirectory.getPath().toString(), customFileName);
-        return new MasterConfig(path);
+        return new MasterConfigFile(path);
     }
 
-    public Properties readProperties() {
+
+    public void readProperties() {
         if (!exists()) {
             System.out.println("[config] Master config file \"" + getCompletePath() + "\" does not exist!");
-            return null;
+            return;
         }
         System.out.print("[config] Read from config file \"" + getCompletePath() + "\" ...");
         Properties properties = new Properties();
@@ -43,10 +49,19 @@ public class MasterConfig extends File {
             System.out.println("[config] [IOException] Failed to open config file!");
         }
         System.out.println(" done! Checking integrity ...");
-        if (!isComplete(properties)) {
+        if (isComplete(properties)) {
+            assignConfigGroupFiles(properties);
+        } else {
             System.out.println("[config] [warning] ... master config appears to be incomplete!");
         }
-        return properties;
+    }
+
+    private void assignConfigGroupFiles(Properties properties) {
+        for (ConfigGroup configGroup : ConfigGroup.values()) {
+            Path path = Paths.get(getParentDirectory().toString(), properties.getProperty(configGroup.getPropertyKey()));
+            File file = File.fromPath(path);
+            configGroupFiles.put(configGroup, file);
+        }
     }
 
     private boolean isComplete(Properties properties) {
@@ -58,5 +73,16 @@ public class MasterConfig extends File {
         }
         System.out.println("[config] ... master config file is complete!");
         return true;
+    }
+
+    public Map<ConfigGroup, File> getConfigGroupFiles() {
+        return configGroupFiles;
+    }
+
+    @Override
+    public String toString() {
+        return "MasterConfigFile{" +
+                "configGroupFiles=" + configGroupFiles +
+                '}';
     }
 }

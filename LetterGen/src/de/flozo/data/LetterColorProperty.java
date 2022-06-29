@@ -47,6 +47,7 @@ public enum LetterColorProperty implements Property {
         return colorValue;
     }
 
+    @Override
     public String getGenericStringValue() {
         return colorValue.getString();
 
