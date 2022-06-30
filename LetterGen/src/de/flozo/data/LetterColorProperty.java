@@ -28,6 +28,7 @@ public enum LetterColorProperty implements Property {
     SUBJECT_TEXT_COLOR("subject.text.color", StandardColor.DEFAULT),
     DATE_TEXT_COLOR("date.text.color", StandardColor.DEFAULT),
     CLOSING_TEXT_COLOR("closing.text.color", StandardColor.DEFAULT),
+    SIGNATURE_TEXT_COLOR("signature.text.color", StandardColor.DEFAULT),
     ENCLOSURES_TEXT_COLOR("enclosures.text.color", StandardColor.DEFAULT),
 
     PERFORATION_MARK_COLOR("perforation_mark.color", StandardColor.DEFAULT),

@@ -48,7 +48,6 @@ public class Main {
         letterColors.updateWithConfigFileSettings(masterConfigFile);
         senderMap.updateWithConfigFileSettings(masterConfigFile);
         receiverMap.updateWithConfigFileSettings(masterConfigFile);
-        System.out.println(enclosures.keyValueMap());
 
         LetterGeometry geometry = new LetterGeometry(letterGeometry);
         LetterColor color = new LetterColor(letterColors);
@@ -56,6 +55,8 @@ public class Main {
         Address receiverData = new Address(receiverMap);
         LetterGeneral general = new LetterGeneral(letterGeneral);
         File letterBodyTextFile = File.fromPath(Paths.get(masterConfigFile.getParentDirectory().toString(), general.getBodyTextFile()));
+
+        Signature signature = new Signature(general, geometry, color, senderData);
 
 
         Command documentclass = Documentclass.createWithOptions(DocumentClassName.STANDALONE, "12pt", "tikz", "multi", "crop");
@@ -125,7 +126,6 @@ public class Main {
         SubjectField subjectField = new SubjectField(geometry, color, "My subject");
         DateField dateField = new DateField(geometry, color, "City", "2022-06-22");
         Enclosure enclosureField = new Enclosure(general, geometry, color, enclosures.keyValueMap());
-        System.out.println(enclosureField);
 
         Body letterBody = new Body(geometry, color, letterBodyTextFile.getLines());
 
@@ -154,6 +154,7 @@ public class Main {
                 .append(foldingMark1.getLine())
                 .append(foldingMark2.getLine())
                 .append(enclosureField.generate())
+                .append(signature.generate())
                 .build();
 
         Environment tikzpicture = new Environment.Builder(EnvironmentName.TIKZPICTURE)

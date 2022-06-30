@@ -1,88 +1,53 @@
 package de.flozo.latex.core;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Includegraphics {
+public class Includegraphics implements Command {
 
-    // constants
-    public static final String COMMAND_MARKER_CHAR = "\\";
+
     public static final CommandName KEYWORD = CommandName.INCLUDEGRAPHICS;
-    public static final Bracket BODY_BRACKETS = Bracket.CURLY_BRACES;
-    public static final Bracket OPTIONS_BRACKETS = Bracket.SQUARE_BRACKETS;
+    private final String imageFileName;
+    private final ExpressionList options;
 
-
-    // required
-    private final String fileName;
-
-    // optional
-    private final List<String> optionalArguments;
-    private final double height;
-    private final double width;
-
-    private Includegraphics(IncludegraphicsBuilder builder) {
-        this.fileName = builder.fileName;
-        this.optionalArguments = builder.optionalArguments;
-        this.height = builder.height;
-        this.width = builder.width;
+    public Includegraphics(String imageFileName, ExpressionList options) {
+        this.imageFileName = imageFileName;
+        this.options = options;
     }
 
-//    public String getStatement() {
-//        StringBuilder sb = new StringBuilder(COMMAND_MARKER_CHAR + KEYWORD.getString());
-//        // Append options if at least one option is present
-//        if (!optionalArguments.isEmpty()) {
-//            sb.append(" ").append(inlineOptions());
-//        }
-//        // Append required parts
-//        sb.append(BODY_BRACKETS.getLeftBracket());
-//        sb.append(fileName);
-//        sb.append(BODY_BRACKETS.getRightBracket());
-//        return sb.toString();
-//    }
-//
-//
-//    private String inlineOptions() {
-//        Code options = new Code.CodeBuilder(new ExpressionList(optionalArguments))
-//                .brackets(OPTIONS_BRACKETS)
-//                .terminator(StatementTerminator.COMMA)
-//                .skipLast(true)
-//                .inlineSpacing(true)
-//                .build();
-//        return options.getInline();
-//    }
+    public Includegraphics(String imageFileName) {
+        this(imageFileName, new FormattedExpressionList.Builder("").build());
+    }
 
 
+    @Override
+    public List<String> getInlineOptions() {
+        return new GenericCommand.Builder(KEYWORD.getString())
+                .optionList(options.getInline())
+                .body(imageFileName)
+                .build().getInlineOptions();
+    }
 
-    public static class IncludegraphicsBuilder {
+    @Override
+    public List<String> getBlock() {
+            return new GenericCommand.Builder(KEYWORD.getString())
+                    .optionList(options.getBlock())
+                    .body(imageFileName)
+                    .build().getBlock();
+    }
 
-        // required
-        private final String fileName;
+    @Override
+    public String getInline() {
+        return new GenericCommand.Builder(KEYWORD.getString())
+                .optionList(options.getInline())
+                .body(imageFileName)
+                .build().getInline();
+    }
 
-        // optional
-        private List<String> optionalArguments = new ArrayList<>();
-        private double height;
-        private double width;
-
-
-        public IncludegraphicsBuilder(String fileName) {
-            this.fileName = fileName;
-        }
-
-        public IncludegraphicsBuilder height(double height) {
-            this.height = height;
-            this.optionalArguments.add("height=" + height);
-            return this;
-        }
-
-        public IncludegraphicsBuilder width(double width) {
-            this.width = width;
-            this.optionalArguments.add("width=" + width);
-            return this;
-        }
-
-
-        public Includegraphics build() {
-            return new Includegraphics(this);
-        }
+    @Override
+    public String toString() {
+        return "Includegraphics{" +
+                "imageFileName='" + imageFileName + '\'' +
+                ", options=" + options +
+                '}';
     }
 }

@@ -7,6 +7,7 @@ public class LetterGeneral {
     private final String language;
     private final String dateFormat;
     private final String bodyTextFile;
+    private final String signatureImageFile;
     private final boolean draftModeOn;
     private final boolean enclosureStyleHide;
     private final boolean enclosureStyleShowTag;
@@ -22,6 +23,7 @@ public class LetterGeneral {
         this.language = stringSubMap.get(LetterGeneralProperty.LANGUAGE.getPropertyKey());
         this.dateFormat = stringSubMap.get(LetterGeneralProperty.DATE_FORMAT.getPropertyKey());
         this.bodyTextFile = stringSubMap.get(LetterGeneralProperty.LETTER_BODY_TEXT_FILE.getPropertyKey());
+        this.signatureImageFile = stringSubMap.get(LetterGeneralProperty.LETTER_SIGNATURE_FILE.getPropertyKey());
         this.draftModeOn = booleanSubMap.get(LetterGeneralProperty.DRAFT_MODE_ON.getPropertyKey());
         this.enclosureStyleHide = booleanSubMap.get(LetterGeneralProperty.ENCLOSURE_STYLE_HIDE.getPropertyKey());
         this.enclosureStyleShowTag = booleanSubMap.get(LetterGeneralProperty.ENCLOSURE_STYLE_SHOW_TAG.getPropertyKey());
@@ -41,6 +43,10 @@ public class LetterGeneral {
 
     public String getBodyTextFile() {
         return bodyTextFile;
+    }
+
+    public String getSignatureImageFile() {
+        return signatureImageFile;
     }
 
     public boolean isDraftModeOn() {
@@ -76,13 +82,15 @@ public class LetterGeneral {
         return "LetterGeneral{" +
                 "language='" + language + '\'' +
                 ", dateFormat='" + dateFormat + '\'' +
+                ", bodyTextFile='" + bodyTextFile + '\'' +
+                ", signatureImageFile='" + signatureImageFile + '\'' +
                 ", draftModeOn=" + draftModeOn +
                 ", enclosureStyleHide=" + enclosureStyleHide +
                 ", enclosureStyleShowTag=" + enclosureStyleShowTag +
                 ", enclosureStyleShowNumber=" + enclosureStyleShowNumber +
                 ", enclosureStyleShowTitles=" + enclosureStyleShowTitles +
-                ", enclosureStyleTitleSeparator='" + enclosureStyleTitleSeparator + '\'' +
                 ", enclosureStyleTagSeparator='" + enclosureStyleTagSeparator + '\'' +
+                ", enclosureStyleTitleSeparator='" + enclosureStyleTitleSeparator + '\'' +
                 '}';
     }
 }

@@ -8,6 +8,7 @@ public enum LetterGeneralProperty implements Property {
     DATE_FORMAT("date_format", "%d.%m.%Y"),
     DRAFT_MODE_ON("draft_mode.on", false),
     LETTER_BODY_TEXT_FILE("letter.body.text_file", "letter_body.txt"),
+    LETTER_SIGNATURE_FILE("letter.signature_file", ""),
     ENCLOSURE_STYLE_HIDE("enclosure.style.hide", false),
     ENCLOSURE_STYLE_SHOW_TAG("enclosure.style.show_tag", true),
     ENCLOSURE_STYLE_SHOW_NUMBER("enclosure.style.show_number", false),
