@@ -106,7 +106,6 @@ public class Main {
         Layer pgflayers = new Layer.LayerBuilder("background", "forebackground", "main", "foreground")
                 .build();
 
-
         Page pageOne = new Page(geometry, color);
 
 
@@ -114,12 +113,10 @@ public class Main {
 
         LayerEnvironment onForeBackgroundLayer = new LayerEnvironment("forebackground", senderField.getMatrix().getBlock());
 
-
         AddressField addressField = new AddressField(geometry, color, receiverData);
         BackaddressField backaddressField = new BackaddressField(geometry, color, senderData);
         Headline headline = new Headline(geometry, color, senderData);
         SubjectField subjectField = new SubjectField(geometry, color, "My subject");
-
         DateField dateField = new DateField(geometry, color, "City", "2022-06-22");
         Body letterBody = new Body(geometry, color, "this is a text this is a text this is a text " +
                 "this is a text this is a text this is a text this is a text this is a text " +
@@ -162,14 +159,6 @@ public class Main {
                 .body(documentBody.getBlock())
                 .build();
 
-
-        System.out.println("***************");
-//        ConfigFile2 configFile2 = ConfigFile2.inDefaultDirectory(ConfigGroup.MASTER.getPropertyKey());
-//        System.out.println(configFile2.getParentDirectory());
-//        System.out.println(configFile2.getProperties());
-//        configFile2.readPropertiesFromFile();
-//        System.out.println(configFile2.getProperties());
-        System.out.println("***************");
 
         // Assemble final code
         List<String> finalCode = new ArrayList<>(preamble);
