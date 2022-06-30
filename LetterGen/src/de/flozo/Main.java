@@ -2,6 +2,7 @@ package de.flozo;
 
 import de.flozo.data.*;
 import de.flozo.io.ConfigDirectory;
+import de.flozo.io.File;
 import de.flozo.io.MasterConfigFile;
 import de.flozo.io.OutputFile;
 import de.flozo.latex.core.*;
@@ -9,6 +10,7 @@ import de.flozo.latex.letter.*;
 import de.flozo.latex.tikz.Layer;
 import de.flozo.latex.tikz.LayerEnvironment;
 
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +55,8 @@ public class Main {
         Address senderData = new Address(senderMap);
         Address receiverData = new Address(receiverMap);
         LetterGeneral general = new LetterGeneral(letterGeneral);
+        File letterBodyTextFile = File.fromPath(Paths.get(masterConfigFile.getParentDirectory().toString(), general.getBodyTextFile()));
+
 
         Command documentclass = Documentclass.createWithOptions(DocumentClassName.STANDALONE, "12pt", "tikz", "multi", "crop");
 
@@ -123,11 +127,13 @@ public class Main {
         Enclosure enclosureField = new Enclosure(general, geometry, color, enclosures.keyValueMap());
         System.out.println(enclosureField);
 
-        Body letterBody = new Body(geometry, color, "this is a text this is a text this is a text " +
-                "this is a text this is a text this is a text this is a text this is a text " +
-                "this is a text this is a text this is a text this is a text this is a text " +
-                "this is a text this is a text this is a text this is a text\\\\this is a text this is a text " +
-                "this is a text this is a text this is a text this is a text");
+        Body letterBody = new Body(geometry, color, letterBodyTextFile.getLines());
+
+//        Body letterBody = new Body(geometry, color, "this is a text this is a text this is a text " +
+//                "this is a text this is a text this is a text this is a text this is a text " +
+//                "this is a text this is a text this is a text this is a text this is a text " +
+//                "this is a text this is a text this is a text this is a text\\\\this is a text this is a text " +
+//                "this is a text this is a text this is a text this is a text");
 
         PerforationMark perforationMark = new PerforationMark(geometry, color);
         FoldingMark1 foldingMark1 = new FoldingMark1(geometry, color);

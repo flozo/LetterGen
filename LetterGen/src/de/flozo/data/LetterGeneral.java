@@ -6,6 +6,7 @@ public class LetterGeneral {
 
     private final String language;
     private final String dateFormat;
+    private final String bodyTextFile;
     private final boolean draftModeOn;
     private final boolean enclosureStyleHide;
     private final boolean enclosureStyleShowTag;
@@ -20,6 +21,7 @@ public class LetterGeneral {
         Map<String, Boolean> booleanSubMap = propertyMap.booleanSubMap();
         this.language = stringSubMap.get(LetterGeneralProperty.LANGUAGE.getPropertyKey());
         this.dateFormat = stringSubMap.get(LetterGeneralProperty.DATE_FORMAT.getPropertyKey());
+        this.bodyTextFile = stringSubMap.get(LetterGeneralProperty.LETTER_BODY_TEXT_FILE.getPropertyKey());
         this.draftModeOn = booleanSubMap.get(LetterGeneralProperty.DRAFT_MODE_ON.getPropertyKey());
         this.enclosureStyleHide = booleanSubMap.get(LetterGeneralProperty.ENCLOSURE_STYLE_HIDE.getPropertyKey());
         this.enclosureStyleShowTag = booleanSubMap.get(LetterGeneralProperty.ENCLOSURE_STYLE_SHOW_TAG.getPropertyKey());
@@ -35,6 +37,10 @@ public class LetterGeneral {
 
     public String getDateFormat() {
         return dateFormat;
+    }
+
+    public String getBodyTextFile() {
+        return bodyTextFile;
     }
 
     public boolean isDraftModeOn() {

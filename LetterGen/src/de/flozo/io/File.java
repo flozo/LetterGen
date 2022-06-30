@@ -1,8 +1,10 @@
 package de.flozo.io;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class File {
 
@@ -42,6 +44,17 @@ public class File {
 
     public Path getCompletePath() {
         return completePath;
+    }
+
+
+    public List<String> getLines() {
+        List<String> lines = null;
+        try {
+            lines = Files.readAllLines(Paths.get(completePath.toString()));
+        } catch (IOException e) {
+            System.out.println("[error] [IOException] Failed to open file \"" + completePath + "\"!");
+        }
+        return lines;
     }
 
     @Override

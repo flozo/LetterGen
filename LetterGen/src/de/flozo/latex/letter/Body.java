@@ -76,6 +76,9 @@ public class Body {
     }
 
     private void appendToLastLine() {
+        if (textLines.isEmpty()) {
+            return;
+        }
         int index = textLines.size() - 1;
         String lastLine = String.join("", textLines.get(index), LINEBREAK);
         textLines.set(index, lastLine);
