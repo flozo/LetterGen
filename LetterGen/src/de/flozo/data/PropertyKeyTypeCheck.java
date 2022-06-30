@@ -19,7 +19,10 @@ public interface PropertyKeyTypeCheck {
     }
 
     static Predicate<String> booleanEntryCondition() {
-        return key -> key.endsWith(".on");
+        Predicate<String> on = key -> key.endsWith(".on");
+        Predicate<String> hide = key -> key.endsWith(".hide");
+        Predicate<String> show = key -> key.contains(".show");
+        return on.or(hide).or(show);
     }
 
     static Predicate<String> colorEntryCondition() {

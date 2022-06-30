@@ -6,7 +6,15 @@ public enum LetterGeneralProperty implements Property {
 
     LANGUAGE("language", "en"),
     DATE_FORMAT("date_format", "%d.%m.%Y"),
-    DRAFT_MODE_ON("draft_mode.on", false);
+    DRAFT_MODE_ON("draft_mode.on", false),
+    LETTER_BODY_TEXT_FILE("letter.body.text_file", "letter_body.txt"),
+    ENCLOSURE_STYLE_HIDE("enclosure.style.hide", false),
+    ENCLOSURE_STYLE_SHOW_TAG("enclosure.style.show_tag", true),
+    ENCLOSURE_STYLE_SHOW_NUMBER("enclosure.style.show_number", false),
+    ENCLOSURE_STYLE_SHOW_TITLES("enclosure.style.show_titles", true),
+    ENCLOSURE_STYLE_TAG_SEPARATOR("enclosure.style.tag_separator", ":"),
+    ENCLOSURE_STYLE_TITLE_SEPARATOR("enclosure.style.title_separator", ",");
+
 
     private final String property;
     private final String stringValue;
@@ -21,7 +29,7 @@ public enum LetterGeneralProperty implements Property {
     LetterGeneralProperty(String property, boolean booleanValue) {
         this.property = property;
         this.stringValue = "";
-        this.booleanValue = false;
+        this.booleanValue = booleanValue;
     }
 
 

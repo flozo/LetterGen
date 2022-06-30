@@ -120,7 +120,8 @@ public class Main {
         Headline headline = new Headline(geometry, color, senderData);
         SubjectField subjectField = new SubjectField(geometry, color, "My subject");
         DateField dateField = new DateField(geometry, color, "City", "2022-06-22");
-        Enclosure enclosureField = new Enclosure(geometry,color,enclosures.keyValueMap());
+        Enclosure enclosureField = new Enclosure(general, geometry, color, enclosures.keyValueMap());
+        System.out.println(enclosureField);
 
         Body letterBody = new Body(geometry, color, "this is a text this is a text this is a text " +
                 "this is a text this is a text this is a text this is a text this is a text " +
@@ -131,7 +132,6 @@ public class Main {
         PerforationMark perforationMark = new PerforationMark(geometry, color);
         FoldingMark1 foldingMark1 = new FoldingMark1(geometry, color);
         FoldingMark2 foldingMark2 = new FoldingMark2(geometry, color);
-
 
 
         ExpressionList tikzpictureBody = new FormattedExpressionList.Builder()

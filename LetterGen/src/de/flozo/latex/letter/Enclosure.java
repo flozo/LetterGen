@@ -1,6 +1,7 @@
 package de.flozo.latex.letter;
 
 import de.flozo.data.LetterColor;
+import de.flozo.data.LetterGeneral;
 import de.flozo.data.LetterGeometry;
 import de.flozo.latex.core.color.Color;
 import de.flozo.latex.tikz.Anchor;
@@ -13,18 +14,26 @@ public class Enclosure {
 
     public static final String FIELD_NAME = "enclosures_field";
 
-    public final Point position;
-
+    // content
     private final Map<String, String> enclosureDocuments;
     private final int numberOfDocuments;
     private final String enclosureTagSingular;
     private final String enclosureTagPlural;
 
+    // appearance
+    private final Point position;
     private final Color backgroundColor;
     private final Color borderColor;
     private final Color textColor;
+    private final boolean enclosureStyleHide;
+    private final boolean enclosureStyleShowTag;
+    private final boolean enclosureStyleShowNumber;
+    private final boolean enclosureStyleShowTitles;
+    private final String enclosureStyleTagSeparator;
+    private final String enclosureStyleTitleSeparator;
 
-    public Enclosure(LetterGeometry geometry, LetterColor color, Map<String, String> enclosureDocuments) {
+
+    public Enclosure(LetterGeneral general, LetterGeometry geometry, LetterColor color, Map<String, String> enclosureDocuments) {
         this.position = Point.fromNumbers(geometry.getBorderMarginLeft(), geometry.getEnclosuresY());
         this.enclosureDocuments = enclosureDocuments;
         this.numberOfDocuments = enclosureDocuments.size();
@@ -33,6 +42,12 @@ public class Enclosure {
         this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
         this.borderColor = color.getDraftModeHighlightingBorderColor();
         this.textColor = color.getEnclosuresTextColor();
+        this.enclosureStyleHide = general.isEnclosureStyleHide();
+        this.enclosureStyleShowTag = general.isEnclosureStyleShowTag();
+        this.enclosureStyleShowNumber = general.isEnclosureStyleShowNumber();
+        this.enclosureStyleShowTitles = general.isEnclosureStyleShowTitles();
+        this.enclosureStyleTagSeparator = general.getEnclosureStyleTagSeparator();
+        this.enclosureStyleTitleSeparator = general.getEnclosureStyleTitleSeparator();
     }
 
     public String generate() {
@@ -47,21 +62,41 @@ public class Enclosure {
     }
 
     private String assembleEnclosureTag() {
-        return numberOfDocuments == 1 ? enclosureTagSingular : enclosureTagPlural + " (" + numberOfDocuments + "): " + String.join(", ", enclosureDocuments.keySet());
+        if (enclosureStyleHide) {
+            return "";
+        }
+        StringBuilder tag = new StringBuilder();
+        if (enclosureStyleShowTag) {
+            tag.append(numberOfDocuments == 1 ? enclosureTagSingular : enclosureTagPlural);
+        }
+        if (enclosureStyleShowNumber) {
+            tag.append(" (").append(numberOfDocuments).append(")");
+        }
+        if (enclosureStyleShowTitles) {
+            tag.append(enclosureStyleShowTag || enclosureStyleShowNumber ? enclosureStyleTagSeparator + " " : "");
+            tag.append(String.join(enclosureStyleTitleSeparator + " ", enclosureDocuments.keySet()));
+        }
+        return tag.toString();
     }
 
 
     @Override
     public String toString() {
         return "Enclosure{" +
-                "position=" + position +
-                ", enclosureDocuments=" + enclosureDocuments +
+                "enclosureDocuments=" + enclosureDocuments +
                 ", numberOfDocuments=" + numberOfDocuments +
                 ", enclosureTagSingular='" + enclosureTagSingular + '\'' +
                 ", enclosureTagPlural='" + enclosureTagPlural + '\'' +
+                ", position=" + position +
                 ", backgroundColor=" + backgroundColor +
                 ", borderColor=" + borderColor +
                 ", textColor=" + textColor +
+                ", enclosureStyleHide=" + enclosureStyleHide +
+                ", enclosureStyleShowTag=" + enclosureStyleShowTag +
+                ", enclosureStyleShowNumber=" + enclosureStyleShowNumber +
+                ", enclosureStyleShowTitles=" + enclosureStyleShowTitles +
+                ", enclosureStyleTagSeparator='" + enclosureStyleTagSeparator + '\'' +
+                ", enclosureStyleTitleSeparator='" + enclosureStyleTitleSeparator + '\'' +
                 '}';
     }
 }
