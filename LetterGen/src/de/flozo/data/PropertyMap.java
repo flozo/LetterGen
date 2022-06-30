@@ -1,6 +1,6 @@
 package de.flozo.data;
 
-import de.flozo.io.ConfigFile2;
+import de.flozo.io.ConfigFile;
 import de.flozo.io.MasterConfigFile;
 import de.flozo.latex.core.color.BrewerColor;
 import de.flozo.latex.core.color.Color;
@@ -11,18 +11,18 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-public class PropertyMap2 {
+public class PropertyMap {
 
     private final ConfigGroup configGroup;
     private final Map<String, String> properties;
 
-    private PropertyMap2(ConfigGroup configGroup, Map<String, String> properties) {
+    private PropertyMap(ConfigGroup configGroup, Map<String, String> properties) {
         this.configGroup = configGroup;
         this.properties = properties;
     }
 
 
-    public static PropertyMap2 createWithDefaults(ConfigGroup configGroup) {
+    public static PropertyMap createWithDefaults(ConfigGroup configGroup) {
         Map<String, String> propertiesRawMap = new HashMap<>();
         if (configGroup == ConfigGroup.LETTER_GEOMETRY) {
             for (Property property : LetterGeometryProperty.values()) {
@@ -41,15 +41,15 @@ public class PropertyMap2 {
                 propertiesRawMap.put(property.getPropertyKey(), property.getGenericStringValue());
             }
         }
-        return new PropertyMap2(configGroup, propertiesRawMap);
+        return new PropertyMap(configGroup, propertiesRawMap);
     }
 
 
     public void updateWithConfigFileSettings(MasterConfigFile masterConfigFile) {
-        ConfigFile2 configFile2 = ConfigFile2.fromMasterConfig(masterConfigFile, configGroup);
-        configFile2.readProperties();
-        configFile2.checkProperties();
-        Properties configFileProperties = configFile2.getProperties();
+        ConfigFile configFile = ConfigFile.fromMasterConfig(masterConfigFile, configGroup);
+        configFile.readProperties();
+        configFile.checkProperties();
+        Properties configFileProperties = configFile.getProperties();
         System.out.print("[config] Updating default settings in " + configGroup.getPropertyKey() + " ...");
         for (Map.Entry<Object, Object> entry : configFileProperties.entrySet()) {
             properties.replace(entry.getKey().toString(), entry.getValue().toString());

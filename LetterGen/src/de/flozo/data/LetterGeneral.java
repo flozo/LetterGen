@@ -8,7 +8,7 @@ public class LetterGeneral {
     private final String dateFormat;
     private final boolean draftModeOn;
 
-    public LetterGeneral(PropertyMap2 propertyMap) {
+    public LetterGeneral(PropertyMap propertyMap) {
 //        Map<String, String> rawMap = propertyMap.getProperties();
         Map<String, String> stringSubMap = propertyMap.stringSubMap();
         Map<String, Boolean> booleanSubMap = propertyMap.booleanSubMap();

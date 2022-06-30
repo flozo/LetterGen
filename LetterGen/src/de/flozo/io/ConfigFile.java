@@ -12,20 +12,20 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-public class ConfigFile2 {
+public class ConfigFile {
 
     private final ConfigGroup configGroup;
     private final File configFile;
     private final Properties properties;
 
-    private ConfigFile2(ConfigGroup configGroup, File configFile) {
+    private ConfigFile(ConfigGroup configGroup, File configFile) {
         this.configGroup = configGroup;
         this.configFile = configFile;
         this.properties = new Properties();
     }
 
-    public static ConfigFile2 fromMasterConfig(MasterConfigFile masterConfigFile, ConfigGroup configGroup) {
-        return new ConfigFile2(configGroup, masterConfigFile.getConfigGroupFiles().get(configGroup));
+    public static ConfigFile fromMasterConfig(MasterConfigFile masterConfigFile, ConfigGroup configGroup) {
+        return new ConfigFile(configGroup, masterConfigFile.getConfigGroupFiles().get(configGroup));
     }
 
     public void readProperties() {

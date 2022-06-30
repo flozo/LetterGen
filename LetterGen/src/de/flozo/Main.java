@@ -34,19 +34,19 @@ public class Main {
         masterConfigFile.readProperties();
 
 
-        PropertyMap2 letterGeometry = PropertyMap2.createWithDefaults(ConfigGroup.LETTER_GEOMETRY);
+        PropertyMap letterGeometry = PropertyMap.createWithDefaults(ConfigGroup.LETTER_GEOMETRY);
         letterGeometry.updateWithConfigFileSettings(masterConfigFile);
 
-        PropertyMap2 letterGeneral = PropertyMap2.createWithDefaults(ConfigGroup.LETTER_GENERAL);
+        PropertyMap letterGeneral = PropertyMap.createWithDefaults(ConfigGroup.LETTER_GENERAL);
         letterGeneral.updateWithConfigFileSettings(masterConfigFile);
 
-        PropertyMap2 letterColors = PropertyMap2.createWithDefaults(ConfigGroup.LETTER_COLORS);
+        PropertyMap letterColors = PropertyMap.createWithDefaults(ConfigGroup.LETTER_COLORS);
         letterColors.updateWithConfigFileSettings(masterConfigFile);
 
-        PropertyMap2 senderMap = PropertyMap2.createWithDefaults(ConfigGroup.SENDER_DATA);
+        PropertyMap senderMap = PropertyMap.createWithDefaults(ConfigGroup.SENDER_DATA);
         senderMap.updateWithConfigFileSettings(masterConfigFile);
 
-        PropertyMap2 receiverMap = PropertyMap2.createWithDefaults(ConfigGroup.RECEIVER_DATA);
+        PropertyMap receiverMap = PropertyMap.createWithDefaults(ConfigGroup.RECEIVER_DATA);
         receiverMap.updateWithConfigFileSettings(masterConfigFile);
 
         LetterGeometry geometry = new LetterGeometry(letterGeometry);

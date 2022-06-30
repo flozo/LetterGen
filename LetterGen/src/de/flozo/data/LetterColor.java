@@ -31,7 +31,7 @@ public class LetterColor {
     private final Color foldingMark2Color;
 
 
-    public LetterColor(PropertyMap2 propertyMap) {
+    public LetterColor(PropertyMap propertyMap) {
 //        Map<String, String> rawMap = propertyMap.getProperties();
         Map<String, Color> colorMap = propertyMap.colorSubMap();
         System.out.println("WWWWWWWWWWWWWWWWWWWW");

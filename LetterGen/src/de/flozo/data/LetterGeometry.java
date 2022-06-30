@@ -59,7 +59,7 @@ public class LetterGeometry {
     private final double foldingMark2LineWidth;
 
 
-    public LetterGeometry(PropertyMap2 propertyMap) {
+    public LetterGeometry(PropertyMap propertyMap) {
         Map<String, String> stringSubMap = propertyMap.stringSubMap();
         Map<String, Double> numericSubMap = propertyMap.numericSubMap();
         this.paperWidth = numericSubMap.get(LetterGeometryProperty.PAPER_WIDTH.getPropertyKey());
