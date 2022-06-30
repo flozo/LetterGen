@@ -3,6 +3,7 @@ package de.flozo;
 import de.flozo.data.*;
 import de.flozo.io.ConfigDirectory;
 import de.flozo.io.MasterConfigFile;
+import de.flozo.io.OutputFile;
 import de.flozo.latex.core.*;
 import de.flozo.latex.letter.*;
 import de.flozo.latex.tikz.Layer;
@@ -39,11 +40,11 @@ public class Main {
         PropertyMap senderMap = PropertyMap.createWithDefaults(ConfigGroup.SENDER_DATA);
         PropertyMap receiverMap = PropertyMap.createWithDefaults(ConfigGroup.RECEIVER_DATA);
 
-//        letterGeometry.updateWithConfigFileSettings(masterConfigFile);
-//        letterGeneral.updateWithConfigFileSettings(masterConfigFile);
-//        letterColors.updateWithConfigFileSettings(masterConfigFile);
-//        senderMap.updateWithConfigFileSettings(masterConfigFile);
-//        receiverMap.updateWithConfigFileSettings(masterConfigFile);
+        letterGeometry.updateWithConfigFileSettings(masterConfigFile);
+        letterGeneral.updateWithConfigFileSettings(masterConfigFile);
+        letterColors.updateWithConfigFileSettings(masterConfigFile);
+        senderMap.updateWithConfigFileSettings(masterConfigFile);
+        receiverMap.updateWithConfigFileSettings(masterConfigFile);
 
         LetterGeometry geometry = new LetterGeometry(letterGeometry);
         LetterColor color = new LetterColor(letterColors);

@@ -1,4 +1,4 @@
-package de.flozo;
+package de.flozo.io;
 
 import de.flozo.latex.LatexCompilationException;
 
