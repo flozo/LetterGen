@@ -33,25 +33,20 @@ public class Main {
         MasterConfigFile masterConfigFile = MasterConfigFile.withDefaultFileName(configDirectory);
         masterConfigFile.readProperties();
 
-
         PropertyMap letterGeometry = PropertyMap.createWithDefaults(ConfigGroup.LETTER_GEOMETRY);
-        letterGeometry.updateWithConfigFileSettings(masterConfigFile);
-
         PropertyMap letterGeneral = PropertyMap.createWithDefaults(ConfigGroup.LETTER_GENERAL);
-        letterGeneral.updateWithConfigFileSettings(masterConfigFile);
-
         PropertyMap letterColors = PropertyMap.createWithDefaults(ConfigGroup.LETTER_COLORS);
-        letterColors.updateWithConfigFileSettings(masterConfigFile);
-
         PropertyMap senderMap = PropertyMap.createWithDefaults(ConfigGroup.SENDER_DATA);
-        senderMap.updateWithConfigFileSettings(masterConfigFile);
-
         PropertyMap receiverMap = PropertyMap.createWithDefaults(ConfigGroup.RECEIVER_DATA);
+
+        letterGeometry.updateWithConfigFileSettings(masterConfigFile);
+        letterGeneral.updateWithConfigFileSettings(masterConfigFile);
+        letterColors.updateWithConfigFileSettings(masterConfigFile);
+        senderMap.updateWithConfigFileSettings(masterConfigFile);
         receiverMap.updateWithConfigFileSettings(masterConfigFile);
 
         LetterGeometry geometry = new LetterGeometry(letterGeometry);
         LetterColor color = new LetterColor(letterColors);
-
         Address senderData = new Address(senderMap);
         Address receiverData = new Address(receiverMap);
         LetterGeneral general = new LetterGeneral(letterGeneral);
@@ -73,7 +68,7 @@ public class Main {
                 .add(PackageName.HYPERREF, "unicode");
 
 
-        Command usetikzlibrary = new Command2.Builder(CommandName.USETIKZLIBRARY.getString())
+        Command usetikzlibrary = new GenericCommand.Builder(CommandName.USETIKZLIBRARY.getString())
                 .body(
                         "positioning",
                         "math",
@@ -82,12 +77,12 @@ public class Main {
                         "matrix")
                 .bodyTerminator(StatementTerminator.COMMA)
                 .build();
-        Command standaloneenv = new Command2.Builder(CommandName.STANDALONEENV.getString())
+        Command standaloneenv = new GenericCommand.Builder(CommandName.STANDALONEENV.getString())
                 .body("tikzpicture")
                 .build();
 
         String pdfauthor = senderData.getFirstName() + " " + senderData.getLastName();
-        Command hypersetup = new Command2.Builder(CommandName.HYPERSETUP.getString())
+        Command hypersetup = new GenericCommand.Builder(CommandName.HYPERSETUP.getString())
                 .body(
                         "colorlinks=true",
                         String.format("urlcolor=%s", color.getUrlHyperlinkColor().getString()),

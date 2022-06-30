@@ -3,7 +3,7 @@ package de.flozo.latex.core;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Command2 implements Command {
+public class GenericCommand implements Command {
 
     // constants
     public static final String COMMAND_MARKER_CHAR = "\\";
@@ -43,7 +43,7 @@ public class Command2 implements Command {
     private final boolean interBracketSpace;
 
 
-    private Command2(Builder builder) {
+    private GenericCommand(Builder builder) {
         this.name = builder.name;
         this.optionList = builder.optionList;
         this.body = builder.body;
@@ -298,8 +298,8 @@ public class Command2 implements Command {
         }
 
 
-        public Command2 build() {
-            return new Command2(this);
+        public GenericCommand build() {
+            return new GenericCommand(this);
         }
     }
 

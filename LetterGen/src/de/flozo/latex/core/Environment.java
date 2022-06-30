@@ -42,7 +42,7 @@ public class Environment {
 
 
     public List<String> getBlock() {
-        Command2 command = new Command2.Builder(buildOpeningTag())
+        GenericCommand command = new GenericCommand.Builder(buildOpeningTag())
                 .optionList(optionalArguments)
                 .body(body)
                 .bodyBrackets(bodyBrackets)

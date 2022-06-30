@@ -1,6 +1,6 @@
 package de.flozo.latex.letter;
 
-import de.flozo.latex.core.Command2;
+import de.flozo.latex.core.GenericCommand;
 import de.flozo.latex.core.CommandName;
 
 public enum ContactIcon {
@@ -119,15 +119,15 @@ public enum ContactIcon {
     }
 
     public String getIconDefault() {
-        return new Command2.Builder(CommandName.FAICON.getString()).body(iconName).build().getInline();
+        return new GenericCommand.Builder(CommandName.FAICON.getString()).body(iconName).build().getInline();
     }
 
     public String getIconSolid() {
-        return new Command2.Builder(CommandName.FAICON.getString()).optionList("solid").body(iconName).build().getInline();
+        return new GenericCommand.Builder(CommandName.FAICON.getString()).optionList("solid").body(iconName).build().getInline();
     }
 
     public String getIconRegular() {
-        return new Command2.Builder(CommandName.FAICON.getString()).optionList("regular").body(iconName).build().getInline();
+        return new GenericCommand.Builder(CommandName.FAICON.getString()).optionList("regular").body(iconName).build().getInline();
     }
 
 }

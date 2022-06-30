@@ -92,7 +92,7 @@ public class BackaddressField {
     }
 
     private String hSpace(double width) {
-        return new Command2.Builder(CommandName.HSPACE.getString())
+        return new GenericCommand.Builder(CommandName.HSPACE.getString())
                 .body(Length.inPoint(width).getFormatted())
                 .build()
                 .getInline();

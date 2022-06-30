@@ -11,8 +11,8 @@ public class Documentclass{//} extends Command {
         this.documentClassName = documentClassName;
     }
 
-    public static Command2 createWithOptions(DocumentClassName documentClassName, String... options) {
-        return new Command2.Builder(KEYWORD.getString())
+    public static GenericCommand createWithOptions(DocumentClassName documentClassName, String... options) {
+        return new GenericCommand.Builder(KEYWORD.getString())
                 .optionList(options)
                 .body(documentClassName.getString())
                 .optionBrackets(Bracket.SQUARE_BRACKETS)
