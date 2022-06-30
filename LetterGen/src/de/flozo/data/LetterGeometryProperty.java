@@ -25,12 +25,12 @@ public enum LetterGeometryProperty implements Property {
     BACKADDRESS_HEIGHT("backaddress.height", 1.0),
     BACKADDRESS_SEPLINE_X("backaddress.sepline.x", 2.0),
     BACKADDRESS_SEPLINE_LINEWIDTH("backaddress.sepline.line_width", 0.5),
-    BACKADDRESS_SEPCHAR("backaddress.sepchar", "bullet"),
+    BACKADDRESS_SEPCHAR("backaddress.sepchar", "$\\bullet$"),
     BACKADDRESS_SEPCHAR_SPACING("backaddress.sepchar.spacing", 8.0),
     BACKADDRESS_FONTSIZE("backaddress.fontsize", FontSize.SCRIPT_SIZE.getString()),
 
-    SENDER_X("sender.x", 11.0),
-    SENDER_Y("sender.y", 20.7),
+    SENDER_X("sender.x", 19.0),
+    SENDER_Y("sender.y", 27.55),
     SENDER_WIDTH("sender.width", 20.7),
     SENDER_HEIGHT("sender.height", 20.7),
 
@@ -41,8 +41,8 @@ public enum LetterGeometryProperty implements Property {
     CLOSING_Y_SHIFT("closing.y_shift", 3.7),
     ENCLOSURES_Y_SHIFT("enclosures.y_shift", -0.7),
     HEADLINE_X_SHIFT("headline.x_shift", 0.0),
-    HEADLINE_Y_SHIFT("headline.y_shift", 0.5),
-    HEADLINE_SEPLINE_LINE_WIDTH("headline.sepline.line_width", 3),
+    HEADLINE_Y_SHIFT("headline.y_shift", 0.2),
+    HEADLINE_SEPLINE_LINE_WIDTH("headline.sepline.line_width", 3.0),
 
     PERFORATION_MARK_X("perforation_mark.x", 0.1),
     PERFORATION_MARK_Y("perforation_mark.y", 14.85),

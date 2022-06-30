@@ -2,18 +2,20 @@ package de.flozo.data;
 
 public enum AddressProperty implements Property {
 
-    NAME_FIRST("name.first", "FIRST_NAME"),
-    NAME_MIDDLE("name.middle", "MIDDLE_NAME"),
-    NAME_LAST("name.last", "LAST_NAME"),
+    NAME_FIRST("name.first", "FIRST\\_NAME"),
+    NAME_MIDDLE("name.middle", "MIDDLE\\_NAME"),
+    NAME_LAST("name.last", "LAST\\_NAME"),
     NAME_TITLE("name.title", "TITLE"),
     NAME_COMPANY("name.company", "COMPANY"),
+
     ADDRESS_STREET("address.street", "STREET"),
-    ADDRESS_HOUSE_NUMBER("address.house_number", "HOUSE_NUMBER"),
-    ADDRESS_POSTAL_CODE("address.postal_code", "POSTAL_CODE"),
+    ADDRESS_HOUSE_NUMBER("address.house_number", "123a"),
+    ADDRESS_POSTAL_CODE("address.postal_code", "12345"),
     ADDRESS_CITY("address.city", "CITY"),
     ADDRESS_COUNTRY("address.country", "COUNTRY"),
-    COMMUNICATION_PHONE("communication.phone", "PHONE_NUMBER"),
-    COMMUNICATION_MOBILE("communication.mobile", "MOBILE_NUMBER"),
+
+    COMMUNICATION_PHONE("communication.phone", "PHONE\\_NUMBER"),
+    COMMUNICATION_MOBILE("communication.mobile", "MOBILE\\_NUMBER"),
     COMMUNICATION_EMAIL("communication.email", "EMAIL@ADDRESS.TLD"),
     COMMUNICATION_WEBPAGE("communication.webpage", "WWW.WEBPAGE.TLD");
 
