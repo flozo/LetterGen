@@ -22,7 +22,7 @@ public class DateField {
     private final Color textColor;
 
     public DateField(LetterGeometry geometry, LetterColor color, String place, String date) {
-        this.position = Point.fromNumbers(geometry.getPaperWidth()-geometry.getBorderMarginRight(), geometry.getDateY());
+        this.position = Point.fromNumbers(geometry.getPaperWidth() - geometry.getBorderMarginRight(), geometry.getDateY());
         this.place = place;
         this.date = date;
         this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();

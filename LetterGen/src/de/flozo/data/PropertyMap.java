@@ -44,6 +44,19 @@ public class PropertyMap {
         return new PropertyMap(configGroup, propertiesRawMap);
     }
 
+    public static PropertyMap createFromFile(ConfigGroup configGroup, MasterConfigFile masterConfigFile) {
+        ConfigFile configFile = ConfigFile.fromMasterConfig(masterConfigFile, configGroup);
+        configFile.readProperties();
+        configFile.checkProperties();
+        Properties configFileProperties = configFile.getProperties();
+        Map<String, String> propertiesRawMap = new HashMap<>();
+        System.out.print("[config] Create settings from " + configGroup.getPropertyKey() + " ...");
+        for (Map.Entry<Object, Object> entry : configFileProperties.entrySet()) {
+            propertiesRawMap.put(entry.getKey().toString(), entry.getValue().toString());
+        }
+        System.out.println(" done!");
+        return new PropertyMap(configGroup, propertiesRawMap);
+    }
 
     public void updateWithConfigFileSettings(MasterConfigFile masterConfigFile) {
         ConfigFile configFile = ConfigFile.fromMasterConfig(masterConfigFile, configGroup);
@@ -57,6 +70,12 @@ public class PropertyMap {
         System.out.println(" done!");
     }
 
+
+    public Map<String, String> keyValueMap() {
+        return properties.entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
 
     public Map<String, String> stringSubMap() {
         return properties.entrySet()

@@ -39,12 +39,14 @@ public class Main {
         PropertyMap letterColors = PropertyMap.createWithDefaults(ConfigGroup.LETTER_COLORS);
         PropertyMap senderMap = PropertyMap.createWithDefaults(ConfigGroup.SENDER_DATA);
         PropertyMap receiverMap = PropertyMap.createWithDefaults(ConfigGroup.RECEIVER_DATA);
+        PropertyMap enclosures = PropertyMap.createFromFile(ConfigGroup.LETTER_ENCLOSURES, masterConfigFile);
 
         letterGeometry.updateWithConfigFileSettings(masterConfigFile);
         letterGeneral.updateWithConfigFileSettings(masterConfigFile);
         letterColors.updateWithConfigFileSettings(masterConfigFile);
         senderMap.updateWithConfigFileSettings(masterConfigFile);
         receiverMap.updateWithConfigFileSettings(masterConfigFile);
+        System.out.println(enclosures.keyValueMap());
 
         LetterGeometry geometry = new LetterGeometry(letterGeometry);
         LetterColor color = new LetterColor(letterColors);
@@ -118,6 +120,8 @@ public class Main {
         Headline headline = new Headline(geometry, color, senderData);
         SubjectField subjectField = new SubjectField(geometry, color, "My subject");
         DateField dateField = new DateField(geometry, color, "City", "2022-06-22");
+        Enclosure enclosureField = new Enclosure(geometry,color,enclosures.keyValueMap());
+
         Body letterBody = new Body(geometry, color, "this is a text this is a text this is a text " +
                 "this is a text this is a text this is a text this is a text this is a text " +
                 "this is a text this is a text this is a text this is a text this is a text " +
@@ -127,6 +131,8 @@ public class Main {
         PerforationMark perforationMark = new PerforationMark(geometry, color);
         FoldingMark1 foldingMark1 = new FoldingMark1(geometry, color);
         FoldingMark2 foldingMark2 = new FoldingMark2(geometry, color);
+
+
 
         ExpressionList tikzpictureBody = new FormattedExpressionList.Builder()
                 .append(pageOne.getPage())
@@ -141,6 +147,7 @@ public class Main {
                 .append(perforationMark.getLine())
                 .append(foldingMark1.getLine())
                 .append(foldingMark2.getLine())
+                .append(enclosureField.generate())
                 .build();
 
         Environment tikzpicture = new Environment.Builder(EnvironmentName.TIKZPICTURE)

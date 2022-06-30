@@ -37,7 +37,7 @@ public class LetterGeometry {
     private final double bodyY;
     private final double bodyTextParagraphSpacing;
     private final double closingYShift;
-    private final double enclosuresYShift;
+    private final double enclosuresY;
     private final double headlineXShift;
     private final double headlineYShift;
     private final double headlineSeplineLineWidth;
@@ -90,7 +90,7 @@ public class LetterGeometry {
         this.bodyY = numericSubMap.get(LetterGeometryProperty.BODY_Y.getPropertyKey());
         this.bodyTextParagraphSpacing = numericSubMap.get(LetterGeometryProperty.BODY_TEXT_PARAGRAPH_SPACING.getPropertyKey());
         this.closingYShift = numericSubMap.get(LetterGeometryProperty.CLOSING_Y_SHIFT.getPropertyKey());
-        this.enclosuresYShift = numericSubMap.get(LetterGeometryProperty.ENCLOSURES_Y_SHIFT.getPropertyKey());
+        this.enclosuresY = numericSubMap.get((LetterGeometryProperty.ENCLOSURES_Y.getPropertyKey()));
         this.headlineXShift = numericSubMap.get(LetterGeometryProperty.HEADLINE_X_SHIFT.getPropertyKey());
         this.headlineYShift = numericSubMap.get(LetterGeometryProperty.HEADLINE_Y_SHIFT.getPropertyKey());
         this.headlineSeplineLineWidth = numericSubMap.get(LetterGeometryProperty.HEADLINE_SEPLINE_LINE_WIDTH.getPropertyKey());
@@ -220,8 +220,8 @@ public class LetterGeometry {
         return closingYShift;
     }
 
-    public double getEnclosuresYShift() {
-        return enclosuresYShift;
+    public double getEnclosuresY() {
+        return enclosuresY;
     }
 
     public double getHeadlineXShift() {
@@ -315,7 +315,7 @@ public class LetterGeometry {
                 ", bodyY=" + bodyY +
                 ", bodyTextParagraphSpacing=" + bodyTextParagraphSpacing +
                 ", closingYShift=" + closingYShift +
-                ", enclosuresYShift=" + enclosuresYShift +
+                ", enclosuresY=" + enclosuresY +
                 ", headlineXShift=" + headlineXShift +
                 ", headlineYShift=" + headlineYShift +
                 ", headlineSeplineLineWidth=" + headlineSeplineLineWidth +
