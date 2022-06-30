@@ -40,13 +40,13 @@ public class MasterConfigFile extends File {
             System.out.println("[config] Master config file \"" + getCompletePath() + "\" does not exist!");
             return;
         }
-        System.out.print("[config] Read from config file \"" + getCompletePath() + "\" ...");
+        System.out.print("[config] Read master config file \"" + getCompletePath() + "\" ...");
         Properties properties = new Properties();
         try (InputStreamReader input = new InputStreamReader(new FileInputStream(getCompletePath().toFile()), StandardCharsets.UTF_8)) {
             properties.load(input);
         } catch (IOException e) {
             System.out.println();
-            System.out.println("[config] [IOException] Failed to open config file!");
+            System.out.println("[config] [IOException] Failed to open master config file!");
         }
         System.out.println(" done! Checking integrity ...");
         if (isComplete(properties)) {

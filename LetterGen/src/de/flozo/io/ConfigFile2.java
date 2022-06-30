@@ -33,7 +33,7 @@ public class ConfigFile2 {
             System.out.println("[config] Config file \"" + configFile.getCompletePath() + "\" does not exist!");
             return;
         }
-        System.out.print("[config] Read from config file \"" + configFile.getCompletePath() + "\" ...");
+        System.out.print("[config] Read config file \"" + configFile.getCompletePath() + "\" ...");
         try (InputStreamReader input = new InputStreamReader(new FileInputStream(configFile.getCompletePath().toFile()), StandardCharsets.UTF_8)) {
             properties.load(input);
         } catch (IOException e) {

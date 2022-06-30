@@ -1,6 +1,8 @@
 package de.flozo;
 
 import de.flozo.data.*;
+import de.flozo.io.ConfigDirectory;
+import de.flozo.io.MasterConfigFile;
 import de.flozo.latex.core.*;
 import de.flozo.latex.letter.*;
 import de.flozo.latex.tikz.Layer;
@@ -27,51 +29,32 @@ public class Main {
 
     public static void main(String[] args) {
 
+        ConfigDirectory configDirectory = ConfigDirectory.fromDefaultDirectory();
+        MasterConfigFile masterConfigFile = MasterConfigFile.withDefaultFileName(configDirectory);
+        masterConfigFile.readProperties();
+
 
         PropertyMap2 letterGeometry = PropertyMap2.createWithDefaults(ConfigGroup.LETTER_GEOMETRY);
-        letterGeometry.updateWithConfigFileSettings();
+        letterGeometry.updateWithConfigFileSettings(masterConfigFile);
 
         PropertyMap2 letterGeneral = PropertyMap2.createWithDefaults(ConfigGroup.LETTER_GENERAL);
-        letterGeneral.updateWithConfigFileSettings();
-
+        letterGeneral.updateWithConfigFileSettings(masterConfigFile);
 
         PropertyMap2 letterColors = PropertyMap2.createWithDefaults(ConfigGroup.LETTER_COLORS);
-        letterColors.updateWithConfigFileSettings();
+        letterColors.updateWithConfigFileSettings(masterConfigFile);
 
         PropertyMap2 senderMap = PropertyMap2.createWithDefaults(ConfigGroup.SENDER_DATA);
-        senderMap.updateWithConfigFileSettings();
+        senderMap.updateWithConfigFileSettings(masterConfigFile);
 
         PropertyMap2 receiverMap = PropertyMap2.createWithDefaults(ConfigGroup.RECEIVER_DATA);
-        receiverMap.updateWithConfigFileSettings();
+        receiverMap.updateWithConfigFileSettings(masterConfigFile);
 
-//        Settings settings = new Settings(MASTER_CONFIG_FILE_NAME);
-        System.out.println("1111111111111111");
-
-//        PropertyMap letterGeometryMap = new PropertyMap(ConfigGroup.LETTER_GEOMETRY);
-        System.out.println("22222222222222222");
-//        letterGeometryMap.updateDefaults(settings);
-        System.out.println("3333333333333333333");
         LetterGeometry geometry = new LetterGeometry(letterGeometry);
-        System.out.println("4444444444444444444");
-
-//        PropertyMap letterColor = new PropertyMap(ConfigGroup.LETTER_COLORS);
-        System.out.println("5555555555555555");
-//        letterColor.updateDefaults(settings);
-        System.out.println("6666666666666666666");
         LetterColor color = new LetterColor(letterColors);
 
-//        PropertyMap senderMap = new PropertyMap(ConfigGroup.SENDER_DATA);
-//        senderMap.updateDefaults(settings);
         Address senderData = new Address(senderMap);
-
-//        PropertyMap receiverMap = new PropertyMap(ConfigGroup.RECEIVER_DATA);
-//        receiverMap.updateDefaults(settings);
         Address receiverData = new Address(receiverMap);
-
-//        PropertyMap general = new PropertyMap(ConfigGroup.LETTER_GENERAL);
-//        general.updateDefaults(settings);
         LetterGeneral general = new LetterGeneral(letterGeneral);
-
 
         Command documentclass = Documentclass.createWithOptions(DocumentClassName.STANDALONE, "12pt", "tikz", "multi", "crop");
 

@@ -1,6 +1,5 @@
 package de.flozo.data;
 
-import de.flozo.io.ConfigDirectory;
 import de.flozo.io.ConfigFile2;
 import de.flozo.io.MasterConfigFile;
 import de.flozo.latex.core.color.BrewerColor;
@@ -46,14 +45,8 @@ public class PropertyMap2 {
     }
 
 
-    public void updateWithConfigFileSettings() {
-        ConfigDirectory configDirectory = ConfigDirectory.fromDefaultDirectory();
-        System.out.println(configDirectory);
-        MasterConfigFile masterConfigFile = MasterConfigFile.withDefaultFileName(configDirectory);
-        masterConfigFile.readProperties();
-        System.out.println(masterConfigFile);
+    public void updateWithConfigFileSettings(MasterConfigFile masterConfigFile) {
         ConfigFile2 configFile2 = ConfigFile2.fromMasterConfig(masterConfigFile, configGroup);
-        System.out.println(configFile2);
         configFile2.readProperties();
         configFile2.checkProperties();
         Properties configFileProperties = configFile2.getProperties();
@@ -61,7 +54,7 @@ public class PropertyMap2 {
         for (Map.Entry<Object, Object> entry : configFileProperties.entrySet()) {
             properties.replace(entry.getKey().toString(), entry.getValue().toString());
         }
-        System.out.println("[config] done!");
+        System.out.println(" done!");
     }
 
 
