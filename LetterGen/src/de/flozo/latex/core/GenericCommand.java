@@ -97,10 +97,7 @@ public class GenericCommand implements Command {
     }
 
     private List<String> getBodyBlock() {
-        BracketMode openingBracketMode = BracketMode.AFFIXED;
-        if (trailingOpeningBracket) {
-            openingBracketMode = BracketMode.SKIP;
-        }
+        BracketMode openingBracketMode = trailingOpeningBracket ? BracketMode.SKIP : BracketMode.AFFIXED;
         return new ArrayList<>(assembleBody(indentBody, openingBracketMode, BracketMode.AFFIXED).getBlock());
     }
 

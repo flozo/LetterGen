@@ -42,9 +42,11 @@ public enum LetterGeometryProperty implements Property {
     SIGNATURE_Y("signature.y", 5.0),
     SIGNATURE_IMAGE_SCALE_FACTOR("signature.image.scale.factor", 1.0),
     ENCLOSURES_Y("enclosures.y", 5.0),
+
     HEADLINE_X_SHIFT("headline.x_shift", 0.0),
     HEADLINE_Y_SHIFT("headline.y_shift", 0.2),
     HEADLINE_SEPLINE_LINE_WIDTH("headline.sepline.line_width", 3.0),
+    HEADLINE_FONTSIZE("headline.fontsize", FontSize.LARGE2.getString()),
 
     PERFORATION_MARK_X("perforation_mark.x", 0.1),
     PERFORATION_MARK_Y("perforation_mark.y", 14.85),

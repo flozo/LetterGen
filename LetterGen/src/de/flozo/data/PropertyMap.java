@@ -30,7 +30,6 @@ public class PropertyMap {
             }
         } else if (configGroup == ConfigGroup.LETTER_COLORS) {
             for (Property property : LetterColorProperty.values()) {
-                System.out.println(property.getGenericStringValue());
                 propertiesRawMap.put(property.getPropertyKey(), property.getGenericStringValue());
             }
         } else if (configGroup == ConfigGroup.SENDER_DATA || configGroup == ConfigGroup.RECEIVER_DATA) {

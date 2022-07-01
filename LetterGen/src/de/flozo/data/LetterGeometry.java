@@ -40,9 +40,11 @@ public class LetterGeometry {
     private final double signatureY;
     private final double signatureImageScaleFactor;
     private final double enclosuresY;
+
     private final double headlineXShift;
     private final double headlineYShift;
     private final double headlineSeplineLineWidth;
+    private final String headlineFontSize;
 
     private final double perforationMarkX;
     private final double perforationMarkY;
@@ -98,6 +100,7 @@ public class LetterGeometry {
         this.headlineXShift = numericSubMap.get(LetterGeometryProperty.HEADLINE_X_SHIFT.getPropertyKey());
         this.headlineYShift = numericSubMap.get(LetterGeometryProperty.HEADLINE_Y_SHIFT.getPropertyKey());
         this.headlineSeplineLineWidth = numericSubMap.get(LetterGeometryProperty.HEADLINE_SEPLINE_LINE_WIDTH.getPropertyKey());
+        this.headlineFontSize = stringSubMap.get(LetterGeometryProperty.HEADLINE_FONTSIZE.getPropertyKey());
         this.perforationMarkX = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_X.getPropertyKey());
         this.perforationMarkY = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_Y.getPropertyKey());
         this.perforationMarkLength = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_LENGTH.getPropertyKey());
@@ -248,6 +251,10 @@ public class LetterGeometry {
         return headlineSeplineLineWidth;
     }
 
+    public String getHeadlineFontSize() {
+        return headlineFontSize;
+    }
+
     public double getPerforationMarkX() {
         return perforationMarkX;
     }
@@ -333,6 +340,7 @@ public class LetterGeometry {
                 ", headlineXShift=" + headlineXShift +
                 ", headlineYShift=" + headlineYShift +
                 ", headlineSeplineLineWidth=" + headlineSeplineLineWidth +
+                ", headlineFontSize='" + headlineFontSize + '\'' +
                 ", perforationMarkX=" + perforationMarkX +
                 ", perforationMarkY=" + perforationMarkY +
                 ", perforationMarkLength=" + perforationMarkLength +

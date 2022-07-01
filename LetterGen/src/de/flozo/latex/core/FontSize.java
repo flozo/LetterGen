@@ -29,4 +29,11 @@ public enum FontSize {
     public static FontSize getByValue(String fontSizeValue) {
         return Arrays.stream(values()).filter(value -> value.getString().equals(fontSizeValue)).findFirst().orElse(NORMAL_SIZE);
     }
+
+    @Override
+    public String toString() {
+        return "FontSize{" +
+                "fontSizeName='" + fontSizeName + '\'' +
+                '}';
+    }
 }

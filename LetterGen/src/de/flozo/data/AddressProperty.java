@@ -48,5 +48,11 @@ public enum AddressProperty implements Property {
         return stringValue;
     }
 
-
+    @Override
+    public String toString() {
+        return "AddressProperty{" +
+                "property='" + property + '\'' +
+                ", stringValue='" + stringValue + '\'' +
+                '}';
+    }
 }
