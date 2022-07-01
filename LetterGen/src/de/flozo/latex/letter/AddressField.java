@@ -1,9 +1,6 @@
 package de.flozo.latex.letter;
 
-import de.flozo.data.Address;
-import de.flozo.data.LetterColor;
-import de.flozo.data.LetterGeneral;
-import de.flozo.data.LetterGeometry;
+import de.flozo.data.*;
 import de.flozo.latex.core.Length;
 import de.flozo.latex.core.StatementTerminator;
 import de.flozo.latex.core.color.Color;
@@ -78,7 +75,7 @@ public class AddressField {
 
 
     private String assembleName() {
-        return receiverLastName.isEmpty() ? receiverCompany : receiverFirstName + " " + receiverLastName;
+        return receiverLastName.isEmpty() || receiverLastName.equals(AddressProperty.NAME_LAST.getStringValue()) ? receiverCompany : receiverFirstName + " " + receiverLastName;
     }
 
     public Point getPosition() {
