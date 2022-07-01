@@ -62,7 +62,7 @@ public class OutputFile {
     }
 
 
-    public boolean writeToFile(List<String> codeLines, String outputFile) {
+    private boolean writeToFile(List<String> codeLines, String outputFile) {
         System.out.println("[output] Writing LaTeX code to file \"" + outputFile + "\" ...");
         try (PrintWriter printWriter = new PrintWriter(outputFile)) {
             printWriter.println(VERSION_INFO_LATEX_HEADER);
@@ -76,7 +76,7 @@ public class OutputFile {
         }
     }
 
-    public boolean runPDFLatex(String outputDirectory, String outputFile) {
+    private boolean runPDFLatex(String outputDirectory, String outputFile) {
         ProcessBuilder processBuilder = new ProcessBuilder(latexCommand, option1, option2, option3, outputDirectory, outputFile);
         processBuilder.redirectErrorStream(true);
         File outputLog = new File(outputDirectory, fileNameOutputLog);
@@ -104,7 +104,11 @@ public class OutputFile {
         }
     }
 
-    public boolean openPDF(String pdfFile) {
+    private boolean openPDF(String pdfFile) {
+        if (!Desktop.isDesktopSupported()) {
+            System.out.println("[output] [error] Opening PDF with default viewer is not supported on your platform!");
+            return false;
+        }
         System.out.println("[output] Open PDF file with default viewer ...");
         File pdf = new File(pdfFile);
         try {
