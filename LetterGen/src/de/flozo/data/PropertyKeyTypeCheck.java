@@ -15,7 +15,8 @@ public interface PropertyKeyTypeCheck {
         Predicate<String> isXShift = key -> key.endsWith(".x_shift");
         Predicate<String> isYShift = key -> key.endsWith(".y_shift");
         Predicate<String> isBorderMargin = key -> key.startsWith("border_margin");
-        return isWidth.or(isHeight).or(isLength).or(isLineWidth).or(isSpacing).or(isX).or(isY).or(isXShift).or(isYShift).or(isBorderMargin);
+        Predicate<String> isFactor = key -> key.endsWith(".factor");
+        return isWidth.or(isHeight).or(isLength).or(isLineWidth).or(isSpacing).or(isX).or(isY).or(isXShift).or(isYShift).or(isBorderMargin).or(isFactor);
     }
 
     static Predicate<String> booleanEntryCondition() {

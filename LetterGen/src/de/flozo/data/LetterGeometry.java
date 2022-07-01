@@ -38,6 +38,7 @@ public class LetterGeometry {
     private final double bodyTextParagraphSpacing;
     private final double closingYShift;
     private final double signatureY;
+    private final double signatureImageScaleFactor;
     private final double enclosuresY;
     private final double headlineXShift;
     private final double headlineYShift;
@@ -92,6 +93,7 @@ public class LetterGeometry {
         this.bodyTextParagraphSpacing = numericSubMap.get(LetterGeometryProperty.BODY_TEXT_PARAGRAPH_SPACING.getPropertyKey());
         this.closingYShift = numericSubMap.get(LetterGeometryProperty.CLOSING_Y_SHIFT.getPropertyKey());
         this.signatureY = numericSubMap.get(LetterGeometryProperty.SIGNATURE_Y.getPropertyKey());
+        this.signatureImageScaleFactor = numericSubMap.get(LetterGeometryProperty.SIGNATURE_IMAGE_SCALE_FACTOR.getPropertyKey());
         this.enclosuresY = numericSubMap.get((LetterGeometryProperty.ENCLOSURES_Y.getPropertyKey()));
         this.headlineXShift = numericSubMap.get(LetterGeometryProperty.HEADLINE_X_SHIFT.getPropertyKey());
         this.headlineYShift = numericSubMap.get(LetterGeometryProperty.HEADLINE_Y_SHIFT.getPropertyKey());
@@ -226,6 +228,10 @@ public class LetterGeometry {
         return signatureY;
     }
 
+    public double getSignatureImageScaleFactor() {
+        return signatureImageScaleFactor;
+    }
+
     public double getEnclosuresY() {
         return enclosuresY;
     }
@@ -322,6 +328,7 @@ public class LetterGeometry {
                 ", bodyTextParagraphSpacing=" + bodyTextParagraphSpacing +
                 ", closingYShift=" + closingYShift +
                 ", signatureY=" + signatureY +
+                ", signatureImageScaleFactor=" + signatureImageScaleFactor +
                 ", enclosuresY=" + enclosuresY +
                 ", headlineXShift=" + headlineXShift +
                 ", headlineYShift=" + headlineYShift +

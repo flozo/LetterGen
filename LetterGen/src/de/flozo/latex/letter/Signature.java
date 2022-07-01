@@ -4,8 +4,7 @@ import de.flozo.data.Address;
 import de.flozo.data.LetterColor;
 import de.flozo.data.LetterGeneral;
 import de.flozo.data.LetterGeometry;
-import de.flozo.latex.core.Includegraphics;
-import de.flozo.latex.core.Length;
+import de.flozo.latex.core.*;
 import de.flozo.latex.core.color.Color;
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
@@ -24,7 +23,8 @@ public class Signature {
     private final Color backgroundColor;
     private final Color borderColor;
     private final Color textColor;
-    private final Length width;
+    private final Length textWidth;
+    private final double imageScaleFactor;
 
     public Signature(LetterGeneral general, LetterGeometry geometry, LetterColor color, Address address) {
         this.imageFileName = general.getSignatureImageFile();
@@ -33,12 +33,14 @@ public class Signature {
         this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
         this.borderColor = color.getDraftModeHighlightingBorderColor();
         this.textColor = color.getSignatureTextColor();
-        this.width = Length.inCentimeter(geometry.getPaperWidth() - geometry.getBorderMarginLeft() - geometry.getBorderMarginRight());
+        this.textWidth = Length.inCentimeter(geometry.getPaperWidth() - geometry.getBorderMarginLeft() - geometry.getBorderMarginRight());
+        this.imageScaleFactor = geometry.getSignatureImageScaleFactor();
     }
 
 
     public String generate() {
-        Includegraphics includegraphics = new Includegraphics(imageFileName);
+        ExpressionList options = new FormattedExpressionList.Builder(Option.SCALE.getString() + "=" + imageScaleFactor).build();
+        Includegraphics includegraphics = new Includegraphics(imageFileName, options);
         return new Node.Builder(includegraphics.getInline() + "\\\\" + name)
                 .name(FIELD_NAME)
                 .position(position)
@@ -46,7 +48,7 @@ public class Signature {
                 .fillColor(backgroundColor)
                 .drawColor(borderColor)
                 .textColor(textColor)
-                .textWidth(width)
+                .textWidth(textWidth)
                 .build().getInline();
     }
 
