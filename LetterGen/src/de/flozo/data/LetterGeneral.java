@@ -9,6 +9,7 @@ public class LetterGeneral {
     private final String bodyTextFile;
     private final String signatureImageFile;
     private final boolean draftModeOn;
+    private final boolean hyperlinksOn;
     private final boolean enclosureStyleHide;
     private final boolean enclosureStyleShowTag;
     private final boolean enclosureStyleShowNumber;
@@ -25,6 +26,7 @@ public class LetterGeneral {
         this.bodyTextFile = stringSubMap.get(LetterGeneralProperty.LETTER_BODY_TEXT_FILE.getPropertyKey());
         this.signatureImageFile = stringSubMap.get(LetterGeneralProperty.LETTER_SIGNATURE_FILE.getPropertyKey());
         this.draftModeOn = booleanSubMap.get(LetterGeneralProperty.DRAFT_MODE_ON.getPropertyKey());
+        this.hyperlinksOn = booleanSubMap.get(LetterGeneralProperty.HYPERLINKS_ON.getPropertyKey());
         this.enclosureStyleHide = booleanSubMap.get(LetterGeneralProperty.ENCLOSURE_STYLE_HIDE.getPropertyKey());
         this.enclosureStyleShowTag = booleanSubMap.get(LetterGeneralProperty.ENCLOSURE_STYLE_SHOW_TAG.getPropertyKey());
         this.enclosureStyleShowNumber = booleanSubMap.get(LetterGeneralProperty.ENCLOSURE_STYLE_SHOW_NUMBER.getPropertyKey());
@@ -51,6 +53,10 @@ public class LetterGeneral {
 
     public boolean isDraftModeOn() {
         return draftModeOn;
+    }
+
+    public boolean isHyperlinksOn() {
+        return hyperlinksOn;
     }
 
     public boolean isEnclosureStyleHide() {
@@ -85,6 +91,7 @@ public class LetterGeneral {
                 ", bodyTextFile='" + bodyTextFile + '\'' +
                 ", signatureImageFile='" + signatureImageFile + '\'' +
                 ", draftModeOn=" + draftModeOn +
+                ", hyperlinksOn=" + hyperlinksOn +
                 ", enclosureStyleHide=" + enclosureStyleHide +
                 ", enclosureStyleShowTag=" + enclosureStyleShowTag +
                 ", enclosureStyleShowNumber=" + enclosureStyleShowNumber +

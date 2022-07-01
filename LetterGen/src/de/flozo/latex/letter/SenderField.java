@@ -2,7 +2,10 @@ package de.flozo.latex.letter;
 
 import de.flozo.data.Address;
 import de.flozo.data.LetterColor;
+import de.flozo.data.LetterGeneral;
 import de.flozo.data.LetterGeometry;
+import de.flozo.latex.core.Bracket;
+import de.flozo.latex.core.GenericCommand;
 import de.flozo.latex.core.Length;
 import de.flozo.latex.core.color.Color;
 import de.flozo.latex.tikz.*;
@@ -20,6 +23,7 @@ public class SenderField {
     private final Color borderColor;
     private final Color textColor;
     private final Color iconColor;
+    private final boolean hyperlinksOn;
 
 
     // content
@@ -35,11 +39,12 @@ public class SenderField {
     private final String phoneNumber;
     private final String mobileNumber;
     private final String emailAddress;
+    private final String emailSubject;
     private final String webpage;
 
 
     // Constructor with dependency injection
-    public SenderField(LetterGeometry geometry, LetterColor color, Address address) {
+    public SenderField(LetterGeneral general, LetterGeometry geometry, LetterColor color, Address address, String emailSubject) {
         this.position = Point.fromNumbers(geometry.getSenderX(), geometry.getSenderY());
         this.width = geometry.getSenderWidth();
         this.height = geometry.getSenderHeight();
@@ -47,6 +52,7 @@ public class SenderField {
         this.borderColor = color.getDraftModeHighlightingBorderColor();
         this.textColor = color.getSenderTextColor();
         this.iconColor = color.getSenderIconColor();
+        this.hyperlinksOn = general.isHyperlinksOn();
         this.senderFirstName = address.getFirstName();
         this.senderMiddleName = address.getMiddleName();
         this.senderLastName = address.getLastName();
@@ -59,6 +65,7 @@ public class SenderField {
         this.phoneNumber = address.getPhoneNumber();
         this.mobileNumber = address.getMobileNumber();
         this.emailAddress = address.getEmailAddress();
+        this.emailSubject = emailSubject;
         this.webpage = address.getWebpage();
     }
 
@@ -84,10 +91,23 @@ public class SenderField {
                 .textColor(textColor)
                 .addRow(senderStreet + " " + senderHouseNumber + "\\\\" + senderPostalCode + " " + senderCity, ContactIcon.MAP_MARKER_ALT.getIconDefault())
                 .addRow(phoneNumber, ContactIcon.PHONE_ALT.getIconDefault())
-                .addRow(emailAddress, ContactIcon.ENVELOPE.getIconDefault())
+                .addRow(formattedEmailAddress(), ContactIcon.ENVELOPE.getIconDefault())
                 .addColumnStyle(assembleNodeStyle1())
                 .addColumnStyle(assembleNodeStyle2())
                 .build();
+    }
+
+    private String formattedEmailAddress() {
+        if (hyperlinksOn) {
+            GenericCommand href = new GenericCommand.Builder("href")
+                    .optionList("mailto:" + emailAddress + "?subject=" + emailSubject)
+                    .optionBrackets(Bracket.CURLY_BRACES)
+                    .body(emailAddress)
+                    .bodyBrackets(Bracket.CURLY_BRACES)
+                    .build();
+            return href.getInline();
+        }
+        return emailAddress;
     }
 
     // preliminary
@@ -146,6 +166,7 @@ public class SenderField {
                 ", borderColor=" + borderColor +
                 ", textColor=" + textColor +
                 ", iconColor=" + iconColor +
+                ", hyperlinksOn=" + hyperlinksOn +
                 ", senderFirstName='" + senderFirstName + '\'' +
                 ", senderMiddleName='" + senderMiddleName + '\'' +
                 ", senderLastName='" + senderLastName + '\'' +
@@ -158,6 +179,7 @@ public class SenderField {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", mobileNumber='" + mobileNumber + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
+                ", emailSubject='" + emailSubject + '\'' +
                 ", webpage='" + webpage + '\'' +
                 '}';
     }

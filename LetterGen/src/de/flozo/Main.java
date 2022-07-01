@@ -116,7 +116,7 @@ public class Main {
         Page pageOne = new Page(geometry, color);
 
 
-        SenderField senderField = new SenderField(geometry, color, senderData);
+        SenderField senderField = new SenderField(general, geometry, color, senderData, "My subject");
 
         LayerEnvironment onForeBackgroundLayer = new LayerEnvironment("forebackground", senderField.getMatrix().getBlock());
 
