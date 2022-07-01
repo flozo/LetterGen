@@ -42,14 +42,13 @@ public class Page {
         List<String> page = new ArrayList<>();
         page.add(getBackgroundRectangle().getInline());
         page.addAll(getBorderMargins());
-        LayerEnvironment onBackgroundLayer = new LayerEnvironment("background",  page);
+        LayerEnvironment onBackgroundLayer = new LayerEnvironment("background", page);
         return onBackgroundLayer.getBlock();
     }
 
 
     private List<String> getBorderMargins() {
-        Line top = new Line.Builder(Point.fromNumbers(0.0, height - marginTop), Point.fromNumbers(width, height - marginTop))
-                .build();
+        Line top = new Line.Builder(Point.fromNumbers(0.0, height - marginTop), Point.fromNumbers(width, height - marginTop)).build();
         Line bottom = new Line.Builder(Point.fromNumbers(0.0, marginBottom), Point.fromNumbers(width, marginBottom)).build();
         Line left = new Line.Builder(Point.fromNumbers(marginLeft, 0), Point.fromNumbers(marginLeft, height)).build();
         Line right = new Line.Builder(Point.fromNumbers(width - marginRight, 0), Point.fromNumbers(width - marginRight, height)).build();

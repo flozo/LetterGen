@@ -4,6 +4,7 @@ import de.flozo.latex.core.color.*;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
@@ -13,7 +14,7 @@ public enum LetterColorProperty implements Property {
     BACKGROUND_COLOR("background.color", StandardColor.NONE),
     DRAFT_MODE_HIGHLIGHTING_BACKGROUND_COLOR("draft_mode_highlighting.background.color", BrewerColor.compose(SequentialScheme.ORANGES, SequentialLetter.D)),
     DRAFT_MODE_HIGHLIGHTING_BORDER_COLOR("draft_mode_highlighting.border.color", BrewerColor.compose(SequentialScheme.GREYS, SequentialLetter.G)),
-    URL_COLOR("url_hyperlink.color", BrewerColor.compose(SequentialScheme.BLUES, SequentialLetter.K)),
+    URL_COLOR("url_hyperlink.color", BrewerColor.compose(SequentialScheme.BLUES, SequentialLetter.M)),
 
     HEADLINE_TEXT_COLOR("headline.text.color", StandardColor.DEFAULT),
     HEADLINE_SEPLINE_COLOR("headline.sepline.color", StandardColor.DEFAULT),
@@ -64,7 +65,7 @@ public enum LetterColorProperty implements Property {
         return property + " = " + colorValue.getString();
     }
 
-    private static final Map<String, LetterColorProperty> stringToEnum = Stream.of(values()).collect(toMap(LetterColorProperty::getPropertyKey, e -> e));
+    private static final Map<String, LetterColorProperty> stringToEnum = Stream.of(values()).collect(toMap(LetterColorProperty::getPropertyKey, Function.identity()));
 
     public static Optional<LetterColorProperty> fromString(String stringValue) {
         return Optional.ofNullable(stringToEnum.get(stringValue));

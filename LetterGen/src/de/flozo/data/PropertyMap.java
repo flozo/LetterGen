@@ -30,6 +30,7 @@ public class PropertyMap {
             }
         } else if (configGroup == ConfigGroup.LETTER_COLORS) {
             for (Property property : LetterColorProperty.values()) {
+                System.out.println(property.getGenericStringValue());
                 propertiesRawMap.put(property.getPropertyKey(), property.getGenericStringValue());
             }
         } else if (configGroup == ConfigGroup.SENDER_DATA || configGroup == ConfigGroup.RECEIVER_DATA) {
@@ -65,7 +66,9 @@ public class PropertyMap {
         Properties configFileProperties = configFile.getProperties();
         System.out.print("[config] Updating default settings in " + configGroup.getPropertyKey() + " ...");
         for (Map.Entry<Object, Object> entry : configFileProperties.entrySet()) {
-            properties.replace(entry.getKey().toString(), entry.getValue().toString());
+            if (!entry.getValue().toString().isBlank()) {
+                properties.replace(entry.getKey().toString(), entry.getValue().toString());
+            }
         }
         System.out.println(" done!");
     }
@@ -111,8 +114,8 @@ public class PropertyMap {
     private Color parseColor(String colorString) {
         if (PropertyValueTypeCheck.isValidBrewerColorValue().test(colorString)) {
             return BrewerColor.parseColor(colorString);
-        } else if (PropertyValueTypeCheck.isValidStandardColorValue().test(colorString)) {
-            return StandardColor.fromString(colorString).orElse(StandardColor.DEFAULT);
+        } else if (PropertyValueTypeCheck.isValidStandardColorValue().test(colorString) && StandardColor.fromString(colorString).isPresent()) {
+            return StandardColor.fromString(colorString).get();
         }
         return null;
     }
