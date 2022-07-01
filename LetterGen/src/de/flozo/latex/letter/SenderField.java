@@ -8,6 +8,7 @@ import de.flozo.latex.core.Bracket;
 import de.flozo.latex.core.GenericCommand;
 import de.flozo.latex.core.Length;
 import de.flozo.latex.core.color.Color;
+import de.flozo.latex.core.color.StandardColor;
 import de.flozo.latex.tikz.*;
 
 public class SenderField {
@@ -48,8 +49,8 @@ public class SenderField {
         this.position = Point.fromNumbers(geometry.getSenderX(), geometry.getSenderY());
         this.width = geometry.getSenderWidth();
         this.height = geometry.getSenderHeight();
-        this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
-        this.borderColor = color.getDraftModeHighlightingBorderColor();
+        this.backgroundColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBackgroundColor(): StandardColor.NONE;
+        this.borderColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBorderColor(): StandardColor.DEFAULT;
         this.textColor = color.getSenderTextColor();
         this.iconColor = color.getSenderIconColor();
         this.hyperlinksOn = general.isHyperlinksOn();

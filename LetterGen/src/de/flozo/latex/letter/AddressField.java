@@ -2,10 +2,12 @@ package de.flozo.latex.letter;
 
 import de.flozo.data.Address;
 import de.flozo.data.LetterColor;
+import de.flozo.data.LetterGeneral;
 import de.flozo.data.LetterGeometry;
 import de.flozo.latex.core.Length;
 import de.flozo.latex.core.StatementTerminator;
 import de.flozo.latex.core.color.Color;
+import de.flozo.latex.core.color.StandardColor;
 import de.flozo.latex.tikz.Alignment;
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
@@ -37,12 +39,12 @@ public class AddressField {
 
 
     // Constructor with dependency injection
-    public AddressField(LetterGeometry geometry, LetterColor color, Address address) {
+    public AddressField(LetterGeneral general, LetterGeometry geometry, LetterColor color, Address address) {
         this.position = Point.fromNumbers(geometry.getAddressX(), geometry.getAddressY());
         this.width = geometry.getAddressWidth();
         this.height = geometry.getAddressHeight();
-        this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
-        this.borderColor = color.getDraftModeHighlightingBorderColor();
+        this.backgroundColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBackgroundColor(): StandardColor.NONE;
+        this.borderColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBorderColor(): StandardColor.DEFAULT;
         this.textColor = color.getAddressTextColor();
         this.receiverFirstName = address.getFirstName();
         this.receiverMiddleName = address.getMiddleName();

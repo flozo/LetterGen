@@ -4,6 +4,7 @@ import de.flozo.data.LetterColor;
 import de.flozo.data.LetterGeneral;
 import de.flozo.data.LetterGeometry;
 import de.flozo.latex.core.color.Color;
+import de.flozo.latex.core.color.StandardColor;
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
 import de.flozo.latex.tikz.Point;
@@ -39,8 +40,8 @@ public class Enclosure {
         this.numberOfDocuments = enclosureDocuments.size();
         this.enclosureTagSingular = "Enclosure";
         this.enclosureTagPlural = "Enclosures";
-        this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
-        this.borderColor = color.getDraftModeHighlightingBorderColor();
+        this.backgroundColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBackgroundColor(): StandardColor.NONE;
+        this.borderColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBorderColor(): StandardColor.DEFAULT;
         this.textColor = color.getEnclosuresTextColor();
         this.enclosureStyleHide = general.isEnclosureStyleHide();
         this.enclosureStyleShowTag = general.isEnclosureStyleShowTag();

@@ -120,20 +120,14 @@ public class Main {
 
         LayerEnvironment onForeBackgroundLayer = new LayerEnvironment("forebackground", senderField.getMatrix().getBlock());
 
-        AddressField addressField = new AddressField(geometry, color, receiverData);
-        BackaddressField backaddressField = new BackaddressField(geometry, color, senderData);
-        Headline headline = new Headline(geometry, color, senderData);
-        SubjectField subjectField = new SubjectField(geometry, color, "My subject");
-        DateField dateField = new DateField(geometry, color, "City", "2022-06-22");
+        AddressField addressField = new AddressField(general, geometry, color, receiverData);
+        BackaddressField backaddressField = new BackaddressField(general, geometry, color, senderData);
+        Headline headline = new Headline(general, geometry, color, senderData);
+        SubjectField subjectField = new SubjectField(general, geometry, color, "My subject");
+        DateField dateField = new DateField(general, geometry, color, "City", "2022-06-22");
         Enclosure enclosureField = new Enclosure(general, geometry, color, enclosures.keyValueMap());
 
-        Body letterBody = new Body(geometry, color, letterBodyTextFile.getLines());
-
-//        Body letterBody = new Body(geometry, color, "this is a text this is a text this is a text " +
-//                "this is a text this is a text this is a text this is a text this is a text " +
-//                "this is a text this is a text this is a text this is a text this is a text " +
-//                "this is a text this is a text this is a text this is a text\\\\this is a text this is a text " +
-//                "this is a text this is a text this is a text this is a text");
+        Body letterBody = new Body(general, geometry, color, letterBodyTextFile.getLines());
 
         PerforationMark perforationMark = new PerforationMark(geometry, color);
         FoldingMark1 foldingMark1 = new FoldingMark1(geometry, color);
@@ -153,8 +147,8 @@ public class Main {
                 .append(perforationMark.getLine())
                 .append(foldingMark1.getLine())
                 .append(foldingMark2.getLine())
-                .append(enclosureField.generate())
                 .append(signature.generate())
+                .append(enclosureField.generate())
                 .build();
 
         Environment tikzpicture = new Environment.Builder(EnvironmentName.TIKZPICTURE)

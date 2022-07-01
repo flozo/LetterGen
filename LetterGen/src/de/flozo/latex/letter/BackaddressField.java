@@ -2,9 +2,11 @@ package de.flozo.latex.letter;
 
 import de.flozo.data.Address;
 import de.flozo.data.LetterColor;
+import de.flozo.data.LetterGeneral;
 import de.flozo.data.LetterGeometry;
 import de.flozo.latex.core.*;
 import de.flozo.latex.core.color.Color;
+import de.flozo.latex.core.color.StandardColor;
 import de.flozo.latex.tikz.*;
 
 public class BackaddressField {
@@ -37,12 +39,12 @@ public class BackaddressField {
 
 
     // Constructor with dependency injection
-    public BackaddressField(LetterGeometry geometry, LetterColor color, Address address) {
+    public BackaddressField(LetterGeneral general, LetterGeometry geometry, LetterColor color, Address address) {
         this.position = Point.fromNumbers(geometry.getBackaddressX(), geometry.getBackaddressY());
         this.width = geometry.getBackaddressWidth();
         this.height = geometry.getBackaddressHeight();
-        this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
-        this.borderColor = color.getDraftModeHighlightingBorderColor();
+        this.backgroundColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBackgroundColor(): StandardColor.NONE;
+        this.borderColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBorderColor(): StandardColor.DEFAULT;
         this.textColor = color.getBackaddressTextColor();
         this.firstName = address.getFirstName();
         this.middleName = address.getMiddleName();

@@ -1,9 +1,11 @@
 package de.flozo.latex.letter;
 
 import de.flozo.data.LetterColor;
+import de.flozo.data.LetterGeneral;
 import de.flozo.data.LetterGeometry;
 import de.flozo.latex.core.Length;
 import de.flozo.latex.core.color.Color;
+import de.flozo.latex.core.color.StandardColor;
 import de.flozo.latex.tikz.Alignment;
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
@@ -34,20 +36,20 @@ public class Body {
     private final Color textColor;
 
 
-    public Body(LetterGeometry geometry, LetterColor color, List<String> textLines) {
+    public Body(LetterGeneral general, LetterGeometry geometry, LetterColor color, List<String> textLines) {
         this.position = Point.fromNumbers(geometry.getBorderMarginLeft(), geometry.getBodyY());
         this.textLines = textLines;
         this.salutation = "Dear Sir or Madam,";
         this.valediction = "Best regards,";
         this.textWidth = Length.inCentimeter(geometry.getPaperWidth() - geometry.getBorderMarginLeft() - geometry.getBorderMarginRight());
         this.paragraphSpacing = Length.inCentimeter(geometry.getBodyTextParagraphSpacing());
-        this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
-        this.borderColor = color.getDraftModeHighlightingBorderColor();
+        this.backgroundColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBackgroundColor(): StandardColor.NONE;
+        this.borderColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBorderColor(): StandardColor.DEFAULT;
         this.textColor = color.getBodyTextColor();
     }
 
-    public Body(LetterGeometry geometry, LetterColor color, String... textLines) {
-        this(geometry, color, new ArrayList<>(List.of(textLines)));
+    public Body(LetterGeneral general, LetterGeometry geometry, LetterColor color, String... textLines) {
+        this(general, geometry, color, new ArrayList<>(List.of(textLines)));
     }
 
 

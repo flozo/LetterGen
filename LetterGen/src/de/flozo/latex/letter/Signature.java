@@ -6,6 +6,7 @@ import de.flozo.data.LetterGeneral;
 import de.flozo.data.LetterGeometry;
 import de.flozo.latex.core.*;
 import de.flozo.latex.core.color.Color;
+import de.flozo.latex.core.color.StandardColor;
 import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
 import de.flozo.latex.tikz.Point;
@@ -34,8 +35,8 @@ public class Signature {
         this.imageFileName = general.getSignatureImageFile();
         this.name = address.getFirstName() + " " + address.getLastName();
         this.position = Point.fromNumbers(geometry.getBorderMarginLeft(), geometry.getSignatureY());
-        this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
-        this.borderColor = color.getDraftModeHighlightingBorderColor();
+        this.backgroundColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBackgroundColor(): StandardColor.NONE;
+        this.borderColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBorderColor(): StandardColor.DEFAULT;
         this.textColor = color.getSignatureTextColor();
         this.textWidth = Length.inCentimeter(geometry.getPaperWidth() - geometry.getBorderMarginLeft() - geometry.getBorderMarginRight());
         this.imageScaleFactor = geometry.getSignatureImageScaleFactor();
@@ -74,6 +75,9 @@ public class Signature {
                 ", backgroundColor=" + backgroundColor +
                 ", borderColor=" + borderColor +
                 ", textColor=" + textColor +
+                ", textWidth=" + textWidth +
+                ", imageScaleFactor=" + imageScaleFactor +
+                ", imagePlaceholderOn=" + imagePlaceholderOn +
                 '}';
     }
 }

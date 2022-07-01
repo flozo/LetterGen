@@ -2,10 +2,12 @@ package de.flozo.latex.letter;
 
 import de.flozo.data.Address;
 import de.flozo.data.LetterColor;
+import de.flozo.data.LetterGeneral;
 import de.flozo.data.LetterGeometry;
 import de.flozo.latex.core.FontSize;
 import de.flozo.latex.core.Length;
 import de.flozo.latex.core.color.Color;
+import de.flozo.latex.core.color.StandardColor;
 import de.flozo.latex.tikz.*;
 
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public class Headline {
     private final Line headlineSeparationLine;
 
 
-    public Headline(LetterGeometry geometry, LetterColor color, Address address) {
+    public Headline(LetterGeneral general, LetterGeometry geometry, LetterColor color, Address address) {
         this.headlineText = address.getTitle() + " " + address.getFirstName() + " " + address.getLastName();
         this.position = Point.fromNumbers(geometry.getSenderX(), geometry.getSenderY());
         this.xShift = Length.inCentimeter(geometry.getHeadlineXShift());
@@ -40,8 +42,8 @@ public class Headline {
         this.alignment = Alignment.RIGHT;
         this.fontSize = FontSize.LARGE3;
         this.textWidth = Length.inCentimeter(geometry.getPaperWidth() - geometry.getBorderMarginLeft() - geometry.getBorderMarginRight());
-        this.backgroundColor = color.getDraftModeHighlightingBackgroundColor();
-        this.borderColor = color.getDraftModeHighlightingBorderColor();
+        this.backgroundColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBackgroundColor(): StandardColor.NONE;
+        this.borderColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBorderColor(): StandardColor.DEFAULT;
         this.textColor = color.getHeadlineTextColor();
         this.headlineSeparationLine = new Line.Builder(0.0, geometry.getPaperHeight() - geometry.getBorderMarginTop(), geometry.getPaperWidth(), 0, CoordinateMode.RELATIVE)
                 .drawColor(color.getHeadlineSeplineColor())
