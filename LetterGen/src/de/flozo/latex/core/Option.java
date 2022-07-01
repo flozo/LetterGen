@@ -4,7 +4,8 @@ public enum Option {
 
     WIDTH("width"),
     HEIGHT("height"),
-    SCALE("scale");
+    SCALE("scale"),
+    DRAFT("draft");
 
     private final String option;
 

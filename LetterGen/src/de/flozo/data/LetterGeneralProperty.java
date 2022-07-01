@@ -7,6 +7,7 @@ public enum LetterGeneralProperty implements Property {
     LANGUAGE("language", "en"),
     DATE_FORMAT("date_format", "%d.%m.%Y"),
     DRAFT_MODE_ON("draft_mode.on", false),
+    IMAGE_PLACEHOLDER_ON("image_placeholder.on", false),
     HYPERLINKS_ON("hyperlinks.on", true),
     LETTER_BODY_TEXT_FILE("letter.body.text_file", "letter_body.txt"),
     LETTER_SIGNATURE_FILE("letter.signature_file", ""),

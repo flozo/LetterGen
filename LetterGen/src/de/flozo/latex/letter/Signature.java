@@ -10,6 +10,9 @@ import de.flozo.latex.tikz.Anchor;
 import de.flozo.latex.tikz.Node;
 import de.flozo.latex.tikz.Point;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Signature {
 
     public static final String FIELD_NAME = "signature_field";
@@ -25,6 +28,7 @@ public class Signature {
     private final Color textColor;
     private final Length textWidth;
     private final double imageScaleFactor;
+    private final boolean imagePlaceholderOn;
 
     public Signature(LetterGeneral general, LetterGeometry geometry, LetterColor color, Address address) {
         this.imageFileName = general.getSignatureImageFile();
@@ -35,11 +39,19 @@ public class Signature {
         this.textColor = color.getSignatureTextColor();
         this.textWidth = Length.inCentimeter(geometry.getPaperWidth() - geometry.getBorderMarginLeft() - geometry.getBorderMarginRight());
         this.imageScaleFactor = geometry.getSignatureImageScaleFactor();
+        this.imagePlaceholderOn = general.isImagePlaceholderOn();
     }
 
 
     public String generate() {
-        ExpressionList options = new FormattedExpressionList.Builder(Option.SCALE.getString() + "=" + imageScaleFactor).build();
+        List<String> optionList = new ArrayList<>();
+        optionList.add(Option.SCALE.getString() + "=" + imageScaleFactor);
+        if (imagePlaceholderOn) {
+            optionList.add(Option.DRAFT.getString());
+        }
+        ExpressionList options = new FormattedExpressionList.Builder(optionList)
+                .terminator(StatementTerminator.COMMA)
+                .build();
         Includegraphics includegraphics = new Includegraphics(imageFileName, options);
         return new Node.Builder(includegraphics.getInline() + "\\\\" + name)
                 .name(FIELD_NAME)
