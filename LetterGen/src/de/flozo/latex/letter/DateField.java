@@ -1,8 +1,10 @@
 package de.flozo.latex.letter;
 
 import de.flozo.data.LetterColor;
+import de.flozo.data.LetterFont;
 import de.flozo.data.LetterGeneral;
 import de.flozo.data.LetterGeometry;
+import de.flozo.latex.core.FontSize;
 import de.flozo.latex.core.color.Color;
 import de.flozo.latex.core.color.StandardColor;
 import de.flozo.latex.tikz.Anchor;
@@ -22,14 +24,16 @@ public class DateField {
     private final Color backgroundColor;
     private final Color borderColor;
     private final Color textColor;
+    private final FontSize fontSize;
 
-    public DateField(LetterGeneral general, LetterGeometry geometry, LetterColor color, String place, String date) {
+    public DateField(LetterGeneral general, LetterGeometry geometry, LetterColor color, LetterFont font, String place, String date) {
         this.position = Point.fromNumbers(geometry.getPaperWidth() - geometry.getBorderMarginRight(), geometry.getDateY());
         this.place = place;
         this.date = date;
         this.backgroundColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBackgroundColor(): StandardColor.NONE;
         this.borderColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBorderColor(): StandardColor.DEFAULT;
         this.textColor = color.getDateTextColor();
+        this.fontSize = font.getDateFieldFontSize();
     }
 
     public String generate() {
@@ -40,6 +44,7 @@ public class DateField {
                 .fillColor(backgroundColor)
                 .drawColor(borderColor)
                 .textColor(textColor)
+                .fontSize(fontSize)
                 .build().getInline();
     }
 
@@ -52,6 +57,7 @@ public class DateField {
                 ", backgroundColor=" + backgroundColor +
                 ", borderColor=" + borderColor +
                 ", textColor=" + textColor +
+                ", fontSize=" + fontSize +
                 '}';
     }
 }

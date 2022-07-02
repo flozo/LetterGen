@@ -31,7 +31,7 @@ public interface PropertyKeyTypeCheck {
     }
 
     static Predicate<String> fontSizeEntryCondition() {
-        return key -> key.endsWith(".fontsize");
+        return key -> key.endsWith(".font.size");
     }
 
 }

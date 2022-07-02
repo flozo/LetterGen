@@ -1,8 +1,10 @@
 package de.flozo.latex.letter;
 
 import de.flozo.data.LetterColor;
+import de.flozo.data.LetterFont;
 import de.flozo.data.LetterGeneral;
 import de.flozo.data.LetterGeometry;
+import de.flozo.latex.core.FontSize;
 import de.flozo.latex.core.color.Color;
 import de.flozo.latex.core.color.StandardColor;
 import de.flozo.latex.tikz.Anchor;
@@ -26,6 +28,7 @@ public class Enclosure {
     private final Color backgroundColor;
     private final Color borderColor;
     private final Color textColor;
+    private final FontSize fontSize;
     private final boolean enclosureStyleHide;
     private final boolean enclosureStyleShowTag;
     private final boolean enclosureStyleShowNumber;
@@ -34,7 +37,7 @@ public class Enclosure {
     private final String enclosureStyleTitleSeparator;
 
 
-    public Enclosure(LetterGeneral general, LetterGeometry geometry, LetterColor color, Map<String, String> enclosureDocuments) {
+    public Enclosure(LetterGeneral general, LetterGeometry geometry, LetterColor color, LetterFont font, Map<String, String> enclosureDocuments) {
         this.position = Point.fromNumbers(geometry.getBorderMarginLeft(), geometry.getEnclosuresY());
         this.enclosureDocuments = enclosureDocuments;
         this.numberOfDocuments = enclosureDocuments.size();
@@ -43,6 +46,7 @@ public class Enclosure {
         this.backgroundColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBackgroundColor(): StandardColor.NONE;
         this.borderColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBorderColor(): StandardColor.DEFAULT;
         this.textColor = color.getEnclosuresTextColor();
+        this.fontSize = font.getEnclosuresFontSize();
         this.enclosureStyleHide = general.isEnclosureStyleHide();
         this.enclosureStyleShowTag = general.isEnclosureStyleShowTag();
         this.enclosureStyleShowNumber = general.isEnclosureStyleShowNumber();
@@ -59,6 +63,7 @@ public class Enclosure {
                 .fillColor(backgroundColor)
                 .drawColor(borderColor)
                 .textColor(textColor)
+                .fontSize(fontSize)
                 .build().getInline();
     }
 
@@ -92,6 +97,7 @@ public class Enclosure {
                 ", backgroundColor=" + backgroundColor +
                 ", borderColor=" + borderColor +
                 ", textColor=" + textColor +
+                ", fontSize=" + fontSize +
                 ", enclosureStyleHide=" + enclosureStyleHide +
                 ", enclosureStyleShowTag=" + enclosureStyleShowTag +
                 ", enclosureStyleShowNumber=" + enclosureStyleShowNumber +

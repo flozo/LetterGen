@@ -104,7 +104,7 @@ public class MatrixOfNodes {
         private final Anchor anchor;
 
         // optional
-        private FontSize fontSize = FontSize.NORMAL_SIZE;
+        private FontSize fontSize;
         private Color backgroundColor;
         private Color borderColor;
         private Color textColor;

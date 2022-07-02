@@ -1,8 +1,10 @@
 package de.flozo.latex.letter;
 
 import de.flozo.data.LetterColor;
+import de.flozo.data.LetterFont;
 import de.flozo.data.LetterGeneral;
 import de.flozo.data.LetterGeometry;
+import de.flozo.latex.core.FontSize;
 import de.flozo.latex.core.color.Color;
 import de.flozo.latex.core.color.StandardColor;
 import de.flozo.latex.tikz.Anchor;
@@ -20,14 +22,16 @@ public class SubjectField {
     private final Color backgroundColor;
     private final Color borderColor;
     private final Color textColor;
+    private final FontSize fontSize;
 
 
-    public SubjectField(LetterGeneral general, LetterGeometry geometry, LetterColor color, String subjectText) {
+    public SubjectField(LetterGeneral general, LetterGeometry geometry, LetterColor color, LetterFont font, String subjectText) {
         this.position = Point.fromNumbers(geometry.getBorderMarginLeft(), geometry.getSubjectY());
         this.subjectText = subjectText;
         this.backgroundColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBackgroundColor(): StandardColor.NONE;
         this.borderColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBorderColor(): StandardColor.DEFAULT;
         this.textColor = color.getSubjectTextColor();
+        this.fontSize = font.getSubjectFieldFontSize();
     }
 
     public String generate() {
@@ -38,6 +42,7 @@ public class SubjectField {
                 .fillColor(backgroundColor)
                 .drawColor(borderColor)
                 .textColor(textColor)
+                .fontSize(fontSize)
                 .build().getInline();
     }
 
@@ -49,6 +54,7 @@ public class SubjectField {
                 ", backgroundColor=" + backgroundColor +
                 ", borderColor=" + borderColor +
                 ", textColor=" + textColor +
+                ", fontSize=" + fontSize +
                 '}';
     }
 }

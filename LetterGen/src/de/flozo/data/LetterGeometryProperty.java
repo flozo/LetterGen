@@ -1,7 +1,5 @@
 package de.flozo.data;
 
-import de.flozo.latex.core.FontSize;
-
 import java.util.Objects;
 
 public enum LetterGeometryProperty implements Property {
@@ -27,7 +25,6 @@ public enum LetterGeometryProperty implements Property {
     BACKADDRESS_SEPLINE_LINEWIDTH("backaddress.sepline.line_width", 0.5),
     BACKADDRESS_SEPCHAR("backaddress.sepchar", "$\\bullet$"),
     BACKADDRESS_SEPCHAR_SPACING("backaddress.sepchar.spacing", 8.0),
-    BACKADDRESS_FONTSIZE("backaddress.fontsize", FontSize.SCRIPT_SIZE),
 
     SENDER_X("sender.x", 19.0),
     SENDER_Y("sender.y", 27.55),
@@ -46,7 +43,6 @@ public enum LetterGeometryProperty implements Property {
     HEADLINE_X_SHIFT("headline.x_shift", 0.0),
     HEADLINE_Y_SHIFT("headline.y_shift", 0.2),
     HEADLINE_SEPLINE_LINE_WIDTH("headline.sepline.line_width", 3.0),
-    HEADLINE_FONTSIZE("headline.fontsize", FontSize.LARGE2),
 
     PERFORATION_MARK_X("perforation_mark.x", 0.1),
     PERFORATION_MARK_Y("perforation_mark.y", 14.85),
@@ -64,27 +60,17 @@ public enum LetterGeometryProperty implements Property {
     private final String property;
     private final double numericalValue;
     private final String stringValue;
-    private final FontSize fontSizeValue;
 
     LetterGeometryProperty(String property, double numericalValue) {
         this.property = property;
         this.numericalValue = numericalValue;
         this.stringValue = "";
-        this.fontSizeValue = FontSize.DEFAULT;
     }
 
     LetterGeometryProperty(String property, String stringValue) {
         this.property = property;
         this.numericalValue = 0.0;
         this.stringValue = stringValue;
-        this.fontSizeValue = FontSize.DEFAULT;
-    }
-
-    LetterGeometryProperty(String property, FontSize fontSizeValue) {
-        this.property = property;
-        this.numericalValue = 0.0;
-        this.stringValue = "";
-        this.fontSizeValue = fontSizeValue;
     }
 
     @Override
@@ -100,19 +86,10 @@ public enum LetterGeometryProperty implements Property {
         return stringValue;
     }
 
-    public FontSize getFontSizeValue() {
-        return fontSizeValue;
-    }
 
     @Override
     public String getGenericStringValue() {
-        if (!Objects.equals(stringValue, "")) {
-            return stringValue;
-        } else if (!Objects.equals(fontSizeValue, FontSize.DEFAULT)) {
-            return fontSizeValue.getString();
-        } else {
-            return String.valueOf(numericalValue);
-        }
+        return Objects.equals(stringValue, "") ? String.valueOf(numericalValue) : stringValue;
     }
 
     @Override
@@ -121,4 +98,12 @@ public enum LetterGeometryProperty implements Property {
     }
 
 
+    @Override
+    public String toString() {
+        return "LetterGeometryProperty{" +
+                "property='" + property + '\'' +
+                ", numericalValue=" + numericalValue +
+                ", stringValue='" + stringValue + '\'' +
+                '}';
+    }
 }

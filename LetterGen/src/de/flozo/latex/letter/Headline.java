@@ -1,9 +1,6 @@
 package de.flozo.latex.letter;
 
-import de.flozo.data.Address;
-import de.flozo.data.LetterColor;
-import de.flozo.data.LetterGeneral;
-import de.flozo.data.LetterGeometry;
+import de.flozo.data.*;
 import de.flozo.latex.core.FontSize;
 import de.flozo.latex.core.Length;
 import de.flozo.latex.core.color.Color;
@@ -33,17 +30,17 @@ public class Headline {
     private final Line headlineSeparationLine;
 
 
-    public Headline(LetterGeneral general, LetterGeometry geometry, LetterColor color, Address address) {
+    public Headline(LetterGeneral general, LetterGeometry geometry, LetterColor color, LetterFont font, Address address) {
         this.headlineText = address.getTitle() + " " + address.getFirstName() + " " + address.getLastName();
         this.position = Point.fromNumbers(geometry.getSenderX(), geometry.getSenderY());
         this.xShift = Length.inCentimeter(geometry.getHeadlineXShift());
         this.yShift = Length.inCentimeter(geometry.getHeadlineYShift());
         this.anchor = Anchor.SOUTH_EAST;
         this.alignment = Alignment.RIGHT;
-        this.fontSize =geometry.getHeadlineFontSize();
+        this.fontSize = font.getHeadlineFontSize();
         this.textWidth = Length.inCentimeter(geometry.getPaperWidth() - geometry.getBorderMarginLeft() - geometry.getBorderMarginRight());
-        this.backgroundColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBackgroundColor(): StandardColor.NONE;
-        this.borderColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBorderColor(): StandardColor.DEFAULT;
+        this.backgroundColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBackgroundColor() : StandardColor.NONE;
+        this.borderColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBorderColor() : StandardColor.DEFAULT;
         this.textColor = color.getHeadlineTextColor();
         this.headlineSeparationLine = new Line.Builder(0.0, geometry.getPaperHeight() - geometry.getBorderMarginTop(), geometry.getPaperWidth(), 0, CoordinateMode.RELATIVE)
                 .drawColor(color.getHeadlineSeplineColor())

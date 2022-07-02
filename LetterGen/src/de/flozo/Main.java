@@ -39,6 +39,7 @@ public class Main {
         PropertyMap letterGeometry = PropertyMap.createWithDefaults(ConfigGroup.LETTER_GEOMETRY);
         PropertyMap letterGeneral = PropertyMap.createWithDefaults(ConfigGroup.LETTER_GENERAL);
         PropertyMap letterColors = PropertyMap.createWithDefaults(ConfigGroup.LETTER_COLORS);
+        PropertyMap letterFonts = PropertyMap.createWithDefaults(ConfigGroup.LETTER_FONTS);
         PropertyMap senderMap = PropertyMap.createWithDefaults(ConfigGroup.SENDER_DATA);
         PropertyMap receiverMap = PropertyMap.createWithDefaults(ConfigGroup.RECEIVER_DATA);
         PropertyMap enclosures = PropertyMap.createFromFile(ConfigGroup.LETTER_ENCLOSURES, masterConfigFile);
@@ -46,11 +47,13 @@ public class Main {
         letterGeometry.updateWithConfigFileSettings(masterConfigFile);
         letterGeneral.updateWithConfigFileSettings(masterConfigFile);
         letterColors.updateWithConfigFileSettings(masterConfigFile);
+        letterFonts.updateWithConfigFileSettings(masterConfigFile);
         senderMap.updateWithConfigFileSettings(masterConfigFile);
         receiverMap.updateWithConfigFileSettings(masterConfigFile);
 
         LetterGeometry geometry = new LetterGeometry(letterGeometry);
         LetterColor color = new LetterColor(letterColors);
+        LetterFont font = new LetterFont(letterFonts);
         Address senderData = new Address(senderMap);
         Address receiverData = new Address(receiverMap);
         LetterGeneral general = new LetterGeneral(letterGeneral);
@@ -116,18 +119,18 @@ public class Main {
         Page pageOne = new Page(geometry, color);
 
 
-        SenderField senderField = new SenderField(general, geometry, color, senderData, "My subject");
+        SenderField senderField = new SenderField(general, geometry, color, font, senderData, "My subject");
 
         LayerEnvironment onForeBackgroundLayer = new LayerEnvironment("forebackground", senderField.getMatrix().getBlock());
 
         AddressField addressField = new AddressField(general, geometry, color, receiverData);
-        BackaddressField backaddressField = new BackaddressField(general, geometry, color, senderData);
-        Headline headline = new Headline(general, geometry, color, senderData);
-        SubjectField subjectField = new SubjectField(general, geometry, color, "My subject");
-        DateField dateField = new DateField(general, geometry, color, "City", "2022-06-22");
-        Enclosure enclosureField = new Enclosure(general, geometry, color, enclosures.keyValueMap());
+        BackaddressField backaddressField = new BackaddressField(general, geometry, color, font, senderData);
+        Headline headline = new Headline(general, geometry, color, font, senderData);
+        SubjectField subjectField = new SubjectField(general, geometry, color, font, "My subject");
+        DateField dateField = new DateField(general, geometry, color, font, "City", "2022-06-22");
+        Enclosure enclosureField = new Enclosure(general, geometry, color, font, enclosures.keyValueMap());
 
-        Body letterBody = new Body(general, geometry, color, letterBodyTextFile.getLines());
+        Body letterBody = new Body(general, geometry, color, font, letterBodyTextFile.getLines());
 
         PerforationMark perforationMark = new PerforationMark(geometry, color);
         FoldingMark1 foldingMark1 = new FoldingMark1(geometry, color);

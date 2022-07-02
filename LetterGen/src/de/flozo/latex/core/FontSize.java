@@ -17,6 +17,7 @@ public enum FontSize {
     HUGE2("Huge");
 
 
+    public static final String COMMAND_MARKER_CHAR = "\\";
     private final String fontSizeName;
 
     FontSize(String fontSizeName) {
@@ -27,8 +28,15 @@ public enum FontSize {
         return fontSizeName;
     }
 
+    public String getCommand() {
+        return getString().isBlank() ? "" : COMMAND_MARKER_CHAR + getString();
+    }
+
     public static FontSize getByValue(String fontSizeValue) {
-        return Arrays.stream(values()).filter(value -> value.getString().equals(fontSizeValue)).findFirst().orElse(NORMAL_SIZE);
+        return Arrays.stream(values())
+                .filter(value -> value.getString().equals(fontSizeValue))
+                .findFirst()
+                .orElse(DEFAULT);
     }
 
     @Override

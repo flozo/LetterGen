@@ -1,9 +1,6 @@
 package de.flozo.latex.letter;
 
-import de.flozo.data.Address;
-import de.flozo.data.LetterColor;
-import de.flozo.data.LetterGeneral;
-import de.flozo.data.LetterGeometry;
+import de.flozo.data.*;
 import de.flozo.latex.core.*;
 import de.flozo.latex.core.color.Color;
 import de.flozo.latex.core.color.StandardColor;
@@ -39,7 +36,7 @@ public class BackaddressField {
 
 
     // Constructor with dependency injection
-    public BackaddressField(LetterGeneral general, LetterGeometry geometry, LetterColor color, Address address) {
+    public BackaddressField(LetterGeneral general, LetterGeometry geometry, LetterColor color, LetterFont font, Address address) {
         this.position = Point.fromNumbers(geometry.getBackaddressX(), geometry.getBackaddressY());
         this.width = geometry.getBackaddressWidth();
         this.height = geometry.getBackaddressHeight();
@@ -57,7 +54,7 @@ public class BackaddressField {
         this.separationLineWidth = geometry.getBackaddressSeplineLineWidth();
         this.separationCharacter = geometry.getBackaddressSepChar();
         this.separationCharacterSpacing = geometry.getBackaddressSepCharSpacing();
-        this.fontSize = geometry.getBackaddressFontSize();
+        this.fontSize = font.getBackaddressFontSize();
     }
 
     public String getBackaddressText() {

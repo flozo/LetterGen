@@ -111,7 +111,7 @@ public class Node extends Path {
         private StatementTerminator bodyTerminator = StatementTerminator.NONE;
         private boolean skipLastTerminator = DEFAULT_SKIP_LAST_TERMINATOR;
         private Anchor anchor;
-        private FontSize fontSize;
+        private FontSize fontSize = FontSize.DEFAULT;
         private Color textColor;
         private Color drawColor;
         private Color fillColor;
@@ -167,7 +167,7 @@ public class Node extends Path {
 
         public Builder fontSize(FontSize fontSize) {
             this.fontSize = fontSize;
-            addOption(NodeOption.FONT, COMMAND_MARKER_CHAR + fontSize.getString());
+            addOption(NodeOption.FONT, fontSize.getCommand());
             return this;
         }
 

@@ -33,6 +33,10 @@ public class PropertyMap {
             for (Property property : LetterColorProperty.values()) {
                 propertiesRawMap.put(property.getPropertyKey(), property.getGenericStringValue());
             }
+        } else if (configGroup == ConfigGroup.LETTER_FONTS) {
+            for (Property property : LetterFontProperty.values()) {
+                propertiesRawMap.put(property.getPropertyKey(), property.getGenericStringValue());
+            }
         } else if (configGroup == ConfigGroup.SENDER_DATA || configGroup == ConfigGroup.RECEIVER_DATA) {
             for (Property property : AddressProperty.values()) {
                 propertiesRawMap.put(property.getPropertyKey(), property.getGenericStringValue());

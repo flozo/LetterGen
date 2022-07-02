@@ -1,10 +1,8 @@
 package de.flozo.latex.letter;
 
-import de.flozo.data.Address;
-import de.flozo.data.LetterColor;
-import de.flozo.data.LetterGeneral;
-import de.flozo.data.LetterGeometry;
+import de.flozo.data.*;
 import de.flozo.latex.core.Bracket;
+import de.flozo.latex.core.FontSize;
 import de.flozo.latex.core.GenericCommand;
 import de.flozo.latex.core.Length;
 import de.flozo.latex.core.color.Color;
@@ -25,6 +23,7 @@ public class SenderField {
     private final Color textColor;
     private final Color iconColor;
     private final boolean hyperlinksOn;
+    private final FontSize fontSize;
 
 
     // content
@@ -45,15 +44,16 @@ public class SenderField {
 
 
     // Constructor with dependency injection
-    public SenderField(LetterGeneral general, LetterGeometry geometry, LetterColor color, Address address, String emailSubject) {
+    public SenderField(LetterGeneral general, LetterGeometry geometry, LetterColor color, LetterFont font, Address address, String emailSubject) {
         this.position = Point.fromNumbers(geometry.getSenderX(), geometry.getSenderY());
         this.width = geometry.getSenderWidth();
         this.height = geometry.getSenderHeight();
-        this.backgroundColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBackgroundColor(): StandardColor.NONE;
-        this.borderColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBorderColor(): StandardColor.DEFAULT;
+        this.backgroundColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBackgroundColor() : StandardColor.NONE;
+        this.borderColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBorderColor() : StandardColor.DEFAULT;
         this.textColor = color.getSenderTextColor();
         this.iconColor = color.getSenderIconColor();
         this.hyperlinksOn = general.isHyperlinksOn();
+        this.fontSize = font.getSenderFontSize();
         this.senderFirstName = address.getFirstName();
         this.senderMiddleName = address.getMiddleName();
         this.senderLastName = address.getLastName();
@@ -80,6 +80,7 @@ public class SenderField {
                 .fillColor(backgroundColor)
                 .drawColor(borderColor)
                 .textColor(textColor)
+                .fontSize(fontSize)
                 .textWidth(Length.inCentimeter(width))
                 .alignment(Alignment.LEFT)
                 .build().getInline();
@@ -90,6 +91,7 @@ public class SenderField {
                 .backgroundColor(backgroundColor)
                 .borderColor(borderColor)
                 .textColor(textColor)
+                .fontSize(fontSize)
                 .addRow(senderStreet + " " + senderHouseNumber + "\\\\" + senderPostalCode + " " + senderCity, ContactIcon.MAP_MARKER_ALT.getIconDefault())
                 .addRow(phoneNumber, ContactIcon.PHONE_ALT.getIconDefault())
                 .addRow(formattedEmailAddress(), ContactIcon.ENVELOPE.getIconDefault())
@@ -113,6 +115,7 @@ public class SenderField {
 
     // preliminary
     private NodeStyle assembleNodeStyle1() {
+//        System.out.println(fontSize.getString());
         return new NodeStyle.Builder()
                 .addCustomOption(PathOperation.RECTANGLE.getString())
 //                .addNodeOption(NodeOption.DRAW, textColor.getString())
@@ -168,6 +171,7 @@ public class SenderField {
                 ", textColor=" + textColor +
                 ", iconColor=" + iconColor +
                 ", hyperlinksOn=" + hyperlinksOn +
+                ", fontSize=" + fontSize +
                 ", senderFirstName='" + senderFirstName + '\'' +
                 ", senderMiddleName='" + senderMiddleName + '\'' +
                 ", senderLastName='" + senderLastName + '\'' +
