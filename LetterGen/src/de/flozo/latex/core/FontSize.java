@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public enum FontSize {
 
+    DEFAULT(""),
     TINY("tiny"),
     SCRIPT_SIZE("scriptsize"),
     FOOTNOTE_SIZE("footnotesize"),

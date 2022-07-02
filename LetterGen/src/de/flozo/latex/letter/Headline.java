@@ -40,7 +40,7 @@ public class Headline {
         this.yShift = Length.inCentimeter(geometry.getHeadlineYShift());
         this.anchor = Anchor.SOUTH_EAST;
         this.alignment = Alignment.RIGHT;
-        this.fontSize = FontSize.getByValue(geometry.getHeadlineFontSize());
+        this.fontSize =geometry.getHeadlineFontSize();
         this.textWidth = Length.inCentimeter(geometry.getPaperWidth() - geometry.getBorderMarginLeft() - geometry.getBorderMarginRight());
         this.backgroundColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBackgroundColor(): StandardColor.NONE;
         this.borderColor = general.isDraftModeOn() ? color.getDraftModeHighlightingBorderColor(): StandardColor.DEFAULT;

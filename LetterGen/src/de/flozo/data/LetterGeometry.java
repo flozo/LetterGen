@@ -1,5 +1,7 @@
 package de.flozo.data;
 
+import de.flozo.latex.core.FontSize;
+
 import java.util.Map;
 
 public class LetterGeometry {
@@ -25,7 +27,7 @@ public class LetterGeometry {
     private final double backaddressSeplineLineWidth;
     private final String backaddressSepChar;
     private final double backaddressSepCharSpacing;
-    private final String backaddressFontSize;
+    private final FontSize backaddressFontSize;
 
     private final double senderX;
     private final double senderY;
@@ -44,7 +46,7 @@ public class LetterGeometry {
     private final double headlineXShift;
     private final double headlineYShift;
     private final double headlineSeplineLineWidth;
-    private final String headlineFontSize;
+    private final FontSize headlineFontSize;
 
     private final double perforationMarkX;
     private final double perforationMarkY;
@@ -66,6 +68,7 @@ public class LetterGeometry {
     public LetterGeometry(PropertyMap propertyMap) {
         Map<String, String> stringSubMap = propertyMap.stringSubMap();
         Map<String, Double> numericSubMap = propertyMap.numericSubMap();
+        Map<String, FontSize> fontSizeSubMap = propertyMap.fontSizeSubMap();
         this.paperWidth = numericSubMap.get(LetterGeometryProperty.PAPER_WIDTH.getPropertyKey());
         this.paperHeight = numericSubMap.get(LetterGeometryProperty.PAPER_HEIGHT.getPropertyKey());
         this.borderMarginTop = numericSubMap.get(LetterGeometryProperty.BORDER_MARGIN_TOP.getPropertyKey());
@@ -84,7 +87,7 @@ public class LetterGeometry {
         this.backaddressSeplineLineWidth = numericSubMap.get(LetterGeometryProperty.BACKADDRESS_SEPLINE_LINEWIDTH.getPropertyKey());
         this.backaddressSepChar = stringSubMap.get(LetterGeometryProperty.BACKADDRESS_SEPCHAR.getPropertyKey());
         this.backaddressSepCharSpacing = numericSubMap.get(LetterGeometryProperty.BACKADDRESS_SEPCHAR_SPACING.getPropertyKey());
-        this.backaddressFontSize = stringSubMap.get(LetterGeometryProperty.BACKADDRESS_FONTSIZE.getPropertyKey());
+        this.backaddressFontSize = fontSizeSubMap.get(LetterGeometryProperty.BACKADDRESS_FONTSIZE.getPropertyKey());
         this.senderX = numericSubMap.get(LetterGeometryProperty.SENDER_X.getPropertyKey());
         this.senderY = numericSubMap.get(LetterGeometryProperty.SENDER_Y.getPropertyKey());
         this.senderWidth = numericSubMap.get(LetterGeometryProperty.SENDER_WIDTH.getPropertyKey());
@@ -100,7 +103,7 @@ public class LetterGeometry {
         this.headlineXShift = numericSubMap.get(LetterGeometryProperty.HEADLINE_X_SHIFT.getPropertyKey());
         this.headlineYShift = numericSubMap.get(LetterGeometryProperty.HEADLINE_Y_SHIFT.getPropertyKey());
         this.headlineSeplineLineWidth = numericSubMap.get(LetterGeometryProperty.HEADLINE_SEPLINE_LINE_WIDTH.getPropertyKey());
-        this.headlineFontSize = stringSubMap.get(LetterGeometryProperty.HEADLINE_FONTSIZE.getPropertyKey());
+        this.headlineFontSize = fontSizeSubMap.get(LetterGeometryProperty.HEADLINE_FONTSIZE.getPropertyKey());
         this.perforationMarkX = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_X.getPropertyKey());
         this.perforationMarkY = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_Y.getPropertyKey());
         this.perforationMarkLength = numericSubMap.get(LetterGeometryProperty.PERFORATION_MARK_LENGTH.getPropertyKey());
@@ -187,7 +190,7 @@ public class LetterGeometry {
         return backaddressSepCharSpacing;
     }
 
-    public String getBackaddressFontSize() {
+    public FontSize getBackaddressFontSize() {
         return backaddressFontSize;
     }
 
@@ -251,7 +254,7 @@ public class LetterGeometry {
         return headlineSeplineLineWidth;
     }
 
-    public String getHeadlineFontSize() {
+    public FontSize getHeadlineFontSize() {
         return headlineFontSize;
     }
 
@@ -324,7 +327,7 @@ public class LetterGeometry {
                 ", backaddressSeplineLineWidth=" + backaddressSeplineLineWidth +
                 ", backaddressSepChar='" + backaddressSepChar + '\'' +
                 ", backaddressSepCharSpacing=" + backaddressSepCharSpacing +
-                ", backaddressFontSize='" + backaddressFontSize + '\'' +
+                ", backaddressFontSize=" + backaddressFontSize +
                 ", senderX=" + senderX +
                 ", senderY=" + senderY +
                 ", senderWidth=" + senderWidth +
@@ -340,7 +343,7 @@ public class LetterGeometry {
                 ", headlineXShift=" + headlineXShift +
                 ", headlineYShift=" + headlineYShift +
                 ", headlineSeplineLineWidth=" + headlineSeplineLineWidth +
-                ", headlineFontSize='" + headlineFontSize + '\'' +
+                ", headlineFontSize=" + headlineFontSize +
                 ", perforationMarkX=" + perforationMarkX +
                 ", perforationMarkY=" + perforationMarkY +
                 ", perforationMarkLength=" + perforationMarkLength +

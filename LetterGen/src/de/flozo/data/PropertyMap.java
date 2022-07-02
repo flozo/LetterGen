@@ -2,6 +2,7 @@ package de.flozo.data;
 
 import de.flozo.io.ConfigFile;
 import de.flozo.io.MasterConfigFile;
+import de.flozo.latex.core.FontSize;
 import de.flozo.latex.core.color.BrewerColor;
 import de.flozo.latex.core.color.Color;
 import de.flozo.latex.core.color.StandardColor;
@@ -110,6 +111,14 @@ public class PropertyMap {
         return map;
     }
 
+    public Map<String, FontSize> fontSizeSubMap() {
+        return properties.entrySet()
+                .stream()
+                .filter(entry -> PropertyKeyTypeCheck.fontSizeEntryCondition().test(entry.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, value -> parseFontSize(value.getValue())));
+    }
+
+
     private Color parseColor(String colorString) {
         if (PropertyValueTypeCheck.isValidBrewerColorValue().test(colorString)) {
             return BrewerColor.parseColor(colorString);
@@ -117,6 +126,10 @@ public class PropertyMap {
             return StandardColor.fromString(colorString).get();
         }
         return null;
+    }
+
+    private FontSize parseFontSize(String fontSize) {
+        return FontSize.getByValue(fontSize);
     }
 
 

@@ -57,7 +57,7 @@ public class BackaddressField {
         this.separationLineWidth = geometry.getBackaddressSeplineLineWidth();
         this.separationCharacter = geometry.getBackaddressSepChar();
         this.separationCharacterSpacing = geometry.getBackaddressSepCharSpacing();
-        this.fontSize = FontSize.getByValue(geometry.getBackaddressFontSize());
+        this.fontSize = geometry.getBackaddressFontSize();
     }
 
     public String getBackaddressText() {
