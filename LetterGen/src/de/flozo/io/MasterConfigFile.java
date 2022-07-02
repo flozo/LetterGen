@@ -2,15 +2,14 @@ package de.flozo.io;
 
 import de.flozo.data.ConfigGroup;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static de.flozo.Main.VERSION_INFO_PDF_META_DATA;
 
 public class MasterConfigFile extends File {
 
@@ -40,7 +39,7 @@ public class MasterConfigFile extends File {
             System.out.println("[config] Master config file \"" + getCompletePath() + "\" does not exist!");
             return;
         }
-        System.out.print("[config] Read master config file \"" + getCompletePath() + "\" ...");
+        System.out.print("[config] Reading master config file \"" + getCompletePath() + "\" ...");
         Properties properties = new Properties();
         try (InputStreamReader input = new InputStreamReader(new FileInputStream(getCompletePath().toFile()), StandardCharsets.UTF_8)) {
             properties.load(input);
@@ -53,6 +52,39 @@ public class MasterConfigFile extends File {
             assignConfigGroupFiles(properties);
         } else {
             System.out.println("[config] [warning] ... master config appears to be incomplete!");
+        }
+    }
+
+    public void writeProperties() {
+        if (exists()) {
+            System.out.println("[config] Master config file \"" + getCompletePath() + "\" already exists!");
+            return;
+        }
+        System.out.println("[config] No master config file found. Creating new master config with default values.");
+        System.out.print("[config] Collecting default values ...");
+        List<String> masterConfigLines = new ArrayList<>();
+        masterConfigLines.add("# Program info: " + VERSION_INFO_PDF_META_DATA);
+        masterConfigLines.add("#");
+        masterConfigLines.add("# File info:");
+        masterConfigLines.add("# This is the master config file.");
+        masterConfigLines.add("# It specifies the individual config files for the respective config groups.");
+        masterConfigLines.add("#");
+        masterConfigLines.add("# Format info:");
+        masterConfigLines.add("# Lines starting with \"#\" or \"!\" are comment lines and are ignored by the program. However, values may contain \"#\" and/or \"!\".");
+        masterConfigLines.add("# Blank lines are ignored as well.");
+        masterConfigLines.add("# Configuration settings are specified as key-value pairs, separated by \"=\", \":\", or whitespace.");
+        masterConfigLines.add("# If a line contains multiple non-consecutive whitespace characters, the first one is interpreted as key-value separator.");
+        masterConfigLines.add("# Keys cannot contain whitespace.");
+        masterConfigLines.add("# Leading whitespace is ignored for both keys and values.");
+        masterConfigLines.add("# Trailing whitespace is ignored for keys only.");
+        masterConfigLines.add("");
+        masterConfigLines.addAll(Arrays.stream(ConfigGroup.values())
+                .map(value -> value.getPropertyKey() + " = " + value.getDefaultFileName())
+                .collect(Collectors.toList()));
+        System.out.println(" done!");
+        File masterConfigFile = File.fromPath(getCompletePath());
+        if (!masterConfigFile.writeLines(masterConfigLines)) {
+            System.out.println("[config] [error] Failed to write master config file!");
         }
     }
 

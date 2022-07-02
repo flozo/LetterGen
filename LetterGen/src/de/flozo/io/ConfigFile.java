@@ -144,14 +144,6 @@ public class ConfigFile {
         return PropertyValueTypeCheck.isValidColorValue().test(propertyValue);
     }
 
-    public ConfigGroup getConfigGroup() {
-        return configGroup;
-    }
-
-    public File getConfigFile() {
-        return configFile;
-    }
-
     public Properties getProperties() {
         return properties;
     }

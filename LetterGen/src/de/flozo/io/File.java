@@ -1,10 +1,12 @@
 package de.flozo.io;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+
 
 public class File {
 
@@ -55,6 +57,20 @@ public class File {
             System.out.println("[error] [IOException] Failed to open file \"" + completePath + "\"!");
         }
         return lines;
+    }
+
+    public boolean writeLines(List<String> lines) {
+        System.out.print("[output] Writing to file \"" + completePath + "\" ...");
+        try (PrintWriter printWriter = new PrintWriter(completePath.toString())) {
+            lines.forEach(printWriter::println);
+            printWriter.println();
+            System.out.println(" done!");
+            return true;
+        } catch (IOException e) {
+            System.out.println();
+            System.out.println("[output] [IOException] ... failed to write to file!");
+            return false;
+        }
     }
 
     @Override
