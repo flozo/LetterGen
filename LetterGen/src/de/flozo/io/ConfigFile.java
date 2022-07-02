@@ -45,9 +45,8 @@ public class ConfigFile {
 
     public boolean checkProperties() {
         System.out.print("[config] Checking property types ...");
-        if (!checkNumericValues(properties) || !checkBooleanValues(properties) || !checkColorValues(properties)) {
-            System.out.println();
-            System.out.println("[config] [warning] Possible type error in settings file!");
+        if (!checkNumericValues(properties) || !checkBooleanValues(properties) || !checkColorValues(properties) || !checkFontSizeValues(properties)) {
+            System.out.println("[config] [warning] Possible type error in settings file \"" + configFile.getCompletePath() +"\"!");
             return false;
         }
         System.out.println(" done! Property types are correct!");
@@ -57,7 +56,8 @@ public class ConfigFile {
     private boolean checkNumericValues(Properties properties) {
         for (Map.Entry<String, String> entry : toCheckIfNumeric(properties).entrySet()) {
             if (!isNumeric(entry.getValue())) {
-                System.out.println("[config] [error] Numeric value expected for property \"" + entry.getKey() + "\"; found non-numeric value \"" + entry.getValue() + "\"");
+                System.out.println();
+                System.out.println("[config] [error] Expecting numerical value for property \"" + entry.getKey() + "\"; found non-numeric value \"" + entry.getValue() + "\"");
                 return false;
             }
         }
@@ -67,7 +67,8 @@ public class ConfigFile {
     private boolean checkBooleanValues(Properties properties) {
         for (Map.Entry<String, String> entry : toCheckIfBoolean(properties).entrySet()) {
             if (!isBoolean(entry.getValue())) {
-                System.out.println("[config] [error] Boolean value expected for property \"" + entry.getKey() + "\"; found non-boolean value \"" + entry.getValue() + "\"");
+                System.out.println();
+                System.out.println("[config] [error] Expecting boolean value for property \"" + entry.getKey() + "\"; found non-boolean value \"" + entry.getValue() + "\"");
                 return false;
             }
         }
@@ -77,7 +78,19 @@ public class ConfigFile {
     private boolean checkColorValues(Properties properties) {
         for (Map.Entry<String, String> entry : toCheckIfColor(properties).entrySet()) {
             if (!isColor(entry.getValue())) {
-                System.out.println("[config] [error] Color value expected for property \"" + entry.getKey() + "\"; found non-color value \"" + entry.getValue() + "\"");
+                System.out.println();
+                System.out.println("[config] [error] Expecting color value for property \"" + entry.getKey() + "\"; found non-color value \"" + entry.getValue() + "\"");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkFontSizeValues(Properties properties) {
+        for (Map.Entry<String, String> entry : toCheckIfFontSize(properties).entrySet()) {
+            if (!isFontSize(entry.getValue())) {
+                System.out.println();
+                System.out.println("[config] [error] Expecting font-size value for property \"" + entry.getKey() + "\"; found non-font-size value \"" + entry.getValue() + "\"");
                 return false;
             }
         }
@@ -112,6 +125,14 @@ public class ConfigFile {
                         entry -> String.valueOf(entry.getValue())));
     }
 
+    private Map<String, String> toCheckIfFontSize(Properties properties) {
+        return properties.entrySet()
+                .stream()
+                .filter(entry -> PropertyKeyTypeCheck.fontSizeEntryCondition().test(entry.getKey().toString()))
+                .collect(Collectors.toMap(
+                        entry -> String.valueOf(entry.getKey()),
+                        entry -> String.valueOf(entry.getValue())));
+    }
 
     private boolean isNumeric(String propertyValue) {
         if (propertyValue == null) {
@@ -142,6 +163,13 @@ public class ConfigFile {
             return false;
         }
         return PropertyValueTypeCheck.isValidColorValue().test(propertyValue);
+    }
+
+    private boolean isFontSize(String propertyValue) {
+        if (propertyValue == null) {
+            return false;
+        }
+        return PropertyValueTypeCheck.isValidFontSizeValue().test(propertyValue);
     }
 
     public Properties getProperties() {

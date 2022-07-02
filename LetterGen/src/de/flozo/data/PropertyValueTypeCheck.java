@@ -1,5 +1,6 @@
 package de.flozo.data;
 
+import de.flozo.latex.core.FontSize;
 import de.flozo.latex.core.color.*;
 
 import java.util.EnumSet;
@@ -8,6 +9,13 @@ import java.util.stream.Collectors;
 
 public interface PropertyValueTypeCheck {
 
+    static Predicate<String> isValidFontSizeValue() {
+        return key -> EnumSet.allOf(FontSize.class)
+                .stream()
+                .map(FontSize::getString)
+                .collect(Collectors.toSet())
+                .contains(key);
+    }
 
     static Predicate<String> isValidColorValue() {
         return isValidStandardColorValue().or(isValidBrewerColorValue());
