@@ -106,13 +106,17 @@ public class PropertyMap {
     }
 
     public Map<String, Color> colorSubMap() {
-        Map<String, Color> map = new HashMap<>();
-        for (Map.Entry<String, String> entry : properties.entrySet()) {
-            if (PropertyKeyTypeCheck.colorEntryCondition().test(entry.getKey())) {
-                map.put(entry.getKey(), parseColor(entry.getValue()));
-            }
-        }
-        return map;
+        return properties.entrySet()
+                .stream()
+                .filter(entry -> PropertyKeyTypeCheck.colorEntryCondition().test(entry.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, value -> parseColor(value.getValue())));
+//        Map<String, Color> map = new HashMap<>();
+//        for (Map.Entry<String, String> entry : properties.entrySet()) {
+//            if (PropertyKeyTypeCheck.colorEntryCondition().test(entry.getKey())) {
+//                map.put(entry.getKey(), parseColor(entry.getValue()));
+//            }
+//        }
+//        return map;
     }
 
     public Map<String, FontSize> fontSizeSubMap() {
@@ -129,7 +133,7 @@ public class PropertyMap {
         } else if (PropertyValueTypeCheck.isValidStandardColorValue().test(colorString) && StandardColor.fromString(colorString).isPresent()) {
             return StandardColor.fromString(colorString).get();
         }
-        return null;
+        return StandardColor.DEFAULT;
     }
 
     private FontSize parseFontSize(String fontSize) {
