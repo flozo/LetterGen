@@ -64,6 +64,11 @@ public enum ConfigGroup {
         return propertiesRawMap;
     }
 
+    public void writeToFile(ConfigDirectory configDirectory) {
+        File configFile = new File(Paths.get(configDirectory.getString(), defaultFileName));
+        configFile.writeLines(assembleDefaultConfigLines());
+    }
+
     private List<String> getDefaultPropertyLines() {
         return getDefaultPropertyMap().entrySet()
                 .stream()
@@ -90,16 +95,13 @@ public enum ConfigGroup {
         return lines;
     }
 
-    public void writeToFile(ConfigDirectory configDirectory) {
-        File configFile = new File(Paths.get(configDirectory.getString(), defaultFileName));
-        configFile.writeLines(assembleDefaultConfigLines());
-    }
 
     @Override
     public String toString() {
         return "ConfigGroup{" +
                 "configGroup='" + configGroup + '\'' +
                 ", defaultFileName='" + defaultFileName + '\'' +
+                ", resourceFileName='" + resourceFileName + '\'' +
                 '}';
     }
 }

@@ -34,14 +34,14 @@ public class Main {
 
         ConfigDirectory configDirectory = ConfigDirectory.fromDefaultDirectory();
         MasterConfigFile masterConfigFile = MasterConfigFile.withDefaultFileName(configDirectory);
-//        ConfigGroup.MASTER.writeToFile(configDirectory);
-        masterConfigFile.writeProperties();
+        ConfigGroup.MASTER.writeToFile(configDirectory);
+//        masterConfigFile.writeProperties();
         masterConfigFile.readProperties();
 
-//        ConfigGroup.LETTER_GENERAL.writeToFile(configDirectory);
-//        ConfigGroup.LETTER_GEOMETRY.writeToFile(configDirectory);
-//        ConfigGroup.LETTER_COLORS.writeToFile(configDirectory);
-//        ConfigGroup.LETTER_FONTS.writeToFile(configDirectory);
+        ConfigGroup.LETTER_GENERAL.writeToFile(configDirectory);
+        ConfigGroup.LETTER_GEOMETRY.writeToFile(configDirectory);
+        ConfigGroup.LETTER_COLORS.writeToFile(configDirectory);
+        ConfigGroup.LETTER_FONTS.writeToFile(configDirectory);
 
 
         PropertyMap letterGeometry = PropertyMap.createWithDefaults(ConfigGroup.LETTER_GEOMETRY);
@@ -124,7 +124,7 @@ public class Main {
         Layer pgflayers = new Layer.LayerBuilder("background", "forebackground", "main", "foreground")
                 .build();
 
-        Page pageOne = new Page(geometry, color);
+        Page pageOne = new Page(general, geometry, color);
 
 
         SenderField senderField = new SenderField(general, geometry, color, font, senderData, "My subject");

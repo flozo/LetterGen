@@ -1,6 +1,7 @@
 package de.flozo.latex.letter;
 
 import de.flozo.data.LetterColor;
+import de.flozo.data.LetterGeneral;
 import de.flozo.data.LetterGeometry;
 import de.flozo.latex.core.color.Color;
 import de.flozo.latex.core.color.StandardColor;
@@ -20,13 +21,16 @@ public class Page {
     private final double marginBottom;
     private final double marginLeft;
     private final double marginRight;
+
     private final Color backgroundColor;
     private final Color draftHighlightColor;
+    private final Color draftBorderColor;
     private final Color urlHyperlinkColor;
+    private final boolean inDraftMode;
 
 
     // Constructor with dependency injection
-    public Page(LetterGeometry geometry, LetterColor color) {
+    public Page(LetterGeneral general, LetterGeometry geometry, LetterColor color) {
         this.width = geometry.getPaperWidth();
         this.height = geometry.getPaperHeight();
         this.marginTop = geometry.getBorderMarginTop();
@@ -34,24 +38,36 @@ public class Page {
         this.marginLeft = geometry.getBorderMarginLeft();
         this.marginRight = geometry.getBorderMarginRight();
         this.backgroundColor = color.getBackgroundColor();
+        this.draftBorderColor = color.getDraftModeHighlightingBorderColor();
         this.draftHighlightColor = color.getDraftModeHighlightingBackgroundColor();
         this.urlHyperlinkColor = color.getUrlHyperlinkColor();
+        this.inDraftMode = general.isDraftModeOn();
     }
 
     public List<String> getPage() {
         List<String> page = new ArrayList<>();
         page.add(getBackgroundRectangle().getInline());
-        page.addAll(getBorderMargins());
+        if (inDraftMode) {
+            page.addAll(getBorderMargins());
+        }
         LayerEnvironment onBackgroundLayer = new LayerEnvironment("background", page);
         return onBackgroundLayer.getBlock();
     }
 
 
     private List<String> getBorderMargins() {
-        Line top = new Line.Builder(Point.fromNumbers(0.0, height - marginTop), Point.fromNumbers(width, height - marginTop)).build();
-        Line bottom = new Line.Builder(Point.fromNumbers(0.0, marginBottom), Point.fromNumbers(width, marginBottom)).build();
-        Line left = new Line.Builder(Point.fromNumbers(marginLeft, 0), Point.fromNumbers(marginLeft, height)).build();
-        Line right = new Line.Builder(Point.fromNumbers(width - marginRight, 0), Point.fromNumbers(width - marginRight, height)).build();
+        Line top = new Line.Builder(Point.fromNumbers(0.0, height - marginTop), Point.fromNumbers(width, height - marginTop))
+                .drawColor(draftBorderColor)
+                .build();
+        Line bottom = new Line.Builder(Point.fromNumbers(0.0, marginBottom), Point.fromNumbers(width, marginBottom))
+                .drawColor(draftBorderColor)
+                .build();
+        Line left = new Line.Builder(Point.fromNumbers(marginLeft, 0), Point.fromNumbers(marginLeft, height))
+                .drawColor(draftBorderColor)
+                .build();
+        Line right = new Line.Builder(Point.fromNumbers(width - marginRight, 0), Point.fromNumbers(width - marginRight, height))
+                .drawColor(draftBorderColor)
+                .build();
         return new ArrayList<>(List.of(top.getInline(), bottom.getInline(), left.getInline(), right.getInline()));
     }
 
