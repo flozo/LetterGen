@@ -3,6 +3,7 @@ package de.flozo.latex.letter;
 import de.flozo.data.LetterColor;
 import de.flozo.data.LetterGeneral;
 import de.flozo.data.LetterGeometry;
+import de.flozo.latex.core.Length;
 import de.flozo.latex.core.color.Color;
 import de.flozo.latex.core.color.StandardColor;
 import de.flozo.latex.tikz.LayerEnvironment;
@@ -15,12 +16,20 @@ import java.util.List;
 
 public class Page {
 
-    private final double width;
-    private final double height;
-    private final double marginTop;
-    private final double marginBottom;
-    private final double marginLeft;
-    private final double marginRight;
+    private final Length totalWidth;
+    private final Length totalHeight;
+    private final Length marginTop;
+    private final Length marginBottom;
+    private final Length marginLeft;
+    private final Length marginRight;
+    private final Length borderRight;
+    private final Length borderTop;
+    private final Length innerWidth;
+    private final Length innerHeight;
+//    private final Point innerCornerTopLeft;
+//    private final Point innerCornerTopRight;
+//    private final Point innerCornerBottomLeft;
+//    private final Point innerCornerBottomRight;
 
     private final Color backgroundColor;
     private final Color draftHighlightColor;
@@ -31,12 +40,20 @@ public class Page {
 
     // Constructor with dependency injection
     public Page(LetterGeneral general, LetterGeometry geometry, LetterColor color) {
-        this.width = geometry.getPaperWidth();
-        this.height = geometry.getPaperHeight();
-        this.marginTop = geometry.getBorderMarginTop();
-        this.marginBottom = geometry.getBorderMarginBottom();
-        this.marginLeft = geometry.getBorderMarginLeft();
-        this.marginRight = geometry.getBorderMarginRight();
+        this.totalWidth = Length.inCentimeter(geometry.getPaperWidth());
+        this.totalHeight = Length.inCentimeter(geometry.getPaperHeight());
+        this.marginTop = Length.inCentimeter(geometry.getBorderMarginTop());
+        this.marginBottom = Length.inCentimeter(geometry.getBorderMarginBottom());
+        this.marginLeft = Length.inCentimeter(geometry.getBorderMarginLeft());
+        this.marginRight = Length.inCentimeter(geometry.getBorderMarginRight());
+        this.borderRight = Length.inCentimeter(geometry.getPaperWidth() - geometry.getBorderMarginRight());
+        this.borderTop = Length.inCentimeter(geometry.getPaperHeight() - geometry.getBorderMarginTop());
+        this.innerWidth = Length.inCentimeter(borderRight.getNumericalValue() - geometry.getBorderMarginLeft());
+        this.innerHeight = Length.inCentimeter(borderTop.getNumericalValue() - geometry.getBorderMarginBottom());
+//        this.innerCornerTopLeft = Point.fromLengths(marginLeft, innerHeight);
+//        this.innerCornerTopRight = Point.fromLengths(borderRight, innerHeight);
+//        this.innerCornerBottomLeft = Point.fromLengths(marginLeft, marginBottom);
+//        this.innerCornerBottomRight = Point.fromLengths(borderRight, marginBottom);
         this.backgroundColor = color.getBackgroundColor();
         this.draftBorderColor = color.getDraftModeHighlightingBorderColor();
         this.draftHighlightColor = color.getDraftModeHighlightingBackgroundColor();
@@ -56,51 +73,68 @@ public class Page {
 
 
     private List<String> getBorderMargins() {
-        Line top = new Line.Builder(Point.fromNumbers(0.0, height - marginTop), Point.fromNumbers(width, height - marginTop))
+        Line top = new Line.Builder(Point.fromLengths(Length.inCentimeter(0.0), borderTop), Point.fromLengths(totalWidth, borderTop))
                 .drawColor(draftBorderColor)
                 .build();
-        Line bottom = new Line.Builder(Point.fromNumbers(0.0, marginBottom), Point.fromNumbers(width, marginBottom))
+        Line bottom = new Line.Builder(Point.fromLengths(Length.inCentimeter(0.0), marginBottom), Point.fromLengths(totalWidth, marginBottom))
                 .drawColor(draftBorderColor)
                 .build();
-        Line left = new Line.Builder(Point.fromNumbers(marginLeft, 0), Point.fromNumbers(marginLeft, height))
+        Line left = new Line.Builder(Point.fromLengths(marginLeft, Length.inCentimeter(0.0)), Point.fromLengths(marginLeft, totalHeight))
                 .drawColor(draftBorderColor)
                 .build();
-        Line right = new Line.Builder(Point.fromNumbers(width - marginRight, 0), Point.fromNumbers(width - marginRight, height))
+        Line right = new Line.Builder(Point.fromLengths(borderRight, Length.inCentimeter(0.0)), Point.fromLengths(borderRight, totalHeight))
                 .drawColor(draftBorderColor)
                 .build();
         return new ArrayList<>(List.of(top.getInline(), bottom.getInline(), left.getInline(), right.getInline()));
     }
 
     private Rectangle getBackgroundRectangle() {
-        return new Rectangle.Builder(0, 0, width, height)
+        return new Rectangle.Builder(0, 0, totalWidth.getNumericalValue(), totalHeight.getNumericalValue())
                 .fillColor(backgroundColor)
                 .drawColor(StandardColor.NONE)
                 .skipLastTerminator(true)
                 .build();
     }
 
-    public double getWidth() {
-        return width;
+
+    public Length getTotalWidth() {
+        return totalWidth;
     }
 
-    public double getHeight() {
-        return height;
+    public Length getTotalHeight() {
+        return totalHeight;
     }
 
-    public double getMarginTop() {
+    public Length getMarginTop() {
         return marginTop;
     }
 
-    public double getMarginBottom() {
+    public Length getMarginBottom() {
         return marginBottom;
     }
 
-    public double getMarginLeft() {
+    public Length getMarginLeft() {
         return marginLeft;
     }
 
-    public double getMarginRight() {
+    public Length getMarginRight() {
         return marginRight;
+    }
+
+    public Length getBorderRight() {
+        return borderRight;
+    }
+
+    public Length getBorderTop() {
+        return borderTop;
+    }
+
+    public Length getInnerWidth() {
+        return innerWidth;
+    }
+
+    public Length getInnerHeight() {
+        return innerHeight;
     }
 
     public Color getBackgroundColor() {
@@ -111,22 +145,36 @@ public class Page {
         return draftHighlightColor;
     }
 
+    public Color getDraftBorderColor() {
+        return draftBorderColor;
+    }
+
     public Color getUrlHyperlinkColor() {
         return urlHyperlinkColor;
+    }
+
+    public boolean isInDraftMode() {
+        return inDraftMode;
     }
 
     @Override
     public String toString() {
         return "Page{" +
-                "width=" + width +
-                ", height=" + height +
+                "totalWidth=" + totalWidth +
+                ", totalHeight=" + totalHeight +
                 ", marginTop=" + marginTop +
                 ", marginBottom=" + marginBottom +
                 ", marginLeft=" + marginLeft +
                 ", marginRight=" + marginRight +
+                ", borderRight=" + borderRight +
+                ", borderTop=" + borderTop +
+                ", innerWidth=" + innerWidth +
+                ", innerHeight=" + innerHeight +
                 ", backgroundColor=" + backgroundColor +
                 ", draftHighlightColor=" + draftHighlightColor +
+                ", draftBorderColor=" + draftBorderColor +
                 ", urlHyperlinkColor=" + urlHyperlinkColor +
+                ", inDraftMode=" + inDraftMode +
                 '}';
     }
 }
