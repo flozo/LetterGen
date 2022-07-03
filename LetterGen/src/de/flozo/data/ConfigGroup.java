@@ -1,11 +1,18 @@
 package de.flozo.data;
 
+import de.flozo.io.ConfigDirectory;
+import de.flozo.io.File;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static de.flozo.Main.VERSION_INFO_PDF_META_DATA;
+
 public enum ConfigGroup {
 
-//    MASTER("master"),
+    //    MASTER("master"),
     LETTER_GENERAL("letter.general", "letter_general"),
     LETTER_GEOMETRY("letter.geometry", "letter_geometry"),
     LETTER_COLORS("letter.colors", "letter_colors"),
@@ -18,10 +25,12 @@ public enum ConfigGroup {
 
     private final String configGroup;
     private final String defaultFileName;
+    private final String resourceFileName;
 
     ConfigGroup(String configGroup, String defaultFileName) {
         this.configGroup = configGroup;
         this.defaultFileName = defaultFileName + ".config";
+        this.resourceFileName = "/config_file_comments/" + defaultFileName + ".txt";
     }
 
     public String getPropertyKey() {
@@ -53,14 +62,36 @@ public enum ConfigGroup {
         return propertiesRawMap;
     }
 
-    public List<String> getDefaultPropertyLines() {
+    private List<String> getDefaultPropertyLines() {
         return getDefaultPropertyMap().entrySet()
                 .stream()
                 .map(entry -> entry.getKey() + " = " + entry.getValue())
+                .sorted()
                 .collect(Collectors.toList());
     }
 
+    private List<String> getCommentLines() {
+        return new File(Path.of(Objects.requireNonNull(getClass().getResource(resourceFileName)).getPath()))
+                .getLines()
+                .stream()
+                .map(e -> "# " + e)
+                .collect(Collectors.toList());
+    }
 
+    private List<String> assembleDefaultConfigLines() {
+        List<String> lines = new ArrayList<>();
+        lines.add("# Program info: " + VERSION_INFO_PDF_META_DATA);
+        lines.add("#");
+        lines.addAll(getCommentLines());
+        lines.add("");
+        lines.addAll(getDefaultPropertyLines());
+        return lines;
+    }
+
+    public void writeToFile(ConfigDirectory configDirectory) {
+        File configFile = new File(Paths.get(configDirectory.getString(), defaultFileName));
+        configFile.writeLines(assembleDefaultConfigLines());
+    }
 
     @Override
     public String toString() {

@@ -11,6 +11,7 @@ public enum LetterGeneralProperty implements Property {
     HYPERLINKS_ON("hyperlinks.on", true),
     LETTER_BODY_TEXT_FILE("letter.body.text_file", "letter_body.txt"),
     LETTER_SIGNATURE_FILE("letter.signature_file", ""),
+
     ENCLOSURE_STYLE_HIDE("enclosure.style.hide", false),
     ENCLOSURE_STYLE_SHOW_TAG("enclosure.style.show_tag", true),
     ENCLOSURE_STYLE_SHOW_NUMBER("enclosure.style.show_number", false),

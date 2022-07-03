@@ -37,6 +37,10 @@ public class Main {
         masterConfigFile.writeProperties();
         masterConfigFile.readProperties();
 
+        ConfigGroup.LETTER_GENERAL.writeToFile(configDirectory);
+        ConfigGroup.LETTER_GEOMETRY.writeToFile(configDirectory);
+        ConfigGroup.LETTER_COLORS.writeToFile(configDirectory);
+
 
         PropertyMap letterGeometry = PropertyMap.createWithDefaults(ConfigGroup.LETTER_GEOMETRY);
         PropertyMap letterGeneral = PropertyMap.createWithDefaults(ConfigGroup.LETTER_GENERAL);
