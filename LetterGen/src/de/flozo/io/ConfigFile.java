@@ -46,12 +46,13 @@ public class ConfigFile {
     public boolean checkProperties() {
         System.out.print("[config] Checking property types ...");
         if (!checkNumericValues(properties) || !checkBooleanValues(properties) || !checkColorValues(properties) || !checkFontSizeValues(properties)) {
-            System.out.println("[config] [warning] Possible type error in settings file \"" + configFile.getCompletePath() +"\"!");
+            System.out.println("[config] [warning] Possible type error in settings file \"" + configFile.getCompletePath() + "\"!");
             return false;
         }
         System.out.println(" done! Property types are correct!");
         return true;
     }
+
 
     private boolean checkNumericValues(Properties properties) {
         for (Map.Entry<String, String> entry : toCheckIfNumeric(properties).entrySet()) {

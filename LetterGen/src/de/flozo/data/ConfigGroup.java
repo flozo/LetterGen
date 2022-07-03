@@ -1,5 +1,8 @@
 package de.flozo.data;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 public enum ConfigGroup {
 
 //    MASTER("master"),
@@ -28,6 +31,36 @@ public enum ConfigGroup {
     public String getDefaultFileName() {
         return defaultFileName;
     }
+
+
+    public Map<String, String> getDefaultPropertyMap() {
+        Map<String, String> propertiesRawMap = new HashMap<>();
+        if (Objects.equals(configGroup, ConfigGroup.LETTER_GENERAL.configGroup)) {
+            propertiesRawMap.putAll(Arrays.stream(LetterGeneralProperty.values()).collect(Collectors.toMap(LetterGeneralProperty::getPropertyKey, LetterGeneralProperty::getGenericStringValue)));
+        }
+        if (Objects.equals(configGroup, ConfigGroup.LETTER_GEOMETRY.configGroup)) {
+            propertiesRawMap.putAll(Arrays.stream(LetterGeometryProperty.values()).collect(Collectors.toMap(LetterGeometryProperty::getPropertyKey, LetterGeometryProperty::getGenericStringValue)));
+        }
+        if (Objects.equals(configGroup, ConfigGroup.LETTER_COLORS.configGroup)) {
+            propertiesRawMap.putAll(Arrays.stream(LetterColorProperty.values()).collect(Collectors.toMap(LetterColorProperty::getPropertyKey, LetterColorProperty::getGenericStringValue)));
+        }
+        if (Objects.equals(configGroup, ConfigGroup.LETTER_FONTS.configGroup)) {
+            propertiesRawMap.putAll(Arrays.stream(LetterFontProperty.values()).collect(Collectors.toMap(LetterFontProperty::getPropertyKey, LetterFontProperty::getGenericStringValue)));
+        }
+        if (Objects.equals(configGroup, ConfigGroup.SENDER_DATA.configGroup) || Objects.equals(configGroup, ConfigGroup.RECEIVER_DATA.configGroup)) {
+            propertiesRawMap.putAll(Arrays.stream(AddressProperty.values()).collect(Collectors.toMap(AddressProperty::getPropertyKey, AddressProperty::getGenericStringValue)));
+        }
+        return propertiesRawMap;
+    }
+
+    public List<String> getDefaultPropertyLines() {
+        return getDefaultPropertyMap().entrySet()
+                .stream()
+                .map(entry -> entry.getKey() + " = " + entry.getValue())
+                .collect(Collectors.toList());
+    }
+
+
 
     @Override
     public String toString() {
