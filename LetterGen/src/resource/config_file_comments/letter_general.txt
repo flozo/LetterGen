@@ -5,6 +5,6 @@ Format info:
 Please note also the general format info in "master.config".
 Keys containing "on", "hide", or "show" require boolean values "true" or "false".
 If a value is left empty, a default value is used automatically.
-Escape backslashes.
+Backslashes have to be escaped.
 LaTeX commands can be used where characters/strings are to be specified.
 LaTeX math symbols have to be surrounded with dollar signs.

@@ -3,7 +3,6 @@ package de.flozo.data;
 import de.flozo.io.ConfigDirectory;
 import de.flozo.io.File;
 
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -12,7 +11,7 @@ import static de.flozo.Main.VERSION_INFO_PDF_META_DATA;
 
 public enum ConfigGroup {
 
-    //    MASTER("master"),
+    MASTER("master", "master"),
     LETTER_GENERAL("letter.general", "letter_general"),
     LETTER_GEOMETRY("letter.geometry", "letter_geometry"),
     LETTER_COLORS("letter.colors", "letter_colors"),
@@ -44,6 +43,9 @@ public enum ConfigGroup {
 
     public Map<String, String> getDefaultPropertyMap() {
         Map<String, String> propertiesRawMap = new HashMap<>();
+        if (Objects.equals(configGroup, ConfigGroup.MASTER.configGroup)) {
+            propertiesRawMap.putAll(Arrays.stream(ConfigGroup.values()).filter(e -> !e.equals(ConfigGroup.MASTER)).collect(Collectors.toMap(ConfigGroup::getPropertyKey, ConfigGroup::getDefaultFileName)));
+        }
         if (Objects.equals(configGroup, ConfigGroup.LETTER_GENERAL.configGroup)) {
             propertiesRawMap.putAll(Arrays.stream(LetterGeneralProperty.values()).collect(Collectors.toMap(LetterGeneralProperty::getPropertyKey, LetterGeneralProperty::getGenericStringValue)));
         }
@@ -71,7 +73,7 @@ public enum ConfigGroup {
     }
 
     private List<String> getCommentLines() {
-        return new File(Path.of(Objects.requireNonNull(getClass().getResource(resourceFileName)).getPath()))
+        return File.fromString(Objects.requireNonNull(getClass().getResource(resourceFileName)).getPath())
                 .getLines()
                 .stream()
                 .map(e -> "# " + e)

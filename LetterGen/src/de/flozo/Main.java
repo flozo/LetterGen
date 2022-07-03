@@ -34,13 +34,14 @@ public class Main {
 
         ConfigDirectory configDirectory = ConfigDirectory.fromDefaultDirectory();
         MasterConfigFile masterConfigFile = MasterConfigFile.withDefaultFileName(configDirectory);
+//        ConfigGroup.MASTER.writeToFile(configDirectory);
         masterConfigFile.writeProperties();
         masterConfigFile.readProperties();
 
-        ConfigGroup.LETTER_GENERAL.writeToFile(configDirectory);
-        ConfigGroup.LETTER_GEOMETRY.writeToFile(configDirectory);
-        ConfigGroup.LETTER_COLORS.writeToFile(configDirectory);
-        ConfigGroup.LETTER_FONTS.writeToFile(configDirectory);
+//        ConfigGroup.LETTER_GENERAL.writeToFile(configDirectory);
+//        ConfigGroup.LETTER_GEOMETRY.writeToFile(configDirectory);
+//        ConfigGroup.LETTER_COLORS.writeToFile(configDirectory);
+//        ConfigGroup.LETTER_FONTS.writeToFile(configDirectory);
 
 
         PropertyMap letterGeometry = PropertyMap.createWithDefaults(ConfigGroup.LETTER_GEOMETRY);

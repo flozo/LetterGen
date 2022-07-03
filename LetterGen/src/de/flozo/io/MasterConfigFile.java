@@ -2,14 +2,16 @@ package de.flozo.io;
 
 import de.flozo.data.ConfigGroup;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import static de.flozo.Main.VERSION_INFO_PDF_META_DATA;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 public class MasterConfigFile extends File {
 
@@ -56,40 +58,12 @@ public class MasterConfigFile extends File {
     }
 
     public void writeProperties() {
-        if (exists()) {
-            System.out.println("[config] Master config file \"" + getCompletePath() + "\" already exists!");
-            return;
-        }
-        System.out.println("[config] No master config file found. Creating new master config with default values.");
-        System.out.print("[config] Collecting default values ...");
-        List<String> masterConfigLines = new ArrayList<>();
-        masterConfigLines.add("# Program info: " + VERSION_INFO_PDF_META_DATA);
-        masterConfigLines.add("#");
-        masterConfigLines.add("# File info:");
-        masterConfigLines.add("# This is the master config file.");
-        masterConfigLines.add("# It specifies the individual config files for the respective config groups.");
-        masterConfigLines.add("#");
-        masterConfigLines.add("# Format info:");
-        masterConfigLines.add("# Lines starting with \"#\" or \"!\" are comment lines and are ignored by the program. However, values may contain \"#\" and/or \"!\".");
-        masterConfigLines.add("# Blank lines are ignored as well.");
-        masterConfigLines.add("# Configuration settings are specified as key-value pairs, separated by \"=\", \":\", or whitespace.");
-        masterConfigLines.add("# If a line contains multiple non-consecutive whitespace characters, the first one is interpreted as key-value separator.");
-        masterConfigLines.add("# Keys cannot contain whitespace.");
-        masterConfigLines.add("# Leading whitespace is ignored for both keys and values.");
-        masterConfigLines.add("# Trailing whitespace is ignored for keys only.");
-        masterConfigLines.add("");
-        masterConfigLines.addAll(Arrays.stream(ConfigGroup.values())
-                .map(value -> value.getPropertyKey() + " = " + value.getDefaultFileName())
-                .collect(Collectors.toList()));
-        System.out.println(" done!");
-        File masterConfigFile = File.fromPath(getCompletePath());
-        if (!masterConfigFile.writeLines(masterConfigLines)) {
-            System.out.println("[config] [error] Failed to write master config file!");
-        }
+        ConfigGroup.MASTER.writeToFile(ConfigDirectory.fromCustomDirectory(getParentDirectory().toString()));
     }
 
     private void assignConfigGroupFiles(Properties properties) {
-        for (ConfigGroup configGroup : ConfigGroup.values()) {
+        EnumSet<ConfigGroup> configGroups = EnumSet.complementOf(EnumSet.of(ConfigGroup.MASTER));
+        for (ConfigGroup configGroup : configGroups) {
             Path path = Paths.get(getParentDirectory().toString(), properties.getProperty(configGroup.getPropertyKey()));
             File file = File.fromPath(path);
             configGroupFiles.put(configGroup, file);
@@ -97,7 +71,8 @@ public class MasterConfigFile extends File {
     }
 
     private boolean isComplete(Properties properties) {
-        for (ConfigGroup configGroup : ConfigGroup.values()) {
+        EnumSet<ConfigGroup> configGroups = EnumSet.complementOf(EnumSet.of(ConfigGroup.MASTER));
+        for (ConfigGroup configGroup : configGroups) {
             if (!properties.containsKey(configGroup.getPropertyKey())) {
                 System.out.println("[config] [error] ... required config group \"" + configGroup.getPropertyKey() + "\" not found in master config!");
                 return false;
