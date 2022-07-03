@@ -4,6 +4,7 @@ import de.flozo.data.Address;
 import de.flozo.data.LetterColor;
 import de.flozo.data.LetterGeneral;
 import de.flozo.data.LetterGeometry;
+import de.flozo.io.File;
 import de.flozo.latex.core.*;
 import de.flozo.latex.core.color.Color;
 import de.flozo.latex.core.color.StandardColor;
@@ -45,6 +46,9 @@ public class Signature {
 
 
     public String generate() {
+        if (!File.fromString(imageFileName).exists()) {
+            return "";
+        }
         List<String> optionList = new ArrayList<>();
         optionList.add(Option.SCALE.getString() + "=" + imageScaleFactor);
         if (imagePlaceholderOn) {
