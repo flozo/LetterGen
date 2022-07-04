@@ -6,9 +6,9 @@ import de.flozo.io.File;
 import de.flozo.io.MasterConfigFile;
 import de.flozo.io.OutputFile;
 import de.flozo.latex.core.*;
-import de.flozo.latex.letter.*;
-import de.flozo.latex.tikz.Layer;
-import de.flozo.latex.tikz.LayerEnvironment;
+import de.flozo.latex.tikz.commands.Layer;
+import de.flozo.latex.tikz.commands.LayerEnvironment;
+import de.flozo.letter.*;
 
 import java.nio.file.Paths;
 import java.time.LocalDate;

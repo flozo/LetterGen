@@ -1,7 +1,7 @@
 package de.flozo.data;
 
+import de.flozo.latex.color.*;
 import de.flozo.latex.core.FontSize;
-import de.flozo.latex.core.color.*;
 
 import java.util.EnumSet;
 import java.util.function.Predicate;

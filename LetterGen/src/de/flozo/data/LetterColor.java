@@ -1,6 +1,6 @@
 package de.flozo.data;
 
-import de.flozo.latex.core.color.Color;
+import de.flozo.latex.color.Color;
 
 import java.util.Map;
 

@@ -1,10 +1,10 @@
 package de.flozo.data;
 
 import de.flozo.latex.core.FontSize;
-import de.flozo.latex.core.color.BrewerColor;
-import de.flozo.latex.core.color.Color;
-import de.flozo.latex.core.color.SequentialLetter;
-import de.flozo.latex.core.color.SequentialScheme;
+import de.flozo.latex.color.BrewerColor;
+import de.flozo.latex.color.Color;
+import de.flozo.latex.color.SequentialLetter;
+import de.flozo.latex.color.SequentialScheme;
 
 public class Defaults {
 

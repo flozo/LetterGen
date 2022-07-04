@@ -1,6 +1,6 @@
 package de.flozo.data;
 
-import de.flozo.latex.core.color.*;
+import de.flozo.latex.color.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;

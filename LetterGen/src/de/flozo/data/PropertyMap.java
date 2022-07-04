@@ -3,9 +3,9 @@ package de.flozo.data;
 import de.flozo.io.ConfigFile;
 import de.flozo.io.MasterConfigFile;
 import de.flozo.latex.core.FontSize;
-import de.flozo.latex.core.color.BrewerColor;
-import de.flozo.latex.core.color.Color;
-import de.flozo.latex.core.color.StandardColor;
+import de.flozo.latex.color.BrewerColor;
+import de.flozo.latex.color.Color;
+import de.flozo.latex.color.StandardColor;
 
 import java.util.HashMap;
 import java.util.Map;
