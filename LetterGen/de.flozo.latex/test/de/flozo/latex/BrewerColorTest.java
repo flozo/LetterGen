@@ -1,5 +1,6 @@
-package de.flozo.latex.color;
+package de.flozo.latex;
 
+import de.flozo.latex.color.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

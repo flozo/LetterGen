@@ -1,6 +1,6 @@
-package de.flozo.data;
+package de.flozo.latex;
 
-import de.flozo.letter.data.PropertyValueTypeCheck;
+import de.flozo.latex.color.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PropertyValueTypeCheckTest {
-
 
     @ParameterizedTest
     @EnumSource(SequentialScheme.class)
@@ -52,5 +51,6 @@ class PropertyValueTypeCheckTest {
     void isDivergingScheme_false(String falseDivergingScheme) {
         assertFalse(PropertyValueTypeCheck.isDivergingScheme().test(falseDivergingScheme));
     }
+
 
 }
