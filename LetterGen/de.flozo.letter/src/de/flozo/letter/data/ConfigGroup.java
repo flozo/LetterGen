@@ -1,6 +1,5 @@
 package de.flozo.letter.data;
 
-import de.flozo.io.ConfigDirectory;
 import de.flozo.io.File;
 
 import java.nio.file.Paths;
@@ -27,7 +26,7 @@ public enum ConfigGroup {
     ConfigGroup(String configGroup, String defaultFileName) {
         this.configGroup = configGroup;
         this.defaultFileName = defaultFileName + ".config";
-        this.resourceFileName = "/config_file_comments/" + defaultFileName + ".txt";
+        this.resourceFileName = "/resource/config_file_comments/" + defaultFileName + ".txt";
     }
 
     public String getPropertyKey() {

@@ -1,4 +1,6 @@
-package de.flozo.io;
+package de.flozo.letter.data;
+
+import de.flozo.io.Directory;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

@@ -1,5 +1,9 @@
-package de.flozo.io;
+package de.flozo.letter.data;
 
+
+import de.flozo.io.File;
+import de.flozo.io.PropertyKeyTypeCheck;
+import de.flozo.latex.PropertyValueTypeCheck;
 
 import java.io.FileInputStream;
 import java.io.IOException;

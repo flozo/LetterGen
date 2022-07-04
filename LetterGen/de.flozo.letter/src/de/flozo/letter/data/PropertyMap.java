@@ -1,8 +1,6 @@
 package de.flozo.letter.data;
 
 
-import de.flozo.io.ConfigFile;
-import de.flozo.io.MasterConfigFile;
 import de.flozo.io.PropertyKeyTypeCheck;
 import de.flozo.latex.PropertyValueTypeCheck;
 import de.flozo.latex.color.BrewerColor;

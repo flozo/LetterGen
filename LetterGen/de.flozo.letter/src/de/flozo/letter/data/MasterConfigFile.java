@@ -1,5 +1,7 @@
-package de.flozo.io;
+package de.flozo.letter.data;
 
+
+import de.flozo.io.File;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class MasterConfigFile extends File {
@@ -55,8 +58,8 @@ public class MasterConfigFile extends File {
         }
     }
 
-    public void writeProperties() {
-        ConfigGroup.MASTER.writeToFile(ConfigDirectory.fromCustomDirectory(getParentDirectory().toString()));
+    public void writeProperties(String versionInfo) {
+        ConfigGroup.MASTER.writeToFile(ConfigDirectory.fromCustomDirectory(getParentDirectory().toString()), versionInfo);
     }
 
     private void assignConfigGroupFiles(Properties properties) {

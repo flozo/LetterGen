@@ -1,10 +1,10 @@
 package de.flozo.letter;
 
 
-import de.flozo.io.ConfigDirectory;
+import de.flozo.letter.data.ConfigDirectory;
 import de.flozo.letter.data.ConfigGroup;
 import de.flozo.io.File;
-import de.flozo.io.MasterConfigFile;
+import de.flozo.letter.data.MasterConfigFile;
 import de.flozo.latex.core.*;
 import de.flozo.latex.tikz.commands.Layer;
 import de.flozo.latex.tikz.commands.LayerEnvironment;
